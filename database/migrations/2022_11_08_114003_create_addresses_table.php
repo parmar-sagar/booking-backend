@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sliders', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('image', 50);
-            $table->string('video', 50);
-            $table->string('link', 100)->nullable();
-            $table->string('title', 50);
+            $table->string('billing_name', 50);
+            $table->string('billing_number', 10)->index();
+            $table->string('billing_pincode', 10);
+            $table->string('billing_state', 50);
+            $table->string('billing_city', 50);
+            $table->string('billing_house_no', 50);
+            $table->string('billing_road_name', 50);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -31,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sliders');
+        Schema::dropIfExists('addresses');
     }
 };

@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('carts', function (Blueprint $table) {
-            $table->id();
+        Schema::create('booking_details', function (Blueprint $table) {
             $table->unsignedBigInteger('booking_id')->index();
-            $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('vehicals_id')->index();
+            $table->string('name', 50);
+            $table->string('image', 50);
+            $table->decimal('price');
+            $table->string('qty');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('booking_details');
     }
 };

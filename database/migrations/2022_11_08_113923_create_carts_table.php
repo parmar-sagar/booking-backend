@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pricings', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->datetime('time');
-            $table->string('price');
-            $table->softDeletes();
+            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('vehicle_id')->index();
+            $table->unsignedBigInteger('tour_id')->index();
+            $table->string('qty')->default(1);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pricings');
+        Schema::dropIfExists('carts');
     }
 };

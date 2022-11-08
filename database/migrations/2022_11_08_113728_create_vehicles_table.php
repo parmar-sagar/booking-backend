@@ -13,21 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
-            $table->string('logo', 50);
-            $table->string('title', 50);
-            $table->string('email', 50)->index();
-            $table->string('mobile', 10)->index();
-            $table->text('address', 250);
-            $table->longText('terms_conitions')->nullable();
-            $table->longText('privacy_policy')->nullable();
-            $table->longText('refund_policy',)->nullable();
-            $table->text('faqs')->nullable();
+            $table->unsignedBigInteger('tour_id')->index();
+            $table->string('name', 50);
+            $table->string('image', 50);
+            $table->string('features', 100);
+            $table->longText('description');
             $table->softDeletes();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
+
     }
 
     /**
@@ -37,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('vehicles');
     }
 };

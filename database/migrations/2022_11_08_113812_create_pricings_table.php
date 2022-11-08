@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('pricings', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->string('number', 10)->index();
-            $table->string('pincode', 10);
-            $table->string('state', 50);
-            $table->string('city', 50);
-            $table->string('house_no', 50);
-            $table->string('road_name', 50);
+            $table->datetime('time');
+            $table->decimal('price');
+            $table->softDeletes();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('pricings');
     }
 };

@@ -4,17 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Addons extends Model
+class Vehicle extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
-        'name','price'
+        'tour_id','name','description','image','features'
     ];
 
     protected $hidden = [
         'created_at','updated_at',
     ];
 
+    protected $dates = ['deleted_at'];
 }

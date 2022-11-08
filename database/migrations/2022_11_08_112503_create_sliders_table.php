@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('addons', function (Blueprint $table) {
+        Schema::create('sliders', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50)->nullable();
-            $table->string('price');
+            $table->string('image', 50);
+            $table->string('video', 50);
+            $table->string('link', 100)->nullable();
+            $table->string('title', 50);
+            $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active');
+            $table->string('sort');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('addons');
+        Schema::dropIfExists('sliders');
     }
 };

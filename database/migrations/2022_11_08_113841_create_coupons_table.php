@@ -15,15 +15,17 @@ return new class extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 30);
+            $table->string('title', 50);
+            $table->string('code', 50);
             $table->longText('description');
-            $table->string('image', 40);
-            $table->string('type_of_dis', 50)->nullable();
-            $table->string('price')->nullable();
-            $table->string('validity', 50);
+            $table->string('image', 50);
+            $table->enum('type', ['flat','percentage'])->default('flat');
+            $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active');
+            $table->string('expiry_date', 50);
             $table->softDeletes();
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();        });
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();        
+        });
     }
 
     /**

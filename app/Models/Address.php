@@ -4,22 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Pricings extends Model
+class Address extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = [
-        'time','price'
+        'billing_name','billing_number','billing_pincode','billing_state','billing_city','billing_house_no','billing_road_name'
     ];
 
     protected $hidden = [
         'created_at','updated_at',
     ];
 
-    protected $dates = ['deleted_at'];
-
-    
 }
