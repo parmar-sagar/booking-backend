@@ -9,5 +9,11 @@ class Tours extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category_name','description'];
+    protected $fillable = [
+        'category_name','description'
+    ];
+
+    protected $hidden = [
+        'created_at','updated_at',
+    ];
 }

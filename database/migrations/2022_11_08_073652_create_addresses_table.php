@@ -13,11 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('booking_id')->index();
-            $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('vehicals_id')->index();
+            $table->string('name', 50);
+            $table->string('number', 10)->index();
+            $table->string('pincode', 10);
+            $table->string('state', 50);
+            $table->string('city', 50);
+            $table->string('house_no', 50);
+            $table->string('road_name', 50);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -30,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('addresses');
     }
 };

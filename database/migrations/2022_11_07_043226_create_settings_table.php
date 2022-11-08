@@ -15,17 +15,18 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('logo')->nullable();
-            $table->string('title')->nullable();
-            $table->string('email')->nullable();
-            $table->string('mobile')->nullable();
-            $table->text('address')->nullable();
+            $table->string('logo', 50);
+            $table->string('title', 50);
+            $table->string('email', 50)->index();
+            $table->string('mobile', 10)->index();
+            $table->text('address', 250);
             $table->longText('terms_conitions')->nullable();
             $table->longText('privacy_policy')->nullable();
-            $table->string('refund_policy')->nullable();
+            $table->longText('refund_policy',)->nullable();
             $table->text('faqs')->nullable();
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            $table->softDeletes();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('vehicals', function (Blueprint $table) {
             $table->id();
-            $table->integer('tour_id');
-            $table->string('veh_name', 50);
-            $table->string('image', 60);
-            $table->string('features', 250);
+            $table->unsignedBigInteger('tour_id')->index();
+            $table->string('name', 50);
+            $table->string('image', 50);
+            $table->string('features', 100);
             $table->longText('description');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            $table->softDeletes();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

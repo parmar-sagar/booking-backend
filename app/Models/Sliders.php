@@ -9,5 +9,11 @@ class Sliders extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['image','video','link','title'];
+    protected $fillable = [
+        'image','video','link','title'
+    ];
+
+    protected $hidden = [
+        'created_at','updated_at',
+    ];
 }

@@ -10,10 +10,10 @@ class Carts extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'booking_id',
-        'qty',
-        'vehicals_id',
-        'price'
+        'user_id','booking_id','vehicals_id'
+    ];
+
+    protected $hidden = [
+        'created_at','updated_at',
     ];
 }

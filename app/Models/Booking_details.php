@@ -10,8 +10,11 @@ class Booking_details extends Model
     use HasFactory;
     
     protected $fillable = [
-        'user_id',
-        'payment_status',
-        'payment_type'
+        'booking_id','name','image','price','qty'
     ];
+
+    protected $hidden = [
+        'created_at','updated_at',
+    ];
+
 }
