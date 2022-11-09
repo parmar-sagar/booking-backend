@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('addons', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50)->nullable();
+            $table->string('name', 50);
             $table->decimal('price');
-            $table->timestamp('created_at')->useCurrent()->index('created_at');
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('updated_at');
+            $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
         });
     }
 

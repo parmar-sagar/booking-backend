@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('title', 50);
-            $table->string('email', 50)->index('email');
-            $table->string('mobile', 10)->index('mobile');
+            $table->string('email', 50);
+            $table->string('mobile', 10);
             $table->string('logo', 50);
             $table->text('address');
             $table->softDeletes();
-            $table->timestamp('created_at')->useCurrent()->index('created_at');
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('updated_at');
+            $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
         });
     }
 

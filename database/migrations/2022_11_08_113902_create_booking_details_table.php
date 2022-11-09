@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('booking_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('booking_id')->index('booking_id');
+            $table->unsignedBigInteger('booking_id')->index('idx_booking_id');
             $table->string('name', 50);
             $table->string('image', 50);
             $table->decimal('price');
             $table->integer('qty')->default(1);
-            $table->timestamp('created_at')->useCurrent()->index('created_at');
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('updated_at');
+            $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
         });
     }
 

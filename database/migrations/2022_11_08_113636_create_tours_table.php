@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('image', 100);
             $table->mediumText('short_description');
             $table->longText('description');
-            $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active');
-            $table->timestamp('created_at')->useCurrent()->index('created_at');
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('updated_at');
+            $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active')->index('idx_status');
+            $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
         });
     }
 

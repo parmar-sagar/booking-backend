@@ -20,11 +20,11 @@ return new class extends Migration
             $table->longText('description');
             $table->string('image', 50);
             $table->enum('type', ['0','1'])->default(0)->comment('0 => flat , 1 => percentage');
-            $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active');
+            $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active')->index('idx_status');
             $table->datetime('expiry_dateTime');
             $table->softDeletes();
-            $table->timestamp('created_at')->useCurrent()->index('created_at');
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('updated_at');
+            $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
         });
     }
 

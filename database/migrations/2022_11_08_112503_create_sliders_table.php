@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('video', 50);
             $table->text('link')->nullable();
             $table->string('title', 50);
-            $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active');
+            $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active')->index('idx_status');
             $table->tinyInteger('sort')->default(1);
-            $table->timestamp('created_at')->useCurrent()->index('created_at');
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('updated_at');
+            $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
         });
     }
 
