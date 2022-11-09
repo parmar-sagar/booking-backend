@@ -14,13 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('booking_details', function (Blueprint $table) {
-            $table->unsignedBigInteger('booking_id')->index();
+            $table->id();
+            $table->unsignedBigInteger('booking_id')->index('booking_id');
             $table->string('name', 50);
             $table->string('image', 50);
             $table->decimal('price');
-            $table->string('qty');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->mediumInteger('qty')->default(1);
+            $table->timestamp('created_at')->useCurrent()->index('created_at');
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('updated_at');
         });
     }
 

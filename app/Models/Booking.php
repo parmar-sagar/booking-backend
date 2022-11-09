@@ -12,7 +12,7 @@ class Booking extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'booking_id','user_id','status','payment_status','discount','sub_total','total','billing_name','billing_mobile','billing_pincode','billing_state','billing_city','billing_house_no','billing_road_name','booking_date','booking_time'
+        'booking_id','user_id','status','payment_status','discount','sub_total','total','billing_name','billing_mobile','billing_pincode','locality','address','billing_state','billing_city','billing_house_no','landmark','date','time'
     ];
 
     protected $hidden = [

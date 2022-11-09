@@ -19,12 +19,12 @@ return new class extends Migration
             $table->string('code', 50);
             $table->longText('description');
             $table->string('image', 50);
-            $table->enum('type', ['flat','percentage'])->default('flat');
+            $table->enum('type', ['0','1'])->default(0)->comment('0 => flat , 1 => percentage');
             $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active');
-            $table->string('expiry_date', 50);
+            $table->datetime('expiry_dateTime');
             $table->softDeletes();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();        
+            $table->timestamp('created_at')->useCurrent()->index('created_at');
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('updated_at');
         });
     }
 

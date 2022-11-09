@@ -12,7 +12,7 @@ class Setting extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'logo', 'title','email','mobile','address'
+        'title','email','mobile','logo','address'
     ];
 
     protected $hidden = [

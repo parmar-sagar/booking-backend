@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('image', 50);
             $table->string('video', 50);
-            $table->string('link', 100)->nullable();
+            $table->text('link')->nullable();
             $table->string('title', 50);
             $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active');
-            $table->string('sort');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->tinyInteger('sort')->default(1);
+            $table->timestamp('created_at')->useCurrent()->index('created_at');
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('updated_at');
         });
     }
 

@@ -10,7 +10,7 @@ class Tour extends Model
     use HasFactory;
     
     protected $fillable = [
-        'category_name','description'
+        'name','image','short_description','description','status'
     ];
 
     protected $hidden = [

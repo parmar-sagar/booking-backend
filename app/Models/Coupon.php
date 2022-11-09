@@ -12,7 +12,7 @@ class Coupon extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'title','code','description','image','type_of_dis','price','validity'
+        'title','code','description','image','type','status','expiry_dateTime'
     ];
 
     protected $hidden = [

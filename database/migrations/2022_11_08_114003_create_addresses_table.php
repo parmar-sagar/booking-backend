@@ -15,15 +15,20 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('billing_name', 50);
-            $table->string('billing_number', 10)->index();
-            $table->string('billing_pincode', 10);
-            $table->string('billing_state', 50);
-            $table->string('billing_city', 50);
-            $table->string('billing_house_no', 50);
-            $table->string('billing_road_name', 50);
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->unsignedBigInteger('user_id')->index('user_id');
+            $table->string('name', 50);
+            $table->string('mobile', 10)->index('mobile');
+            $table->string('alternate_mobile', 10)->index('mobile_2');
+            $table->tinyInteger('pincode');
+            $table->string('locality', 10);
+            $table->text('address');
+            $table->string('state', 50);
+            $table->string('city', 50);
+            $table->string('landmark', 50)->nullable();
+            $table->string('house_no', 50);
+            $table->enum('type', ['home','work'])->default('home');
+            $table->timestamp('created_at')->useCurrent()->index('created_at');
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('updated_at');
         });
     }
 

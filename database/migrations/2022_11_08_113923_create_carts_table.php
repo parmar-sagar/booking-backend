@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('vehicle_id')->index();
-            $table->unsignedBigInteger('tour_id')->index();
-            $table->string('qty')->default(1);
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->unsignedBigInteger('user_id')->index('user_id');
+            $table->unsignedBigInteger('tour_id')->index('tour_id');
+            $table->unsignedBigInteger('vehicle_id')->index('vehicle_id');
+            $table->mediumInteger('qty')->default(1);
+            $table->timestamp('created_at')->useCurrent()->index('created_at');
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('updated_at');
         });
     }
 

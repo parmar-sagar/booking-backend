@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('tours', function (Blueprint $table) {
             $table->id();
-            $table->string('category_name', 100);
+            $table->string('name', 100);
+            $table->string('image', 100);
+            $table->mediumText('short_description');
             $table->longText('description');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active');
+            $table->timestamp('created_at')->useCurrent()->index('created_at');
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('updated_at');
         });
     }
 

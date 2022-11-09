@@ -10,7 +10,7 @@ class Address extends Model
     use HasFactory;
 
     protected $fillable = [
-        'billing_name','billing_number','billing_pincode','billing_state','billing_city','billing_house_no','billing_road_name'
+        'name','mobile','alternate_mobile','pincode','locality','address','state','city','landmark','house_no','type'
     ];
 
     protected $hidden = [
