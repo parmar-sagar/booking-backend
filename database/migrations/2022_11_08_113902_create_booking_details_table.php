@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('image', 50);
             $table->decimal('price');
-            $table->mediumInteger('qty')->default(1);
+            $table->integer('qty')->default(1);
             $table->timestamp('created_at')->useCurrent()->index('created_at');
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('updated_at');
         });

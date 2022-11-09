@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->index('user_id');
             $table->unsignedBigInteger('tour_id')->index('tour_id');
             $table->unsignedBigInteger('vehicle_id')->index('vehicle_id');
-            $table->mediumInteger('qty')->default(1);
+            $table->integer('qty')->default(1);
             $table->timestamp('created_at')->useCurrent()->index('created_at');
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('updated_at');
         });

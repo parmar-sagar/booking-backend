@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('mobile', 10)->index('mobile');
             $table->string('alternate_mobile', 10)->index('mobile_2');
-            $table->tinyInteger('pincode');
+            $table->mediumInteger('pincode');
             $table->string('locality', 10);
             $table->text('address');
             $table->string('state', 50);
