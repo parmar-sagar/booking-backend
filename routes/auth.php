@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController as AdminAuthenticatedController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -53,4 +54,15 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+});
+
+Route::middleware('guest:admin')->prefix('admin')->group(function(){
+    Route::get('/', [AdminAuthenticatedController::class, 'create'])
+                ->name('admin');
+    Route::post('login', [AdminAuthenticatedController::class, 'store'])->name('admin.login');
+});
+
+Route::middleware('auth:admin')->prefix('admin')->group(function () {
+    Route::post('logout', [AdminAuthenticatedController::class, 'destroy'])
+                ->name('admin.logout');
 });
