@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\TourController;
+use App\Http\Controllers\Admin\VehiclesController;
+use App\Http\Controllers\Admin\IncludeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,5 +56,29 @@ Route::group([
         Route::get('/edit/{id}',[TourController::class, 'edit']);
 		Route::post('/update/{id}',[TourController::class, 'edit']);
 		Route::get('/delete/{id}',[TourController::class, 'destroy']);
+    });
+
+    Route::group([
+        'prefix' => 'include'
+    ], function(){
+        Route::get('/',[IncludeController::class, 'index']);
+        Route::get('/datatable',[IncludeController::class, 'datatable']);
+        Route::get('/create',[IncludeController::class, 'create']);
+        Route::post('/store',[IncludeController::class, 'create']);
+        Route::get('/edit/{id}',[IncludeController::class, 'edit']);
+		Route::post('/update/{id}',[IncludeController::class, 'edit']);
+		Route::get('/delete/{id}',[IncludeController::class, 'destroy']);
+    });
+
+    Route::group([
+        'prefix' => 'vehicles'
+    ], function(){
+        Route::get('/',[VehiclesController::class, 'index']);
+        Route::get('/datatable',[VehiclesController::class, 'datatable']);
+        Route::get('/create',[VehiclesController::class, 'create']);
+        Route::post('/store',[VehiclesController::class, 'create']);
+        Route::get('/edit/{id}',[VehiclesController::class, 'edit']);
+		Route::post('/update/{id}',[VehiclesController::class, 'edit']);
+		Route::get('/delete/{id}',[VehiclesController::class, 'destroy']);
     });
 });
