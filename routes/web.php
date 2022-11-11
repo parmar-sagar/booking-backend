@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +24,23 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+Route::group([
+    'prefix' => 'admin',
+    'middleware' => 'auth:admin'
+], function(){
+    Route::get('/dashboard',[DashboardController::class, 'index']);
+
+    Route::group([
+        'prefix' => 'users'
+    ], function(){
+        Route::get('/',[UserController::class, 'index']);
+        Route::get('/datatable',[UserController::class, 'datatable']);
+        Route::get('/create',[UserController::class, 'create']);
+        Route::post('/store',[UserController::class, 'create']);
+        Route::get('/edit/{id}',[UserController::class, 'edit']);
+		Route::post('/update/{id}',[UserController::class, 'edit']);
+		Route::get('/delete/{id}',[UserController::class, 'destroy']);
+    });
+
+});
