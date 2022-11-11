@@ -57,7 +57,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('guest:admin')->prefix('admin')->group(function(){
-    Route::get('login', [AdminAuthenticatedController::class, 'create'])
-                ->name('admin.login');
-    Route::post('login', [AdminAuthenticatedController::class, 'store']);
+    Route::get('/', [AdminAuthenticatedController::class, 'create'])
+                ->name('admin');
+    Route::post('login', [AdminAuthenticatedController::class, 'store'])->name('admin.login');
+});
+
+Route::middleware('auth:admin')->prefix('admin')->group(function () {
+    Route::post('logout', [AdminAuthenticatedController::class, 'destroy'])
+                ->name('admin.logout');
 });
