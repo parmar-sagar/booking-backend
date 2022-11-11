@@ -33,7 +33,7 @@ class UserController extends Controller{
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = User::all();
+                $datas = User::orderBy('id','DESC')->get();
     
                 return DataTables::of($datas)
                                     ->addColumn('created_at',function(User $data){

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\TourController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,4 +44,15 @@ Route::group([
 		Route::get('/delete/{id}',[UserController::class, 'destroy']);
     });
 
+    Route::group([
+        'prefix' => 'tours'
+    ], function(){
+        Route::get('/',[TourController::class, 'index']);
+        Route::get('/datatable',[TourController::class, 'datatable']);
+        Route::get('/create',[TourController::class, 'create']);
+        Route::post('/store',[TourController::class, 'create']);
+        Route::get('/edit/{id}',[TourController::class, 'edit']);
+		Route::post('/update/{id}',[TourController::class, 'edit']);
+		Route::get('/delete/{id}',[TourController::class, 'destroy']);
+    });
 });

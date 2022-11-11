@@ -21,9 +21,7 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Mobile</th>
-                                    <th>Date & Time</th>
+                                    <th>Short Description</th>
                                     <th>Status</th>
                                     <th style="width: 85px;">Action</th>
                                 </tr>
@@ -39,9 +37,10 @@
     </div>
     <div class="row" id="content-form">
         
-    </div> 
+    </div>
+    <!-- end row -->   
     <x-slot name="scripts">
         <!-- Custom App js -->
-        <script src="{{ asset('admin/js/user.js') }}"></script>
+        <script src="{{ asset('admin/js/tour.js') }}"></script>
     </x-slot>    
 </x-admin.master-layout>

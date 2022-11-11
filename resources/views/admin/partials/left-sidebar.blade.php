@@ -56,6 +56,13 @@
                     <span> Users </span>
                 </a>
             </li>
+
+            <li class="side-nav-item">
+                <a href="{{ url('admin/tours') }}" class="side-nav-link">
+                    <i class="uil-users-alt"></i>
+                    <span> Tours </span>
+                </a>
+            </li>
         </ul>
         <!--- End Sidemenu -->
 

@@ -16,6 +16,12 @@
         <!-- App css -->
         <link href="{{ asset('assets/admin/css/app-modern.min.css')}}" rel="stylesheet" type="text/css" id="app-style" />
 
+        <!-- Datatable css -->
+        <link href="{{ asset('assets/admin/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/admin/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- Plugin css -->
+        <link rel="stylesheet" href="{{ asset('assets/admin/vendor/jquery-toast-plugin/jquery.toast.min.css') }}">
+        
         <!-- Page Styles -->
         @if (isset($styles))
             {{ $styles }}
@@ -91,6 +97,16 @@
         <!-- App js -->
         <script src="{{ asset('assets/admin/js/app.min.js')}}"></script>
 
+        <!-- Datatable js -->
+        <script src="{{ asset('assets/admin/vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('assets/admin/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+        <script src="{{ asset('assets/admin/vendor/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+        <script src="{{ asset('assets/admin/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+        <script src="{{ asset('assets/admin/vendor/jquery-datatables-checkboxes/js/dataTables.checkboxes.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+        <script src="{{ asset('assets/admin/vendor/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
         <script src="{{ asset('admin/js/custom.js') }}"></script>
         <!-- Page Scripts -->
         @if (isset($scripts))
