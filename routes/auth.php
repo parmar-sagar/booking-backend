@@ -57,8 +57,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('guest:admin')->prefix('admin')->group(function(){
-    Route::get('/', [AdminAuthenticatedController::class, 'create'])
-                ->name('admin');
+    Route::get('/login', [AdminAuthenticatedController::class, 'create']);
+             
     Route::post('login', [AdminAuthenticatedController::class, 'store'])->name('admin.login');
 });
 
