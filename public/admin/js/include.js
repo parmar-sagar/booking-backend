@@ -24,17 +24,6 @@ $(document).ready(function() {
                     }
                 },
                 {data: 'title', name: 'title'},
-                {data: 'description', name: 'description'},
-                {data: 'featured', name: 'featured'},
-                {data: 'status', name:'status',
-                    "render": function ( data, type, row, meta ) {
-                        var status = {
-                            0: {'text': 'InActive', 'color': 'danger'},
-                            1: {'text': 'Active', 'color': 'success'},
-                        };
-                        return '<span class="badge bg-'+status[row.status].color+'">'+status[row.status].text+'</span>';
-                    }
-                },
                 {data: 'id', name:'id',searchable: false,class:'table-action',
                     "render": function ( data, type, row, meta ) {
                         return '<a href="javascript:void(0);" class="action-icon open-form" data-id="'+row.id+'">\
@@ -45,6 +34,4 @@ $(document).ready(function() {
                 },
             ]
     });
-
 });
-
