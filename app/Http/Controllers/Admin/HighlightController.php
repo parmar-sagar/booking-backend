@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\VehInfo;
 use DataTables;
 
-class IncludeController extends Controller
+class HighlightController extends Controller
 {
-    const ControllerCode = "I_";
+    const ControllerCode = "H_";
 
     function __construct(){
         $this->outputData = [];
@@ -19,21 +20,20 @@ class IncludeController extends Controller
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Include',
-            'dataTables' => url('admin/include/datatable'),
-            'delete' => url('admin/include/delete'),
-            'create' => url('admin/include/create'),
-            'edit' => url('admin/include/edit')
+            'pageName' => 'Highlight',
+            'dataTables' => url('admin/highlight/datatable'),
+            'delete' => url('admin/highlight/delete'),
+            'create' => url('admin/highlight/create'),
+            'edit' => url('admin/highlight/edit')
         ];
         
-        return view('admin.pages.include.index',$this->outputData);
+        return view('admin.pages.highlight.index',$this->outputData);
     }
 
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehInfo::orderBy('id','DESC')->where('type','=','2')->get();
-    
+                $datas = VehInfo::orderBy('id','DESC')->where('type','=','1')->get();
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -56,16 +56,16 @@ class IncludeController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['type'] = 2;
+                $validated['type'] = 1;
                 VehInfo::create($validated);
     
-                return response()->json(['success' => "Include Created successfully."]);
+                return response()->json(['success' => "Highlight Created successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'New Include',
-                'action' => url('admin/include/store'),
+                'pageName' => 'New Highlight',
+                'action' => url('admin/highlight/store'),
             ];
-            return view('admin.pages.include.create',$this->outputData);
+            return view('admin.pages.highlight.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '02');
@@ -88,14 +88,14 @@ class IncludeController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['type'] = 2;
+                $validated['type'] = 1;
                 VehInfo::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Include Updated successfully."]);
+                return response()->json(['success' => "highlight Updated successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'Edit Include',
-                'action' => url('admin/include/update/'.$id),
+                'action' => url('admin/highlight/update/'.$id),
                 'objData' => VehInfo::findOrFail($id),
             ];
             return view('admin.pages.include.create',$this->outputData);

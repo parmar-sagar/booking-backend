@@ -12,7 +12,7 @@ class Vehicle extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'tour_id','name','image','features','description','includes'
+        'tour_id','name','short_name','description','time_ids','includes_ids','warning_ids','banner_img','image','status'
     ];
 
     protected $hidden = [

@@ -9,9 +9,9 @@ use App\Handlers\Error;
 use App\Models\VehInfo;
 use DataTables;
 
-class IncludeController extends Controller
+class WarningController extends Controller
 {
-    const ControllerCode = "I_";
+    const ControllerCode = "H_";
 
     function __construct(){
         $this->outputData = [];
@@ -19,20 +19,20 @@ class IncludeController extends Controller
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Include',
-            'dataTables' => url('admin/include/datatable'),
-            'delete' => url('admin/include/delete'),
-            'create' => url('admin/include/create'),
-            'edit' => url('admin/include/edit')
+            'pageName' => 'Warning',
+            'dataTables' => url('admin/warning/datatable'),
+            'delete' => url('admin/warning/delete'),
+            'create' => url('admin/warning/create'),
+            'edit' => url('admin/warning/edit')
         ];
         
-        return view('admin.pages.include.index',$this->outputData);
+        return view('admin.pages.warning.index',$this->outputData);
     }
 
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehInfo::orderBy('id','DESC')->where('type','=','2')->get();
+                $datas = VehInfo::orderBy('id','DESC')->where('type','=','3')->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -56,16 +56,16 @@ class IncludeController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['type'] = 2;
+                $validated['type'] = 3;
                 VehInfo::create($validated);
     
-                return response()->json(['success' => "Include Created successfully."]);
+                return response()->json(['success' => "Warning Created successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'New Include',
-                'action' => url('admin/include/store'),
+                'pageName' => 'New Warning',
+                'action' => url('admin/warning/store'),
             ];
-            return view('admin.pages.include.create',$this->outputData);
+            return view('admin.pages.warning.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '02');
@@ -88,14 +88,14 @@ class IncludeController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['type'] = 2;
+                $validated['type'] = 3;
                 VehInfo::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Include Updated successfully."]);
+                return response()->json(['success' => "Warning Updated successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'Edit Include',
-                'action' => url('admin/include/update/'.$id),
+                'pageName' => 'Edit Warning',
+                'action' => url('admin/warning/update/'.$id),
                 'objData' => VehInfo::findOrFail($id),
             ];
             return view('admin.pages.include.create',$this->outputData);

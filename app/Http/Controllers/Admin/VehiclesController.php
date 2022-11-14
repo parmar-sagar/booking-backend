@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use App\Models\VehInclude;
+use App\Models\VehInfo;
 use App\Models\Vehicle;
+use App\Handlers\Error;
 use App\Models\Tour;
 use DataTables;
 
@@ -73,8 +74,10 @@ class VehiclesController extends Controller
             $this->outputData = [
                 'pageName' => 'New Vehicle',
                 'action' => url('admin/vehicles/store'),
-                'tourName' => Tour::orderBy('id','DESC')->select('name','id')->get(),
-                'include' => VehInclude::orderBy('id','DESC')->select('name','id')->get()
+                'tourName' => Tour::orderBy('id','DESC')->select('title','id')->get(),
+                'include' => VehInfo::orderBy('id','DESC')->where('type', '=', '2')->get(),
+                'highlights' => VehInfo::orderBy('id','DESC')->where('type', '=', '1')->get(),
+                'warning' => VehInfo::orderBy('id','DESC')->where('type', '=', '3')->get()
             ];
             return view('admin.pages.vehicles.create',$this->outputData);
 

@@ -16,16 +16,22 @@
                     <input type="hidden" value="{{ $objData->id }}" name="id">
                 @endif
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" id="name" class="form-control" name="name" value="@if(isset($objData->name) && $objData->name){{ $objData->name }}@endif" required>
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Shot Name</label>
+                            <input type="text" id="short_name" class="form-control" name="short_name" value="@if(isset($objData->short_name) && $objData->short_name){{ $objData->short_name }}@endif" required>
+                        </div>
+                    </div>
                     <div class="col-lg-12">
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" name="description" required>@if(isset($objData->description) && $objData->description){{ $objData->description }}@endif</textarea>
+                            <textarea class="form-control" name="description" required rows="4">@if(isset($objData->description) && $objData->description){{ $objData->description }}@endif</textarea>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -34,34 +40,42 @@
                             <select class="form-control select2" data-toggle="select2" name="tour_id">
                                 <option>Select</option>
                                 @foreach($tourName as $tours)
-                                    <option value="{{$tours->id}}">{{$tours->name}}</option>
+                                    <option value="{{$tours->id}}">{{$tours->title}}</option>
                                 @endforeach    
                             </select>
                         </div>
                     </div>
-                    {{-- <div class="col-lg-4">
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Features</label>
-                            <select class="form-control select2" data-toggle="select2" name="features">
-                                <option>Select</option>
-                                @foreach($tourName as $tours)
-                                    <option value="features">{{$tours->name}}</option>
-                                @endforeach    
-                            </select>
-                        </div>
-                    </div> --}}
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="description" class="form-label">Includes</label>
-                            <select class="select2 form-control select2-multiple" data-toggle="select2" name="includes[]" multiple="multiple" data-placeholder="Choose ...">
+                            <select class="select2 form-control select2-multiple" data-toggle="select2" name="includes_ids[]" multiple="multiple" data-placeholder="Choose ...">
                                 @foreach($include as $include_)
-                                <option value="{{$include_->name}}">{{$include_->name}}</option>
+                                <option value="{{$include_->id}}">{{$include_->title}}</option>
                                 @endforeach  
                             </select>
                         </div>
                     </div>
-                    
-                    {{-- <div class="col-lg-6">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Highlights</label>
+                            <select class="select2 form-control select2-multiple" data-toggle="select2" name="highlight_ids[]" multiple="multiple" data-placeholder="Choose ...">
+                                @foreach($include as $include_)
+                                <option value="{{$include_->id}}">{{$include_->highlights}}</option>
+                                @endforeach  
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Includes</label>
+                            <select class="select2 form-control select2-multiple" data-toggle="select2" name="warning_ids[]" multiple="multiple" data-placeholder="Choose ...">
+                                @foreach($include as $include_)
+                                <option value="{{$include_->id}}">{{$include_->title}}</option>
+                                @endforeach  
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="image" class="form-label">Image</label>
                             <input type="file" id="image" class="form-control" name="image" @if(!isset($objData)) required @endif>
@@ -69,7 +83,16 @@
                                 <img src="{{ asset('storage/' . $objData->image) }}" width="50" class="mt-3">
                             @endif
                         </div>
-                    </div> --}}
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Banner Image</label>
+                            <input type="file" id="banner_img" class="form-control" name="banner_img" @if(!isset($objData)) required @endif>
+                            @if(isset($objData->banner_img))
+                                <img src="{{ asset('storage/' . $objData->banner_img) }}" width="50" class="mt-3">
+                            @endif
+                        </div>
+                    </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-success mb-2">Submit</button>
                     </div>
@@ -79,4 +102,6 @@
         </div> <!-- end card-body -->
     </div> <!-- end card -->
 </div><!-- end col -->
-    <script src="{{ asset('assets/admin/vendor/select2/js/select2.min.js')}}"></script>
+<script>
+    $('.select2').select2();
+</script>

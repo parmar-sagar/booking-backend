@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('veh_includes', function (Blueprint $table) {
+        Schema::create('veh_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
+            $table->text('title');
+            $table->enum('type',['1','2','3'])->comment('1 => highlights , 2 => nncludes , 3 => warning')->index('idx_type');
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
         });
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('veh_includes');
+        Schema::dropIfExists('veh_infos');
     }
 };

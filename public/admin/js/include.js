@@ -23,7 +23,7 @@ $(document).ready(function() {
                         return meta.row+1;
                     }
                 },
-                {data: 'name', name: 'name'},
+                {data: 'title', name: 'title'},
                 {data: 'id', name:'id',searchable: false,class:'table-action',
                     "render": function ( data, type, row, meta ) {
                         return '<a href="javascript:void(0);" class="action-icon open-form" data-id="'+row.id+'">\

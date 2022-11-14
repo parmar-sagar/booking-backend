@@ -72,6 +72,20 @@
             </li>
 
             <li class="side-nav-item">
+                <a href="{{ url('admin/highlight') }}" class="side-nav-link">
+                    <i class="uil-users-alt"></i>
+                    <span> Highlights </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="{{ url('admin/warning') }}" class="side-nav-link">
+                    <i class="uil-users-alt"></i>
+                    <span> Warning </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
                 <a href="{{ url('admin/vehicles') }}" class="side-nav-link">
                     <i class="mdi-car-clock"></i>
                     <span> Vehicles </span>
