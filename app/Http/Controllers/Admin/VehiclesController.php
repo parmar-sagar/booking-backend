@@ -36,7 +36,6 @@ class VehiclesController extends Controller
         try {
             if ($request->ajax()) {
                 $datas = Vehicle::orderBy('id','DESC')->get();
-    
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -75,6 +74,7 @@ class VehiclesController extends Controller
                     'time_ids' => 'required',
                     'warning_ids' => 'required',
                     'highlight_ids' => 'required',
+                    'status' => 'required',
                 ]);
     
                 if($validator->fails()){
@@ -82,9 +82,9 @@ class VehiclesController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                 
-                // $validated['image'] = $request->file('image')->store('uploads','public');
-                // $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
+                
+                $validated['image'] = $request->file('image')->store('uploads','public');
+                $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
 
                 Vehicle::create($validated);
     
@@ -130,14 +130,15 @@ class VehiclesController extends Controller
                     'id' => 'required|exists:vehicles',
                     'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
                     'description' => 'required|string',
-                    // 'image' => 'required|mimes:jpeg,jpg,png,gif',
-                    // 'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
+                    'image' => 'required|mimes:jpeg,jpg,png,gif',
+                    'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
                     'includes_ids' => 'required',
                     'tour_id' => 'required',
                     'short_name' => 'required',
                     'time_ids' => 'required',
                     'warning_ids' => 'required',
                     'highlight_ids' => 'required',
+                    'status' => 'required',
                 ]);
     
                 if($validator->fails()){
@@ -145,12 +146,11 @@ class VehiclesController extends Controller
                 }
                 
                 $validated = $validator->validated();
-    
-                //  $validated['image'] = $request->file('image')->store('uploads','public');
-                //  $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
+                 $validated['image'] = $request->file('image')->store('uploads','public');
+                 $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
                 Vehicle::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Vehicle Created successfully."]);
+                return response()->json(['success' => "Vehicle Updated successfully."]);
             }
             $this->outputData['pageName'] = 'Edit Vehicle';
             $this->outputData['action'] = url('admin/vehicles/update/'.$id);

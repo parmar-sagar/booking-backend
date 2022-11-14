@@ -31,7 +31,7 @@
                     <div class="col-lg-12">
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" name="description" required rows="4">@if(isset($objData->description) && $objData->description){{ $objData->description }}@endif</textarea>
+                            <textarea class="form-control" name="description" required rows="4"> @if(isset($objData->description) && $objData->description){{ $objData->description }}@endif</textarea>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -40,7 +40,7 @@
                             <select class="form-control select2" data-toggle="select2" name="tour_id">
                                 <option>Select</option>
                                 @foreach($tourName as $tours)
-                                    <option value="{{$tours->id}}">{{$tours->title}}</option>
+                                    <option value="{{$tours->id}}"@if(isset($objData) && $objData->tour_id == $tours->id) selected @endif >{{$tours->title}}</option>
                                 @endforeach    
                             </select>
                         </div>
@@ -80,7 +80,7 @@
                             <label for="image" class="form-label">Image</label>
                             <input type="file" id="image" class="form-control" name="image" @if(!isset($objData)) required @endif>
                             @if(isset($objData->image))
-                                <img src="{{ asset('storage/' . $objData->image) }}" width="50" class="mt-3">
+                            <img src="{{ asset('storage/' . $objData->image) }}" width="50" class="mt-3">
                             @endif
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                             <label for="image" class="form-label">Banner Image</label>
                             <input type="file" id="banner_img" class="form-control" name="banner_img" @if(!isset($objData)) required @endif>
                             @if(isset($objData->banner_img))
-                                <img src="{{ asset('storage/' . $objData->banner_img) }}" width="50" class="mt-3">
+                            <img src="{{ asset('storage/' . $objData->banner_img) }}" width="50" class="mt-3">
                             @endif
                         </div>
                     </div>
@@ -98,11 +98,11 @@
                             <label for="status" class="form-label">Status</label>
                             <div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="active" name="status" class="form-check-input" value="1" checked>
+                                    <input type="radio" id="active" name="status" class="form-check-input" value="1" @if(isset($objData) && $objData->status == 1) checked @endif  checked>
                                     <label class="form-check-label" for="active">Active</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="inactive" name="status" class="form-check-input" value="0">
+                                    <input type="radio" id="inactive" name="status" class="form-check-input" value="0"  @if(isset($objData) && $objData->status == 0) checked @endif>
                                     <label class="form-check-label" for="inactive">InActive</label>
                                 </div>
                             </div>

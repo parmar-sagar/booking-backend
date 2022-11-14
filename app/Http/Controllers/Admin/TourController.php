@@ -52,7 +52,7 @@ class TourController extends Controller{
                 }
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'title' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'title' => 'required|string|min:5',
                     'description' => 'required|string',
                     'featured' => 'required|string|max:255',
                     'time_ids' => 'required|',
@@ -94,7 +94,7 @@ class TourController extends Controller{
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:tours',
-                    'title' => 'required|',
+                    'title' => 'required|string|min:5',
                     'description' => 'required|string',
                     'featured' => 'required|string|max:255',
                     'time_ids' => 'required|',

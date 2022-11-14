@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('includes_ids')->index('idx_includes_ids');
             $table->string('warning_ids')->index('idx_warning_ids');
             $table->string('highlight_ids')->index('idx_highlight_ids');
-            $table->string('banner_img', 50);
-            $table->string('image', 50);
+            $table->string('banner_img', 100);
+            $table->string('image', 100);
             $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active')->index('idx_status');
             $table->softDeletes();
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
