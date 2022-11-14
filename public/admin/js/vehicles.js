@@ -26,7 +26,7 @@ $(document).ready(function() {
                 {data: 'tour_id', name: 'tour_id'},
                 {data: 'name', name: 'name'},
                 {data: 'description', name: 'description'},
-                {data: 'includes', name: 'includes'},
+                {data: 'include_id', name: 'include_id'},
                 {data: 'id', name:'id',searchable: false,class:'table-action',
                     "render": function ( data, type, row, meta ) {
                         return '<a href="javascript:void(0);" class="action-icon open-form" data-id="'+row.id+'">\

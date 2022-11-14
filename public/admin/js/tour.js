@@ -23,8 +23,9 @@ $(document).ready(function() {
                         return meta.row+1;
                     }
                 },
-                {data: 'name', name: 'name'},
-                {data: 'short_description', name: 'short_description'},
+                {data: 'title', name: 'title'},
+                {data: 'description', name: 'description'},
+                {data: 'featured', name: 'featured'},
                 {data: 'status', name:'status',
                     "render": function ( data, type, row, meta ) {
                         var status = {
@@ -44,4 +45,6 @@ $(document).ready(function() {
                 },
             ]
     });
+
 });
+
