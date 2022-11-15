@@ -23,9 +23,8 @@ $(document).ready(function() {
                         return meta.row+1;
                     }
                 },
-                {data: 'title', name: 'title'},
+                {data: 'name', name: 'name'},
                 {data: 'description', name: 'description'},
-                {data: 'featured', name: 'featured'},
                 {data: 'status', name:'status',
                     "render": function ( data, type, row, meta ) {
                         var status = {

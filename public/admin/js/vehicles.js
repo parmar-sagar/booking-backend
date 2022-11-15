@@ -23,7 +23,7 @@ $(document).ready(function() {
                         return meta.row+1;
                     }
                 },
-                {data: 'tour_id', name: 'tour_id'},
+                {data: 'name', name: 'name'},
                 {data: 'short_name', name: 'short_name'},
                 {data: 'status', name:'status',
                     "render": function ( data, type, row, meta ) {

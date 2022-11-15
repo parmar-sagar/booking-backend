@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('times', function (Blueprint $table) {
             $table->id();
             $table->integer('time');
-            $table->text('time_type')->default('min');
+            $table->enum('time_type',['min','hrs'])->default('min');
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
         });

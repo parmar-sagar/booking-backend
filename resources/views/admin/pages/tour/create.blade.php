@@ -17,8 +17,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="mb-3">
-                            <label for="short_description" class="form-label">Title</label>
-                            <input type="text" id="title" class="form-control" name="title" value="@if(isset($objData->title) && $objData->title){{ $objData->title }}@endif" required>
+                            <label for="short_description" class="form-label">Name</label>
+                            <input type="text" id="title" class="form-control" name="name" value="@if(isset($objData->name) && $objData->name){{ $objData->name }}@endif" required>
                         </div>
                     </div>
                     <div class="col-lg-12">
@@ -29,17 +29,10 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="description" class="form-label">Featured</label>
-                            <input type="text" id="name" class="form-control" name="featured" value="@if(isset($objData->featured) && $objData->featured){{ $objData->featured }}@endif" required>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-
                             <label for="description" class="form-label">Times</label>
-                            <select  class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Choose ..." name="time_ids[]">
+                            <select  class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Choose ..." name="time_ids[]" required>
                                 @foreach($time as $time_tour)
-                                    <option value="{{$time_tour->id}}"@if(isset($selctdTime)) @foreach($selctdTime as $Times) @if($Times == $time_tour->id) selected @endif @endforeach @endif>{{$time_tour->time}}</option>
+                                    <option value="{{$time_tour->id}}"@if(isset($selctdTime)) @foreach($selctdTime as $Times) @if($Times == "$time_tour->id") selected @endif @endforeach @endif>{{$time_tour->time}}</option>
                                 @endforeach    
                             </select>
                         </div>
@@ -67,19 +60,19 @@
                             <label for="status" class="form-label">Status</label>
                             <div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="active" name="status" class="form-check-input" value="1" checked>
+                                    <input type="radio" id="active" name="status" class="form-check-input" value="1" @if(isset($objData) && $objData->status ==1)) checked @endif checked>
                                     <label class="form-check-label" for="active">Active</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="inactive" name="status" class="form-check-input" value="0">
+                                    <input type="radio" id="inactive" name="status" class="form-check-input" value="0" @if(isset($objData) && $objData->status ==0)) checked @endif>
                                     <label class="form-check-label" for="inactive">InActive</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-success mb-2">Submit</button>
-                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-success mb-2">Submit</button>
                 </div>
             </form>
             <!-- end row--> 

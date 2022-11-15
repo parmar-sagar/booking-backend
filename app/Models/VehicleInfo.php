@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Time extends Model
+class VehicleInfo extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'time',
-        'time_type'
+        'title',
+        'type'
     ];
 
     protected $hidden = [

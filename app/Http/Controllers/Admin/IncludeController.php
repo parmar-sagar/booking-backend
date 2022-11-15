@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
-use App\Models\VehInfo;
+use App\Models\VehicleInfo;
 use DataTables;
 
 class IncludeController extends Controller
@@ -32,7 +32,7 @@ class IncludeController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehInfo::orderBy('id','DESC')->where('type','=','2')->get();
+                $datas = VehicleInfo::orderBy('id','DESC')->where('type','=','2')->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -48,7 +48,7 @@ class IncludeController extends Controller
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'title' => 'required|string|min:5|unique:veh_infos',
+                    'title' => 'required|string|min:5|unique:vehicle_infos',
                 ]);
                   
                 if($validator->fails()){
@@ -57,7 +57,7 @@ class IncludeController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 2;
-                VehInfo::create($validated);
+                VehicleInfo::create($validated);
     
                 return response()->json(['success' => "Include Created successfully."]);
             }
@@ -79,8 +79,8 @@ class IncludeController extends Controller
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'id' => 'required|exists:veh_infos',
-                    'title' => 'required|string|min:5|unique:veh_infos,title,'.$id,
+                    'id' => 'required|exists:vehicle_infos',
+                    'title' => 'required|string|min:5|unique:vehicle_infos,title,'.$id,
                 ]);
     
                 if($validator->fails()){
@@ -89,14 +89,14 @@ class IncludeController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 2;
-                VehInfo::find($validated['id'])->update($validated);
+                VehicleInfo::find($validated['id'])->update($validated);
     
                 return response()->json(['success' => "Include Updated successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'Edit Include',
                 'action' => url('admin/include/update/'.$id),
-                'objData' => VehInfo::findOrFail($id),
+                'objData' => VehicleInfo::findOrFail($id),
             ];
             return view('admin.pages.include.create',$this->outputData);
 
@@ -107,7 +107,7 @@ class IncludeController extends Controller
 
     public function destroy($id){
         try {
-            $res = VehInclude::find($id)->delete();   
+            $res = VehicleInfo::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

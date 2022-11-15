@@ -22,7 +22,6 @@
                                     <th>Id</th>
                                     <th>Title</th>
                                     <th>Description</th>
-                                    <th>Featured</th>
                                     <th>Status</th>
                                     <th style="width: 85px;">Action</th>
                                 </tr>

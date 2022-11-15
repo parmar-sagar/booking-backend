@@ -47,15 +47,11 @@ class TourController extends Controller{
         try {
             if($request->method() == 'POST'){
                 $Input = $request->all();
-                if(isset($request['time_ids']) && !empty($request['time_ids'])){
-                    $Input['time_ids']=implode(',',$request['time_ids']);
-                }
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'title' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100|unique:tours',
                     'description' => 'required|string',
-                    'featured' => 'required|string|max:255',
-                    'time_ids' => 'required|',
+                    'time_ids' => 'required',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
                     'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
                     'status' => 'required',
@@ -66,7 +62,10 @@ class TourController extends Controller{
                 }
                 
                 $validated = $validator->validated();
-    
+
+                if(isset($request['time_ids']) && !empty($request['time_ids'])){
+                    $validated['time_ids']=implode(',',$request['time_ids']);
+                }
                 $validated['image'] = $request->file('image')->store('uploads','public');
                 $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
                 
@@ -94,12 +93,11 @@ class TourController extends Controller{
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:tours',
-                    'title' => 'required|',
+                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100|unique:tours,name,'.$id,
                     'description' => 'required|string',
-                    'featured' => 'required|string|max:255',
-                    'time_ids' => 'required|',
-                    'image' => 'required|mimes:jpeg,jpg,png,gif',
-                    'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
+                    'time_ids' => 'required',
+                    'image' => 'mimes:jpeg,jpg,png,gif',
+                    'banner_img' => 'mimes:jpeg,jpg,png,gif',
                     'status' => 'required',
                 ]);
     
@@ -111,6 +109,8 @@ class TourController extends Controller{
     
                 if(isset($validated['image']) && $validated['image']){
                     $validated['image'] = $request->file('image')->store('uploads','public');
+                }
+                if(isset($validated['banner_img']) && $validated['banner_img']){
                     $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
                 }
                 
@@ -118,12 +118,15 @@ class TourController extends Controller{
     
                 return response()->json(['success' => "Tour Updated successfully."]);
             }
-            
-                $this->outputData['pageName'] = 'Edit Tour';
-                $this->outputData['action'] = url('admin/tours/update/'.$id);
-                $this->outputData['objData'] = Tour::findOrFail($id);
-                $this->outputData['selctdTime']= explode(',',$this->outputData['objData']->time_ids);
-                $this->outputData['time'] = Time::orderBy('id','DESC')->get();
+            $this->outputData = [
+                'pageName' => 'Edit Tour',
+                'action' => url('admin/tours/update/'.$id),
+                'objData' => Tour::findOrFail($id),
+                'time' => Time::orderBy('id','DESC')->get(),
+            ];
+            $time = $this->outputData['objData']->time_ids;
+            $timeIds=explode(',',$time);
+            $this->outputData['selctdTime'] = $timeIds;
             return view('admin.pages.tour.create',$this->outputData);
 
         } catch (\Throwable $e) {
