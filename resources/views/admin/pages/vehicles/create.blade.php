@@ -31,7 +31,7 @@
                     <div class="col-lg-12">
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" name="description" required rows="4">@if(isset($objData->description) && $objData->description){{ $objData->description }}@endif</textarea>
+                            <textarea class="form-control" name="description" required rows="4"> @if(isset($objData->description) && $objData->description){{ $objData->description }}@endif</textarea>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -90,7 +90,7 @@
                             <label for="image" class="form-label">Image</label>
                             <input type="file" id="image" class="form-control" name="image" @if(!isset($objData)) required @endif>
                             @if(isset($objData->image))
-                                <img src="{{ asset('storage/' . $objData->image) }}" width="50" class="mt-3">
+                            <img src="{{ asset('storage/' . $objData->image) }}" width="50" class="mt-3">
                             @endif
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                             <label for="image" class="form-label">Banner Image</label>
                             <input type="file" id="banner_img" class="form-control" name="banner_img" @if(!isset($objData)) required @endif>
                             @if(isset($objData->banner_img))
-                                <img src="{{ asset('storage/' . $objData->banner_img) }}" width="50" class="mt-3">
+                            <img src="{{ asset('storage/' . $objData->banner_img) }}" width="50" class="mt-3">
                             @endif
                         </div>
                     </div>

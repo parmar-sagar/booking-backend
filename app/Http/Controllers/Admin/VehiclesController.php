@@ -36,7 +36,6 @@ class VehiclesController extends Controller
         try {
             if ($request->ajax()) {
                 $datas = Vehicle::orderBy('id','DESC')->get();
-    
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -48,8 +47,20 @@ class VehiclesController extends Controller
         try {
             if($request->method() == 'POST'){
                 $Input = $request->all();
-                if(isset($request['includes']) && !empty($request['includes'])){
-                    $Input['includes']=implode(',',$request['includes']);
+                if(isset($request['includes_ids']) && !empty($request['includes_ids'])){
+                    $Input['includes_ids']=implode(',',$request['includes_ids']);
+                }
+                if(isset($request['highlight_ids']) && !empty($request['highlight_ids'])){
+                    $Input['highlight_ids']=implode(',',$request['highlight_ids']);
+                }
+                if(isset($request['includes_ids']) && !empty($request['includes_ids'])){
+                    $Input['includes_ids']=implode(',',$request['includes_ids']);
+                }
+                if(isset($request['warning_ids']) && !empty($request['warning_ids'])){
+                    $Input['warning_ids']=implode(',',$request['warning_ids']);
+                }
+                if(isset($request['time_ids']) && !empty($request['time_ids'])){
+                    $Input['time_ids']=implode(',',$request['time_ids']);
                 }
                 // Validation section
                 $validator = Validator::make($Input, [
@@ -110,6 +121,21 @@ class VehiclesController extends Controller
         try {
             if($request->method() == 'POST'){
                 $Input = $request->all();
+                if(isset($request['includes_ids']) && !empty($request['includes_ids'])){
+                    $Input['includes_ids']=implode(',',$request['includes_ids']);
+                }
+                if(isset($request['highlight_ids']) && !empty($request['highlight_ids'])){
+                    $Input['highlight_ids']=implode(',',$request['highlight_ids']);
+                }
+                if(isset($request['includes_ids']) && !empty($request['includes_ids'])){
+                    $Input['includes_ids']=implode(',',$request['includes_ids']);
+                }
+                if(isset($request['warning_ids']) && !empty($request['warning_ids'])){
+                    $Input['warning_ids']=implode(',',$request['warning_ids']);
+                }
+                if(isset($request['time_ids']) && !empty($request['time_ids'])){
+                    $Input['time_ids']=implode(',',$request['time_ids']);
+                }
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:vehicles',
@@ -151,7 +177,7 @@ class VehiclesController extends Controller
                 }
                 Vehicle::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Vehicle Created successfully."]);
+                return response()->json(['success' => "Vehicle Updated successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'Edit Vehicle',
