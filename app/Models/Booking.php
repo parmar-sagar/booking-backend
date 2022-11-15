@@ -6,19 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Coupon extends Model
+class Booking extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
-        'name',
-        'code',
-        'description',
-        'image',
-        'type',
-        'status',
-        'expiry_date',
-        'ammount'
+        'booking_id','user_id','status','payment_status','discount','sub_total','total','name','mobile','pincode','locality','address','state','city','house_no','landmark','date','time'
     ];
 
     protected $hidden = [

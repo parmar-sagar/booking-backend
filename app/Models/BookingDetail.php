@@ -5,18 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tour extends Model
+class BookingDetail extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
-        'name',
-        'description',
-        'time_ids',
-        'image',
-        'banner_img',
-        'status'
+        'booking_id','name','image','price','qty'
     ];
+
     protected $hidden = [
         'created_at','updated_at',
     ];

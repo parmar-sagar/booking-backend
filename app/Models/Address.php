@@ -5,19 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tour extends Model
+class Address extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
-        'name',
-        'description',
-        'time_ids',
-        'image',
-        'banner_img',
-        'status'
+        'name','mobile','alternate_mobile','pincode','locality','address','state','city','landmark','house_no','type'
     ];
+
     protected $hidden = [
         'created_at','updated_at',
     ];
+
 }
