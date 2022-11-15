@@ -20,11 +20,11 @@ class HighlightController extends Controller
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Highlight',
-            'dataTables' => url('admin/highlight/datatable'),
-            'delete' => url('admin/highlight/delete'),
-            'create' => url('admin/highlight/create'),
-            'edit' => url('admin/highlight/edit')
+            'pageName' => 'Highlights',
+            'dataTables' => url('admin/highlights/datatable'),
+            'delete' => url('admin/highlights/delete'),
+            'create' => url('admin/highlights/create'),
+            'edit' => url('admin/highlights/edit')
         ];
         
         return view('admin.pages.highlight.index',$this->outputData);
@@ -59,11 +59,11 @@ class HighlightController extends Controller
                 $validated['type'] = 1;
                 VehicleInfo::create($validated);
     
-                return response()->json(['success' => "Highlight Created successfully."]);
+                return response()->json(['success' => "Highlights Created successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'New Highlight',
-                'action' => url('admin/highlight/store'),
+                'pageName' => 'New Highlights',
+                'action' => url('admin/highlights/store'),
             ];
             return view('admin.pages.highlight.create',$this->outputData);
 
@@ -91,11 +91,11 @@ class HighlightController extends Controller
                 $validated['type'] = 1;
                 VehicleInfo::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "highlight Updated successfully."]);
+                return response()->json(['success' => "Highlights Updated successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'Edit Include',
-                'action' => url('admin/highlight/update/'.$id),
+                'pageName' => 'Edit Highlights',
+                'action' => url('admin/highlights/update/'.$id),
                 'objData' => VehicleInfo::findOrFail($id),
             ];
             return view('admin.pages.include.create',$this->outputData);
