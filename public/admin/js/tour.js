@@ -24,7 +24,7 @@ $(document).ready(function() {
                     }
                 },
                 {data: 'name', name: 'name'},
-                {data: 'description', name: 'description'},
+                // {data: 'description', name: 'description'},
                 {data: 'status', name:'status',
                     "render": function ( data, type, row, meta ) {
                         var status = {
