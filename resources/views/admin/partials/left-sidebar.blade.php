@@ -110,6 +110,12 @@
                     <span> Coupons </span>
                 </a>
             </li>
+            <li class="side-nav-item">
+                <a href="{{ url('admin/times') }}" class="side-nav-link">
+                    <i class="ri-time-line"></i>
+                    <span> Times </span>
+                </a>
+            </li>
         </ul>
         <!--- End Sidemenu -->
 
