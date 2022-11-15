@@ -47,24 +47,9 @@ class VehiclesController extends Controller
         try {
             if($request->method() == 'POST'){
                 $Input = $request->all();
-                if(isset($request['includes_ids']) && !empty($request['includes_ids'])){
-                    $Input['includes_ids']=implode(',',$request['includes_ids']);
-                }
-                if(isset($request['highlight_ids']) && !empty($request['highlight_ids'])){
-                    $Input['highlight_ids']=implode(',',$request['highlight_ids']);
-                }
-                if(isset($request['includes_ids']) && !empty($request['includes_ids'])){
-                    $Input['includes_ids']=implode(',',$request['includes_ids']);
-                }
-                if(isset($request['warning_ids']) && !empty($request['warning_ids'])){
-                    $Input['warning_ids']=implode(',',$request['warning_ids']);
-                }
-                if(isset($request['time_ids']) && !empty($request['time_ids'])){
-                    $Input['time_ids']=implode(',',$request['time_ids']);
-                }
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100|unique:vehicles',
+                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
                     'short_name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:20',
                     'description' => 'required|string',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
@@ -121,21 +106,6 @@ class VehiclesController extends Controller
         try {
             if($request->method() == 'POST'){
                 $Input = $request->all();
-                if(isset($request['includes_ids']) && !empty($request['includes_ids'])){
-                    $Input['includes_ids']=implode(',',$request['includes_ids']);
-                }
-                if(isset($request['highlight_ids']) && !empty($request['highlight_ids'])){
-                    $Input['highlight_ids']=implode(',',$request['highlight_ids']);
-                }
-                if(isset($request['includes_ids']) && !empty($request['includes_ids'])){
-                    $Input['includes_ids']=implode(',',$request['includes_ids']);
-                }
-                if(isset($request['warning_ids']) && !empty($request['warning_ids'])){
-                    $Input['warning_ids']=implode(',',$request['warning_ids']);
-                }
-                if(isset($request['time_ids']) && !empty($request['time_ids'])){
-                    $Input['time_ids']=implode(',',$request['time_ids']);
-                }
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:vehicles',

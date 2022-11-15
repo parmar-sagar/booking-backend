@@ -5,15 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
 use App\Handlers\Error;
-use App\Models\Tour;
-use App\Models\Time;
+use App\Models\Coupon;
 use DataTables;
 
-class TourController extends Controller{
-
-    const ControllerCode = "T_";
+class CouponController extends Controller
+{
+    const ControllerCode = "C_";
 
     function __construct(){
         $this->outputData = [];
@@ -21,20 +19,20 @@ class TourController extends Controller{
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Tours',
-            'dataTables' => url('admin/tours/datatable'),
-            'delete' => url('admin/tours/delete'),
-            'create' => url('admin/tours/create'),
-            'edit' => url('admin/tours/edit')
+            'pageName' => 'Coupon',
+            'dataTables' => url('admin/coupon/datatable'),
+            'delete' => url('admin/coupon/delete'),
+            'create' => url('admin/coupon/create'),
+            'edit' => url('admin/coupon/edit')
         ];
         
-        return view('admin.pages.tour.index',$this->outputData);
+        return view('admin.pages.coupon.index',$this->outputData);
     }
 
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Tour::orderBy('id','DESC')->get();
+                $datas = Coupon::orderBy('id','DESC')->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -49,11 +47,13 @@ class TourController extends Controller{
                 $Input = $request->all();
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100|unique:coupons',
                     'description' => 'required|string',
-                    'time_ids' => 'required',
+                    'code' => 'required|min:5|max:15',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
-                    'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
+                    'type' => 'required|',
+                    'expiry_date' => 'required',
+                    'ammount' => 'required|numeric|min:2',
                     'status' => 'required',
                 ]);
     
@@ -62,23 +62,20 @@ class TourController extends Controller{
                 }
                 
                 $validated = $validator->validated();
-
-                if(isset($request['time_ids']) && !empty($request['time_ids'])){
-                    $validated['time_ids']=implode(',',$request['time_ids']);
-                }
                 $validated['image'] = $request->file('image')->store('uploads','public');
-                $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
+                $getDate = $validated['expiry_date'];
+                $Date=strtotime($getDate);
+                $validated['expiry_date'] = date('Y-m-d', $Date);
                 
-                Tour::create($validated);
+                Coupon::create($validated);
     
-                return response()->json(['success' => "Tour Created successfully."]);
+                return response()->json(['success' => "Coupon Created successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'New Tour',
-                'action' => url('admin/tours/store'),
-                'time' => Time::orderBy('id','DESC')->get()
+                'pageName' => 'New Coupon',
+                'action' => url('admin/coupon/store')
             ];
-            return view('admin.pages.tour.create',$this->outputData);
+            return view('admin.pages.coupon.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '02');
@@ -92,42 +89,38 @@ class TourController extends Controller{
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'id' => 'required|exists:tours',
-                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'id' => 'required|exists:coupons',
+                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100|',
                     'description' => 'required|string',
-                    'time_ids' => 'required',
+                    'code' => 'required|min:5|max:15',
                     'image' => 'mimes:jpeg,jpg,png,gif',
-                    'banner_img' => 'mimes:jpeg,jpg,png,gif',
+                    'type' => 'required',
+                    'expiry_date' => 'required',
+                    'ammount' => 'required|numeric|min:2',
                     'status' => 'required',
                 ]);
     
                 if($validator->fails()){
                     throw new \Exception($validator->errors()->first());
                 }
-                
                 $validated = $validator->validated();
-    
                 if(isset($validated['image']) && $validated['image']){
-                    $validated['image'] = $request->file('image')->store('uploads','public');
+                $validated['image'] = $request->file('image')->store('uploads','public');
                 }
-                if(isset($validated['banner_img']) && $validated['banner_img']){
-                    $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
-                }
+                $getDate = $validated['expiry_date'];
+                $Date=strtotime($getDate);
+                $validated['expiry_date'] = date('Y-m-d', $Date);
                 
-                Tour::find($validated['id'])->update($validated);
+                Coupon::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Tour Updated successfully."]);
+                return response()->json(['success' => "Coupon Updated successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'Edit Tour',
-                'action' => url('admin/tours/update/'.$id),
-                'objData' => Tour::findOrFail($id),
-                'time' => Time::orderBy('id','DESC')->get(),
+                'pageName' => 'Edit Coupon',
+                'action' => url('admin/coupon/update/'.$id),
+                'objData' => Coupon::findOrFail($id)
             ];
-            $time = $this->outputData['objData']->time_ids;
-            $timeIds=explode(',',$time);
-            $this->outputData['selctdTime'] = $timeIds;
-            return view('admin.pages.tour.create',$this->outputData);
+            return view('admin.pages.coupon.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '03');
@@ -136,7 +129,7 @@ class TourController extends Controller{
 
     public function destroy($id){
         try {
-            $res = Tour::find($id)->delete();   
+            $res = Coupon::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

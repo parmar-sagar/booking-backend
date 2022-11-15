@@ -63,7 +63,7 @@
                     <span> Tours </span>
                 </a>
             </li>            
-            <li class="side-nav-title side-nav-item mt-1">Modules</li>
+            {{-- <li class="side-nav-title side-nav-item mt-1">Modules</li> --}}
 
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarManageVehicles" aria-expanded="false" aria-controls="sidebarManageVehicles"
@@ -91,7 +91,7 @@
                         <li class="side-nav-item">
                             <a href="{{ url('admin/warning') }}" class="side-nav-link">
                                 <i class="ri-body-scan-fill"></i>
-                                <span> Warning </span>
+                                <span> Warnings </span>
                             </a>
                         </li>
             
@@ -103,6 +103,12 @@
                         </li>
                     </ul>
                 </div>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ url('admin/coupon') }}" class="side-nav-link">
+                    <i class="ri-shield-user-line"></i>
+                    <span> Coupons </span>
+                </a>
             </li>
         </ul>
         <!--- End Sidemenu -->
