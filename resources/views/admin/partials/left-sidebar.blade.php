@@ -110,6 +110,12 @@
                     <span> Coupons </span>
                 </a>
             </li>
+            <li class="side-nav-item">
+                <a href="{{ url('admin/home-sliders') }}" class="side-nav-link">
+                    <i class="ri-logout-box-line"></i>
+                    <span> Home Sliders </span>
+                </a>
+            </li>
         </ul>
         <!--- End Sidemenu -->
 
