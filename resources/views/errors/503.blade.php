@@ -2,7 +2,7 @@
 <html lang="en" data-layout-mode="detached" data-topbar-color="dark" data-sidenav-color="light" data-sidenav-user="true">
 <head>
         <meta charset="utf-8" />
-        <title>500 Error</title>
+        <title>503 Error</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -27,7 +27,7 @@
                         <div class="text-center">
                             <img src="assets/images/svg/startman.svg" height="120" alt="File not found Image">
 
-                            <h1 class="text-error mt-4">500</h1>
+                            <h1 class="text-error mt-4">503</h1>
                             <h4 class="text-uppercase text-danger mt-3">Internal Server Error</h4>
                             <p class="text-muted mt-3">Why not try refreshing your page? or you can contact <a href="#" class="text-muted"><b>Support</b></a></p>
 
