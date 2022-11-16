@@ -19,6 +19,7 @@ return new class extends Migration
             $table->Integer('sequence');
             $table->enum('status',['0','1'])->default(1)->comment('0 => Deactive , 1 => Active')->index('idx_status');
             $table->text('link')->nullable();
+            $table->string('image_video', 100);
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
         });

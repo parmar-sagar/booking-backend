@@ -47,20 +47,32 @@
                             <label for="type" class="form-label">Type</label>
                             <div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="type" name="type" class="form-check-input" value="image" @if(isset($objData) && $objData->type == 'image')) checked @endif checked>
-                                    <label class="form-check-label" for="active">Active</label>
+                                    <input type="radio" id="typeImg" name="type" class="form-check-input" value="image" @if(isset($objData) && $objData->type == 'image')) checked @endif checked>
+                                    <label class="form-check-label" for="active">Image</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="type" name="type" class="form-check-input" value="video" @if(isset($objData) && $objData->type == 'video')) checked @endif>
-                                    <label class="form-check-label" for="inactive">InActive</label>
+                                    <input type="radio" id="typeVdo" name="type" class="form-check-input" value="video" @if(isset($objData) && $objData->type == 'video')) checked @endif>
+                                    <label class="form-check-label" for="inactive">Video</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-success mb-2">Submit</button>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="image_video" class="form-label">Upload Image Or Video</label>
+                            <input type="file" id="image" class="form-control imgVdo" name="image" @if(!isset($objData)) required @endif>
+                            @if(isset($objData->image_video))
+                            @if($objData->type == 'video')
+                            <source src="{{ asset('storage/' . $objData->image_video) }}" type='video/mp4'>
+                            @else
+                            <img src="{{ asset('storage/' . $objData->image_video) }}" width="500" class="mt-3">
+                            @endif
+                            @endif
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-success mb-2">Submit</button>
+                        </div>
                     </div>
-                </div>
             </form>
             <!-- end row--> 
         </div> <!-- end card-body -->

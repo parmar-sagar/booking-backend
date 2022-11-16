@@ -50,6 +50,7 @@ class HomeSliderController extends Controller
                     'sequence' => 'required|integer',
                     'status' => 'required|in:1,0',
                     'type' => 'required|in:image,video',
+                    'image' => 'required|mimes:jpeg,jpg,png,gif,webm,mp4,mpeg|max:2048',
                 ]);
                   
                 if($validator->fails()){
@@ -57,6 +58,8 @@ class HomeSliderController extends Controller
                 }
  
                 $validated = $validator->validated();
+                $validated['image_video'] = $request->file('image')->store('uploads','public');
+
                 $validated['link'] = $request->link;
                 HomeSlider::create($validated);
     
@@ -84,6 +87,7 @@ class HomeSliderController extends Controller
                     'sequence' => 'required|integer',
                     'status' => 'required|in:1,0',
                     'type' => 'required|in:image,video',
+                    'image' => 'mimes:jpeg,jpg,png,gif,webm,mp4,mpeg|max:2048',
                 ]);
     
                 if($validator->fails()){
@@ -91,6 +95,11 @@ class HomeSliderController extends Controller
                 }
                 
                 $validated = $validator->validated();
+
+                if ($request->file('image')) {
+                    $validated['image_video'] = $request->file('image')->store('uploads','public');
+                }
+
                 $validated['link'] = $request->link;
                 HomeSlider::find($validated['id'])->update($validated);
     
