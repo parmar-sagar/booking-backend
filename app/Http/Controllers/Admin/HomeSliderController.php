@@ -50,7 +50,8 @@ class HomeSliderController extends Controller
                     'sequence' => 'required|integer',
                     'status' => 'required|in:1,0',
                     'type' => 'required|in:image,video',
-                    'image' => 'required|mimes:jpeg,jpg,png,gif,webm,mp4,mpeg|max:2048',
+                    'image' => 'required|mimes:jpeg,jpg,png,gif,webm,mp4,mpeg|max:4096',
+
                 ]);
                   
                 if($validator->fails()){
@@ -58,7 +59,8 @@ class HomeSliderController extends Controller
                 }
  
                 $validated = $validator->validated();
-                $validated['image_video'] = $request->file('image')->store('uploads','public');
+                $validated['image_video'] = time().'.'.$request->image->extension();  
+                $request->image->move(public_path('admin/uploads/sliders'), $validated['image_video']);
 
                 $validated['link'] = $request->link;
                 HomeSlider::create($validated);
@@ -87,7 +89,7 @@ class HomeSliderController extends Controller
                     'sequence' => 'required|integer',
                     'status' => 'required|in:1,0',
                     'type' => 'required|in:image,video',
-                    'image' => 'mimes:jpeg,jpg,png,gif,webm,mp4,mpeg|max:2048',
+                    'image' => 'mimes:jpeg,jpg,png,gif,webm,mp4,mpeg|max:4096',
                 ]);
     
                 if($validator->fails()){
@@ -97,7 +99,8 @@ class HomeSliderController extends Controller
                 $validated = $validator->validated();
 
                 if ($request->file('image')) {
-                    $validated['image_video'] = $request->file('image')->store('uploads','public');
+                    $validated['image_video'] = time().'.'.$request->image->extension();  
+                $request->image->move(public_path('admin/uploads/sliders'), $validated['image_video']);
                 }
 
                 $validated['link'] = $request->link;
