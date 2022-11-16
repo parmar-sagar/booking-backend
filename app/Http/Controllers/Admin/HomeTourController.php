@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\Tour;
@@ -80,7 +81,12 @@ class HomeTourController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:tours',
-                    'tourId' => 'required',
+                    'tourId' => [
+                            'required', 
+                            Rule::unique('tours','id')
+                                ->where('on_home',  1)
+                                ->ignore($id)
+                            ],
                     'on_home_sequence' => 'required|integer',
                 ]);
     
