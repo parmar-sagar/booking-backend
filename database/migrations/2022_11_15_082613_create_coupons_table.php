@@ -13,14 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tours', function (Blueprint $table) {
+        Schema::create('coupons', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->string('image', 100);
-            $table->string('banner_img', 100);
+            $table->string('name', 50);
+            $table->string('code', 50);
             $table->longText('description');
-            $table->string('time_ids', 100);
-            $table->enum('status',['0','1'])->default(1)->comment('0 => Deactive , 1 => Active')->index('idx_status');
+            $table->decimal('ammount');
+            $table->string('image', 100);
+            $table->enum('type', ['0','1'])->default(0)->comment('0 => flat , 1 => percentage');
+            $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active')->index('idx_status');
+            $table->date('expiry_date');
+            $table->softDeletes();
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
         });
@@ -33,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tours');
+        Schema::dropIfExists('coupons');
     }
 };

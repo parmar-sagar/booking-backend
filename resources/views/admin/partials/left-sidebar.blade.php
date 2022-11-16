@@ -59,8 +59,55 @@
 
             <li class="side-nav-item">
                 <a href="{{ url('admin/tours') }}" class="side-nav-link">
-                    <i class="uil-users-alt"></i>
+                    <i class="ri-t-box-fill"></i>
                     <span> Tours </span>
+                </a>
+            </li>            
+            {{-- <li class="side-nav-title side-nav-item mt-1">Modules</li> --}}
+
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarManageVehicles" aria-expanded="false" aria-controls="sidebarManageVehicles"
+                    class="side-nav-link">
+                    <i class="ri-takeaway-fill"></i>
+                    <span> Manage Vehicles </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarManageVehicles">
+                    <ul class="side-nav-second-level">
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/include') }}" class="side-nav-link">
+                                <i class="ri-anticlockwise-2-line"></i>
+                                <span> Includes </span>
+                            </a>
+                        </li>
+            
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/highlight') }}" class="side-nav-link">
+                                <i class="ri-magic-fill"></i>
+                                <span> Highlights </span>
+                            </a>
+                        </li>
+            
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/warning') }}" class="side-nav-link">
+                                <i class="ri-body-scan-fill"></i>
+                                <span> Warnings </span>
+                            </a>
+                        </li>
+            
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/vehicles') }}" class="side-nav-link">
+                                <i class="ri-motorbike-fill"></i>
+                                <span> Vehicles </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ url('admin/coupon') }}" class="side-nav-link">
+                    <i class="ri-shield-user-line"></i>
+                    <span> Coupons </span>
                 </a>
             </li>
         </ul>

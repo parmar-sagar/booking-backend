@@ -29,12 +29,14 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="description" class="form-label">Times</label>
-                            <select  class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Choose ..." name="time_ids[]" required>
-                                @foreach($time as $time_tour)
-                                    <option value="{{$time_tour->id}}"@if(isset($selctdTime)) @foreach($selctdTime as $Times) @if($Times == "$time_tour->id") selected @endif @endforeach @endif>{{$time_tour->time}}</option>
-                                @endforeach    
-                            </select>
+                            <label for="expiryDate" class="form-label">Code</label>
+                            <input type="text" name="code" class="form-control " id="code" value="@if(isset($objData->code) && $objData->code){{ $objData->code }}@endif" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="expiryDate" class="form-label">Exipry Date</label>
+                            <input type="text" name="expiry_date" class="form-control date" id="expiryDate" value="@if(isset($objData->expiry_date) && $objData->expiry_date){{ $objData->expiry_date }}@endif" data-toggle="date-picker" data-single-date-picker="true" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -48,11 +50,23 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="image" class="form-label">Banner Image</label>
-                            <input type="file" id="banner_img" class="form-control" name="banner_img" @if(!isset($objData)) required @endif>
-                            @if(isset($objData->image))
-                                <img src="{{ asset('storage/' . $objData->image) }}" width="50" class="mt-3">
-                            @endif
+                            <label for="code" class="form-label">Ammount</label>
+                            <input type="text" id="ammount" class="form-control" name="ammount" value="@if(isset($objData->ammount) && $objData->ammount){{ $objData->ammount }}@endif" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Type</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="active" name="type" class="form-check-input" value="0" @if(isset($objData) && $objData->type ==0)) checked @endif checked>
+                                    <label class="form-check-label" for="flate">Flate</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="inactive" name="type" class="form-check-input" value="1" @if(isset($objData) && $objData->type ==1)) checked @endif>
+                                    <label class="form-check-label" for="percentage">Percentage</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -80,6 +94,8 @@
     </div> <!-- end card -->
 </div><!-- end col -->
 <script>
-      $('.select2').select2();
+    $("#expiryDate").datepicker({ 
+        dateFormat: 'dd-mm-yy'
+    });
 </script>
  

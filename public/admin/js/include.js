@@ -23,17 +23,7 @@ $(document).ready(function() {
                         return meta.row+1;
                     }
                 },
-                {data: 'name', name: 'name'},
-                // {data: 'description', name: 'description'},
-                {data: 'status', name:'status',
-                    "render": function ( data, type, row, meta ) {
-                        var status = {
-                            0: {'text': 'InActive', 'color': 'danger'},
-                            1: {'text': 'Active', 'color': 'success'},
-                        };
-                        return '<span class="badge bg-'+status[row.status].color+'">'+status[row.status].text+'</span>';
-                    }
-                },
+                {data: 'title', name: 'title'},
                 {data: 'id', name:'id',searchable: false,class:'table-action',
                     "render": function ( data, type, row, meta ) {
                         return '<a href="javascript:void(0);" class="action-icon open-form" data-id="'+row.id+'">\
@@ -44,6 +34,4 @@ $(document).ready(function() {
                 },
             ]
     });
-
 });
-

@@ -20,8 +20,8 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>Id</th>
-                                    <th>Title</th>
-                                    {{-- <th>Description</th> --}}
+                                    <th>Name</th>
+                                    <th>Short Name</th>
                                     <th>Status</th>
                                     <th style="width: 85px;">Action</th>
                                 </tr>
@@ -38,14 +38,14 @@
     <div class="row" id="content-form">
         
     </div>
-    <!-- end row -->   
+    <!-- end row -->
     <x-slot name="styles">
         <link href="{{ asset('assets/admin/vendor/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    </x-slot>  
-
+    </x-slot> 
+       
     <x-slot name="scripts">
         <!-- Custom App js -->
-        <script src="{{ asset('admin/js/tour.js') }}"></script>
+        <script src="{{ asset('admin/js/vehicles.js') }}"></script>
         <script src="{{ asset('assets/admin/vendor/select2/js/select2.min.js') }}"></script>
     </x-slot>    
 </x-admin.master-layout>

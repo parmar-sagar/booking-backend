@@ -23,8 +23,10 @@ $(document).ready(function() {
                         return meta.row+1;
                     }
                 },
-                {data: 'name', name: 'name'},
+                {data: 'title', name: 'title'},
+                {data: 'code', name: 'code'},
                 // {data: 'description', name: 'description'},
+                // {data: 'expiry_dateTime', name: 'expiry_dateTime'},
                 {data: 'status', name:'status',
                     "render": function ( data, type, row, meta ) {
                         var status = {
