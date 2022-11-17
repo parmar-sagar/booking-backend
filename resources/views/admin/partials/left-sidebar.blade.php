@@ -110,6 +110,12 @@
                     <span> Coupons </span>
                 </a>
             </li>
+            <li class="side-nav-item">
+                <a href="{{ url('admin/locations') }}" class="side-nav-link">
+                    <i class="ri-map-pin-2-line"></i>
+                    <span> Locations </span>
+                </a>
+            </li>
         </ul>
         <!--- End Sidemenu -->
 

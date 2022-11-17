@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\IncludeController;
 use App\Http\Controllers\Admin\HighlightController;
 use App\Http\Controllers\Admin\WarningController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\LocationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -119,5 +120,17 @@ Route::group([
         Route::get('/edit/{id}',[CouponController::class, 'edit']);
 		Route::post('/update/{id}',[CouponController::class, 'edit']);
 		Route::get('/delete/{id}',[CouponController::class, 'destroy']);
+    });
+
+    Route::group([
+        'prefix' => 'locations'
+    ], function(){
+        Route::get('/',[LocationController::class, 'index']);
+        Route::get('/datatable',[LocationController::class, 'datatable']);
+        Route::get('/create',[LocationController::class, 'create']);
+        Route::post('/store',[LocationController::class, 'create']);
+        Route::get('/edit/{id}',[LocationController::class, 'edit']);
+		Route::post('/update/{id}',[LocationController::class, 'edit']);
+		Route::get('/delete/{id}',[LocationController::class, 'destroy']);
     });
 });
