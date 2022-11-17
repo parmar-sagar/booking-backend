@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\Tour;
 use App\Models\Time;
 use DataTables;
 
-class TourController extends Controller{
 
-    const ControllerCode = "T_";
+class DealsController extends Controller
+{
+    const ControllerCode = "D_";
 
     function __construct(){
         $this->outputData = [];
@@ -21,20 +21,20 @@ class TourController extends Controller{
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Tours',
-            'dataTables' => url('admin/tours/datatable'),
-            'delete' => url('admin/tours/delete'),
-            'create' => url('admin/tours/create'),
-            'edit' => url('admin/tours/edit')
+            'pageName' => 'Deals',
+            'dataTables' => url('admin/deals/datatable'),
+            'delete' => url('admin/deals/delete'),
+            'create' => url('admin/deals/create'),
+            'edit' => url('admin/deals/edit')
         ];
         
-        return view('admin.pages.tour.index',$this->outputData);
+        return view('admin.pages.deals.index',$this->outputData);
     }
 
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Tour::orderBy('id','DESC')->where('is_deals', '=', 0)->get();
+                $datas = Tour::orderBy('id','DESC')->where('is_deals', '=', 1)->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -67,22 +67,24 @@ class TourController extends Controller{
                     $validated['time_ids']=implode(',',$request['time_ids']);
                 }
 
-                    $validated['image'] = time().'.'.$request->image->extension();  
-                    $request->image->move(public_path('admin/uploads/tours'), $validated['image']);
+                $validated['image'] = time().'.'.$request->image->extension();  
+                $request->image->move(public_path('admin/uploads/tours'), $validated['image']);
 
-                    $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
-                    $request->banner_img->move(public_path('admin/uploads/tours'), $validated['banner_img']);
+                $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
+                $request->banner_img->move(public_path('admin/uploads/tours'), $validated['banner_img']);
+
+                $validated['is_deals'] = 1;
                 
                 Tour::create($validated);
     
-                return response()->json(['success' => "Tour Created successfully."]);
+                return response()->json(['success' => "Deals Created successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'New Tour',
-                'action' => url('admin/tours/store'),
+                'pageName' => 'New Deals',
+                'action' => url('admin/deals/store'),
                 'time' => Time::orderBy('id','DESC')->get()
             ];
-            return view('admin.pages.tour.create',$this->outputData);
+            return view('admin.pages.deals.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '02');
@@ -123,22 +125,21 @@ class TourController extends Controller{
                 $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
                 $request->banner_img->move(public_path('admin/uploads/tours'), $validated['banner_img']);
                 }
-            
-                
+
                 Tour::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Tour Updated successfully."]);
+                return response()->json(['success' => "Deals Updated successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'Edit Tour',
-                'action' => url('admin/tours/update/'.$id),
+                'pageName' => 'Edit Deals',
+                'action' => url('admin/deals/update/'.$id),
                 'objData' => Tour::findOrFail($id),
                 'time' => Time::orderBy('id','DESC')->get(),
             ];
             $time = $this->outputData['objData']->time_ids;
             $timeIds=explode(',',$time);
             $this->outputData['selctdTime'] = $timeIds;
-            return view('admin.pages.tour.create',$this->outputData);
+            return view('admin.pages.deals.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '03');

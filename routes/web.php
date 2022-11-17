@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\IncludeController;
 use App\Http\Controllers\Admin\HighlightController;
 use App\Http\Controllers\Admin\WarningController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\DealsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -119,5 +120,17 @@ Route::group([
         Route::get('/edit/{id}',[CouponController::class, 'edit']);
 		Route::post('/update/{id}',[CouponController::class, 'edit']);
 		Route::get('/delete/{id}',[CouponController::class, 'destroy']);
+    });
+
+    Route::group([
+        'prefix' => 'deals'
+    ], function(){
+        Route::get('/',[DealsController::class, 'index']);
+        Route::get('/datatable',[DealsController::class, 'datatable']);
+        Route::get('/create',[DealsController::class, 'create']);
+        Route::post('/store',[DealsController::class, 'create']);
+        Route::get('/edit/{id}',[DealsController::class, 'edit']);
+		Route::post('/update/{id}',[DealsController::class, 'edit']);
+		Route::get('/delete/{id}',[DealsController::class, 'destroy']);
     });
 });
