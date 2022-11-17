@@ -62,7 +62,14 @@
                     <i class="ri-t-box-fill"></i>
                     <span> Tours </span>
                 </a>
-            </li>            
+            </li> 
+
+            <li class="side-nav-item">
+                <a href="{{ url('admin/deals') }}" class="side-nav-link">
+                    <i class="ri-briefcase-fill"></i>
+                    <span> Deals </span>
+                </a>
+            </li>           
             {{-- <li class="side-nav-title side-nav-item mt-1">Modules</li> --}}
 
             <li class="side-nav-item">
