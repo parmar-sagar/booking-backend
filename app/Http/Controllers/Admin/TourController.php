@@ -34,7 +34,7 @@ class TourController extends Controller{
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Tour::orderBy('id','DESC')->get();
+                $datas = Tour::orderBy('id','DESC')->where('is_deals', '=', 0)->get();
     
                 return DataTables::of($datas)->toJson();;
             }
