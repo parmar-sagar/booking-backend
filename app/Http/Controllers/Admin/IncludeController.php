@@ -19,11 +19,11 @@ class IncludeController extends Controller
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Include',
-            'dataTables' => url('admin/include/datatable'),
-            'delete' => url('admin/include/delete'),
-            'create' => url('admin/include/create'),
-            'edit' => url('admin/include/edit')
+            'pageName' => 'Includes',
+            'dataTables' => url('admin/includes/datatable'),
+            'delete' => url('admin/includes/delete'),
+            'create' => url('admin/includes/create'),
+            'edit' => url('admin/includes/edit')
         ];
         
         return view('admin.pages.include.index',$this->outputData);
@@ -59,11 +59,11 @@ class IncludeController extends Controller
                 $validated['type'] = 2;
                 VehicleInfo::create($validated);
     
-                return response()->json(['success' => "Include Created successfully."]);
+                return response()->json(['success' => "Includes Created successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'New Include',
-                'action' => url('admin/include/store'),
+                'action' => url('admin/includes/store'),
             ];
             return view('admin.pages.include.create',$this->outputData);
 
@@ -91,11 +91,11 @@ class IncludeController extends Controller
                 $validated['type'] = 2;
                 VehicleInfo::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Include Updated successfully."]);
+                return response()->json(['success' => "Includes Updated successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'Edit Include',
-                'action' => url('admin/include/update/'.$id),
+                'pageName' => 'Edit Includes',
+                'action' => url('admin/includes/update/'.$id),
                 'objData' => VehicleInfo::findOrFail($id),
             ];
             return view('admin.pages.include.create',$this->outputData);

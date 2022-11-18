@@ -75,21 +75,21 @@
                 <div class="collapse" id="sidebarManageVehicles">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/include') }}" class="side-nav-link">
+                            <a href="{{ url('admin/includes') }}" class="side-nav-link">
                                 <i class="ri-anticlockwise-2-line"></i>
                                 <span> Includes </span>
                             </a>
                         </li>
             
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/highlight') }}" class="side-nav-link">
+                            <a href="{{ url('admin/highlights') }}" class="side-nav-link">
                                 <i class="ri-magic-fill"></i>
                                 <span> Highlights </span>
                             </a>
                         </li>
             
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/warning') }}" class="side-nav-link">
+                            <a href="{{ url('admin/warnings') }}" class="side-nav-link">
                                 <i class="ri-body-scan-fill"></i>
                                 <span> Warnings </span>
                             </a>
@@ -105,7 +105,7 @@
                 </div>
             </li>
             <li class="side-nav-item">
-                <a href="{{ url('admin/coupon') }}" class="side-nav-link">
+                <a href="{{ url('admin/coupons') }}" class="side-nav-link">
                     <i class="ri-shield-user-line"></i>
                     <span> Coupons </span>
                 </a>

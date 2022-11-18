@@ -63,7 +63,7 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => 'include'
+        'prefix' => 'includes'
     ], function(){
         Route::get('/',[IncludeController::class, 'index']);
         Route::get('/datatable',[IncludeController::class, 'datatable']);
@@ -75,7 +75,7 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => 'highlight'
+        'prefix' => 'highlights'
     ], function(){
         Route::get('/',[HighlightController::class, 'index']);
         Route::get('/datatable',[HighlightController::class, 'datatable']);
@@ -87,7 +87,7 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => 'warning'
+        'prefix' => 'warnings'
     ], function(){
         Route::get('/',[WarningController::class, 'index']);
         Route::get('/datatable',[WarningController::class, 'datatable']);
@@ -111,7 +111,7 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => 'coupon'
+        'prefix' => 'coupons'
     ], function(){
         Route::get('/',[CouponController::class, 'index']);
         Route::get('/datatable',[CouponController::class, 'datatable']);
