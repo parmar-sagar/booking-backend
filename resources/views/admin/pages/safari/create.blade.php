@@ -48,6 +48,12 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
+                            <label for="safari_sequence" class="form-label">Sequance</label>
+                            <input type="text" id="safari_sequence" class="form-control" name="safari_sequence" value="@if(isset($objData->safari_sequence) && $objData->safari_sequence){{ $objData->safari_sequence }}@endif" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
                             <label for="image" class="form-label">Image</label>
                             <input type="file" id="image" class="form-control" name="image" @if(!isset($objData)) required @endif>
                             @if(isset($objData->image))

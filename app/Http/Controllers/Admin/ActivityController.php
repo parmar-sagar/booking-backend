@@ -9,9 +9,9 @@ use App\Handlers\Error;
 use App\Models\VehicleInfo;
 use DataTables;
 
-class IncludeController extends Controller
+class ActivityController extends Controller
 {
-    const ControllerCode = "I_";
+    const ControllerCode = "A_";
 
     function __construct(){
         $this->outputData = [];
@@ -19,21 +19,20 @@ class IncludeController extends Controller
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Includes',
-            'dataTables' => url('admin/includes/datatable'),
-            'delete' => url('admin/includes/delete'),
-            'create' => url('admin/includes/create'),
-            'edit' => url('admin/includes/edit')
+            'pageName' => 'Activities',
+            'dataTables' => url('admin/activities/datatable'),
+            'delete' => url('admin/activities/delete'),
+            'create' => url('admin/activities/create'),
+            'edit' => url('admin/activities/edit')
         ];
         
-        return view('admin.pages.include.index',$this->outputData);
+        return view('admin.pages.activity.index',$this->outputData);
     }
 
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehicleInfo::where('type',2)->orderBy('id','DESC')->get();
-    
+                $datas = VehicleInfo::where('type',4)->orderBy('id','DESC')->get();
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -48,7 +47,7 @@ class IncludeController extends Controller
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'title' => 'required|string|min:5|unique:vehicle_infos',
+                    'title' => 'required|string|unique:vehicle_infos',
                 ]);
                   
                 if($validator->fails()){
@@ -56,16 +55,16 @@ class IncludeController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['type'] = 2;
+                $validated['type'] = 4;
                 VehicleInfo::create($validated);
     
-                return response()->json(['success' => "Includes Created successfully."]);
+                return response()->json(['success' => "Activities Created successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'New Include',
-                'action' => url('admin/includes/store'),
+                'pageName' => 'New Activities',
+                'action' => url('admin/activities/store'),
             ];
-            return view('admin.pages.include.create',$this->outputData);
+            return view('admin.pages.activity.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '02');
@@ -80,7 +79,7 @@ class IncludeController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:vehicle_infos',
-                    'title' => 'required|string|min:5|unique:vehicle_infos,title,'.$id,
+                    'title' => 'required|string|unique:vehicle_infos,title,'.$id,
                 ]);
     
                 if($validator->fails()){
@@ -88,17 +87,17 @@ class IncludeController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['type'] = 2;
+                $validated['type'] = 4;
                 VehicleInfo::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Includes Updated successfully."]);
+                return response()->json(['success' => "Activities Updated successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'Edit Includes',
-                'action' => url('admin/includes/update/'.$id),
+                'pageName' => 'Edit Activities',
+                'action' => url('admin/activities/update/'.$id),
                 'objData' => VehicleInfo::findOrFail($id),
             ];
-            return view('admin.pages.include.create',$this->outputData);
+            return view('admin.pages.activity.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '03');

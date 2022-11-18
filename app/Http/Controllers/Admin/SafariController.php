@@ -3,18 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\Tour;
 use App\Models\Location;
 use App\Models\Time;
 use DataTables;
 
-class TourController extends Controller{
-
-    const ControllerCode = "T_";
+class SafariController extends Controller
+{
+    const ControllerCode = "S_";
 
     function __construct(){
         $this->outputData = [];
@@ -22,20 +21,20 @@ class TourController extends Controller{
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Tours',
-            'dataTables' => url('admin/tours/datatable'),
-            'delete' => url('admin/tours/delete'),
-            'create' => url('admin/tours/create'),
-            'edit' => url('admin/tours/edit')
+            'pageName' => 'Safaris',
+            'dataTables' => url('admin/safaris/datatable'),
+            'delete' => url('admin/safaris/delete'),
+            'create' => url('admin/safaris/create'),
+            'edit' => url('admin/safaris/edit')
         ];
         
-        return view('admin.pages.tour.index',$this->outputData);
+        return view('admin.pages.safari.index',$this->outputData);
     }
 
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Tour::where('type','Tour')->orderBy('id','DESC')->get();
+                $datas = Tour::where('type','Safari')->orderBy('id','DESC')->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -56,6 +55,7 @@ class TourController extends Controller{
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
                     'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
                     'status' => 'required|in:0,1',
+                    'safari_sequence' => 'required|integer',
                     'location_id' => 'required|integer'
                 ]);
     
@@ -70,18 +70,20 @@ class TourController extends Controller{
                 }
                 $validated['image'] = $request->file('image')->store('uploads','public');
                 $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
-                
+
+                $validated['type'] = 'Safari';
+
                 Tour::create($validated);
     
-                return response()->json(['success' => "Tour Created successfully."]);
+                return response()->json(['success' => "Safari Created successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'New Tour',
-                'action' => url('admin/tours/store'),
+                'pageName' => 'New Safari',
+                'action' => url('admin/safaris/store'),
                 'time' => Time::orderBy('id','DESC')->get(),
                 'locations' => Location::orderBy('id','DESC')->get()
             ];
-            return view('admin.pages.tour.create',$this->outputData);
+            return view('admin.pages.Safari.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '02');
@@ -102,6 +104,7 @@ class TourController extends Controller{
                     'image' => 'mimes:jpeg,jpg,png,gif',
                     'banner_img' => 'mimes:jpeg,jpg,png,gif',
                     'status' => 'required|in:0,1',
+                    'safari_sequence' => 'required|integer',
                     'location_id' => 'required|integer'
                 ]);
     
@@ -124,18 +127,19 @@ class TourController extends Controller{
                 
                 Tour::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Tour Updated successfully."]);
+                return response()->json(['success' => "Safari Updated successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'Edit Tour',
-                'action' => url('admin/tours/update/'.$id),
+                'pageName' => 'Edit Safari',
+                'action' => url('admin/safaris/update/'.$id),
                 'objData' => Tour::findOrFail($id),
                 'time' => Time::orderBy('id','DESC')->get(),
                 'locations' => Location::orderBy('id','DESC')->get()
             ];
             $time = $this->outputData['objData']->time_ids;
-            $this->outputData['selctdTime'] = explode(',',$time);
-            return view('admin.pages.tour.create',$this->outputData);
+            $timeIds=explode(',',$time);
+            $this->outputData['selctdTime'] = $timeIds;
+            return view('admin.pages.safari.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '03');

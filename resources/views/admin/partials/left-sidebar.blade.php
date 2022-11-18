@@ -53,16 +53,53 @@
             <li class="side-nav-item">
                 <a href="{{ url('admin/users') }}" class="side-nav-link">
                     <i class="uil-users-alt"></i>
-                    <span> Users </span>
+                    <span> Manage Users </span>
                 </a>
             </li>
-
             <li class="side-nav-item">
-                <a href="{{ url('admin/tours') }}" class="side-nav-link">
-                    <i class="ri-t-box-fill"></i>
-                    <span> Tours </span>
+                <a data-bs-toggle="collapse" href="#mngTours" aria-expanded="false" aria-controls="mngTours"
+                    class="side-nav-link">
+                    <i class="ri-hammer-fill"></i>
+                    <span> Manage Tours </span>
+                    <span class="menu-arrow"></span>
                 </a>
-            </li>            
+                <div class="collapse" id="mngTours">
+                    <ul class="side-nav-second-level">
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/tours') }}" class="side-nav-link">
+                                <span> Tours </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/vehicles') }}" class="side-nav-link">
+                                <span> Vehicles </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#mngSafari" aria-expanded="false" aria-controls="mngSafari"
+                    class="side-nav-link">
+                    <i class="ri-roadster-fill"></i>
+                    <span> Manage Safari </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="mngSafari">
+                    <ul class="side-nav-second-level">
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/safaris') }}" class="side-nav-link">
+                                <span> Safari </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/safari-vehicles') }}" class="side-nav-link">
+                                <span> Vehicles </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>           
             {{-- <li class="side-nav-title side-nav-item mt-1">Modules</li> --}}
 
             <li class="side-nav-item">
@@ -76,29 +113,24 @@
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
                             <a href="{{ url('admin/includes') }}" class="side-nav-link">
-                                <i class="ri-anticlockwise-2-line"></i>
                                 <span> Includes </span>
                             </a>
                         </li>
             
                         <li class="side-nav-item">
                             <a href="{{ url('admin/highlights') }}" class="side-nav-link">
-                                <i class="ri-magic-fill"></i>
                                 <span> Highlights </span>
                             </a>
                         </li>
             
                         <li class="side-nav-item">
                             <a href="{{ url('admin/warnings') }}" class="side-nav-link">
-                                <i class="ri-body-scan-fill"></i>
                                 <span> Warnings </span>
                             </a>
                         </li>
-            
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/vehicles') }}" class="side-nav-link">
-                                <i class="ri-motorbike-fill"></i>
-                                <span> Vehicles </span>
+                            <a href="{{ url('admin/activities') }}" class="side-nav-link">
+                                <span> Activities </span>
                             </a>
                         </li>
                     </ul>
@@ -108,36 +140,52 @@
                 <a data-bs-toggle="collapse" href="#mngHomepage" aria-expanded="false" aria-controls="mngHomepage"
                     class="side-nav-link">
                     <i class="ri-home-3-line"></i>
-                    <span> Manage Homepage </span>
+                    <span> Manage Home </span>
                     <span class="menu-arrow"></span>
                 </a>
                 <div class="collapse" id="mngHomepage">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
                             <a href="{{ url('admin/home-tours') }}" class="side-nav-link">
-                                <i class="ri-riding-fill"></i>
                                 <span> Home Tours </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/home-sliders') }}" class="side-nav-link">
+                                <span> Home Sliders </span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
             <li class="side-nav-item">
-                <a href="{{ url('admin/coupon') }}" class="side-nav-link">
-                    <i class="ri-shield-user-line"></i>
-                    <span> Coupons </span>
+                <a data-bs-toggle="collapse" href="#mngMaster" aria-expanded="false" aria-controls="mngMaster"
+                    class="side-nav-link">
+                    <i class="ri-npmjs-line"></i>
+                    <span> Manage Master </span>
+                    <span class="menu-arrow"></span>
                 </a>
+                <div class="collapse" id="mngMaster">
+                    <ul class="side-nav-second-level">
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/locations') }}" class="side-nav-link">
+                                {{-- <i class="ri-map-pin-2-line"></i> --}}
+                                <span> Locations </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/times') }}" class="side-nav-link">
+                                {{-- <i class="ri-time-line"></i> --}}
+                                <span> Times </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
             <li class="side-nav-item">
-                <a href="{{ url('admin/locations') }}" class="side-nav-link">
-                    <i class="ri-map-pin-2-line"></i>
-                    <span> Locations </span>
-                <a href="{{ url('admin/home-sliders') }}" class="side-nav-link">
-                    <i class="ri-logout-box-line"></i>
-                    <span> Home Sliders </span>
-                <a href="{{ url('admin/times') }}" class="side-nav-link">
-                    <i class="ri-time-line"></i>
-                    <span> Times </span>
+                <a href="{{ url('admin/coupons') }}" class="side-nav-link">
+                    <i class="ri-shield-user-line"></i>
+                    <span> Coupons </span>
                 </a>
             </li>
         </ul>

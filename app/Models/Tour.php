@@ -17,7 +17,10 @@ class Tour extends Model
         'banner_img',
         'status',
         'on_home',
-        'on_home_sequence'
+        'on_home_sequence',
+        'type',
+        'safari_sequence',
+        'location_id'
     ];
     protected $hidden = [
         'created_at','updated_at',

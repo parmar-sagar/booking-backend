@@ -12,9 +12,9 @@ use App\Models\Tour;
 use App\Models\Time;
 use DataTables;
 
-class VehiclesController extends Controller
+class SafariVehicleController extends Controller
 {
-    const ControllerCode = "V_";
+    const ControllerCode = "SV_";
 
     function __construct(){
         $this->outputData = [];
@@ -22,20 +22,20 @@ class VehiclesController extends Controller
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Vehicles',
-            'dataTables' => url('admin/vehicles/datatable'),
-            'delete' => url('admin/vehicles/delete'),
-            'create' => url('admin/vehicles/create'),
-            'edit' => url('admin/vehicles/edit')
+            'pageName' => 'Safari Vehicles',
+            'dataTables' => url('admin/safari-vehicles/datatable'),
+            'delete' => url('admin/safari-vehicles/delete'),
+            'create' => url('admin/safari-vehicles/create'),
+            'edit' => url('admin/safari-vehicles/edit')
         ];
         
-        return view('admin.pages.vehicles.index',$this->outputData);
+        return view('admin.pages.safari_vehicles.index',$this->outputData);
     }
 
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Vehicle::where('type','Tour')->orderBy('id','DESC')->get();
+                $datas = Vehicle::where('type','Safari')->orderBy('id','DESC')->get();
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -86,21 +86,24 @@ class VehiclesController extends Controller
                  
                 $validated['image'] = $request->file('image')->store('uploads','public');
                 $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
+
+                $validated['type'] = "Safari";
+
                 Vehicle::create($validated);
     
-                return response()->json(['success' => "Vehicle Created successfully."]);
+                return response()->json(['success' => "Safari Vehicle Created successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'New Vehicle',
-                'action' => url('admin/vehicles/store'),
-                'tourName' => Tour::where('type','Tour')->select('name','id')->orderBy('id','DESC')->get(),
+                'action' => url('admin/safari-vehicles/store'),
+                'tourName' => Tour::where('type','Safari')->select('name','id')->orderBy('id','DESC')->get(),
                 'includes' => VehicleInfo::where('type',2)->orderBy('id','DESC')->get(),
                 'highlights' => VehicleInfo::where('type',1)->orderBy('id','DESC')->get(),
                 'warnings' => VehicleInfo::where('type',3)->orderBy('id','DESC')->get(),
                 'activities' => VehicleInfo::where('type',4)->orderBy('id','DESC')->get(),
                 'time' => Time::orderBy('id','DESC')->get()
             ];
-            return view('admin.pages.vehicles.create',$this->outputData);
+            return view('admin.pages.safari_vehicles.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '02');
@@ -156,14 +159,14 @@ class VehiclesController extends Controller
                 }
                 Vehicle::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Vehicle Updated successfully."]);
+                return response()->json(['success' => "Safari Vehicle Updated successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'Edit Vehicle',
-                'action' => url('admin/vehicles/update/'.$id),
+                'action' => url('admin/safari-vehicles/update/'.$id),
                 'objData' => Vehicle::findOrFail($id),
                 'time' => Time::orderBy('id','DESC')->get(),
-                'tourName' => Tour::orderBy('id','DESC')->select('name','id')->get(),
+                'tourName' => Tour::where('type','Safari')->select('name','id')->orderBy('id','DESC')->get(),
                 'includes' => VehicleInfo::where('type',2)->orderBy('id','DESC')->get(),
                 'highlights' => VehicleInfo::where('type',1)->orderBy('id','DESC')->get(),
                 'warnings' => VehicleInfo::where('type',3)->orderBy('id','DESC')->get(),
@@ -182,8 +185,8 @@ class VehiclesController extends Controller
             $this->outputData['selctdHighlight'] = explode(',',$highlightId);
             $activitiesId = $this->outputData['objData']->activities_ids;
             $this->outputData['selctdActivitie'] = explode(',',$activitiesId);
-
-            return view('admin.pages.vehicles.create',$this->outputData);
+            
+            return view('admin.pages.safari_vehicles.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '03');
