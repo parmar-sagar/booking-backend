@@ -11,7 +11,7 @@ use DataTables;
 
 class WarningController extends Controller
 {
-    const ControllerCode = "H_";
+    const ControllerCode = "W_";
 
     function __construct(){
         $this->outputData = [];
@@ -19,11 +19,11 @@ class WarningController extends Controller
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Warning',
-            'dataTables' => url('admin/warning/datatable'),
-            'delete' => url('admin/warning/delete'),
-            'create' => url('admin/warning/create'),
-            'edit' => url('admin/warning/edit')
+            'pageName' => 'Warnings',
+            'dataTables' => url('admin/warnings/datatable'),
+            'delete' => url('admin/warnings/delete'),
+            'create' => url('admin/warnings/create'),
+            'edit' => url('admin/warnings/edit')
         ];
         
         return view('admin.pages.warning.index',$this->outputData);
@@ -59,11 +59,11 @@ class WarningController extends Controller
                 $validated['type'] = 3;
                 VehicleInfo::create($validated);
     
-                return response()->json(['success' => "Warning Created successfully."]);
+                return response()->json(['success' => "Warnings Created successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'New Warning',
-                'action' => url('admin/warning/store'),
+                'pageName' => 'New Warnings',
+                'action' => url('admin/warnings/store'),
             ];
             return view('admin.pages.warning.create',$this->outputData);
 
@@ -91,11 +91,11 @@ class WarningController extends Controller
                 $validated['type'] = 3;
                 VehicleInfo::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Warning Updated successfully."]);
+                return response()->json(['success' => "Warnings Updated successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'Edit Warning',
-                'action' => url('admin/warning/update/'.$id),
+                'pageName' => 'Edit Warnings',
+                'action' => url('admin/warnings/update/'.$id),
                 'objData' => VehicleInfo::findOrFail($id),
             ];
             return view('admin.pages.include.create',$this->outputData);

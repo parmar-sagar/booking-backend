@@ -5,20 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tour extends Model
+class HomeSlider extends Model
 {
     use HasFactory;
-    
     protected $fillable = [
-        'name',
-        'description',
-        'time_ids',
-        'image',
-        'banner_img',
+        'type',
+        'sequence',
         'status',
-        'on_home',
-        'on_home_sequence'
+        'link',
+        'image_video'
     ];
+
     protected $hidden = [
         'created_at','updated_at',
     ];
