@@ -20,10 +20,10 @@ class CouponController extends Controller
     public function index(){
         $this->outputData = [
             'pageName' => 'Coupon',
-            'dataTables' => url('admin/coupon/datatable'),
-            'delete' => url('admin/coupon/delete'),
-            'create' => url('admin/coupon/create'),
-            'edit' => url('admin/coupon/edit')
+            'dataTables' => url('admin/coupons/datatable'),
+            'delete' => url('admin/coupons/delete'),
+            'create' => url('admin/coupons/create'),
+            'edit' => url('admin/coupons/edit')
         ];
         
         return view('admin.pages.coupon.index',$this->outputData);
@@ -73,7 +73,7 @@ class CouponController extends Controller
             }
             $this->outputData = [
                 'pageName' => 'New Coupon',
-                'action' => url('admin/coupon/store')
+                'action' => url('admin/coupons/store')
             ];
             return view('admin.pages.coupon.create',$this->outputData);
 
@@ -117,7 +117,7 @@ class CouponController extends Controller
             }
             $this->outputData = [
                 'pageName' => 'Edit Coupon',
-                'action' => url('admin/coupon/update/'.$id),
+                'action' => url('admin/coupons/update/'.$id),
                 'objData' => Coupon::findOrFail($id)
             ];
             return view('admin.pages.coupon.create',$this->outputData);
