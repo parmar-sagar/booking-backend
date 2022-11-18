@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\IncludeController;
 use App\Http\Controllers\Admin\HighlightController;
 use App\Http\Controllers\Admin\WarningController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\HomeSliderController;
 use App\Http\Controllers\Admin\HomeTourController;
 use App\Http\Controllers\Admin\TimeController;
 use Illuminate\Support\Facades\Route;
@@ -123,6 +124,18 @@ Route::group([
 		Route::get('/delete/{id}',[CouponController::class, 'destroy']);
     });
 
+    Route::group([
+        'prefix' => 'home-sliders'
+    ], function(){
+        Route::get('/',[HomeSliderController::class, 'index']);
+        Route::get('/datatable',[HomeSliderController::class, 'datatable']);
+        Route::get('/create',[HomeSliderController::class, 'create']);
+        Route::post('/store',[HomeSliderController::class, 'create']);
+        Route::get('/edit/{id}',[HomeSliderController::class, 'edit']);
+		Route::post('/update/{id}',[HomeSliderController::class, 'edit']);
+		Route::get('/delete/{id}',[HomeSliderController::class, 'destroy']);
+    });
+    
     Route::group([
         'prefix' => 'home-tours'
     ], function(){
