@@ -127,6 +127,7 @@ Route::group([
         'prefix' => 'home-tours'
     ], function(){
         Route::get('/',[HomeTourController::class, 'index']);
+        Route::get('/datatable',[HomeTourController::class, 'datatable']);
         Route::get('/create',[HomeTourController::class, 'create']);
         Route::post('/store',[HomeTourController::class, 'create']);
         Route::get('/edit/{id}',[HomeTourController::class, 'edit']);

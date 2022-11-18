@@ -81,12 +81,7 @@ class HomeTourController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:tours',
-                    'tourId' => [
-                            'required', 
-                            Rule::unique('tours','id')
-                                ->where('on_home',  1)
-                                ->ignore($id)
-                            ],
+                    'tourId' => 'required|integer',
                     'on_home_sequence' => 'required|integer',
                 ]);
     
@@ -95,9 +90,15 @@ class HomeTourController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $editHome['on_home'] = 0; 
-                $editHome['on_home_sequence'] = 0; 
-                Tour::find($validated['id'])->update($editHome);
+
+                if($validated['id'] !== $validated['tourId']){
+                    $editHome = [
+                        'on_home' => 0,
+                        'on_home_sequence' => 0
+                    ]; 
+                    Tour::find($validated['id'])->update($editHome);
+                }
+                   
                 $validated['on_home'] = 1; 
                 Tour::find($validated['tourId'])->update($validated);
     
@@ -107,7 +108,7 @@ class HomeTourController extends Controller
                 'pageName' => 'Edit Home Tour',
                 'action' => url('admin/home-tours/update/'.$id),
                 'objData' => Tour::findOrFail($id),
-                'tourName' => Tour::orderBy('id','DESC')->select('name','id')->get()
+                'tourName' => Tour::orderBy('id','DESC')->select('name','id')->where('id',$id)->orWhere('on_home','=',0)->get()
             ];
             return view('admin.pages.home_tour.create',$this->outputData);
 
