@@ -20,7 +20,6 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>Id</th>
-                                    <th>Type</th>
                                     <th>Sequence</th>
                                     <th>Status</th>
                                     <th style="width: 85px;">Action</th>

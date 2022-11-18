@@ -69,7 +69,12 @@ class UserController extends Controller{
                 $validated = $validator->validated();
     
                 $validated['password'] = Hash::make($validated['password']);
-                $validated['photo'] = $request->file('photo')->store('uploads','public');
+
+                if ($request->file('photo')) {
+                    $validated['photo'] = time().'.'.$request->photo->extension();  
+                    $request->photo->move(public_path('admin/uploads/users'), $validated['photo']);
+                }
+                // $validated['photo'] = $request->file('photo')->store('uploads','public');
                 
                 User::create($validated);
     
@@ -107,8 +112,9 @@ class UserController extends Controller{
                 
                 $validated = $validator->validated();
     
-                if(isset($validated['photo']) && $validated['photo']){
-                    $validated['photo'] = $request->file('photo')->store('uploads','public');
+                if ($request->file('photo')) {
+                    $validated['photo'] = time().'.'.$request->photo->extension();  
+                    $request->photo->move(public_path('admin/uploads/users'), $validated['photo']);
                 }
                 
                 User::find($validated['id'])->update($validated);

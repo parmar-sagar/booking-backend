@@ -29,20 +29,25 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" id="active" name="status" class="form-check-input" value="1" @if(isset($objData) && $objData->status ==1)) checked @endif checked>
-                                    <label class="form-check-label" for="active">Active</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" id="inactive" name="status" class="form-check-input" value="0" @if(isset($objData) && $objData->status ==0)) checked @endif>
-                                    <label class="form-check-label" for="inactive">InActive</label>
-                                </div>
-                            </div>
+                            <label for="image" class="form-label">Image</label>
+                            <input type="file" id="image" class="form-control imgVdo" name="image" @if(!isset($objData)) required @endif>
+                            @if(isset($objData->image))
+                            <img src="{{ asset('admin/uploads/slider/' . $objData->image) }}" width="320" class="mt-3">
+                            @endif
                         </div>
                     </div>
                     <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="video" class="form-label">Video</label>
+                            <input type="file" id="video" class="form-control imgVdo" name="video" @if(!isset($objData)) required @endif>
+                            @if(isset($objData->video))
+                            <video width="320" height="240" controls>
+                                <source src="{{ asset('admin/uploads/slider/' . $objData->video) }}" type="video/mp4">
+                            </video>
+                            @endif
+                        </div>
+                    </div>
+                    {{-- <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="type" class="form-label">Type</label>
                             <div>
@@ -56,18 +61,20 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="image_video" class="form-label">Upload Image Or Video</label>
-                            <input type="file" id="image" class="form-control imgVdo" name="image" @if(!isset($objData)) required @endif>
-                            @if(isset($objData->image_video))
-                            @if($objData->type == 'video')
-                            <source src="{{ asset('storage/' . $objData->image_video) }}" type='video/mp4'>
-                            @else
-                            <img src="{{ asset('storage/' . $objData->image_video) }}" width="500" class="mt-3">
-                            @endif
-                            @endif
+                            <label for="status" class="form-label">Status</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="active" name="status" class="form-check-input" value="1" @if(isset($objData) && $objData->status ==1)) checked @endif checked>
+                                    <label class="form-check-label" for="active">Active</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="inactive" name="status" class="form-check-input" value="0" @if(isset($objData) && $objData->status ==0)) checked @endif>
+                                    <label class="form-check-label" for="inactive">InActive</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-auto">
                             <button type="submit" class="btn btn-success mb-2">Submit</button>

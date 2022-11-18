@@ -25,8 +25,8 @@
                         <div class="mb-3">
                             <label for="name" class="form-label">Type</label>
                             <select class="form-control select2" data-toggle="select2" name="time_type" required>
-                                    <option value="min" @if(isset($objData->time_type) && $objData->time_type == 'min') selected @endif>Minutes</option> 
-                                    <option value="hrs" @if(isset($objData->time_type) && $objData->time_type == 'hrs') selected @endif>Hours</option>  
+                                    <option value="Minutes" @if(isset($objData->time_type) && $objData->time_type == 'Minutes') selected @endif>Minutes</option> 
+                                    <option value="Hours" @if(isset($objData->time_type) && $objData->time_type == 'Hours') selected @endif>Hours</option>  
                             </select>
                         </div>
                     </div>
