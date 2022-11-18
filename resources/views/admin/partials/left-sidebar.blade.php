@@ -105,7 +105,25 @@
                 </div>
             </li>
             <li class="side-nav-item">
-                <a href="{{ url('admin/coupons') }}" class="side-nav-link">
+                <a data-bs-toggle="collapse" href="#mngHomepage" aria-expanded="false" aria-controls="mngHomepage"
+                    class="side-nav-link">
+                    <i class="ri-home-3-line"></i>
+                    <span> Manage Homepage </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="mngHomepage">
+                    <ul class="side-nav-second-level">
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/home-tours') }}" class="side-nav-link">
+                                <i class="ri-riding-fill"></i>
+                                <span> Home Tours </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ url('admin/coupon') }}" class="side-nav-link">
                     <i class="ri-shield-user-line"></i>
                     <span> Coupons </span>
                 </a>
