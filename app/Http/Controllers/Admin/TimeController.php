@@ -49,7 +49,7 @@ class TimeController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'time' => 'required|integer',
-                    'time_type' => 'required|in:min,hrs'
+                    'time_type' => 'required|in:Minutes,Hours'
                 ]);
                   
                 if($validator->fails()){
@@ -81,7 +81,7 @@ class TimeController extends Controller
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:times',
                     'time' => 'required|integer',
-                    'time_type' => 'required|in:min,hrs'
+                    'time_type' => 'required|in:Minutes,Hours'
                 ]);
     
                 if($validator->fails()){

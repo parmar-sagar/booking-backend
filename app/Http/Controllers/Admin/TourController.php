@@ -68,8 +68,16 @@ class TourController extends Controller{
                 if(isset($request['time_ids']) && !empty($request['time_ids'])){
                     $validated['time_ids']=implode(',',$request['time_ids']);
                 }
-                $validated['image'] = $request->file('image')->store('uploads','public');
-                $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
+                if ($request->file('image')) {
+                    $validated['image'] = time().'.'.$request->image->extension();  
+                    $request->image->move(public_path('admin/uploads/tour'), $validated['image']);
+                }
+                if ($request->file('banner_img')) {
+                    $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
+                    $request->banner_img->move(public_path('admin/uploads/tour'), $validated['banner_img']);
+                }
+                // $validated['image'] = $request->file('image')->store('uploads','public');
+                // $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
                 
                 Tour::create($validated);
     
@@ -115,11 +123,13 @@ class TourController extends Controller{
                     $validated['time_ids']=implode(',',$request['time_ids']);
                 }
     
-                if(isset($validated['image']) && $validated['image']){
-                    $validated['image'] = $request->file('image')->store('uploads','public');
+                if ($request->file('image')) {
+                    $validated['image'] = time().'.'.$request->image->extension();  
+                    $request->image->move(public_path('admin/uploads/tour'), $validated['image']);
                 }
-                if(isset($validated['banner_img']) && $validated['banner_img']){
-                    $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
+                if ($request->file('banner_img')) {
+                    $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
+                    $request->banner_img->move(public_path('admin/uploads/tour'), $validated['banner_img']);
                 }
                 
                 Tour::find($validated['id'])->update($validated);

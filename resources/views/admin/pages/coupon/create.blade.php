@@ -36,7 +36,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="expiryDate" class="form-label">Exipry Date</label>
-                            <input type="text" name="expiry_date" class="form-control date" id="expiryDate" value="@if(isset($objData->expiry_date) && $objData->expiry_date){{ $objData->expiry_date }}@endif" data-toggle="date-picker" data-single-date-picker="true" required>
+                            <input type="text" name="expiry_date" class="form-control date" id="expiryDate" value="@if(isset($selectDate)){{ $selectDate }}@endif" data-toggle="date-picker" data-single-date-picker="true" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -44,7 +44,7 @@
                             <label for="image" class="form-label">Image</label>
                             <input type="file" id="image" class="form-control" name="image" @if(!isset($objData)) required @endif>
                             @if(isset($objData->image))
-                                <img src="{{ asset('storage/' . $objData->image) }}" width="50" class="mt-3">
+                                <img src="{{ asset('admin/uploads/coupon/' . $objData->image) }}" width="50" class="mt-3">
                             @endif
                         </div>
                     </div>

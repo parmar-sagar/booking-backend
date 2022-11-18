@@ -22,8 +22,8 @@
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Coupon Code</th>
-                                    {{-- <th>Description</th>
-                                    <th>Expire</th> --}}
+                                    {{-- <th>Description</th> --}}
+                                    <th>Expire</th>
                                     <th>Status</th>
                                     <th style="width: 85px;">Action</th>
                                 </tr>

@@ -33,7 +33,17 @@ class CouponController extends Controller
         try {
             if ($request->ajax()) {
                 $datas = Coupon::orderBy('id','DESC')->get();
-    
+                $datas = $datas->map(function($query){
+                    $date = strtotime($query->expiry_date);
+                    $expDate = date('m/d/Y', $date);
+                    return [
+                        'id' => $query->id,
+                        'name' =>$query->name,
+                        'code'=>$query->code,
+                        'expiryDate'=>$expDate,
+                        'status'=>$query->status
+                    ];
+                });
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -49,9 +59,9 @@ class CouponController extends Controller
                 $validator = Validator::make($Input, [
                     'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100|unique:coupons',
                     'description' => 'required|string',
-                    'code' => 'required|min:5|max:15',
+                    'code' => 'required|min:5|max:50',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
-                    'type' => 'required|',
+                    'type' => 'required|in:0,1',
                     'expiry_date' => 'required',
                     'ammount' => 'required|numeric|min:2',
                     'status' => 'required',
@@ -62,7 +72,12 @@ class CouponController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['image'] = $request->file('image')->store('uploads','public');
+
+                if ($request->file('image')) {
+                    $validated['image'] = time().'.'.$request->image->extension();  
+                    $request->image->move(public_path('admin/uploads/coupon'), $validated['image']);
+                }
+
                 $getDate = $validated['expiry_date'];
                 $Date=strtotime($getDate);
                 $validated['expiry_date'] = date('Y-m-d', $Date);
@@ -92,9 +107,9 @@ class CouponController extends Controller
                     'id' => 'required|exists:coupons',
                     'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100|',
                     'description' => 'required|string',
-                    'code' => 'required|min:5|max:15',
+                    'code' => 'required|min:5|max:50',
                     'image' => 'mimes:jpeg,jpg,png,gif',
-                    'type' => 'required',
+                    'type' => 'required|in:0,1',
                     'expiry_date' => 'required',
                     'ammount' => 'required|numeric|min:2',
                     'status' => 'required',
@@ -104,9 +119,12 @@ class CouponController extends Controller
                     throw new \Exception($validator->errors()->first());
                 }
                 $validated = $validator->validated();
-                if(isset($validated['image']) && $validated['image']){
-                $validated['image'] = $request->file('image')->store('uploads','public');
+
+                if ($request->file('image')) {
+                    $validated['image'] = time().'.'.$request->image->extension();  
+                    $request->image->move(public_path('admin/uploads/coupon'), $validated['image']);
                 }
+
                 $getDate = $validated['expiry_date'];
                 $Date=strtotime($getDate);
                 $validated['expiry_date'] = date('Y-m-d', $Date);
@@ -120,6 +138,8 @@ class CouponController extends Controller
                 'action' => url('admin/coupons/update/'.$id),
                 'objData' => Coupon::findOrFail($id)
             ];
+            $timestamp = strtotime($this->outputData['objData']->expiry_date);
+            $this->outputData['selectDate'] = date('m/d/Y', $timestamp);
             return view('admin.pages.coupon.create',$this->outputData);
 
         } catch (\Throwable $e) {

@@ -26,7 +26,7 @@ $(document).ready(function() {
                 {data: 'name', name: 'name'},
                 {data: 'code', name: 'code'}, 
                 // {data: 'description', name: 'description'},
-                // {data: 'expiry_dateTime', name: 'expiry_dateTime'},
+                {data: 'expiryDate', name: 'expiryDate'},
                 {data: 'status', name:'status',
                     "render": function ( data, type, row, meta ) {
                         var status = {

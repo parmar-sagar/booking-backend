@@ -9,11 +9,11 @@ class HomeSlider extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'type',
         'sequence',
         'status',
         'link',
-        'image_video'
+        'image',
+        'video'
     ];
 
     protected $hidden = [

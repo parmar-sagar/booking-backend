@@ -46,7 +46,7 @@
                             <label for="photo" class="form-label">Photo</label>
                             <input type="file" id="photo" class="form-control" name="photo" @if(!isset($objData)) required @endif>
                             @if(isset($objData->photo))
-                                <img src="{{ asset('storage/' . $objData->photo) }}" width="50" class="mt-3">
+                                <img src="{{ asset('admin/uploads/users/' . $objData->photo) }}" width="50" class="mt-3">
                             @endif
                         </div>
                     </div>
@@ -65,9 +65,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-success mb-2">Submit</button>
-                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-success mb-2">Submit</button>
                 </div>
             </form>
             <!-- end row--> 

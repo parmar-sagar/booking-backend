@@ -83,9 +83,14 @@ class VehiclesController extends Controller
                 if(isset($request['activities_ids']) && !empty($request['activities_ids'])){
                     $validated['activities_ids']=implode(',',$request['activities_ids']);
                 }
-                 
-                $validated['image'] = $request->file('image')->store('uploads','public');
-                $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
+                if ($request->file('image')) {
+                    $validated['image'] = time().'.'.$request->image->extension();  
+                    $request->image->move(public_path('admin/uploads/vehicle'), $validated['image']);
+                }
+                if ($request->file('banner_img')) {
+                    $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
+                    $request->banner_img->move(public_path('admin/uploads/vehicle'), $validated['banner_img']);
+                }
                 Vehicle::create($validated);
     
                 return response()->json(['success' => "Vehicle Created successfully."]);
@@ -149,10 +154,12 @@ class VehiclesController extends Controller
                     $validated['activities_ids']=implode(',',$request['activities_ids']);
                 }
                 if ($request->file('image')) {
-                $validated['image'] = $request->file('image')->store('uploads','public');
+                    $validated['image'] = time().'.'.$request->image->extension();  
+                    $request->image->move(public_path('admin/uploads/vehicle'), $validated['image']);
                 }
                 if ($request->file('banner_img')) {
-                $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
+                    $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
+                    $request->banner_img->move(public_path('admin/uploads/vehicle'), $validated['banner_img']);
                 }
                 Vehicle::find($validated['id'])->update($validated);
     
