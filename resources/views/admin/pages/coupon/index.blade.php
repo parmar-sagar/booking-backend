@@ -50,7 +50,7 @@
 
     <x-slot name="scripts">
         <!-- Custom App js -->
-        <script src="{{ asset('admin/js/tour.js') }}"></script>
+        <script src="{{ asset('admin/js/coupon.js') }}"></script>
         <script src="{{ asset('assets/admin/vendor/daterangepicker/moment.min.js') }}"></script>
         <script src="{{ asset('assets/admin/vendor/daterangepicker/daterangepicker.js') }}"></script>
         <!-- Bootstrap Datepicker js -->
