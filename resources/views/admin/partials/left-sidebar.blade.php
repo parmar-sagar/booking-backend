@@ -75,21 +75,21 @@
                 <div class="collapse" id="sidebarManageVehicles">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/include') }}" class="side-nav-link">
+                            <a href="{{ url('admin/includes') }}" class="side-nav-link">
                                 <i class="ri-anticlockwise-2-line"></i>
                                 <span> Includes </span>
                             </a>
                         </li>
             
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/highlight') }}" class="side-nav-link">
+                            <a href="{{ url('admin/highlights') }}" class="side-nav-link">
                                 <i class="ri-magic-fill"></i>
                                 <span> Highlights </span>
                             </a>
                         </li>
             
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/warning') }}" class="side-nav-link">
+                            <a href="{{ url('admin/warnings') }}" class="side-nav-link">
                                 <i class="ri-body-scan-fill"></i>
                                 <span> Warnings </span>
                             </a>
@@ -105,6 +105,24 @@
                 </div>
             </li>
             <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#mngHomepage" aria-expanded="false" aria-controls="mngHomepage"
+                    class="side-nav-link">
+                    <i class="ri-home-3-line"></i>
+                    <span> Manage Homepage </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="mngHomepage">
+                    <ul class="side-nav-second-level">
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/home-tours') }}" class="side-nav-link">
+                                <i class="ri-riding-fill"></i>
+                                <span> Home Tours </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
                 <a href="{{ url('admin/coupon') }}" class="side-nav-link">
                     <i class="ri-shield-user-line"></i>
                     <span> Coupons </span>
@@ -114,6 +132,9 @@
                 <a href="{{ url('admin/home-sliders') }}" class="side-nav-link">
                     <i class="ri-logout-box-line"></i>
                     <span> Home Sliders </span>
+                <a href="{{ url('admin/times') }}" class="side-nav-link">
+                    <i class="ri-time-line"></i>
+                    <span> Times </span>
                 </a>
             </li>
         </ul>

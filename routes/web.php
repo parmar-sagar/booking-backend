@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\HighlightController;
 use App\Http\Controllers\Admin\WarningController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\HomeSliderController;
+use App\Http\Controllers\Admin\HomeTourController;
+use App\Http\Controllers\Admin\TimeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,7 +65,7 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => 'include'
+        'prefix' => 'includes'
     ], function(){
         Route::get('/',[IncludeController::class, 'index']);
         Route::get('/datatable',[IncludeController::class, 'datatable']);
@@ -75,7 +77,7 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => 'highlight'
+        'prefix' => 'highlights'
     ], function(){
         Route::get('/',[HighlightController::class, 'index']);
         Route::get('/datatable',[HighlightController::class, 'datatable']);
@@ -87,7 +89,7 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => 'warning'
+        'prefix' => 'warnings'
     ], function(){
         Route::get('/',[WarningController::class, 'index']);
         Route::get('/datatable',[WarningController::class, 'datatable']);
@@ -111,7 +113,7 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => 'coupon'
+        'prefix' => 'coupons'
     ], function(){
         Route::get('/',[CouponController::class, 'index']);
         Route::get('/datatable',[CouponController::class, 'datatable']);
@@ -132,5 +134,29 @@ Route::group([
         Route::get('/edit/{id}',[HomeSliderController::class, 'edit']);
 		Route::post('/update/{id}',[HomeSliderController::class, 'edit']);
 		Route::get('/delete/{id}',[HomeSliderController::class, 'destroy']);
+    });
+    
+    Route::group([
+        'prefix' => 'home-tours'
+    ], function(){
+        Route::get('/',[HomeTourController::class, 'index']);
+        Route::get('/datatable',[HomeTourController::class, 'datatable']);
+        Route::get('/create',[HomeTourController::class, 'create']);
+        Route::post('/store',[HomeTourController::class, 'create']);
+        Route::get('/edit/{id}',[HomeTourController::class, 'edit']);
+		Route::post('/update/{id}',[HomeTourController::class, 'edit']);
+		Route::get('/delete/{id}',[HomeTourController::class, 'destroy']);
+    });
+
+    Route::group([
+        'prefix' => 'times'
+    ], function(){
+        Route::get('/',[TimeController::class, 'index']);
+        Route::get('/datatable',[TimeController::class, 'datatable']);
+        Route::get('/create',[TimeController::class, 'create']);
+        Route::post('/store',[TimeController::class, 'create']);
+        Route::get('/edit/{id}',[TimeController::class, 'edit']);
+		Route::post('/update/{id}',[TimeController::class, 'edit']);
+		Route::get('/delete/{id}',[TimeController::class, 'destroy']);
     });
 });

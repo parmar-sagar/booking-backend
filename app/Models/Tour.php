@@ -15,7 +15,9 @@ class Tour extends Model
         'time_ids',
         'image',
         'banner_img',
-        'status'
+        'status',
+        'on_home',
+        'on_home_sequence'
     ];
     protected $hidden = [
         'created_at','updated_at',

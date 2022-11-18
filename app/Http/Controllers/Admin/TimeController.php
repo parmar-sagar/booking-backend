@@ -4,15 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
-use App\Models\VehicleInfo;
+use App\Models\Time;
 use DataTables;
 
-class HighlightController extends Controller
+class TimeController extends Controller
 {
-    const ControllerCode = "H_";
+    const ControllerCode = "T_";
 
     function __construct(){
         $this->outputData = [];
@@ -20,20 +19,21 @@ class HighlightController extends Controller
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Highlights',
-            'dataTables' => url('admin/highlights/datatable'),
-            'delete' => url('admin/highlights/delete'),
-            'create' => url('admin/highlights/create'),
-            'edit' => url('admin/highlights/edit')
+            'pageName' => 'Times',
+            'dataTables' => url('admin/times/datatable'),
+            'delete' => url('admin/times/delete'),
+            'create' => url('admin/times/create'),
+            'edit' => url('admin/times/edit')
         ];
         
-        return view('admin.pages.highlight.index',$this->outputData);
+        return view('admin.pages.time.index',$this->outputData);
     }
 
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehicleInfo::orderBy('id','DESC')->where('type','=','1')->get();
+                $datas = Time::orderBy('id','DESC')->get();
+    
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -48,7 +48,8 @@ class HighlightController extends Controller
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'title' => 'required|string|min:5|unique:vehicle_infos',
+                    'time' => 'required|integer',
+                    'time_type' => 'required|in:min,hrs'
                 ]);
                   
                 if($validator->fails()){
@@ -56,16 +57,15 @@ class HighlightController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['type'] = 1;
-                VehicleInfo::create($validated);
+                Time::create($validated);
     
-                return response()->json(['success' => "Highlights Created successfully."]);
+                return response()->json(['success' => "Times Created successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'New Highlights',
-                'action' => url('admin/highlights/store'),
+                'pageName' => 'New Times',
+                'action' => url('admin/times/store'),
             ];
-            return view('admin.pages.highlight.create',$this->outputData);
+            return view('admin.pages.time.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '02');
@@ -79,8 +79,9 @@ class HighlightController extends Controller
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'id' => 'required|exists:vehicle_infos',
-                    'title' => 'required|string|min:5|unique:vehicle_infos,title,'.$id,
+                    'id' => 'required|exists:times',
+                    'time' => 'required|integer',
+                    'time_type' => 'required|in:min,hrs'
                 ]);
     
                 if($validator->fails()){
@@ -88,17 +89,16 @@ class HighlightController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['type'] = 1;
-                VehicleInfo::find($validated['id'])->update($validated);
+                Time::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Highlights Updated successfully."]);
+                return response()->json(['success' => "Times Updated successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'Edit Highlights',
-                'action' => url('admin/highlights/update/'.$id),
-                'objData' => VehicleInfo::findOrFail($id),
+                'pageName' => 'Edit Times',
+                'action' => url('admin/times/update/'.$id),
+                'objData' => Time::findOrFail($id),
             ];
-            return view('admin.pages.include.create',$this->outputData);
+            return view('admin.pages.time.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '03');
@@ -107,7 +107,7 @@ class HighlightController extends Controller
 
     public function destroy($id){
         try {
-            $res = VehicleInfo::find($id)->delete();   
+            $res = Time::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');
