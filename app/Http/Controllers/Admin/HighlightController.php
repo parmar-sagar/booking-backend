@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\VehicleInfo;
@@ -33,7 +32,7 @@ class HighlightController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehicleInfo::orderBy('id','DESC')->where('type','=','1')->get();
+                $datas = VehicleInfo::where('type',1)->orderBy('id','DESC')->get();
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {

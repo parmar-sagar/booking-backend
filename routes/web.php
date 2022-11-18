@@ -7,11 +7,14 @@ use App\Http\Controllers\Admin\VehiclesController;
 use App\Http\Controllers\Admin\IncludeController;
 use App\Http\Controllers\Admin\HighlightController;
 use App\Http\Controllers\Admin\WarningController;
+use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\HomeSliderController;
 use App\Http\Controllers\Admin\HomeTourController;
 use App\Http\Controllers\Admin\TimeController;
+use App\Http\Controllers\Admin\SafariController;
+use App\Http\Controllers\Admin\SafariVehicleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -102,6 +105,18 @@ Route::group([
     });
 
     Route::group([
+        'prefix' => 'activities'
+    ], function(){
+        Route::get('/',[ActivityController::class, 'index']);
+        Route::get('/datatable',[ActivityController::class, 'datatable']);
+        Route::get('/create',[ActivityController::class, 'create']);
+        Route::post('/store',[ActivityController::class, 'create']);
+        Route::get('/edit/{id}',[ActivityController::class, 'edit']);
+		Route::post('/update/{id}',[ActivityController::class, 'edit']);
+		Route::get('/delete/{id}',[ActivityController::class, 'destroy']);
+    });
+
+    Route::group([
         'prefix' => 'vehicles'
     ], function(){
         Route::get('/',[VehiclesController::class, 'index']);
@@ -171,5 +186,29 @@ Route::group([
         Route::get('/edit/{id}',[TimeController::class, 'edit']);
 		Route::post('/update/{id}',[TimeController::class, 'edit']);
 		Route::get('/delete/{id}',[TimeController::class, 'destroy']);
+    });
+    
+    Route::group([
+        'prefix' => 'safaris'
+    ], function(){
+        Route::get('/',[SafariController::class, 'index']);
+        Route::get('/datatable',[SafariController::class, 'datatable']);
+        Route::get('/create',[SafariController::class, 'create']);
+        Route::post('/store',[SafariController::class, 'create']);
+        Route::get('/edit/{id}',[SafariController::class, 'edit']);
+		Route::post('/update/{id}',[SafariController::class, 'edit']);
+		Route::get('/delete/{id}',[SafariController::class, 'destroy']);
+    });
+
+    Route::group([
+        'prefix' => 'safari-vehicles'
+    ], function(){
+        Route::get('/',[SafariVehicleController::class, 'index']);
+        Route::get('/datatable',[SafariVehicleController::class, 'datatable']);
+        Route::get('/create',[SafariVehicleController::class, 'create']);
+        Route::post('/store',[SafariVehicleController::class, 'create']);
+        Route::get('/edit/{id}',[SafariVehicleController::class, 'edit']);
+		Route::post('/update/{id}',[SafariVehicleController::class, 'edit']);
+		Route::get('/delete/{id}',[SafariVehicleController::class, 'destroy']);
     });
 });

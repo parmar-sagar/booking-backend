@@ -32,7 +32,7 @@ class WarningController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehicleInfo::orderBy('id','DESC')->where('type','=','3')->get();
+                $datas = VehicleInfo::where('type',3)->orderBy('id','DESC')->get();
     
                 return DataTables::of($datas)->toJson();;
             }
