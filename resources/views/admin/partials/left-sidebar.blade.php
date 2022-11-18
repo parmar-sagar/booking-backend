@@ -129,6 +129,9 @@
                 </a>
             </li>
             <li class="side-nav-item">
+                <a href="{{ url('admin/locations') }}" class="side-nav-link">
+                    <i class="ri-map-pin-2-line"></i>
+                    <span> Locations </span>
                 <a href="{{ url('admin/home-sliders') }}" class="side-nav-link">
                     <i class="ri-logout-box-line"></i>
                     <span> Home Sliders </span>
