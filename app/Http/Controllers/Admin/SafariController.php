@@ -69,11 +69,11 @@ class SafariController extends Controller
                     $validated['time_ids']=implode(',',$request['time_ids']);
                 }
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->extension();  
+                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
                     $request->image->move(public_path('admin/uploads/tour'), $validated['image']);
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
+                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
                     $request->banner_img->move(public_path('admin/uploads/tour'), $validated['banner_img']);
                 }
 
@@ -125,11 +125,11 @@ class SafariController extends Controller
                 }
     
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->extension();  
+                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
                     $request->image->move(public_path('admin/uploads/tour'), $validated['image']);
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
+                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
                     $request->banner_img->move(public_path('admin/uploads/tour'), $validated['banner_img']);
                 }
                 

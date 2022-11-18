@@ -60,11 +60,11 @@ class HomeSliderController extends Controller
  
                 $validated = $validator->validated();
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->extension();  
+                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
                     $request->image->move(public_path('admin/uploads/slider'), $validated['image']);
                 }
                 if ($request->file('video')) {
-                    $validated['video'] = time().'.'.$request->video->extension();  
+                    $validated['video'] = time().'.'.$request->video->getClientOriginalExtension();  
                     $request->video->move(public_path('admin/uploads/slider'), $validated['video']);
                 }
 
@@ -105,11 +105,11 @@ class HomeSliderController extends Controller
                 $validated = $validator->validated();
 
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->extension();  
+                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
                     $request->image->move(public_path('admin/uploads/slider'), $validated['image']);
                 }
                 if ($request->file('video')) {
-                    $validated['video'] = time().'.'.$request->video->extension();  
+                    $validated['video'] = time().'.'.$request->video->getClientOriginalExtension();  
                     $request->video->move(public_path('admin/uploads/slider'), $validated['video']);
                 }
 

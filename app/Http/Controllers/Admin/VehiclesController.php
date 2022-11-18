@@ -84,11 +84,11 @@ class VehiclesController extends Controller
                     $validated['activities_ids']=implode(',',$request['activities_ids']);
                 }
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->extension();  
+                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
                     $request->image->move(public_path('admin/uploads/vehicle'), $validated['image']);
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
+                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
                     $request->banner_img->move(public_path('admin/uploads/vehicle'), $validated['banner_img']);
                 }
                 Vehicle::create($validated);
@@ -154,11 +154,11 @@ class VehiclesController extends Controller
                     $validated['activities_ids']=implode(',',$request['activities_ids']);
                 }
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->extension();  
+                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
                     $request->image->move(public_path('admin/uploads/vehicle'), $validated['image']);
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
+                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
                     $request->banner_img->move(public_path('admin/uploads/vehicle'), $validated['banner_img']);
                 }
                 Vehicle::find($validated['id'])->update($validated);
