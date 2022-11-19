@@ -44,13 +44,18 @@ class HomeSliderController extends Controller
         try {
             if($request->method() == 'POST'){
                 $Input = $request->all();
-                
+                $imageVdo = '';
+                if($Input['type'] == 0){
+                    $imageVdo = 'required|mimes:jpeg,jpg,png,gif';
+                }elseif($Input['type'] == 1){
+                    $imageVdo = 'required|mimes:mp4,mov,ogg';
+                }
                 // Validation section
                 $validator = Validator::make($Input, [
                     'sequence' => 'required|integer',
                     'status' => 'required|in:1,0',
-                    'image' => 'required|mimes:jpeg,jpg,png,gif,webm,mp4,mpeg|max:4096',
-                    'video' => 'mimes:mp4,mov,ogg'
+                    'image_video' => $imageVdo,
+                    'type' => 'required|in:0,1'
 
                 ]);
                   
@@ -59,13 +64,9 @@ class HomeSliderController extends Controller
                 }
  
                 $validated = $validator->validated();
-                if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->extension();  
-                    $request->image->move(public_path('admin/uploads/slider'), $validated['image']);
-                }
-                if ($request->file('video')) {
-                    $validated['video'] = time().'.'.$request->video->extension();  
-                    $request->video->move(public_path('admin/uploads/slider'), $validated['video']);
+                if ($request->file('image_video')) {
+                    $validated['image_video'] = time().'.'.$request->image_video->getClientOriginalExtension();  
+                    $request->image_video->move(public_path('admin/uploads/slider'), $validated['image_video']);
                 }
 
                 $validated['link'] = $request->link;
@@ -88,14 +89,19 @@ class HomeSliderController extends Controller
         try {
             if($request->method() == 'POST'){
                 $Input = $request->all();
-                
+                $imageVdo = '';
+                if($Input['type'] == 0){
+                    $imageVdo = 'mimes:jpeg,jpg,png,gif';
+                }elseif($Input['type'] == 1){
+                    $imageVdo = 'mimes:mp4,mov,ogg';
+                }
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:home_sliders',
                     'sequence' => 'required|integer',
                     'status' => 'required|in:1,0',
-                    'image' => 'mimes:jpeg,jpg,png,gif',
-                    'video' => 'mimes:mp4,mov,ogg'
+                    'image_video' => $imageVdo,
+                    'type' => 'required|in:0,1'
                 ]);
     
                 if($validator->fails()){
@@ -104,13 +110,9 @@ class HomeSliderController extends Controller
                 
                 $validated = $validator->validated();
 
-                if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->extension();  
-                    $request->image->move(public_path('admin/uploads/slider'), $validated['image']);
-                }
-                if ($request->file('video')) {
-                    $validated['video'] = time().'.'.$request->video->extension();  
-                    $request->video->move(public_path('admin/uploads/slider'), $validated['video']);
+                if ($request->file('image_video')) {
+                    $validated['image_video'] = time().'.'.$request->image_video->getClientOriginalExtension();  
+                    $request->image_video->move(public_path('admin/uploads/slider'), $validated['image_video']);
                 }
 
                 $validated['link'] = $request->link;
