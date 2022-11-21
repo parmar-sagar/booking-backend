@@ -26,6 +26,10 @@ return new class extends Migration
             $table->string('activities_ids', 100);
             $table->string('banner_img', 100);
             $table->string('image', 100);
+            $table->integer('no_of_persons');
+            $table->integer('sequence')->default(0);
+            $table->integer('discount')->nullable()->comment('Discount in percentage');
+            $table->enum('is_deals',['0','1'])->default(0);
             $table->enum('status',['0','1'])->default(1)->comment('0 => Deactive , 1 => Active')->index('idx_status');
             $table->enum('type',['Tour','Safari'])->default('Tour');
             $table->softDeletes();

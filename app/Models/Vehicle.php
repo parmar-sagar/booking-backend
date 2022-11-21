@@ -24,7 +24,11 @@ class Vehicle extends Model
         'image',
         'status',
         'type',
-        'activities_ids'
+        'activities_ids',
+        'no_of_persons',
+        'is_deals',
+        'discount',
+        'sequence'
     ];
 
     protected $hidden = [
