@@ -11,6 +11,8 @@ use App\Handlers\Error;
 use App\Models\Tour;
 use App\Models\Time;
 use DataTables;
+use Helper;
+
 
 class VehiclesController extends Controller
 {
@@ -35,7 +37,7 @@ class VehiclesController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Vehicle::where('type','Tour')->orderBy('id','DESC')->get();
+                $datas = Vehicle::type('Tour')->order()->get();
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -68,28 +70,19 @@ class VehiclesController extends Controller
                 }
                 $validated = $validator->validated();
 
-                if(isset($request['time_ids']) && !empty($request['time_ids'])){
-                    $validated['time_ids']=implode(',',$request['time_ids']);
-                }
-                if(isset($request['includes_ids']) && !empty($request['includes_ids'])){
-                    $validated['includes_ids']=implode(',',$request['includes_ids']);
-                }
-                if(isset($request['highlight_ids']) && !empty($request['highlight_ids'])){
-                    $validated['highlight_ids']=implode(',',$request['highlight_ids']);
-                }
-                if(isset($request['warning_ids']) && !empty($request['warning_ids'])){
-                    $validated['warning_ids']=implode(',',$request['warning_ids']);
-                }
-                if(isset($request['activities_ids']) && !empty($request['activities_ids'])){
-                    $validated['activities_ids']=implode(',',$request['activities_ids']);
-                }
+                    $validated['time_ids'] = Helper::coverarryTostring($request['time_ids']);
+                    $validated['includes_ids'] = Helper::coverarryTostring($request['includes_ids']);
+                    $validated['highlight_ids'] = Helper::coverarryTostring($request['highlight_ids']);
+                    $validated['warning_ids'] = Helper::coverarryTostring($request['warning_ids']);
+                    $validated['activities_ids'] = Helper::coverarryTostring($request['activities_ids']);
+
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->extension();  
-                    $request->image->move(public_path('admin/uploads/vehicle'), $validated['image']);
+                    $path = 'vehicle';
+                    $validated['image'] = Helper::imageUpload($request->image, $path);
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
-                    $request->banner_img->move(public_path('admin/uploads/vehicle'), $validated['banner_img']);
+                    $path = 'vehicle';
+                    $validated['banner_img'] = Helper::imageUpload($request->banner_img, $path);
                 }
                 Vehicle::create($validated);
     
@@ -98,12 +91,12 @@ class VehiclesController extends Controller
             $this->outputData = [
                 'pageName' => 'New Vehicle',
                 'action' => url('admin/vehicles/store'),
-                'tourName' => Tour::where('type','Tour')->select('name','id')->orderBy('id','DESC')->get(),
-                'includes' => VehicleInfo::where('type',2)->orderBy('id','DESC')->get(),
-                'highlights' => VehicleInfo::where('type',1)->orderBy('id','DESC')->get(),
-                'warnings' => VehicleInfo::where('type',3)->orderBy('id','DESC')->get(),
-                'activities' => VehicleInfo::where('type',4)->orderBy('id','DESC')->get(),
-                'time' => Time::orderBy('id','DESC')->get()
+                'tourName' => Tour::type('Tour')->select('name','id')->order()->get(),
+                'includes' => VehicleInfo::type(2)->order()->get(),
+                'highlights' => VehicleInfo::type(1)->order()->get(),
+                'warnings' => VehicleInfo::type(3)->order()->get(),
+                'activities' => VehicleInfo::type(4)->order()->get(),
+                'time' => Time::order()->get()
             ];
             return view('admin.pages.vehicles.create',$this->outputData);
 
@@ -138,29 +131,20 @@ class VehiclesController extends Controller
                 }
                 $validated = $validator->validated();
 
-                if(isset($request['time_ids']) && !empty($request['time_ids'])){
-                    $validated['time_ids']=implode(',',$request['time_ids']);
-                }
-                if(isset($request['includes_ids']) && !empty($request['includes_ids'])){
-                    $validated['includes_ids']=implode(',',$request['includes_ids']);
-                }
-                if(isset($request['highlight_ids']) && !empty($request['highlight_ids'])){
-                    $validated['highlight_ids']=implode(',',$request['highlight_ids']);
-                }
-                if(isset($request['warning_ids']) && !empty($request['warning_ids'])){
-                    $validated['warning_ids']=implode(',',$request['warning_ids']);
-                }
-                if(isset($request['activities_ids']) && !empty($request['activities_ids'])){
-                    $validated['activities_ids']=implode(',',$request['activities_ids']);
-                }
-                if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->extension();  
-                    $request->image->move(public_path('admin/uploads/vehicle'), $validated['image']);
-                }
-                if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
-                    $request->banner_img->move(public_path('admin/uploads/vehicle'), $validated['banner_img']);
-                }
+                $validated['time_ids'] = Helper::coverarryTostring( $request['time_ids'] );
+                $validated['includes_ids'] = Helper::coverarryTostring( $request['includes_ids'] );
+                $validated['highlight_ids'] = Helper::coverarryTostring( $request['highlight_ids'] );
+                $validated['warning_ids'] = Helper::coverarryTostring( $request['warning_ids'] );
+                $validated['activities_ids'] = Helper::coverarryTostring( $request['activities_ids'] );
+
+            if ($request->file('image')) {
+                $path = 'vehicle';
+                $validated['image'] = Helper::imageUpload( $request->image, $path );
+            }
+            if ($request->file('banner_img')) {
+                $path = 'vehicle';
+                $validated['banner_img'] = Helper::imageUpload( $request->banner_img, $path );
+            }
                 Vehicle::find($validated['id'])->update($validated);
     
                 return response()->json(['success' => "Vehicle Updated successfully."]);
@@ -169,26 +153,20 @@ class VehiclesController extends Controller
                 'pageName' => 'Edit Vehicle',
                 'action' => url('admin/vehicles/update/'.$id),
                 'objData' => Vehicle::findOrFail($id),
-                'time' => Time::orderBy('id','DESC')->get(),
-                'tourName' => Tour::orderBy('id','DESC')->select('name','id')->get(),
-                'includes' => VehicleInfo::where('type',2)->orderBy('id','DESC')->get(),
-                'highlights' => VehicleInfo::where('type',1)->orderBy('id','DESC')->get(),
-                'warnings' => VehicleInfo::where('type',3)->orderBy('id','DESC')->get(),
-                'activities' => VehicleInfo::where('type',4)->orderBy('id','DESC')->get(),
-                'time' => Time::orderBy('id','DESC')->get()
+                'tourName' => Tour::type('Tour')->select('name','id')->order()->get(),
+                'highlights' => VehicleInfo::type(1)->order()->get(),
+                'includes' => VehicleInfo::type(2)->order()->get(),
+                'warnings' => VehicleInfo::type(3)->order()->get(),
+                'activities' => VehicleInfo::type(4)->order()->get(),
+                'time' => Time::order()->get()
             ];
-            $time = $this->outputData['objData']->time_ids;
-            $this->outputData['selctdTime'] = explode(',',$time);
-            $tourId = $this->outputData['objData']->tour_id;
-            $this->outputData['selctdTour'] = explode(',',$tourId);
-            $includeId = $this->outputData['objData']->includes_ids;
-            $this->outputData['selctdIncludes'] = explode(',',$includeId);
-            $warningId = $this->outputData['objData']->warning_ids;
-            $this->outputData['selctdWarning'] = explode(',',$warningId);
-            $highlightId = $this->outputData['objData']->highlight_ids;
-            $this->outputData['selctdHighlight'] = explode(',',$highlightId);
-            $activitiesId = $this->outputData['objData']->activities_ids;
-            $this->outputData['selctdActivitie'] = explode(',',$activitiesId);
+
+            $this->outputData['selctdTime'] = Helper::convertToarry( $this->outputData['objData']->time_ids );
+            $this->outputData['selctdTour'] = Helper::convertToarry( $this->outputData['objData']->tour_id );
+            $this->outputData['selctdIncludes'] = Helper::convertToarry( $this->outputData['objData']->includes_ids );
+            $this->outputData['selctdWarning'] = Helper::convertToarry( $this->outputData['objData']->warning_ids );
+            $this->outputData['selctdHighlight'] = Helper::convertToarry( $this->outputData['objData']->highlight_ids );
+            $this->outputData['selctdActivitie'] = Helper::convertToarry( $this->outputData['objData']->activities_ids );
 
             return view('admin.pages.vehicles.create',$this->outputData);
 
