@@ -60,6 +60,7 @@ class VehiclesController extends Controller
                     'highlight_ids' => 'required|array',
                     'warning_ids' => 'required|array',
                     'status' => 'required|in:0,1',
+                    'no_of_persons' => 'required|integer',
                     'activities_ids' => 'required|array'
                 ]);
     
@@ -130,6 +131,7 @@ class VehiclesController extends Controller
                     'highlight_ids' => 'required|array',
                     'warning_ids' => 'required|array',
                     'status' => 'required|in:0,1',
+                    'no_of_persons' => 'required|integer',
                     'activities_ids' => 'required|array'
                 ]);
     

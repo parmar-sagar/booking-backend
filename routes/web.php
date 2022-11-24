@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\HomeTourController;
 use App\Http\Controllers\Admin\TimeController;
 use App\Http\Controllers\Admin\SafariController;
 use App\Http\Controllers\Admin\SafariVehicleController;
+use App\Http\Controllers\Admin\DealsController;
 use App\Http\Controllers\Admin\GroupController;
 use Illuminate\Support\Facades\Route;
 
@@ -214,6 +215,19 @@ Route::group([
     });
 
     Route::group([
+        'prefix' => 'deals'
+    ], function(){
+        Route::get('/',[DealsController::class, 'index']);
+        Route::get('/datatable',[DealsController::class, 'datatable']);
+        Route::get('/create',[DealsController::class, 'create']);
+        Route::post('/store',[DealsController::class, 'create']);
+        Route::get('/edit/{id}',[DealsController::class, 'edit']);
+		Route::post('/update/{id}',[DealsController::class, 'edit']);
+		Route::get('/delete/{id}',[DealsController::class, 'destroy']);
+
+    }); 
+     
+    Route::group([ 
         'prefix' => 'group'
     ], function(){
         Route::get('/',[GroupController::class, 'index']);

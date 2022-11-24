@@ -47,6 +47,12 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
+                            <label for="no_of_persons" class="form-label">No Of Persons</label>
+                            <input type="text" id="no_of_persons" class="form-control" name="no_of_persons" value="@if(isset($objData->no_of_persons) && $objData->no_of_persons){{ $objData->no_of_persons }}@endif" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
                             <label for="description" class="form-label">Times</label>
                             <select  class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Choose ..." name="time_ids[]">
                                 @foreach($time as $time_tour)
