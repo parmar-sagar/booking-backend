@@ -36,4 +36,14 @@ class Vehicle extends Model
     ];
 
     protected $dates = ['deleted_at'];
+
+
+    public function scopeType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
+
+    public function ScopeOrder($query){
+        return $query->orderBy('id','DESC');
+    }
 }

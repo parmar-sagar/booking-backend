@@ -54,9 +54,9 @@ class UserController extends Controller{
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:50',
-                    'email' => 'required|max:100|email|unique:users',
-                    'mobile' => 'required|string|max:12',
+                    'name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|max:50',
+                    'email' => 'required|max:100|email:rfc,dns|unique:users',
+                    'mobile' => 'required|string|min:10|max:12',
                     'photo' => 'required|mimes:jpeg,jpg,png,gif',
                     'status' => 'required',
                     'password' => 'required|string|max:20',
@@ -99,11 +99,11 @@ class UserController extends Controller{
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:users',
-                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:50',
-                    'email' => 'required|max:100|unique:users,email,'.$id,
-                    'mobile' => 'required|string|max:12',
+                    'name' => 'required|regex:/^[a-zA-Z_\- ]*$/|max:50',
+                    'email' => 'required|max:100|email:rfc,dns|unique:users,email,'.$id,
+                    'mobile' => 'required|string||min:10|max:12',
                     'photo' => 'mimes:jpeg,jpg,png,gif',
-                    'status' => 'required',
+                    'status' => 'required|in:0,1',
                 ]);
     
                 if($validator->fails()){

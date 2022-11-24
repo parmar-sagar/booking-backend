@@ -17,4 +17,12 @@ class VehicleInfo extends Model
     protected $hidden = [
         'created_at','updated_at',
     ];
+
+    public function scopeType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
+    public function ScopeOrder($query){
+        return $query->orderBy('id','DESC');
+    }
 }
