@@ -11,7 +11,7 @@ use App\Handlers\Error;
 use App\Models\Tour;
 use App\Models\Time;
 use DataTables;
-use Helper;
+use App\Helpers\Helper;
 
 
 class VehiclesController extends Controller
@@ -70,19 +70,19 @@ class VehiclesController extends Controller
                 }
                 $validated = $validator->validated();
 
-                    $validated['time_ids'] = Helper::coverarryTostring($request['time_ids']);
-                    $validated['includes_ids'] = Helper::coverarryTostring($request['includes_ids']);
-                    $validated['highlight_ids'] = Helper::coverarryTostring($request['highlight_ids']);
-                    $validated['warning_ids'] = Helper::coverarryTostring($request['warning_ids']);
-                    $validated['activities_ids'] = Helper::coverarryTostring($request['activities_ids']);
+                    $validated['time_ids'] = Helper::implode($request['time_ids']);
+                    $validated['includes_ids'] = Helper::implode($request['includes_ids']);
+                    $validated['highlight_ids'] = Helper::implode($request['highlight_ids']);
+                    $validated['warning_ids'] = Helper::implode($request['warning_ids']);
+                    $validated['activities_ids'] = Helper::implode($request['activities_ids']);
 
                 if ($request->file('image')) {
                     $path = 'vehicle';
-                    $validated['image'] = Helper::imageUpload($request->image, $path);
+                    $validated['image'] = Helper::uploadFile($request->image, $path);
                 }
                 if ($request->file('banner_img')) {
                     $path = 'vehicle';
-                    $validated['banner_img'] = Helper::imageUpload($request->banner_img, $path);
+                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
                 Vehicle::create($validated);
     
@@ -131,19 +131,19 @@ class VehiclesController extends Controller
                 }
                 $validated = $validator->validated();
 
-                $validated['time_ids'] = Helper::coverarryTostring( $request['time_ids'] );
-                $validated['includes_ids'] = Helper::coverarryTostring( $request['includes_ids'] );
-                $validated['highlight_ids'] = Helper::coverarryTostring( $request['highlight_ids'] );
-                $validated['warning_ids'] = Helper::coverarryTostring( $request['warning_ids'] );
-                $validated['activities_ids'] = Helper::coverarryTostring( $request['activities_ids'] );
+                $validated['time_ids'] = Helper::implode( $request['time_ids'] );
+                $validated['includes_ids'] = Helper::implode( $request['includes_ids'] );
+                $validated['highlight_ids'] = Helper::implode( $request['highlight_ids'] );
+                $validated['warning_ids'] = Helper::implode( $request['warning_ids'] );
+                $validated['activities_ids'] = Helper::implode( $request['activities_ids'] );
 
             if ($request->file('image')) {
                 $path = 'vehicle';
-                $validated['image'] = Helper::imageUpload( $request->image, $path );
+                $validated['image'] = Helper::uploadFile( $request->image, $path );
             }
             if ($request->file('banner_img')) {
                 $path = 'vehicle';
-                $validated['banner_img'] = Helper::imageUpload( $request->banner_img, $path );
+                $validated['banner_img'] = Helper::uploadFile( $request->banner_img, $path );
             }
                 Vehicle::find($validated['id'])->update($validated);
     
@@ -161,12 +161,12 @@ class VehiclesController extends Controller
                 'time' => Time::order()->get()
             ];
 
-            $this->outputData['selctdTime'] = Helper::convertToarry( $this->outputData['objData']->time_ids );
-            $this->outputData['selctdTour'] = Helper::convertToarry( $this->outputData['objData']->tour_id );
-            $this->outputData['selctdIncludes'] = Helper::convertToarry( $this->outputData['objData']->includes_ids );
-            $this->outputData['selctdWarning'] = Helper::convertToarry( $this->outputData['objData']->warning_ids );
-            $this->outputData['selctdHighlight'] = Helper::convertToarry( $this->outputData['objData']->highlight_ids );
-            $this->outputData['selctdActivitie'] = Helper::convertToarry( $this->outputData['objData']->activities_ids );
+            $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
+            $this->outputData['selctdTour'] = Helper::explode( $this->outputData['objData']->tour_id );
+            $this->outputData['selctdIncludes'] = Helper::explode( $this->outputData['objData']->includes_ids );
+            $this->outputData['selctdWarning'] = Helper::explode( $this->outputData['objData']->warning_ids );
+            $this->outputData['selctdHighlight'] = Helper::explode( $this->outputData['objData']->highlight_ids );
+            $this->outputData['selctdActivitie'] = Helper::explode( $this->outputData['objData']->activities_ids );
 
             return view('admin.pages.vehicles.create',$this->outputData);
 
