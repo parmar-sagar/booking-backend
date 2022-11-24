@@ -17,6 +17,21 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
+                            <label for="image_video" class="form-label">Upload Image Or Video</label>
+                            <input type="file" id="image_video" class="form-control imgVdo" name="image_video" @if(!isset($objData)) required @endif>
+
+                            @if(isset($objData->image_video) && $objData->type ==0)
+                               <img src="{{ asset('admin/uploads/slider/' . $objData->image_video) }}" width="320" class="mt-3">
+                            @elseIf(isset($objData->image_video) && $objData->type ==1)
+                                <video width="320" height="240" controls>
+                                    <source src="{{ asset('admin/uploads/slider/' . $objData->image_video) }}" type="video/mp4">
+                                </video>
+                            @endif
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
                             <label for="sequence" class="form-label">Sequence</label>
                             <input type="text" id="sequence" class="form-control" name="sequence" value="@if(isset($objData->sequence) && $objData->sequence){{ $objData->sequence }}@endif" required>
                         </div>
@@ -27,42 +42,7 @@
                             <input type="text" id="link" class="form-control" name="link" value="@if(isset($objData->link) && $objData->link){{ $objData->link }}@endif">
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Image</label>
-                            <input type="file" id="image" class="form-control imgVdo" name="image" @if(!isset($objData)) required @endif>
-                            @if(isset($objData->image))
-                            <img src="{{ asset('admin/uploads/slider/' . $objData->image) }}" width="320" class="mt-3">
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label for="video" class="form-label">Video</label>
-                            <input type="file" id="video" class="form-control imgVdo" name="video" @if(!isset($objData)) required @endif>
-                            @if(isset($objData->video))
-                            <video width="320" height="240" controls>
-                                <source src="{{ asset('admin/uploads/slider/' . $objData->video) }}" type="video/mp4">
-                            </video>
-                            @endif
-                        </div>
-                    </div>
-                    {{-- <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label for="type" class="form-label">Type</label>
-                            <div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" id="typeImg" name="type" class="form-check-input" value="image" @if(isset($objData) && $objData->type == 'image')) checked @endif checked>
-                                    <label class="form-check-label" for="active">Image</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" id="typeVdo" name="type" class="form-check-input" value="video" @if(isset($objData) && $objData->type == 'video')) checked @endif>
-                                    <label class="form-check-label" for="inactive">Video</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
-                    <div class="col-lg-6">
+                    <div class="col-lg-3">
                         <div class="mb-3">
                             <label for="status" class="form-label">Status</label>
                             <div>
@@ -76,9 +56,24 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-success mb-2">Submit</button>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Type</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="active" name="type" class="form-check-input" value="0" @if(isset($objData) && $objData->type ==0)) checked @endif checked>
+                                    <label class="form-check-label" for="iamge">Image</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="type" name="type" class="form-check-input" value="1" @if(isset($objData) && $objData->type ==1)) checked @endif>
+                                    <label class="form-check-label" for="video">Video</label>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-success mb-2">Submit</button>
                     </div>
             </form>
             <!-- end row--> 
