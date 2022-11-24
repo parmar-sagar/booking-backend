@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Handlers\Error;
 use App\Models\VehicleInfo;
+use App\Handlers\Error;
 use DataTables;
 
 class HighlightController extends Controller
@@ -32,7 +32,7 @@ class HighlightController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehicleInfo::where('type',1)->orderBy('id','DESC')->get();
+                $datas = VehicleInfo::type(1)->order()->get();
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -47,7 +47,7 @@ class HighlightController extends Controller
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'title' => 'required|string|min:5|unique:vehicle_infos',
+                    'title' => 'required|regex:/^[\pL\s\-\/\_]+$/u|min:3|unique:vehicle_infos',
                 ]);
                   
                 if($validator->fails()){
@@ -56,6 +56,7 @@ class HighlightController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 1;
+
                 VehicleInfo::create($validated);
     
                 return response()->json(['success' => "Highlights Created successfully."]);
@@ -79,7 +80,7 @@ class HighlightController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:vehicle_infos',
-                    'title' => 'required|string|min:5|unique:vehicle_infos,title,'.$id,
+                    'title' => 'required|regex:/^[\pL\s\-\/\_]+$/u|min:3|unique:vehicle_infos,title,'.$id,
                 ]);
     
                 if($validator->fails()){
@@ -88,6 +89,7 @@ class HighlightController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 1;
+                
                 VehicleInfo::find($validated['id'])->update($validated);
     
                 return response()->json(['success' => "Highlights Updated successfully."]);

@@ -1,6 +1,9 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
+            <div>
+                <p><span style="color:red">Note : </span> Locations can be managed here that is to be shown in safari and tour module. These can be added, removed and modified.</p>
+            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>

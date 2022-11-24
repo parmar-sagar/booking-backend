@@ -32,7 +32,7 @@ class DealsController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Vehicle::where('is_deals','1')->orderBy('id','DESC')->get();
+                $datas = Vehicle::deal('1')->order()->get();
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -56,7 +56,8 @@ class DealsController extends Controller
                     throw new \Exception($validator->errors()->first());
                 }
                 $validated = $validator->validated();
-                $validated['is_deals'] = 1; 
+                $validated['is_deals'] = '1'; 
+
                 Vehicle::find($validated['vehicleId'])->update($validated);
     
                 return response()->json(['success' => "Deals Created successfully."]);
@@ -64,7 +65,7 @@ class DealsController extends Controller
             $this->outputData = [
                 'pageName' => 'New deals',
                 'action' => url('admin/deals/store'),
-                'vehicles' => Vehicle::select('name','id','type')->where('is_deals','0')->orderBy('id','DESC')->get(),
+                'vehicles' => Vehicle::deal('0')->select('name','id','type')->order()->get(),
             ];
             return view('admin.pages.deals.create',$this->outputData);
 
@@ -108,7 +109,7 @@ class DealsController extends Controller
                 'pageName' => 'Edit deals',
                 'action' => url('admin/deals/update/'.$id),
                 'objData' => Vehicle::findOrFail($id),
-                'vehicles' => Vehicle::select('name','id','type')->where('id',$id)->orWhere('is_deals','0')->orderBy('id','DESC')->get()
+                'vehicles' => Vehicle::deal('0')->orWhere('id',$id)->select('name','id','type')->order()->get()
             ];
             return view('admin.pages.deals.create',$this->outputData);
 

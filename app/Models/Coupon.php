@@ -25,5 +25,9 @@ class Coupon extends Model
         'created_at','updated_at',
     ];
 
+    public function ScopeOrder($query){
+        return $query->orderBy('id','DESC');
+    }
+
     protected $dates = ['deleted_at'];
 }

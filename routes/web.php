@@ -153,9 +153,11 @@ Route::group([
 		Route::post('/update/{id}',[LocationController::class, 'edit']);
 		Route::get('/delete/{id}',[LocationController::class, 'destroy']);
     });
-    
+Route::group([
+        'prefix' => 'home' 
+    ], function(){   
  Route::group([
-        'prefix' => 'home-sliders'
+        'prefix' => 'sliders'
     ], function(){
         Route::get('/',[HomeSliderController::class, 'index']);
         Route::get('/datatable',[HomeSliderController::class, 'datatable']);
@@ -167,7 +169,7 @@ Route::group([
     });
     
     Route::group([
-        'prefix' => 'home-tours'
+        'prefix' => 'tours'
     ], function(){
         Route::get('/',[HomeTourController::class, 'index']);
         Route::get('/datatable',[HomeTourController::class, 'datatable']);
@@ -177,6 +179,7 @@ Route::group([
 		Route::post('/update/{id}',[HomeTourController::class, 'edit']);
 		Route::get('/delete/{id}',[HomeTourController::class, 'destroy']);
     });
+});
 
     Route::group([
         'prefix' => 'times'
@@ -228,7 +231,7 @@ Route::group([
     }); 
      
     Route::group([ 
-        'prefix' => 'group'
+        'prefix' => 'group-discount'
     ], function(){
         Route::get('/',[GroupController::class, 'index']);
         Route::get('/datatable',[GroupController::class, 'datatable']);

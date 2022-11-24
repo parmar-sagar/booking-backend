@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Handlers\Error;
 use App\Models\HomeSlider;
+use App\Handlers\Error;
+use App\Helpers\Helper;
+
 use DataTables;
 
 class HomeSliderController extends Controller
@@ -20,10 +22,10 @@ class HomeSliderController extends Controller
     public function index(){
         $this->outputData = [
             'pageName' => 'Home Sliders',
-            'dataTables' => url('admin/home-sliders/datatable'),
-            'delete' => url('admin/home-sliders/delete'),
-            'create' => url('admin/home-sliders/create'),
-            'edit' => url('admin/home-sliders/edit')
+            'dataTables' => url('admin/home/sliders/datatable'),
+            'delete' => url('admin/home/sliders/delete'),
+            'create' => url('admin/home/sliders/create'),
+            'edit' => url('admin/home/sliders/edit')
         ];
         
         return view('admin.pages.home_slider.index',$this->outputData);
@@ -32,7 +34,7 @@ class HomeSliderController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = HomeSlider::orderBy('id','DESC')->get();
+                $datas = HomeSlider::order()->get();
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -44,12 +46,15 @@ class HomeSliderController extends Controller
         try {
             if($request->method() == 'POST'){
                 $Input = $request->all();
+
                 $imageVdo = '';
+
                 if($Input['type'] == 0){
                     $imageVdo = 'required|mimes:jpeg,jpg,png,gif';
                 }elseif($Input['type'] == 1){
                     $imageVdo = 'required|mimes:mp4,mov,ogg';
                 }
+
                 // Validation section
                 $validator = Validator::make($Input, [
                     'sequence' => 'required|integer',
@@ -64,9 +69,10 @@ class HomeSliderController extends Controller
                 }
  
                 $validated = $validator->validated();
+
                 if ($request->file('image_video')) {
-                    $validated['image_video'] = time().'.'.$request->image_video->getClientOriginalExtension();  
-                    $request->image_video->move(public_path('admin/uploads/slider'), $validated['image_video']);
+                    $path = 'slider';
+                    $validated['image_video'] = Helper::uploadFile($request->image_video, $path);
                 }
 
                 $validated['link'] = $request->link;
@@ -76,7 +82,7 @@ class HomeSliderController extends Controller
             }
             $this->outputData = [
                 'pageName' => 'New Home Sliders',
-                'action' => url('admin/home-sliders/store'),
+                'action' => url('admin/home/sliders/store'),
             ];
             return view('admin.pages.home_slider.create',$this->outputData);
 
@@ -111,8 +117,8 @@ class HomeSliderController extends Controller
                 $validated = $validator->validated();
 
                 if ($request->file('image_video')) {
-                    $validated['image_video'] = time().'.'.$request->image_video->getClientOriginalExtension();  
-                    $request->image_video->move(public_path('admin/uploads/slider'), $validated['image_video']);
+                    $path = 'slider';
+                    $validated['image_video'] = Helper::uploadFile($request->image_video, $path);
                 }
 
                 $validated['link'] = $request->link;
@@ -122,7 +128,7 @@ class HomeSliderController extends Controller
             }
             $this->outputData = [
                 'pageName' => 'Edit Home Sliders',
-                'action' => url('admin/home-sliders/update/'.$id),
+                'action' => url('admin/home/sliders/update/'.$id),
                 'objData' => HomeSlider::findOrFail($id),
             ];
             return view('admin.pages.home_slider.create',$this->outputData);

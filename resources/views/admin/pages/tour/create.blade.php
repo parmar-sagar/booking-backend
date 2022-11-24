@@ -1,6 +1,9 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
+            <div>
+                <p><span style="color:red">Note:</span> Time and location can be selected from drop-down menu that are previously added in Manage Master Module</p>
+            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>

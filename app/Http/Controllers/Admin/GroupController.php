@@ -20,10 +20,10 @@ class GroupController extends Controller
     public function index(){
         $this->outputData = [
             'pageName' => 'Group Discount',
-            'dataTables' => url('admin/group/datatable'),
-            'delete' => url('admin/group/delete'),
-            'create' => url('admin/group/create'),
-            'edit' => url('admin/group/edit')
+            'dataTables' => url('admin/group-discount/datatable'),
+            'delete' => url('admin/group-discount/delete'),
+            'create' => url('admin/group-discount/create'),
+            'edit' => url('admin/group-discount/edit')
         ];
         
         return view('admin.pages.group.index',$this->outputData);
@@ -32,7 +32,7 @@ class GroupController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Discount::orderBy('id','DESC')->get();
+                $datas = Discount::order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -64,7 +64,7 @@ class GroupController extends Controller
             }
             $this->outputData = [
                 'pageName' => 'New Group Discount',
-                'action' => url('admin/group/store'),
+                'action' => url('admin/group-discount/store'),
             ];
             return view('admin.pages.group.create',$this->outputData);
 
@@ -98,7 +98,7 @@ class GroupController extends Controller
             }
             $this->outputData = [
                 'pageName' => 'Edit Group Discount',
-                'action' => url('admin/group/update/'.$id),
+                'action' => url('admin/group-discount/update/'.$id),
                 'objData' => Discount::findOrFail($id),
             ];
             return view('admin.pages.group.create',$this->outputData);

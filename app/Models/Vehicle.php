@@ -42,6 +42,11 @@ class Vehicle extends Model
     {
         return $query->where('type', $type);
     }
+    
+    public function scopeDeal($query, $type)
+    {
+        return $query->where('is_deals', $type);
+    }
 
     public function ScopeOrder($query){
         return $query->orderBy('id','DESC');

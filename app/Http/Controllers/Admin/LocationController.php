@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\Location;
@@ -32,7 +32,7 @@ class LocationController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Location::orderBy('id','DESC')->get();
+                $datas = Location::order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }

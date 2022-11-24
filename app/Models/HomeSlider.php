@@ -19,4 +19,8 @@ class HomeSlider extends Model
     protected $hidden = [
         'created_at','updated_at',
     ];
+
+    public function ScopeOrder($query){
+        return $query->orderBy('id','DESC');
+    }
 }

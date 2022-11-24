@@ -32,7 +32,7 @@ class TimeController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Time::orderBy('id','DESC')->get();
+                $datas = Time::order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -87,8 +87,9 @@ class TimeController extends Controller
                 if($validator->fails()){
                     throw new \Exception($validator->errors()->first());
                 }
-                
+
                 $validated = $validator->validated();
+                
                 Time::find($validated['id'])->update($validated);
     
                 return response()->json(['success' => "Times Updated successfully."]);

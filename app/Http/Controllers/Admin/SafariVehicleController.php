@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\VehicleInfo;
 use App\Models\Vehicle;
 use App\Handlers\Error;
+use App\Helpers\Helper;
 use App\Models\Tour;
 use App\Models\Time;
 use DataTables;
@@ -35,7 +36,7 @@ class SafariVehicleController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Vehicle::where('type','Safari')->orderBy('id','DESC')->get();
+                $datas = Vehicle::type('Safari')->order()->get();
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -69,29 +70,21 @@ class SafariVehicleController extends Controller
                 }
                 $validated = $validator->validated();
 
-                if(isset($request['time_ids']) && !empty($request['time_ids'])){
-                    $validated['time_ids']=implode(',',$request['time_ids']);
-                }
-                if(isset($request['includes_ids']) && !empty($request['includes_ids'])){
-                    $validated['includes_ids']=implode(',',$request['includes_ids']);
-                }
-                if(isset($request['highlight_ids']) && !empty($request['highlight_ids'])){
-                    $validated['highlight_ids']=implode(',',$request['highlight_ids']);
-                }
-                if(isset($request['warning_ids']) && !empty($request['warning_ids'])){
-                    $validated['warning_ids']=implode(',',$request['warning_ids']);
-                }
-                if(isset($request['activities_ids']) && !empty($request['activities_ids'])){
-                    $validated['activities_ids']=implode(',',$request['activities_ids']);
-                }
-                if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
-                    $request->image->move(public_path('admin/uploads/vehicle'), $validated['image']);
-                }
-                if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
-                    $request->banner_img->move(public_path('admin/uploads/vehicle'), $validated['banner_img']);
-                }
+                    $validated['time_ids'] = Helper::implode( $request['time_ids'] );
+                    $validated['includes_ids'] = Helper::implode( $request['includes_ids'] );
+                    $validated['highlight_ids'] = Helper::implode( $request['highlight_ids'] );
+                    $validated['warning_ids'] = Helper::implode( $request['warning_ids'] );
+                    $validated['activities_ids'] = Helper::implode( $request['activities_ids'] );
+
+                    if ($request->file('image')) {
+                        $path = 'vehicle';
+                        $validated['image'] = Helper::uploadFile($request->image, $path);
+                    }
+                    if ($request->file('banner_img')) {
+                        $path = 'vehicle';
+                        $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
+                    }
+
                 $validated['type'] = "Safari";
 
                 Vehicle::create($validated);
@@ -101,12 +94,12 @@ class SafariVehicleController extends Controller
             $this->outputData = [
                 'pageName' => 'New Vehicle',
                 'action' => url('admin/safari-vehicles/store'),
-                'tourName' => Tour::where('type','Safari')->select('name','id')->orderBy('id','DESC')->get(),
-                'includes' => VehicleInfo::where('type',2)->orderBy('id','DESC')->get(),
-                'highlights' => VehicleInfo::where('type',1)->orderBy('id','DESC')->get(),
-                'warnings' => VehicleInfo::where('type',3)->orderBy('id','DESC')->get(),
-                'activities' => VehicleInfo::where('type',4)->orderBy('id','DESC')->get(),
-                'time' => Time::orderBy('id','DESC')->get()
+                'tourName' => Tour::type('Safari')->select('name','id')->order()->get(),
+                'highlights' => VehicleInfo::type(1)->order()->get(),
+                'includes' => VehicleInfo::type(2)->order()->get(),
+                'warnings' => VehicleInfo::type(3)->order()->get(),
+                'activities' => VehicleInfo::type(4)->order()->get(),
+                'time' => Time::order()->get()
             ];
             return view('admin.pages.safari_vehicles.create',$this->outputData);
 
@@ -142,29 +135,21 @@ class SafariVehicleController extends Controller
                 }
                 $validated = $validator->validated();
 
-                if(isset($request['time_ids']) && !empty($request['time_ids'])){
-                    $validated['time_ids']=implode(',',$request['time_ids']);
-                }
-                if(isset($request['includes_ids']) && !empty($request['includes_ids'])){
-                    $validated['includes_ids']=implode(',',$request['includes_ids']);
-                }
-                if(isset($request['highlight_ids']) && !empty($request['highlight_ids'])){
-                    $validated['highlight_ids']=implode(',',$request['highlight_ids']);
-                }
-                if(isset($request['warning_ids']) && !empty($request['warning_ids'])){
-                    $validated['warning_ids']=implode(',',$request['warning_ids']);
-                }
-                if(isset($request['activities_ids']) && !empty($request['activities_ids'])){
-                    $validated['activities_ids']=implode(',',$request['activities_ids']);
-                }
+                $validated['time_ids'] = Helper::implode( $request['time_ids'] );
+                $validated['includes_ids'] = Helper::implode( $request['includes_ids'] );
+                $validated['highlight_ids'] = Helper::implode( $request['highlight_ids'] );
+                $validated['warning_ids'] = Helper::implode( $request['warning_ids'] );
+                $validated['activities_ids'] = Helper::implode( $request['activities_ids'] );
+
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
-                    $request->image->move(public_path('admin/uploads/vehicle'), $validated['image']);
+                    $path = 'vehicle';
+                    $validated['image'] = Helper::uploadFile($request->image, $path);
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
-                    $request->banner_img->move(public_path('admin/uploads/vehicle'), $validated['banner_img']);
+                    $path = 'vehicle';
+                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
+
                 Vehicle::find($validated['id'])->update($validated);
     
                 return response()->json(['success' => "Safari Vehicle Updated successfully."]);
@@ -173,26 +158,20 @@ class SafariVehicleController extends Controller
                 'pageName' => 'Edit Vehicle',
                 'action' => url('admin/safari-vehicles/update/'.$id),
                 'objData' => Vehicle::findOrFail($id),
-                'time' => Time::orderBy('id','DESC')->get(),
-                'tourName' => Tour::where('type','Safari')->select('name','id')->orderBy('id','DESC')->get(),
-                'includes' => VehicleInfo::where('type',2)->orderBy('id','DESC')->get(),
-                'highlights' => VehicleInfo::where('type',1)->orderBy('id','DESC')->get(),
-                'warnings' => VehicleInfo::where('type',3)->orderBy('id','DESC')->get(),
-                'activities' => VehicleInfo::where('type',4)->orderBy('id','DESC')->get(),
-                'time' => Time::orderBy('id','DESC')->get()
+                'tourName' => Tour::type('Safari')->select('name','id')->order()->get(),
+                'highlights' => VehicleInfo::type(1)->order()->get(),
+                'includes' => VehicleInfo::type(2)->order()->get(),
+                'warnings' => VehicleInfo::type(3)->order()->get(),
+                'activities' => VehicleInfo::type(4)->order()->get(),
+                'time' => Time::order()->get()
             ];
-            $time = $this->outputData['objData']->time_ids;
-            $this->outputData['selctdTime'] = explode(',',$time);
-            $tourId = $this->outputData['objData']->tour_id;
-            $this->outputData['selctdTour'] = explode(',',$tourId);
-            $includeId = $this->outputData['objData']->includes_ids;
-            $this->outputData['selctdIncludes'] = explode(',',$includeId);
-            $warningId = $this->outputData['objData']->warning_ids;
-            $this->outputData['selctdWarning'] = explode(',',$warningId);
-            $highlightId = $this->outputData['objData']->highlight_ids;
-            $this->outputData['selctdHighlight'] = explode(',',$highlightId);
-            $activitiesId = $this->outputData['objData']->activities_ids;
-            $this->outputData['selctdActivitie'] = explode(',',$activitiesId);
+            
+            $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
+            $this->outputData['selctdTour'] = Helper::explode( $this->outputData['objData']->tour_id );
+            $this->outputData['selctdIncludes'] = Helper::explode( $this->outputData['objData']->includes_ids );
+            $this->outputData['selctdWarning'] = Helper::explode( $this->outputData['objData']->warning_ids );
+            $this->outputData['selctdHighlight'] = Helper::explode( $this->outputData['objData']->highlight_ids );
+            $this->outputData['selctdActivitie'] = Helper::explode( $this->outputData['objData']->activities_ids );
             
             return view('admin.pages.safari_vehicles.create',$this->outputData);
 
