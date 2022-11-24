@@ -192,6 +192,9 @@
                 <a href="{{ url('admin/deals') }}" class="side-nav-link">
                     <i class="ri-shield-user-line"></i>
                     <span> Deals </span>
+                <a href="{{ url('admin/group') }}" class="side-nav-link">
+                    <i class="ri-shape-fill"></i>
+                    <span> Group Discount </span>
                 </a>
             </li>
         </ul>

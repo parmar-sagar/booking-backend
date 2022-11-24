@@ -71,7 +71,7 @@ class UserController extends Controller{
                 $validated['password'] = Hash::make($validated['password']);
 
                 if ($request->file('photo')) {
-                    $validated['photo'] = time().'.'.$request->photo->extension();  
+                    $validated['photo'] = time().'.'.$request->photo->getClientOriginalExtension();  
                     $request->photo->move(public_path('admin/uploads/users'), $validated['photo']);
                 }
                 // $validated['photo'] = $request->file('photo')->store('uploads','public');
@@ -113,7 +113,7 @@ class UserController extends Controller{
                 $validated = $validator->validated();
     
                 if ($request->file('photo')) {
-                    $validated['photo'] = time().'.'.$request->photo->extension();  
+                    $validated['photo'] = time().'.'.$request->photo->getClientOriginalExtension();  
                     $request->photo->move(public_path('admin/uploads/users'), $validated['photo']);
                 }
                 
