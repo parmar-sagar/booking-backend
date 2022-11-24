@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
 use App\Handlers\Error;
 use App\Models\Tour;
 use App\Models\Location;
@@ -69,11 +68,11 @@ class TourController extends Controller{
                     $validated['time_ids']=implode(',',$request['time_ids']);
                 }
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->extension();  
+                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
                     $request->image->move(public_path('admin/uploads/tour'), $validated['image']);
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
+                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
                     $request->banner_img->move(public_path('admin/uploads/tour'), $validated['banner_img']);
                 }
                 // $validated['image'] = $request->file('image')->store('uploads','public');
@@ -124,11 +123,11 @@ class TourController extends Controller{
                 }
     
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->extension();  
+                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
                     $request->image->move(public_path('admin/uploads/tour'), $validated['image']);
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->extension();  
+                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
                     $request->banner_img->move(public_path('admin/uploads/tour'), $validated['banner_img']);
                 }
                 

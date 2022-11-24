@@ -188,6 +188,12 @@
                     <span> Coupons </span>
                 </a>
             </li>
+            <li class="side-nav-item">
+                <a href="{{ url('admin/group') }}" class="side-nav-link">
+                    <i class="ri-shape-fill"></i>
+                    <span> Group Discount </span>
+                </a>
+            </li>
         </ul>
         <!--- End Sidemenu -->
 
