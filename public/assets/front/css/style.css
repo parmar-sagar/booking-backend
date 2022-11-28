@@ -1,0 +1,846 @@
+/* CSS */
+
+@font-face {
+    font-family: "Mikado Black";
+    src:
+        url("Mikado/Web/Mikado-Web-Black.eot") format("eot"),
+        url("Mikado/Web/Mikado-Web-Black.woff") format("woff"),
+        url("Mikado/Web/Mikado-Web-Black-Italic.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: "Mikado Black";
+}
+
+/*
+body.border-0.p-3.m-0.bd-example {
+    padding: 0px !important;
+}*/
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.carousel-caption.d-none.d-md-flex.position-absolute.top-0.end-0.top-0.bottom-0.overview {
+    background: #0000004d !important;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+li.list-group-item:before {
+    position: absolute !important;
+    content: "" !important;
+    height: 18px !important;
+    width: 7px !important;
+    background: #ffc107 !important;
+    top: 35% !important;
+    left: 1% !important;
+}
+
+.ft-list {
+    text-decoration: none;
+    color: white;
+}
+
+.lst {
+    list-style-type: none;
+}
+
+.border {
+    width: 10px;
+}
+
+/*---header-----*/
+.logo-toggle img {
+    width: 40%;
+    height: 100%;
+}
+
+/*---Section 1 strat -------*/
+section.Buggy-sec-1 {
+    position: relative;
+}
+
+.content h1 {
+    font-weight: 600;
+}
+
+.Buggy-sec-1 .overlay {
+    position: absolute;
+    background: rgb(0 119 103 / 24%);
+    height: 100%;
+    width: 100%;
+    bottom: 0;
+    margin: 0px;
+}
+
+.Buggy-sec-1 .overlay .content {
+    color: #ffffff;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+}
+
+video#myVideo {
+    width: 100%;
+}
+
+/*---Section 1 end -------*/
+
+/*---Section 4 strat -------*/
+section.Buggy-sec-4.p-3 {
+    background-color: #5db6bc;
+}
+
+.video-sec video {
+    border-radius: 10px;
+    transform: rotate(352deg);
+    border: 5px solid #fff;
+    z-index: 10;
+}
+
+
+.square-bottom1 {
+    height: 50px;
+    width: 50px;
+    background-color: #c7fbff;
+    z-index: 0;
+    transform: rotate(352deg);
+    border-radius: 5px;
+    position: absolute;
+    bottom: -28px;
+    left: 25px;
+}
+
+.square-top1 {
+    height: 50px;
+    width: 50px;
+    background-color: #c7fbff;
+    z-index: 0;
+    transform: rotate(352deg);
+    border-radius: 5px;
+    position: absolute;
+    right: 23%;
+    top: -10%;
+}
+
+.Gallery-dest img {
+    transform: rotate(-11deg);
+    width: 100%;
+    border-radius: 10px;
+    border: 5px solid #fff;
+}
+
+.col-sm-6.Gallery-dessert {
+    margin-left: -80px;
+    margin-top: 8px;
+}
+
+.Gallery-dessert img {
+    transform: rotate(2deg);
+    width: 100%;
+    border-radius: 10px;
+    border: 5px solid #fff;
+}
+
+.col-sm-6 {
+    position: relative;
+}
+
+/*---Section 4 end -------*/
+
+/*---Section 5 strat -------*/
+.Buggy-sec-5 .p-5 .col-sm-4 {
+    position: relative;
+}
+
+.card.p-3 {
+    text-align: center;
+    width: 400px;
+    border-radius: 8px;
+    margin-top: -25px;
+}
+
+section.Buggy-sec-4 .row {
+    align-items: center;
+    justify-content: center;
+}
+
+.Buggy-sec-5 .container.p-5 {
+    padding: 0px !important;
+}
+
+.Buggy-sec-5 .p-5 img {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+}
+
+.Buggy-sec-5 .overlay {
+    bottom: 0;
+    top: 0;
+    border-radius: 10px;
+    left: 0;
+    right: 0;
+    margin: 15px 27px;
+}
+
+.Moterbike {
+    padding: 10px;
+    border: 4px solid #0083a3;
+    border-radius: 10px;
+}
+
+.Buggy-sec-5 .overlay {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+button.btn.btn-light {
+    padding: 14px 22px;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.Buggy-sec-5 .square-top {
+    height: 70px;
+    width: 70px;
+    transform: rotate(0deg);
+    z-index: -1;
+    border-radius: 5px;
+    position: absolute;
+    left: 0;
+    top: -5%;
+}
+
+.Buggy-sec-5 .square-bottom {
+    height: 70px;
+    width: 70px;
+    z-index: -1;
+    transform: rotate(0deg);
+    border-radius: 5px;
+    position: absolute;
+    bottom: -10px;
+    right: 0;
+}
+
+/*---Section 5 end -------*/
+
+button.btn.btn-light.rounded-pill {
+    background-color: #fff;
+    color: #000;
+    -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
+}
+
+.Moterbike button.btn.btn-light.rounded-pill:hover {
+    background-color: #8c9dff;
+    color: #fff !important;
+    padding: 14px 23px;
+}
+
+.safari button.btn.btn-light.rounded-pill:hover {
+    background-color: #46c4ff;
+    color: #fff !important;
+    padding: 14px 23px;
+}
+
+.beduin button.btn.btn-light.rounded-pill:hover {
+    background-color: #ff8f5b;
+    color: #fff !important;
+    padding: 14px 23px;
+}
+
+.Moterbike {
+    padding: 10px;
+    border: 5px solid #8c9dff;
+    border-radius: 10px;
+}
+
+.safari {
+    padding: 10px;
+    border: 5px solid #69d7de;
+    border-radius: 10px;
+}
+
+.beduin {
+    padding: 10px;
+    border: 5px solid #ff8c7c;
+    border-radius: 10px;
+}
+
+button.btn.btn-deals.rounded-pill {
+    width: 20%;
+    padding: 16px 14px;
+}
+
+button.btn.btn-md.rounded-pill.text-white.tex.text-center:hover {
+    padding: 18px 22px !important;
+    box-shadow: 4px 5px 5px 4px #4770ff73;
+}
+
+/*---Section 3 start Tabbar-----*/
+.tablink {
+    background-color: rgb(255 193 119);
+    color: #fff;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 25%;
+    font-weight: 600;
+}
+
+.tablink:hover {
+    background-color: rgb(182, 182, 182);
+    color: #fff;
+}
+
+.tablink:active {
+    color: #fff;
+}
+
+.tabcontent {
+    color: #fff;
+    display: none;
+    padding: 100px 20px;
+    height: 100%;
+}
+
+#Home {
+    background-color: #7579e7;
+}
+
+#News {
+    background-color: #67c1c2;
+}
+
+#Contact {
+    background-color: #2dbcff;
+}
+
+#About {
+    background-color: #ff4d54;
+}
+
+.content-tab1 {
+    border: 5px solid #7579e78a;
+}
+
+.content-tab2 {
+    border: 5px solid #34fdff73;
+}
+
+.content-tab3 {
+    border: 5px solid #46c4ff85;
+}
+
+.content-tab4 {
+    border: 5px solid #ffc1c38f;
+}
+
+.content-tab1,
+.content-tab2,
+.content-tab3,
+.content-tab4 {
+    margin: 20px;
+    background-color: #fff;
+    color: #000;
+    padding: 40px 40px;
+    border-radius: 4px;
+}
+
+.content-tab1 img,
+.content-tab2 img,
+.content-tab3 img,
+.content-tab4 img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.content-tab1 .row,
+.content-tab2 .row,
+.content-tab3 .row,
+.content-tab4 .row {
+    padding: 30px;
+}
+
+.point-text {
+    border-left: 10px solid #7579e7;
+    padding-left: 12px;
+}
+
+.point-text2 {
+    border-left: 10px solid #67c1c2;
+    padding-left: 12px;
+}
+
+.point-text3 {
+    border-left: 10px solid #46c4ff;
+    padding-left: 12px;
+}
+
+.point-text4 {
+    border-left: 10px solid #ff9a9e;
+    padding-left: 12px;
+}
+
+.sec2.text-center {
+    margin-bottom: 61px;
+}
+
+.sec2.text-center p {
+    font-size: 18px;
+}
+
+
+.tablink img {
+    width: 100%;
+    border: 10px solid;
+}
+
+.tablink .overlay.position-absolute {
+    top: 14%;
+    left: 11%;
+    background-color: #7579e757;
+    width: 78%;
+    height: 73%;
+}
+
+.tablink h1 {
+    position: absolute;
+    top: 40%;
+    font-size: 22px;
+    left: 20%;
+    font-weight: 600;
+}
+
+button#defaultOpen {
+    position: relative;
+}
+
+button.tablink {
+    position: relative;
+}
+
+h1.tabbartext {
+    left: 0%;
+    padding: 0px 18px;
+}
+
+.Buggy-sec-3 .position-relative {
+    position: relative !important;
+    display: flex;
+    justify-content: center;
+}
+
+/*---Section 3 End Tabbar -------*/
+
+section.Sec-6 {
+    top: 84%;
+    position: fixed;
+    display: inline-flex;
+    transition: opacity 0.3s ease 0s;
+    opacity: 1;
+    right: 0;
+}
+
+.back-to-top-inner {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-direction: row !important;
+    margin: 10px;
+    background-color: #bcbcbc;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+svg.Icon__IconComponent-xohm6-0.eMJbst {
+    transform: rotateZ(0deg);
+    transform-origin: center center;
+    width: 50px;
+}
+
+.checked {
+    color: orange;
+}
+
+.Star-rating .col-12 {
+    color: #fff;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.row.Star-rating {
+    transform: rotate(3deg);
+}
+
+.Star-rating h2 {
+    font-size: 16px;
+    text-decoration: underline;
+    color: #fff;
+}
+
+/*----Footer start-----*/
+footer {
+    background-color: #3d71bf;
+}
+
+footer i.fas.fa-angle-right {
+    padding-right: 10px;
+}
+
+footer h3.ftr_dcrtn {
+    color: #fff;
+    font-weight: 600;
+    padding-bottom: 10px;
+}
+
+footer .container-fluid.pt-3.pb-3 {
+    border-top: 1px solid #70b3ff;
+    margin-top: 10px;
+}
+
+footer a.ft-list {
+    display: flex;
+    padding: 3px;
+}
+
+/*----Footer End-----*/
+
+/*----Animations start-----*/
+.blob {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+
+}
+
+.blob #gradien {
+    border: 10px solid rgb(100, 204, 222);
+}
+
+
+.blob:nth-child(2) {
+    filter: blur(30px);
+}
+
+.blob-container {
+    position: absolute !important;
+    top: 45%;
+    right: 30%;
+}
+
+.play-btn a {
+    color: rgb(16, 193, 232);
+    position: absolute;
+    top: 41px;
+    left: 56px;
+    font-size: 40px;
+}
+
+.vid {
+    width: 100vw;
+    height: 400px;
+    object-fit: cover;
+    z-index: -1;
+    position: absolute;
+    background-color: black;
+}
+
+#yt {
+    display: none;
+}
+
+#content p {
+    color: white;
+    font-size: 20pt;
+    text-align: center;
+    padding-top: 100px;
+}
+
+#button {
+    width: 100px;
+    height: 30px;
+}
+
+.tour_deal_cards:hover .square-top {
+    position: absolute;
+    animation: myfirst 1s linear 1ms 1 alternate;
+    top: -39px;
+    z-index: -10;
+}
+
+.tour_deal_cards:hover .square-bottom {
+
+    position: absolute;
+    animation: mySecond 1s linear 1ms 1 alternate;
+    bottom: -39px;
+    z-index: -10;
+}
+
+@keyframes myfirst {
+    0% {
+        background-color: green;
+    }
+
+    100% {
+        background-color: green;
+        top: 80%;
+        left: 80%;
+    }
+}
+
+@keyframes mySecond {
+    0% {
+        background-color: rgb(255, 106, 0);
+    }
+
+    100% {
+        background-color: rgb(255, 106, 0);
+        bottom: 80%;
+        right: 80%;
+    }
+
+}
+
+/*----Animations End-----*/
+
+/*------responsiveness---------*/
+@media(min-width:1600px) {
+    .col-sm-12.col-xs-12.col-lg-8.col-md-12.tab-buttons.p-0 {
+        left: 6% !important;
+        top: 13% !important;
+    }
+
+    .col-sm-12.col-xs-12.col-lg-8.col-md-12.tab-buttons.p-0 {
+        justify-content: center;
+        display: flex;
+    }
+
+    .tablink {
+        width: 19%;
+    }
+
+}
+
+@media(min-width:2000px) {
+    .tablink .overlay.position-absolute {
+        top: 11%;
+        left: 8%;
+        width: 84%;
+        height: 78%;
+    }
+}
+
+
+@media(min-width:1024px) {
+
+    button.tablink {
+        /* margin: 20px 0px;
+         border: 10px solid #fff;
+        border-radius: 40px;*/
+    }
+}
+
+@media(max-width:1024px) {
+
+    .video-sec video {
+        width: 100%;
+    }
+
+    .square-top1 {
+        right: 7%;
+        top: -9%;
+    }
+
+    button.tablink {
+        font-size: 16px;
+    }
+
+    .content-tab1 .row,
+    .content-tab2 .row,
+    .content-tab3 .row,
+    .content-tab4 .row {
+        padding: 0px;
+    }
+
+    .tablink h1,
+    .tabbartext {
+        font-size: 18px;
+    }
+}
+
+@media(max-width:800px) {
+    .video-sec video {
+        width: 100%;
+        height: 240px;
+        transform: rotate(356deg);
+    }
+
+    .square-bottom1 {
+        bottom: -15px;
+        left: 8px;
+    }
+
+    .square-top1 {
+        right: 3%;
+        top: -7%;
+    }
+
+    .Buggy-sec-5 .col-sm-4.col-md-6.position-relative {
+        margin-bottom: 30px;
+    }
+}
+
+@media(max-width:600px) {
+
+    .Buggy-sec-4 .container.p-5 {
+        padding: 1rem !important;
+    }
+
+    .video-sec video {
+        width: 100%;
+        height: 100%;
+        transform: rotate(0deg);
+    }
+
+    .col-sm-6.Gallery-dest {
+        margin-top: 20px;
+    }
+
+    .col-sm-6.Gallery-dessert {
+        margin-left: 0px;
+    }
+
+    .square-bottom1 {
+        transform: rotate(0deg);
+        bottom: -6px;
+        left: 0px;
+    }
+
+    .square-top1 {
+        transform: rotate(0deg);
+        right: 0%;
+        top: -10%;
+    }
+
+    .col-sm-4.position-relative {
+        margin-bottom: 32px;
+    }
+
+    .Buggy-sec-5 .p-5 img {
+        height: 100%;
+    }
+
+    .content-tab1,
+    .content-tab2,
+    .content-tab3,
+    .content-tab4 {
+        padding: 20px 10px;
+    }
+
+    .content-tab1 .row,
+    .content-tab2 .row,
+    .content-tab3 .row,
+    .content-tab4 .row {
+        padding: 10px;
+    }
+
+    .tabcontent {
+        color: white;
+        display: none;
+        padding: 100px 0px;
+        height: 100%;
+    }
+
+    button.btn.btn-light {
+        padding: 6px 22px;
+        font-weight: 800;
+        font-size: 16px;
+    }
+
+    .play-btn a {
+        top: 12px;
+        left: 25px !important;
+        font-size: 28px;
+    }
+
+    .Buggy-sec-1 .play-btn #button {
+        width: 50px;
+        height: 30px;
+    }
+
+    .blob {
+        width: 100px;
+        height: 200px;
+        position: absolute;
+    }
+
+    .Buggy-sec-1 .overlay .content {
+        color: #ffffff;
+        padding: 20px;
+        position: absolute;
+        font-size: 14px;
+        top: 0;
+    }
+
+    .Buggy-sec-1 .overlay .content h1 {
+        font-size: 18px;
+    }
+
+    .content button.discover-btn.btn.btn-md.rounded-pill.text-white.text-center {
+        padding: 7px 8px !important;
+        font-size: 16px;
+    }
+
+    button.tablink {
+        padding: 20px 4px;
+        font-size: 12px;
+    }
+
+    .block.position-absolute.translate-middle {
+        left: 50% !important;
+        top: 5% !important;
+        border-radius: 20px !important;
+    }
+
+    .block-bottom.position-absolute.translate-middle {
+        left: 50% !important;
+        top: 94% !important;
+    }
+
+    .Popular-Card_Tour {
+        padding: 0px 20px;
+    }
+
+    section.Sec-6 {
+        display: none;
+    }
+
+    .tablink .overlay.position-absolute {
+        background-color: #7579e700;
+    }
+
+    .tablink h1,
+    h1.tabbartext {
+        position: relative;
+        top: 33%;
+        font-size: 16px;
+        left: 0%;
+        font-weight: 500;
+    }
+}
