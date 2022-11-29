@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Helpers\Helper;
@@ -75,6 +76,7 @@ class UserController extends Controller{
                     $path = 'users';
                     $validated['photo'] = Helper::uploadFile($request->photo, $path);
                 }
+                $validated['random_id'] = resolve('snowflake')->id();
                 
                 User::create($validated);
     

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Models\HomeSlider;
 use App\Handlers\Error;
@@ -76,6 +77,8 @@ class HomeSliderController extends Controller
                 }
 
                 $validated['link'] = $request->link;
+                $validated['random_id'] = resolve('snowflake')->id();
+                
                 HomeSlider::create($validated);
     
                 return response()->json(['success' => "Home slider Created successfully."]);

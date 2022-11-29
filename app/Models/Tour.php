@@ -20,7 +20,8 @@ class Tour extends Model
         'on_home_sequence',
         'type',
         'safari_sequence',
-        'location_id'
+        'location_id',
+        'random_id'
     ];
     protected $hidden = [
         'created_at','updated_at',

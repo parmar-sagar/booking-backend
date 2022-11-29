@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Models\VehicleInfo;
 use App\Models\Vehicle;
@@ -86,6 +87,8 @@ class VehiclesController extends Controller
                     $path = 'vehicle';
                     $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
+                $validated['random_id'] = resolve('snowflake')->id();
+                
                 Vehicle::create($validated);
     
                 return response()->json(['success' => "Vehicle Created successfully."]);

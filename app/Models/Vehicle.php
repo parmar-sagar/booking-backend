@@ -28,7 +28,8 @@ class Vehicle extends Model
         'no_of_persons',
         'is_deals',
         'discount',
-        'sequence'
+        'sequence',
+        'random_id'
     ];
 
     protected $hidden = [

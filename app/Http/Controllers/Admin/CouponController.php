@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Helpers\Helper;
@@ -79,7 +80,8 @@ class CouponController extends Controller
                 }
 
                 $validated['expiry_date'] = Helper::dateformateFrominput($validated['expiry_date']);
-                
+                $validated['random_id'] = resolve('snowflake')->id();
+                 
                 Coupon::create($validated);
     
                 return response()->json(['success' => "Coupon Created successfully."]);

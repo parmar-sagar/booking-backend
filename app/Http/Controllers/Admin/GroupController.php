@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\Discount;
@@ -57,6 +58,7 @@ class GroupController extends Controller
                 }
                 
                 $validated = $validator->validated();
+                $validated['random_id'] = resolve('snowflake')->id();
 
                 Discount::create($validated);
     

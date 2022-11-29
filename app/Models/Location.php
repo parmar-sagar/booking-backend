@@ -4,13 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Snowflake\Snowflakes;
+use Snowflake\SnowflakeCast;
 
 class Location extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name','status'
+        'name','status','random_id'
+        
     ];
 
     protected $hidden = [

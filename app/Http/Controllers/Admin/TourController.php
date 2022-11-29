@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Handlers\Error;
@@ -76,6 +77,8 @@ class TourController extends Controller{
                     $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
                 
+                $validated['random_id'] = resolve('snowflake')->id();
+
                 Tour::create($validated);
     
                 return response()->json(['success' => "Tour Created successfully."]);

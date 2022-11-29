@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Models\VehicleInfo;
 use App\Handlers\Error;
@@ -57,7 +58,8 @@ class IncludeController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 2;
-
+                $validated['random_id'] = resolve('snowflake')->id();
+                
                 VehicleInfo::create($validated);
     
                 return response()->json(['success' => "Includes Created successfully."]);

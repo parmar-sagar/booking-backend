@@ -13,7 +13,8 @@ class HomeSlider extends Model
         'status',
         'link',
         'image_video',
-        'type'
+        'type',
+        'random_id'
     ];
 
     protected $hidden = [

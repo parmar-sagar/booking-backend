@@ -18,7 +18,8 @@ class Coupon extends Model
         'type',
         'status',
         'expiry_date',
-        'ammount'
+        'ammount',
+        'random_id'
     ];
 
     protected $hidden = [

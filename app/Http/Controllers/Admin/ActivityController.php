@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\VehicleInfo;
@@ -56,6 +57,8 @@ class ActivityController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 4;
+                $validated['random_id'] = resolve('snowflake')->id();
+                
                 VehicleInfo::create($validated);
     
                 return response()->json(['success' => "Activities Created successfully."]);
