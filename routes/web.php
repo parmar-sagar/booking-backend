@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\SafariController;
 use App\Http\Controllers\Admin\SafariVehicleController;
 use App\Http\Controllers\Admin\DealsController;
 use App\Http\Controllers\Admin\GroupController;
+use App\Http\Controllers\Admin\MyprofileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -240,5 +241,19 @@ Route::group([
         Route::get('/edit/{id}',[GroupController::class, 'edit']);
 		Route::post('/update/{id}',[GroupController::class, 'edit']);
 		Route::get('/delete/{id}',[GroupController::class, 'destroy']);
+    });
+
+    Route::group([ 
+        'prefix' => 'my-profile'
+    ], function(){
+        Route::get('/',[MyprofileController::class, 'index']);
+        // Route::get('/datatable',[MyprofileController::class, 'datatable']);
+        // Route::get('/create',[MyprofileController::class, 'create']);
+        // Route::post('/store',[MyprofileController::class, 'create']);
+        // Route::get('/edit/{id}',[MyprofileController::class, 'edit']);
+		Route::post('/update',[MyprofileController::class, 'edit']);
+        Route::get('/edit-password',[MyprofileController::class, 'edit_password']);
+        Route::post('/update-password',[MyprofileController::class, 'edit_password']);
+		// Route::get('/delete/{id}',[MyprofileController::class, 'destroy']);
     });
 });
