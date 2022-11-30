@@ -24,4 +24,9 @@ class HomeSlider extends Model
     public function ScopeOrder($query){
         return $query->orderBy('id','DESC');
     }
+
+    public function status($query, $type)
+    {
+        return $query->where('status', $type);
+    }
 }

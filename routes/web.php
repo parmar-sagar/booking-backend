@@ -18,6 +18,11 @@ use App\Http\Controllers\Admin\SafariVehicleController;
 use App\Http\Controllers\Admin\DealsController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\MyprofileController;
+
+/* Frontend Controller start*/
+
+use App\Http\Controllers\Front\LoginController;
+use App\Http\Controllers\Front\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,9 +36,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('front.layouts.master');
-});
+// Route::get('/', function () {
+//     return view('front.pages.home.home');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -247,13 +252,19 @@ Route::group([
         'prefix' => 'my-profile'
     ], function(){
         Route::get('/',[MyprofileController::class, 'index']);
-        // Route::get('/datatable',[MyprofileController::class, 'datatable']);
-        // Route::get('/create',[MyprofileController::class, 'create']);
-        // Route::post('/store',[MyprofileController::class, 'create']);
-        // Route::get('/edit/{id}',[MyprofileController::class, 'edit']);
 		Route::post('/update',[MyprofileController::class, 'edit']);
         Route::get('/edit-password',[MyprofileController::class, 'edit_password']);
         Route::post('/update-password',[MyprofileController::class, 'edit_password']);
-		// Route::get('/delete/{id}',[MyprofileController::class, 'destroy']);
     });
+});
+
+/*Frontend Routes start */
+
+    Route::get('/',[HomeController::class, 'index']);
+
+
+Route::group([ 
+    'prefix' => 'login'
+], function(){
+    Route::get('/',[LoginController::class, 'index']);
 });
