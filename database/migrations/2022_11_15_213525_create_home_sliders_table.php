@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('home_sliders', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('random_id')->unsigned();
             $table->Integer('sequence');
             $table->enum('status',['0','1'])->default(1)->comment('0 => Deactive , 1 => Active')->index('idx_status');
             $table->enum('type',['0','1'])->default(0)->comment('0 => Image , 1 => Video')->index('idx_type');

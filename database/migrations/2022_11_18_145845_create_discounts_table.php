@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('random_id')->unsigned();
             $table->Integer('no_of_vehicle');
             $table->Integer('discount')->comment('Percentage');
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');

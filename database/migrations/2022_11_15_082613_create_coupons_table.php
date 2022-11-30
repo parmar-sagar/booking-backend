@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('random_id')->unsigned();
             $table->string('name', 100);
             $table->string('code', 100);
             $table->longText('description');
