@@ -22,7 +22,7 @@
                         <li class="breadcrumb-item active">404 Error</li>
                     </ol>
                 </div> --}}
-                {{-- <h4 class="page-title">404 Error</h4> --}}
+                <h4 class="page-title">404 Error</h4>
             </div>
         </div>
     </div>

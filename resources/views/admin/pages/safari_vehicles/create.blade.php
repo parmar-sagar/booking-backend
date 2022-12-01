@@ -2,10 +2,6 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
-            <div>
-                <p><span style="color:red">Note : </span> Tour name can be selected as added before in safari Module. Time can be selected as added in manage master. Other details will 
-                    be selected as added in manage vehicle module.</p>
-            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>

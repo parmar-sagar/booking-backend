@@ -28,8 +28,7 @@ class Vehicle extends Model
         'no_of_persons',
         'is_deals',
         'discount',
-        'sequence',
-        'random_id'
+        'sequence'
     ];
 
     protected $hidden = [
@@ -42,11 +41,6 @@ class Vehicle extends Model
     public function scopeType($query, $type)
     {
         return $query->where('type', $type);
-    }
-    
-    public function scopeDeal($query, $type)
-    {
-        return $query->where('is_deals', $type);
     }
 
     public function ScopeOrder($query){
