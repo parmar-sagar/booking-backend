@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Helpers;
+use Godruoyi\Snowflake\Snowflake;
 
 class Helper {
 
@@ -15,7 +16,7 @@ class Helper {
     }
 
     public static function uploadFile($file, $pathFolder){
-        $image = time().'.'.$file->getClientOriginalExtension();  
+        $image = resolve('snowflake')->id().'.'.$file->getClientOriginalExtension();  
         $dt=$file->move(public_path('admin/uploads/'.$pathFolder), $image);
         return $image;
     }

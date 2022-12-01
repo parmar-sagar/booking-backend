@@ -21,8 +21,7 @@ use App\Http\Controllers\Admin\MyprofileController;
 
 /* Frontend Controller start*/
 
-use App\Http\Controllers\Front\LoginController;
-use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -262,9 +261,3 @@ Route::group([
 
     Route::get('/',[HomeController::class, 'index']);
 
-
-Route::group([ 
-    'prefix' => 'login'
-], function(){
-    Route::get('/',[LoginController::class, 'index']);
-});

@@ -55,13 +55,26 @@
         </li>
       </ul>
     </div>
-    <a
-      class="l-navbar__login-link"
-      href="{{url('login')}}"
-      title="Login"
-      aria-label="Login"
-    >
-    <i class="fa-solid fa-user"></i>
-      <span>Login</span>
-    </a>
+    @guest
+    @if (Route::has('login'))
+        <a class="l-navbar__login-link" href="{{url('login')}}" title="Login" aria-label="Login">
+        <i class="fa-solid fa-user"></i>
+         <span>Login</span>
+        </a>
+   @endif
+   {{-- @if (Route::has('register'))
+       <li class="nav-item">
+           <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+       </li>
+   @endif --}}
+   @else
+   <form method="POST" action="{{ route('logout') }}">
+    @csrf
+     <a class="l-navbar__login-link" title="Logout" aria-label="Logout" onclick="event.preventDefault();
+     this.closest('form').submit();">
+      <i class="fa-solid fa-user"></i>
+       <span>Logout</span>
+      </a>
+  </form>
+@endguest
   </nav>

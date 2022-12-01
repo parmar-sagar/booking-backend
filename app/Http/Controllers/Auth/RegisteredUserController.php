@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
@@ -37,12 +38,15 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            // 'mobile' => ['required|string|min:10|max:12']
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'mobile' => $request->mobile,
+            'random_id' => resolve('snowflake')->id()
         ]);
 
         event(new Registered($user));

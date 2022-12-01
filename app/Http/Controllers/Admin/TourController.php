@@ -56,6 +56,7 @@ class TourController extends Controller{
                     'time_ids' => 'required|array',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
                     'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
+                    'link' => 'required|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
                     'status' => 'required|in:0,1',
                     'location_id' => 'required|integer'
                 ]);

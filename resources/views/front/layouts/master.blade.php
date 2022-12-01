@@ -29,14 +29,6 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="dns-prefetch" href="http://fonts.googleapis.com/" />
-    <link rel="dns-prefetch" href="http://www.googletagmanager.com/" />
-    <link rel="dns-prefetch" href="http://www.google-analytics.com/" />
-    <link rel="dns-prefetch" href="http://connect.facebook.net/" />
-    <link rel="preconnect" href="http://fonts.googleapis.com/" />
-    <link rel="preconnect" href="http://www.googletagmanager.com/" />
-    <link rel="preconnect" href="http://www.google-analytics.com/" />
-    <link rel="preconnect" href="http://connect.facebook.net/" />
     <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png" />
     <link
       rel="stylesheet"
@@ -54,7 +46,7 @@
  <!-- ========== Header End ========== -->
 
  <!-- ========== Maine Content ========== -->
- @yield('content')
+ {{ $slot }}
           {{-- content --}}
  <!-- ========== End ========== -->
    
