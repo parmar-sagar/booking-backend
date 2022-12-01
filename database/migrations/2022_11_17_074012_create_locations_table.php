@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('random_id')->unsigned();
             $table->string('name', 100);
             $table->enum('status',['0','1'])->default(1)->comment('0 => Deactive , 1 => Active')->index('idx_status');
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');

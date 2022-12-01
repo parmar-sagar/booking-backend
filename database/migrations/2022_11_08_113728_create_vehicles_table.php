@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('random_id')->unsigned();
             $table->unsignedBigInteger('tour_id')->index('idx_tour_id');
             $table->string('name', 100);
             $table->string('short_name', 20);

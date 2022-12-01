@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\Time;
@@ -32,7 +33,7 @@ class TimeController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Time::orderBy('id','DESC')->get();
+                $datas = Time::order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -57,6 +58,8 @@ class TimeController extends Controller
                 }
                 
                 $validated = $validator->validated();
+                $validated['random_id'] = resolve('snowflake')->id();
+                
                 Time::create($validated);
     
                 return response()->json(['success' => "Times Created successfully."]);
@@ -87,8 +90,10 @@ class TimeController extends Controller
                 if($validator->fails()){
                     throw new \Exception($validator->errors()->first());
                 }
-                
+
                 $validated = $validator->validated();
+                $validated['random_id'] = resolve('snowflake')->id();
+                
                 Time::find($validated['id'])->update($validated);
     
                 return response()->json(['success' => "Times Updated successfully."]);

@@ -17,6 +17,11 @@ use App\Http\Controllers\Admin\SafariController;
 use App\Http\Controllers\Admin\SafariVehicleController;
 use App\Http\Controllers\Admin\DealsController;
 use App\Http\Controllers\Admin\GroupController;
+use App\Http\Controllers\Admin\MyprofileController;
+
+/* Frontend Controller start*/
+
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,9 +35,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('front.pages.home.home');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -153,9 +158,11 @@ Route::group([
 		Route::post('/update/{id}',[LocationController::class, 'edit']);
 		Route::get('/delete/{id}',[LocationController::class, 'destroy']);
     });
-    
+Route::group([
+        'prefix' => 'home' 
+    ], function(){   
  Route::group([
-        'prefix' => 'home-sliders'
+        'prefix' => 'sliders'
     ], function(){
         Route::get('/',[HomeSliderController::class, 'index']);
         Route::get('/datatable',[HomeSliderController::class, 'datatable']);
@@ -167,7 +174,7 @@ Route::group([
     });
     
     Route::group([
-        'prefix' => 'home-tours'
+        'prefix' => 'tours'
     ], function(){
         Route::get('/',[HomeTourController::class, 'index']);
         Route::get('/datatable',[HomeTourController::class, 'datatable']);
@@ -177,6 +184,7 @@ Route::group([
 		Route::post('/update/{id}',[HomeTourController::class, 'edit']);
 		Route::get('/delete/{id}',[HomeTourController::class, 'destroy']);
     });
+});
 
     Route::group([
         'prefix' => 'times'
@@ -228,7 +236,7 @@ Route::group([
     }); 
      
     Route::group([ 
-        'prefix' => 'group'
+        'prefix' => 'group-discount'
     ], function(){
         Route::get('/',[GroupController::class, 'index']);
         Route::get('/datatable',[GroupController::class, 'datatable']);
@@ -238,4 +246,18 @@ Route::group([
 		Route::post('/update/{id}',[GroupController::class, 'edit']);
 		Route::get('/delete/{id}',[GroupController::class, 'destroy']);
     });
+
+    Route::group([ 
+        'prefix' => 'my-profile'
+    ], function(){
+        Route::get('/',[MyprofileController::class, 'index']);
+		Route::post('/update',[MyprofileController::class, 'edit']);
+        Route::get('/edit-password',[MyprofileController::class, 'edit_password']);
+        Route::post('/update-password',[MyprofileController::class, 'edit_password']);
+    });
 });
+
+/*Frontend Routes start */
+
+    Route::get('/',[HomeController::class, 'index']);
+

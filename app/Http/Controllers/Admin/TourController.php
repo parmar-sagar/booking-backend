@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Handlers\Error;
-use App\Models\Tour;
+use App\Http\Controllers\Controller;
+use Godruoyi\Snowflake\Snowflake;
+use Illuminate\Http\Request;
 use App\Models\Location;
+use App\Handlers\Error;
+use App\Helpers\Helper;
+use App\Models\Tour;
 use App\Models\Time;
 use DataTables;
 
@@ -34,7 +36,7 @@ class TourController extends Controller{
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Tour::where('type','Tour')->orderBy('id','DESC')->get();
+                $datas = Tour::type('Tour')->order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -54,6 +56,7 @@ class TourController extends Controller{
                     'time_ids' => 'required|array',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
                     'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
+                    'link' => 'required|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
                     'status' => 'required|in:0,1',
                     'location_id' => 'required|integer'
                 ]);
@@ -64,20 +67,19 @@ class TourController extends Controller{
                 
                 $validated = $validator->validated();
 
-                if(isset($request['time_ids']) && !empty($request['time_ids'])){
-                    $validated['time_ids']=implode(',',$request['time_ids']);
-                }
+                $validated['time_ids'] = Helper::implode($request['time_ids']);
+
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
-                    $request->image->move(public_path('admin/uploads/tour'), $validated['image']);
+                    $path = 'tour';
+                    $validated['image'] = Helper::uploadFile($request->image, $path);
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
-                    $request->banner_img->move(public_path('admin/uploads/tour'), $validated['banner_img']);
+                    $path = 'tour';
+                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
-                // $validated['image'] = $request->file('image')->store('uploads','public');
-                // $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
                 
+                $validated['random_id'] = resolve('snowflake')->id();
+
                 Tour::create($validated);
     
                 return response()->json(['success' => "Tour Created successfully."]);
@@ -118,17 +120,15 @@ class TourController extends Controller{
                 
                 $validated = $validator->validated();
 
-                if(isset($request['time_ids']) && !empty($request['time_ids'])){
-                    $validated['time_ids']=implode(',',$request['time_ids']);
-                }
-    
+                $validated['time_ids'] = Helper::implode($request['time_ids']);
+
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
-                    $request->image->move(public_path('admin/uploads/tour'), $validated['image']);
+                    $path = 'tour';
+                    $validated['image'] = Helper::uploadFile($request->image, $path);
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
-                    $request->banner_img->move(public_path('admin/uploads/tour'), $validated['banner_img']);
+                    $path = 'tour';
+                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
                 
                 Tour::find($validated['id'])->update($validated);
@@ -139,11 +139,11 @@ class TourController extends Controller{
                 'pageName' => 'Edit Tour',
                 'action' => url('admin/tours/update/'.$id),
                 'objData' => Tour::findOrFail($id),
-                'time' => Time::orderBy('id','DESC')->get(),
-                'locations' => Location::orderBy('id','DESC')->get()
+                'time' => Time::order()->get(),
+                'locations' => Location::order()->get()
             ];
-            $time = $this->outputData['objData']->time_ids;
-            $this->outputData['selctdTime'] = explode(',',$time);
+            $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
+
             return view('admin.pages.tour.create',$this->outputData);
 
         } catch (\Throwable $e) {

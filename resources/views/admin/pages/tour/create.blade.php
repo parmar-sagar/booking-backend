@@ -1,6 +1,9 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
+            <div>
+                <p><span style="color:red">Note:</span> Time and location can be selected from drop-down menu that are previously added in Manage Master Module</p>
+            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>
@@ -39,7 +42,7 @@
                     </div>
                     <div class="col-lg-6">
                         <label for="location_id" class="form-label">Location</label>
-                            <select class="form-control select2" data-toggle="select2" name="location_id">
+                            <select class="form-control select2" data-toggle="select2" name="location_id" required>
                                 <option>Select</option>
                                 @foreach($locations as $location)
                                     <option value="{{$location->id}}" @if(isset($objData->location_id) && $objData->location_id == $location->id) selected @endif>{{$location->name}}</option>
@@ -62,6 +65,12 @@
                             @if(isset($objData->banner_img))
                                 <img src="{{ asset('admin/uploads/tour/' . $objData->banner_img) }}" width="50" class="mt-3">
                             @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="link" class="form-label">Link</label>
+                            <input type="text" id="link" class="form-control" name="link" value="@if(isset($objData->link) && $objData->link){{ $objData->link }}@endif" required>
                         </div>
                     </div>
                     <div class="col-lg-6">

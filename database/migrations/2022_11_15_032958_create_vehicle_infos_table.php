@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('vehicle_infos', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('random_id')->unsigned();
             $table->text('title');
             $table->enum('type',['1','2','3'])->comment('1 => Highlights , 2 => Includes , 3 => Warning')->index('idx_type');
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');

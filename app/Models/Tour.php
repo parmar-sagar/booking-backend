@@ -15,12 +15,14 @@ class Tour extends Model
         'time_ids',
         'image',
         'banner_img',
+        'link',
         'status',
         'on_home',
         'on_home_sequence',
         'type',
         'safari_sequence',
-        'location_id'
+        'location_id',
+        'random_id'
     ];
     protected $hidden = [
         'created_at','updated_at',
@@ -35,8 +37,16 @@ class Tour extends Model
     {
         return $query->where('on_home', $onHome);
     }
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
 
     public function ScopeOrder($query){
         return $query->orderBy('id','DESC');
     }
+
+    public function location(){
+        return $this->hasOne('App\Models\Location','id','location_id');
+      }
 }
