@@ -25208,7 +25208,7 @@ span.tab-box-btn__icon.tab-box-btn__icon--blue6 {
 }
 
 
-/* .bg-green {
+.bg-green {
     position: relative;
     z-index: 1;
     background-color: #0fba68;
@@ -25220,10 +25220,22 @@ span.tab-box-btn__icon.tab-box-btn__icon--blue6 {
     background-color :#ffc132;
     color: #fff
 }
-.bg-yellow {
+.bg-orange {
     position: relative;
     z-index: 1;
-    background-color :#ffc132;
+    background-color :#ff603b;
     color: #fff
-} */
+}
+.bg-pink {
+    position: relative;
+    z-index: 1;
+    background-color :#f94171;
+    color: #fff
+}
+.bg-navy {
+    position: relative;
+    z-index: 1;
+    background-color :#6d4aff;
+    color: #fff
+}
 

@@ -142,8 +142,10 @@
               <ul class="tab-box-nav js-tab-box-nav container-extra-large">
               @php $i = 0; @endphp
               @foreach($tour as $value)
-              @php ++$i; @endphp
-                <li class="tab-box-nav__item js-tabBtn active1" data-name="tab-{{$value->id}}">
+              @php ++$i; 
+              @endphp
+
+                <li class="tab-box-nav__item js-tabBtn {{ $loop->first ? 'active' : '' }}" data-name="tab-{{$value->id}}">
                   <button class="tab-box-btn tab-box-btn--blue{{$i}}" type="button">
                     <span class="tab-box-btn__icon tab-box-btn__icon--blue{{$i}}">
                       <svg>
@@ -155,8 +157,24 @@
                 </li>
                 @endforeach
               </ul>
-              @foreach($tour as $value)
-              <div class="tab-box-content tab-box-content--active bg-blue border-img-top border-img-top--blue border-img-bottom border-img-bottom--blue js-tabContent"  data-content="tab-{{$value->id}}" >
+              @foreach($tour as $key => $value)
+              @php
+              $bgColor = "";
+              if($key == 0){
+              $bgColor = 'bg-blue';
+              }elseif($key == 1){
+                $bgColor = 'bg-green';
+              }elseif($key == 2){
+                $bgColor = 'bg-yellow';
+              }elseif($key == 3){
+                $bgColor = 'bg-orange';
+              }elseif($key == 4){
+                $bgColor = 'bg-pink';
+              }elseif($key == 5){
+                $bgColor = 'bg-navy';
+              }
+              @endphp
+              <div class="tab-box-content tab-box-content--{{ $loop->first ? 'active' : '' }} {{$bgColor}} border-img-top border-img-top--blue border-img-bottom border-img-bottom--blue js-tabContent"  data-content="tab-{{$value->id}}" >
                 <div class="container-extra-large bg-backpack-right bg-backpack-right--sm-none bg-backpack-right--to-rt swiper swiper--trip js-trip-slider">
                   <div class="js-trip-slider-pagination swiper-pagination swiper-pagination--top"></div>
                   <div class="swiper-wrapper">
@@ -377,11 +395,11 @@
                               <div
                                 class="card__footer card__footer--with-chip pt-20em"
                               >
-                                <div>
+                                {{-- <div>
                                   <span class="chip chip--blue">
                                     Group Tour
                                   </span>
-                                </div>
+                                </div> --}}
                                 <a
                                   class="btn btn--purple"
                                   href="vietnam-backpacking-tour.html"
@@ -398,15 +416,8 @@
                             <picture>
                               <img
                                 class="fb-review__img rotate-right lazy animated rollInRight active loaded"
-                                src="{{asset ('assets/front/images/sand-skiing.jpg')}}"
+                                src="{{ asset('admin/uploads/tour/' . $value->banner_img) }}"
                                 media="(max-width: 420px)"
-                              />
-                              <img
-                                class="lazy"
-                                data-src="{{asset ('assets/front/images/sand-skiing.jpg')}}"
-                                width="2500"
-                                height="1667"
-                                alt="Backpacking Vietnam"
                               />
                             </picture>
                             <div class="fb-review__comment">
@@ -1051,52 +1062,6 @@
                             </div>
                           </div>
                         </div>
-                        <div
-                          class="flex-box__col flex-box__col-25 flex-box__col--right tab-box-content__right-col"
-                        >
-                          <picture>
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day16/IMG_7342_vvqxr.jpg?w=390&h=270&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 420px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day16/IMG_7342_vvqxr.jpg?w=710&h=490&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 768px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day16/IMG_7342_vvqxr.jpg?w=400&h=300&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 1440px)"
-                            />
-                            <img
-                              class="tab-box-content__right-img tab-box-content__right-img--first lazy lazy--no-fade-in animated animation-rollInRightTop lazy"
-                              data-src="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day16/IMG_7342_vvqxr.jpg?w=540&h=390&crop=faces&q=75&auto=format&fm=png"
-                              width="2000"
-                              height="1500"
-                              alt=""
-                            />
-                          </picture>
-                          <picture>
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day17/vietnam-backpackingtours-activities-day17-4_tczqd.jpg?w=390&h=270&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 420px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day17/vietnam-backpackingtours-activities-day17-4_tczqd.jpg?w=710&h=490&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 768px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day17/vietnam-backpackingtours-activities-day17-4_tczqd.jpg?w=400&h=300&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 1440px)"
-                            />
-                            <img
-                              class="tab-box-content__right-img tab-box-content__right-img--second lazy lazy--no-fade-in animated animation-rollInRightTop lazy"
-                              data-src="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day17/vietnam-backpackingtours-activities-day17-4_tczqd.jpg?w=540&h=390&crop=faces&q=75&auto=format&fm=png"
-                              width="2500"
-                              height="1875"
-                              alt=""
-                            />
-                          </picture>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -1173,18 +1138,6 @@
                     Find Out More
                   </a>
                 </div>
-                <!--<div class="box-photo__right box-photo-img">
-                  <div
-                    class="box-photo-img__item lazy"
-                    id="image1-1669719281"
-                    data-style="    @media screen and (max-width:420px) {  #image1-1669719281 {  background-image: url('https://backpacking-tours.imgix.net/storage/uploads/images/nam4_txrkj.jpg?h=500&crop=faces&q=75&auto=format&fm=png')  } }    @media screen and (min-width:421px) and (max-width:768px) {  #image1-1669719281 {  background-image: url('https://backpacking-tours.imgix.net/storage/uploads/images/nam4_txrkj.jpg?h=920&crop=faces&q=75&auto=format&fm=png')  } }    @media screen and (min-width:769px) and (max-width:1440px) {  #image1-1669719281 {  background-image: url('https://backpacking-tours.imgix.net/storage/uploads/images/nam4_txrkj.jpg?h=660&crop=faces&q=75&auto=format&fm=png')  } }    @media screen and (min-width:1441px) {  #image1-1669719281 {  background-image: url('https://backpacking-tours.imgix.net/storage/uploads/images/nam4_txrkj.jpg?h=660&crop=faces&q=75&auto=format&fm=png')  } }   "
-                  ></div>
-                  <div
-                    class="box-photo-img__item lazy"
-                    id="image2-1669719281"
-                    data-style="    @media screen and (max-width:420px) {  #image2-1669719281 {  background-image: url('https://backpacking-tours.imgix.net/storage/uploads/images/nam1_ysjpp.jpg?w=450&h=380&crop=faces&q=75&auto=format&fm=png')  } }    @media screen and (min-width:421px) and (max-width:768px) {  #image2-1669719281 {  background-image: url('https://backpacking-tours.imgix.net/storage/uploads/images/nam1_ysjpp.jpg?w=830&h=530&crop=faces&q=75&auto=format&fm=png')  } }    @media screen and (min-width:769px) and (max-width:1440px) {  #image2-1669719281 {  background-image: url('https://backpacking-tours.imgix.net/storage/uploads/images/nam1_ysjpp.jpg?w=550&h=370&crop=faces&q=75&auto=format&fm=png')  } }    @media screen and (min-width:1441px) {  #image2-1669719281 {  background-image: url('https://backpacking-tours.imgix.net/storage/uploads/images/nam1_ysjpp.jpg?w=550&h=370&crop=faces&q=75&auto=format&fm=png')  } }   "
-                  ></div>
-                </div>-->
                 <div class="box-photo__right box-photo-img">
                   <div class="box-photo-img__item lazy" id="image1-1669719281">
                     <img src="{{asset ('assets/front/images/kid2.jpg')}}" />
@@ -1202,27 +1155,6 @@
             <div class="container-extra-large">
               <div class="fly-elements bg-backpack-right">
                 <div class="fly-elements__item">
-                  {{-- <picture>
-                    <source
-                      data-srcset="https://backpacking-tours.imgix.net/images/tmp/beach-rock-jump.jpg?w=390&h=270&crop=faces&q=75&auto=format&fm=png"
-                      media="(max-width: 420px)"
-                    />
-                    <source
-                      data-srcset="https://backpacking-tours.imgix.net/images/tmp/beach-rock-jump.jpg?w=720&h=490&crop=faces&q=75&auto=format&fm=png"
-                      media="(max-width: 768px)"
-                    />
-                    <source
-                      data-srcset="https://backpacking-tours.imgix.net/images/tmp/beach-rock-jump.jpg?w=470&h=340&crop=faces&q=75&auto=format&fm=png"
-                      media="(max-width: 1440px)"
-                    />
-                    <img
-                      class="fly-elements__photo lazy"
-                      data-src="https://backpacking-tours.imgix.net/images/tmp/beach-rock-jump.jpg?w=620&h=440&crop=faces&q=75&auto=format&fm=png"
-                      width="2500"
-                      height="1667"
-                      alt=""
-                    />
-                  </picture> --}}
                 </div>
                 <div class="fly-elements__item fly-elements__item--circled">
                   <div class="circle circle--orange">
