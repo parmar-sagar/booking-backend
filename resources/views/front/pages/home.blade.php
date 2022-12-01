@@ -157,24 +157,10 @@
                 </li>
                 @endforeach
               </ul>
+              @php $colors = ['bg-blue','bg-green','bg-yellow','bg-orange','bg-pink','bg-navy']; @endphp
               @foreach($tour as $key => $value)
-              @php
-              $bgColor = "";
-              if($key == 0){
-              $bgColor = 'bg-blue';
-              }elseif($key == 1){
-                $bgColor = 'bg-green';
-              }elseif($key == 2){
-                $bgColor = 'bg-yellow';
-              }elseif($key == 3){
-                $bgColor = 'bg-orange';
-              }elseif($key == 4){
-                $bgColor = 'bg-pink';
-              }elseif($key == 5){
-                $bgColor = 'bg-navy';
-              }
-              @endphp
-              <div class="tab-box-content tab-box-content--{{ $loop->first ? 'active' : '' }} {{$bgColor}} border-img-top border-img-top--blue border-img-bottom border-img-bottom--blue js-tabContent"  data-content="tab-{{$value->id}}" >
+            
+              <div class="tab-box-content tab-box-content--{{ $loop->first ? 'active' : '' }} {{$colors[$key];}} border-img-top border-img-top--blue border-img-bottom border-img-bottom--blue js-tabContent"  data-content="tab-{{$value->id}}" >
                 <div class="container-extra-large bg-backpack-right bg-backpack-right--sm-none bg-backpack-right--to-rt swiper swiper--trip js-trip-slider">
                   <div class="js-trip-slider-pagination swiper-pagination swiper-pagination--top"></div>
                   <div class="swiper-wrapper">
