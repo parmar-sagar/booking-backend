@@ -141,29 +141,30 @@
             <div class="tab-box">
               <ul class="tab-box-nav js-tab-box-nav container-extra-large">
               @php $i = 0; @endphp
-              @foreach($tour as $value)
+              @foreach($tourVehicles as $value)
               @php ++$i; 
               @endphp
 
-                <li class="tab-box-nav__item js-tabBtn {{ $loop->first ? 'active' : '' }}" data-name="tab-{{$value->id}}">
+                <li class="tab-box-nav__item js-tabBtn {{ $loop->first ? 'active' : '' }}" data-name="tab-{{$value['tour_id']}}">
                   <button class="tab-box-btn tab-box-btn--blue{{$i}}" type="button">
                     <span class="tab-box-btn__icon tab-box-btn__icon--blue{{$i}}">
                       <svg>
                         <use xlink:href="images/icons.svg#icon-vietnam"></use>
                       </svg>
                     </span>
-                    {{$value->name}}
+                    {{$value['tour_name']}}
                   </button>
                 </li>
                 @endforeach
               </ul>
               @php $colors = ['bg-blue','bg-green','bg-yellow','bg-orange','bg-pink','bg-navy']; @endphp
-              @foreach($tour as $key => $value)
-            
-              <div class="tab-box-content tab-box-content--{{ $loop->first ? 'active' : '' }} {{$colors[$key];}} border-img-top border-img-top--blue border-img-bottom border-img-bottom--blue js-tabContent"  data-content="tab-{{$value->id}}" >
+              @foreach($tourVehicles as $key => $value)
+          
+              <div class="tab-box-content tab-box-content--{{ $loop->first ? 'active' : '' }} {{$colors[$key];}} border-img-top border-img-top--blue border-img-bottom border-img-bottom--blue js-tabContent"  data-content="tab-{{$value['tour_id']}}" >
                 <div class="container-extra-large bg-backpack-right bg-backpack-right--sm-none bg-backpack-right--to-rt swiper swiper--trip js-trip-slider">
                   <div class="js-trip-slider-pagination swiper-pagination swiper-pagination--top"></div>
                   <div class="swiper-wrapper">
+                    @foreach($value['veh'] as $key => $vehicle)
                     <div class="swiper-slide">
                       <div class="flex-box align-items-center">
                         <div
@@ -177,7 +178,7 @@
                           >
                           <picture>
                             <img
-                              src="{{ asset('admin/uploads/tour/' . $value->image) }}"
+                              src="{{ asset('admin/uploads/vehicle/' . $vehicle['image'])}}"
                               media="(max-width: 420px)"
                             />
                           </picture>
@@ -206,7 +207,7 @@
                                 class="card__headline card__headline--with-chip-mob card__headline--price-top-mob card__headline--with-price"
                               >
                                 <div class="headline-wave">
-                                  <h3 class="headline-3">{{$value->name}}</h3>
+                                  <h3 class="headline-3">{{$vehicle['name']}}</h3>
                                   <svg
                                     width="100px"
                                     height="16px"
@@ -226,7 +227,7 @@
                                     <div
                                       class="card__headline-price-main bg-blue"
                                     >
-                                    {{$value['location']->name}}
+                                    {{$value['location']}}
                                       {{-- <span
                                         class="card__headline-price-was text-upper bg-blueDark"
                                       >
@@ -388,10 +389,10 @@
                                 </div> --}}
                                 <a
                                   class="btn btn--purple"
-                                  href="vietnam-backpacking-tour.html"
+                                  href="{{url('')}}"
                                   title="View now"
                                 >
-                                  View Tour
+                                  View Detail
                                 </a>
                               </div>
                             </div>
@@ -402,20 +403,20 @@
                             <picture>
                               <img
                                 class="fb-review__img rotate-right lazy animated rollInRight active loaded"
-                                src="{{ asset('admin/uploads/tour/' . $value->banner_img) }}"
+                                src="{{ asset('admin/uploads/vehicle/' . $vehicle['banner_img']) }}"
                                 media="(max-width: 420px)"
                               />
                             </picture>
                             <div class="fb-review__comment">
                               <p>
-                                {{$value->description}}
+                                {{$vehicle['description']}}
                               </p>
                               {{-- <p class="headline-8">
                                 Mike,<br />
                                 Facebook, 29 Oct 2021
                               </p> --}}
                             </div>
-                            <p
+                            {{-- <p
                               class="headline-5 mt-10em flex flex--middle flex--center"
                             >
                               <svg
@@ -478,8 +479,8 @@
                                   xlink:href="images/icons.svg#icon-star"
                                 ></use>
                               </svg>
-                            </p>
-                            <span class="headline-9 underline">
+                            </p> --}}
+                            {{-- <span class="headline-9 underline">
                               Rated <span>5</span>/5 by
                               <a
                                 class="color-white"
@@ -489,567 +490,12 @@
                               >
                                 <span>1000</span> Travellers on Facebook
                               </a>
-                            </span>
+                            </span> --}}
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="swiper-slide">
-                      <div class="flex-box align-items-center">
-                        <div
-                          class="flex-box__col flex-box__col-25 flex-box__col--right tab-box-content__left-col"
-                        >
-                          <picture>
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day3-4/vietnam-backpackingtours-activities-day3-4-3_yaubp.jpg?w=390&h=270&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 420px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day3-4/vietnam-backpackingtours-activities-day3-4-3_yaubp.jpg?w=710&h=490&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 768px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day3-4/vietnam-backpackingtours-activities-day3-4-3_yaubp.jpg?w=400&h=300&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 1440px)"
-                            />
-                            <img
-                              class="tab-box-content__left-img tab-box-content__left-img--first lazy lazy--no-fade-in animated animation-rollInLeftTop lazy"
-                              data-src="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day3-4/vietnam-backpackingtours-activities-day3-4-3_yaubp.jpg?w=540&h=390&crop=faces&q=75&auto=format&fm=png"
-                              width="2500"
-                              height="1875"
-                              alt=""
-                            />
-                          </picture>
-                          <picture>
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/images/video-bg/vietnam-groupshot_ddpag.jpg?w=390&h=270&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 420px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/images/video-bg/vietnam-groupshot_ddpag.jpg?w=710&h=490&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 768px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/images/video-bg/vietnam-groupshot_ddpag.jpg?w=400&h=300&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 1440px)"
-                            />
-                            <img
-                              class="tab-box-content__left-img tab-box-content__left-img--second lazy lazy--no-fade-in animated animation-rollInLeftTop lazy"
-                              data-src="https://backpacking-tours.imgix.net/storage/uploads/images/video-bg/vietnam-groupshot_ddpag.jpg?w=540&h=390&crop=faces&q=75&auto=format&fm=png"
-                              width="2500"
-                              height="1667"
-                              alt=""
-                            />
-                          </picture>
-                        </div>
-                        <div
-                          class="flex-box__col flex-box__col-40 animation-fadeInUp"
-                        >
-                          <div
-                            class="card card--no-border card--shadow-blue bg-white"
-                          >
-                            <div
-                              class="card__content card__content--padding-xl"
-                            >
-                              <div
-                                class="card__headline card__headline--with-chip-mob card__headline--price-top-mob card__headline--with-price"
-                              >
-                                <div class="headline-wave">
-                                  <h3 class="headline-3">
-                                    Moter Bike desert Advanture
-                                  </h3>
-                                  <svg
-                                    width="100px"
-                                    height="16px"
-                                    class="stroke-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xlink:href="images/icons.svg#icon-wave-squiggle"
-                                    />
-                                  </svg>
-                                </div>
-                                <div
-                                  class="card__headline-price-wrapper card__headline-price-wrapper--flex-col mt-5em"
-                                >
-                                  <div class="card__headline-price-values">
-                                    <div
-                                      class="card__headline-price-main bg-blue"
-                                    >
-                                      $1200
-                                      <span
-                                        class="card__headline-price-was text-upper bg-blueDark"
-                                      >
-                                        From
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <ul
-                                class="list-tour-info list-tour-info--two-cols"
-                              >
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-calendar-range"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Length</b> <span>12 Days</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-baby-face-outline"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Avg. Age</b> <span>18-39</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-rowing"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>No. Of Activities</b> <span>27</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-silverware-fork-knife"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>No. Of Meals</b> <span>16</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-account-multiple"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Avg. Group Size</b> <span>14 - 20</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-star"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Operator</b>
-                                    <span>Quads Dubai</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-map"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Starting Point</b> <span>Hanoi</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-map"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Ending Point</b> <span>Hoi An</span>
-                                  </div>
-                                </li>
-                              </ul>
-                              <div
-                                class="card__footer card__footer--with-chip pt-20em"
-                              >
-                                {{-- <div>
-                                  <span class="chip chip--blue">
-                                    Group Tour
-                                  </span>
-                                </div> --}}
-                                <a
-                                  class="btn btn--purple"
-                                  href="book-a-backpacking-tour/backpacking-vietnam-north.html"
-                                  title="View now"
-                                >
-                                  View Tour
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="flex-box__col flex-box__col-25 flex-box__col--right tab-box-content__right-col"
-                        >
-                          <picture>
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day6/vietnam-backpackingtours-activities-day6-5_lldpf.jpg?w=390&h=270&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 420px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day6/vietnam-backpackingtours-activities-day6-5_lldpf.jpg?w=710&h=490&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 768px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day6/vietnam-backpackingtours-activities-day6-5_lldpf.jpg?w=400&h=300&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 1440px)"
-                            />
-                            <img
-                              class="tab-box-content__right-img tab-box-content__right-img--first lazy lazy--no-fade-in animated animation-rollInRightTop lazy"
-                              data-src="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day6/vietnam-backpackingtours-activities-day6-5_lldpf.jpg?w=540&h=390&crop=faces&q=75&auto=format&fm=png"
-                              width="2500"
-                              height="1875"
-                              alt=""
-                            />
-                          </picture>
-                          <picture>
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day7/left-pn_afqfh.jpg?w=390&h=270&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 420px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day7/left-pn_afqfh.jpg?w=710&h=490&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 768px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day7/left-pn_afqfh.jpg?w=400&h=300&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 1440px)"
-                            />
-                            <img
-                              class="tab-box-content__right-img tab-box-content__right-img--second lazy lazy--no-fade-in animated animation-rollInRightTop lazy"
-                              data-src="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day7/left-pn_afqfh.jpg?w=540&h=390&crop=faces&q=75&auto=format&fm=png"
-                              width="2500"
-                              height="1875"
-                              alt=""
-                            />
-                          </picture>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="flex-box align-items-center">
-                        <div
-                          class="flex-box__col flex-box__col-25 flex-box__col--right tab-box-content__left-col"
-                        >
-                          <picture>
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day12/BTV24Jul2018%5BEOT%5D115-2_vuweb.jpg?w=390&h=270&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 420px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day12/BTV24Jul2018%5BEOT%5D115-2_vuweb.jpg?w=710&h=490&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 768px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day12/BTV24Jul2018%5BEOT%5D115-2_vuweb.jpg?w=400&h=300&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 1440px)"
-                            />
-                            <img
-                              class="tab-box-content__left-img tab-box-content__left-img--first lazy lazy--no-fade-in animated animation-rollInLeftTop lazy"
-                              data-src="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day12/BTV24Jul2018%5BEOT%5D115-2_vuweb.jpg?w=540&h=390&crop=faces&q=75&auto=format&fm=png"
-                              width="2500"
-                              height="1875"
-                              alt=""
-                            />
-                          </picture>
-                          <picture>
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day14/vietnam-backpackingtours-activities-day14-15_nmnhf.jpg?w=390&h=270&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 420px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day14/vietnam-backpackingtours-activities-day14-15_nmnhf.jpg?w=710&h=490&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 768px)"
-                            />
-                            <source
-                              data-srcset="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day14/vietnam-backpackingtours-activities-day14-15_nmnhf.jpg?w=400&h=300&crop=faces&q=75&auto=format&fm=png"
-                              media="(max-width: 1440px)"
-                            />
-                            <img
-                              class="tab-box-content__left-img tab-box-content__left-img--second lazy lazy--no-fade-in animated animation-rollInLeftTop lazy"
-                              data-src="https://backpacking-tours.imgix.net/storage/uploads/whats-included/vietnam/day14/vietnam-backpackingtours-activities-day14-15_nmnhf.jpg?w=540&h=390&crop=faces&q=75&auto=format&fm=png"
-                              width="2500"
-                              height="1875"
-                              alt=""
-                            />
-                          </picture>
-                        </div>
-                        <div
-                          class="flex-box__col flex-box__col-40 animation-fadeInUp"
-                        >
-                          <div
-                            class="card card--no-border card--shadow-blue bg-white"
-                          >
-                            <div
-                              class="card__content card__content--padding-xl"
-                            >
-                              <div
-                                class="card__headline card__headline--with-chip-mob card__headline--price-top-mob card__headline--with-price"
-                              >
-                                <div class="headline-wave">
-                                  <h3 class="headline-3">
-                                    Moter Bike Forest Advanture
-                                  </h3>
-                                  <svg
-                                    width="100px"
-                                    height="16px"
-                                    class="stroke-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xlink:href="images/icons.svg#icon-wave-squiggle"
-                                    />
-                                  </svg>
-                                </div>
-                                <div
-                                  class="card__headline-price-wrapper card__headline-price-wrapper--flex-col mt-5em"
-                                >
-                                  <div class="card__headline-price-values">
-                                    <div
-                                      class="card__headline-price-main bg-blue"
-                                    >
-                                      $1145
-                                      <span
-                                        class="card__headline-price-was text-upper bg-blueDark"
-                                      >
-                                        From
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <ul
-                                class="list-tour-info list-tour-info--two-cols"
-                              >
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-calendar-range"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Length</b> <span>12 Days</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-baby-face-outline"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Avg. Age</b> <span>18-39</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-rowing"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>No. Of Activities</b> <span>18</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-silverware-fork-knife"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>No. Of Meals</b> <span>13</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-account-multiple"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Avg. Group Size</b> <span>14 - 20</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-star"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Operator</b>
-                                    <span>Quads Dubai</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-map"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Starting Point</b> <span>Hoi An</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-map"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Ending Point</b> <span>Ho Chi Minh</span>
-                                  </div>
-                                </li>
-                              </ul>
-                              <div
-                                class="card__footer card__footer--with-chip pt-20em"
-                              >
-                                <div>
-                                  <span class="chip chip--blue">
-                                    Group Tour
-                                  </span>
-                                </div>
-                                <a
-                                  class="btn btn--purple"
-                                  href="book-a-backpacking-tour/backpacking-vietnam-south.html"
-                                  title="View now"
-                                >
-                                  View Tour
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    @endforeach
                   </div>
                   <button
                     class="js-trip-slider-prev swiper-button swiper-button--prev"
@@ -1078,7 +524,7 @@
                     class="btn btn--black"
                     href="book-a-backpacking-tour8130.html?country=Vietnam"
                   >
-                  View All {{$value->name}} Tours
+                  View All {{$value['tour_name']}} Tours
                   </a>
                 </p>
               </div>

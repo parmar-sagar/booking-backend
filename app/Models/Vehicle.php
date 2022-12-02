@@ -52,4 +52,8 @@ class Vehicle extends Model
     public function ScopeOrder($query){
         return $query->orderBy('id','DESC');
     }
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
 }

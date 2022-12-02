@@ -48,5 +48,5 @@ class Tour extends Model
 
     public function location(){
         return $this->hasOne('App\Models\Location','id','location_id');
-      }
+    }
 }
