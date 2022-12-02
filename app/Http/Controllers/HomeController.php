@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\HomeSlider;
 use App\Handlers\Error;
 use App\Models\Vehicle;
+use App\Models\Discount;
 use App\Models\Tour;
 
 class HomeController extends Controller
@@ -20,6 +21,7 @@ class HomeController extends Controller
     public function index(){
         $this->outputData = [
             'imgVideo' => HomeSlider::select('image_video')->order()->first(),
+            'discount' => Discount::order()->get(),
         ];
         $tour = Tour::status('1')->with('location')->take(6)->get();
         $res= array();

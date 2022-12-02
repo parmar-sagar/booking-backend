@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\MyprofileController;
 /* Frontend Controller start*/
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SingleProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,10 +35,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('front.pages.home.home');
-// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -260,4 +257,6 @@ Route::group([
 /*Frontend Routes start */
 
     Route::get('/',[HomeController::class, 'index']);
+
+    Route::get('/view-detail/{id}',[SingleProductController::class, 'index']);
 
