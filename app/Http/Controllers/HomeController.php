@@ -20,7 +20,7 @@ class HomeController extends Controller
 
     public function index(){
         $this->outputData = [
-            'imgVideo' => HomeSlider::select('image_video')->order()->first(),
+            'imgVideo' => HomeSlider::status('1')->select('image_video','type')->order()->get(),
             'discount' => Discount::order()->get(),
         ];
         $tour = Tour::status('1')->with('location')->take(6)->get();

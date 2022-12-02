@@ -22,10 +22,10 @@ class HomeSlider extends Model
     ];
 
     public function ScopeOrder($query){
-        return $query->orderBy('id','DESC');
+        return $query->orderBy('sequence','ASC');
     }
 
-    public function status($query, $type)
+    public function ScopeStatus($query, $type)
     {
         return $query->where('status', $type);
     }

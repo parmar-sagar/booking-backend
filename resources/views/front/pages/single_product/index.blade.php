@@ -102,11 +102,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                
                             </div>
-
-
                             <a class="btn btn--purple" href="#tour-dates" title="View Tour Dates"> Book Now </a>
                         </div>
                         <div class="col-12 col-lg-5 col-xl-5 col-xxl-4 offset-xxl-1">
@@ -192,75 +188,6 @@
                                         <li>90 Mins Ride : 2700 AED</li>
                                         <li>120 Mins Ride : 3000 AED</li>
                                     </ul>
-                                    <!-- <ul class="social-media mt-10em">
-                                        <li class="social-media__item"> <a
-                                                class="l-footer__social-link social-media__link" target="_blank"
-                                                rel="noopener noreferrer"
-                                                href="https://www.facebook.com/backpackingtours/" title="Facebook"
-                                                aria-label="Our Facebook"> <svg width="43.14px" height="43.14px"
-                                                    class="social-media__icon">
-                                                    <use xlink:href="images/icons.svg#icon-facebook"></use>
-                                                </svg> </a> </li>
-                                        <li class="social-media__item"> <a
-                                                class="l-footer__social-link social-media__link" target="_blank"
-                                                rel="noopener noreferrer"
-                                                href="https://www.youtube.com/c/BackpackingTours" title="YouTube"
-                                                aria-label="Our YouTube"> <svg width="43.14px" height="43.14px"
-                                                    class="social-media__icon">
-                                                    <use xlink:href="images/icons.svg#icon-youtube"></use>
-                                                </svg> </a> </li>
-                                        <li class="social-media__item"> <a
-                                                class="l-footer__social-link social-media__link" target="_blank"
-                                                rel="noopener noreferrer"
-                                                href="https://www.instagram.com/backpackingtours/" title="Instagram"
-                                                aria-label="Our Instagram"> <svg width="43.14px" height="43.14px"
-                                                    class="social-media__icon">
-                                                    <use xlink:href="images/icons.svg#icon-instagram"></use>
-                                                </svg> </a> </li>
-                                        <li class="social-media__item"> <a
-                                                class="l-footer__social-link social-media__link" target="_blank"
-                                                rel="noopener noreferrer"
-                                                href="https://www.facebook.com/groups/backpackingtours/"
-                                                title="Our Facebook Group" aria-label="Our Facebook Group"> <svg
-                                                    width="43.14px" height="43.14px" class="social-media__icon">
-                                                    <use xlink:href="images/icons.svg#icon-fb-group"></use>
-                                                </svg> </a> </li>
-                                    </ul> -->
-
-
-
-
-
-                                </div>
-                            </div>
-                            <div class="animation-fadeInUp mb-30em mt-40em">
-                                <div class="card card--shadow-blurple">
-                                    <div class="card__content">
-                                        <div
-                                            class="card__headline card__headline--with-price card__headline--extra-bottom-margin">
-                                            <div class="card__headline-left headline-wave">
-                                                <h2 class="headline-3 text-upper">MUST KNOW BEFORE YOU BOOK</h2> <svg width="100px"
-                                                    height="16px" class="stroke-blurple">
-                                                    <use xlink:href="images/icons.svg#icon-wave-squiggle" />
-                                                </svg>
-                                            </div>
-                                            <!-- <div class="card__headline-price-wrapper">
-                                                <div
-                                                    class="card__headline-price-values card__headline-price-values--align-right">
-                                                    <div
-                                                        class="card__headline-price-main card__headline-price-main--large bg-blurple">
-                                                        £1460 <span
-                                                            class="card__header-price-label bg-blurpleDark text-upper">from</span>
-                                                    </div> <b class="card__headline-price-info-pay">Pay £250 deposit</b>
-                                                    <div class="card__headline-price-info"> </div>
-                                                </div>
-                                            </div> -->
-                                        </div>
-                                        <!-- <div class="content mt-10em mb-10em">
-                                            <p> Absolutely epic! Cliff temples in Uluwatu, sunset at Tanah Lot, SUP in
-                                                Nusa Lembongan, so many waterfalls, snorkel with sea turtles, Gili T
-                                                beaches and more. </p>
-                                        </div> -->
                                         <ul class="list-tour-info list-tour-info--two-cols">
                                             <li class="list-tour-info__item"> <svg width="36px" height="36px"
                                                     class="fill-blurple" aria-hidden="true" aria-focusable="false">

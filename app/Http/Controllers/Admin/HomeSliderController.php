@@ -107,7 +107,7 @@ class HomeSliderController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:home_sliders',
-                    'sequence' => 'required|integer',
+                    'sequence' => 'required|integer|unique:home_sliders,sequence,'.$id,
                     'status' => 'required|in:1,0',
                     'image_video' => $imageVdo,
                     'type' => 'required|in:0,1'
