@@ -46,25 +46,22 @@
                                 </figure>
                             </div>
                             <div class="row">
+                                
                                 <div class="col-md-6">
                                     <div class="list-icon-wrapper">
                                         <ul class="list-icon list-icon--tick">
-                                            <li>Pickup & drop off from anywhere in Dubai and Sharjah</li>
-                                            <li>Experienced Tour Guide</li>
-                                            <li>Buggy Ride ( 30 / 60 / 90 / 120 Mins )</li>
-                                            <li>Convoy Leader</li>
-                                            <li>Soft Drinks & Water Served</li>
-                                            <li>Goggles and Safety Helmets provided for the ride</li>
-                                            <li>Complementary Sand Boarding provided to guests upon request</li>
-                                            
+                                            @foreach($include as $includes)
+                                            <li>{{$includes->title}}</li>
+                                            @endforeach
                                         </ul>
                                         <ul class="list-icon list-icon--cross">
-                                            <li>Alcohol / Beverages not included</li>
-                                            <li>Meals or Snacks</li>
-                                            <li>Anything which is not mentioned in Inclusion Section.</li>
+                                            @foreach($notInclude as $notInclude)
+                                            <li>{{$notInclude->title}}</li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
+                              
                                 <div class="col-md-6">
                                     <blockquote class="blockquote blockquote--margin-sm blockquote--blurple">
                                         <p>{{$singlePrdct->description}}</p> 

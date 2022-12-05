@@ -56,4 +56,8 @@ class Vehicle extends Model
     {
         return $query->where('status', $status);
     }
+    public function tours(){
+        return $this->hasOne('App\Models\Tour','id','tour_id');
+    }
+    
 }

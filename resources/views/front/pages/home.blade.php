@@ -39,26 +39,6 @@
               </button>
             </div>
           </div>
-          <div class="container l-header__container">
-            <div class="l-header__content">
-              <div class="l-header__content-left">
-                <h1 class="headline-1 color-white animation-fadeInRightBig">
-                  Desert Advanture for solo Travellers
-                </h1>
-                <p class="headline-7 color-white animation-fadeInRightBig animation-delay-1">
-                  Travel & Make New Friends!
-                </p>
-              </div>
-            </div>
-            <a class="l-header__btn" href="#tours" title="Explore Tours" aria-label="Explore Tours">
-              <div class="l-header__btn-icon">
-                <svg width="40" height="20" aria-hidden="true" focusable="false">
-                  <use xlink:href="images/icons.svg#icon-select-dropdown-icon"></use>
-                </svg>
-              </div>
-              <span class="l-header__btn-text"> Explore Tours </span>
-            </a>
-          </div>
         </header>
         <main id="main" class="l-main mt-5em">
           <section class="section section--p-none-bottom">
@@ -73,8 +53,20 @@
               @foreach($tourVehicles as $value)
               @php ++$i; 
               @endphp
-
+             
                 <li class="tab-box-nav__item js-tabBtn {{ $loop->first ? 'active' : '' }}" data-name="tab-{{$value['tour_id']}}">
+                    @if($value['tour_name'] === 'All other tours')
+                    <a class="" href="{{url('/all-other-tours')}}" title="Login" aria-label="Login">
+                    <button class="tab-box-btn tab-box-btn--blue5"data-name="tab" type="button">
+                      <span class="tab-box-btn__icon tab-box-btn__icon--blue5">
+                        <svg>
+                          <use xlink:href="images/icons.svg#icon-vietnam"></use>
+                        </svg>
+                      </span>
+                      All other Tours
+                    </button>
+                    </a>
+                    @else
                   <button class="tab-box-btn tab-box-btn--blue{{$i}}" type="button">
                     <span class="tab-box-btn__icon tab-box-btn__icon--blue{{$i}}">
                       <svg>
@@ -83,8 +75,21 @@
                     </span>
                     {{$value['tour_name']}}
                   </button>
-                </li>
+                  @endif
+                {{-- </a> --}}
+              </li>
                 @endforeach
+                {{-- <a class="l-navbar__login-link" href="{{url('/all-other-tours')}}" title="Login" aria-label="Login">
+                <button class="tab-box-btn tab-box-btn--blue5"data-name="tab" type="button">
+                  <span class="tab-box-btn__icon tab-box-btn__icon--blue5">
+                    <svg>
+                      <use xlink:href="images/icons.svg#icon-vietnam"></use>
+                    </svg>
+                  </span>
+                  All other Tours
+                </button> --}}
+              
+                
               </ul>
               @php $colors = ['bg-blue','bg-green','bg-yellow','bg-orange','bg-pink','bg-navy']; @endphp
               @foreach($tourVehicles as $key => $value)
@@ -345,81 +350,6 @@
                                 Facebook, 29 Oct 2021
                               </p> --}}
                             </div>
-                            {{-- <p
-                              class="headline-5 mt-10em flex flex--middle flex--center"
-                            >
-                              <svg
-                                width="22px"
-                                height="22px"
-                                class="fill-white"
-                                aria-hidden="true"
-                                aria-focusable="false"
-                              >
-                                <use
-                                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                                  xlink:href="images/icons.svg#icon-star"
-                                ></use>
-                              </svg>
-                              <svg
-                                width="22px"
-                                height="22px"
-                                class="fill-white"
-                                aria-hidden="true"
-                                aria-focusable="false"
-                              >
-                                <use
-                                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                                  xlink:href="images/icons.svg#icon-star"
-                                ></use>
-                              </svg>
-                              <svg
-                                width="22px"
-                                height="22px"
-                                class="fill-white"
-                                aria-hidden="true"
-                                aria-focusable="false"
-                              >
-                                <use
-                                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                                  xlink:href="images/icons.svg#icon-star"
-                                ></use>
-                              </svg>
-                              <svg
-                                width="22px"
-                                height="22px"
-                                class="fill-white"
-                                aria-hidden="true"
-                                aria-focusable="false"
-                              >
-                                <use
-                                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                                  xlink:href="images/icons.svg#icon-star"
-                                ></use>
-                              </svg>
-                              <svg
-                                width="22px"
-                                height="22px"
-                                class="fill-white"
-                                aria-hidden="true"
-                                aria-focusable="false"
-                              >
-                                <use
-                                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                                  xlink:href="images/icons.svg#icon-star"
-                                ></use>
-                              </svg>
-                            </p> --}}
-                            {{-- <span class="headline-9 underline">
-                              Rated <span>5</span>/5 by
-                              <a
-                                class="color-white"
-                                target="_blank"
-                                href="https://www.facebook.com/backpackingtours/"
-                                rel="noopener nofollow"
-                              >
-                                <span>1000</span> Travellers on Facebook
-                              </a>
-                            </span> --}}
                           </div>
                         </div>
                       </div>
@@ -451,7 +381,7 @@
                 <p class="text-center">
                   <a
                     class="btn btn--black"
-                    href="book-a-backpacking-tour8130.html?country=Vietnam"
+                    href="{{url('tours/'.$vehicle['tour_id'])}}"
                   >
                   View All {{$value['tour_name']}} Tours
                   </a>
@@ -470,9 +400,9 @@
                   <div class="card-body">
                     <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
                       <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="" aria-label="Slide 1" style="visibility: hidden;" ></button>
-                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2" class="" style="visibility: hidden;" ></button>
-                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3" class="active" aria-current="true" style="visibility: hidden;"></button>
+                        @foreach($discount as $key => $discounts)
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{$key}}" class="{{ $loop->first ? 'active' : '' }}" aria-label="Slide 1" style="visibility: hidden;" ></button>
+                        @endforeach
                       </div>
                      {{-- group discount slider --}}
                      
@@ -654,362 +584,89 @@
               </div>
             </div>
           </section>
-          <section class="section mt-20em bg-white-top-jaw">
+          <section class="section mt-20em bg-white-top-jaw pb-50em pt-20em">
+            <div class="headline-container">
+              <h2 class="headline-10 headline-pad-mob text-center">
+                Popular Tours Deals
+              </h2>
+            </div>
             <div
               class="container-extra-large bg-backpack-right bg-backpack-right--sm-none bg-backpack-right--to-rt swiper swiper--trip js-trip-slider">
               <div class="js-trip-slider-pagination swiper-pagination swiper-pagination--top"></div>
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <div class="flex-box align-items-center ">
-  
-  
-                    <div class="row pt-50em "
-                      style="justify-content: center;align-items: center;padding-top:100px;justify-content: space-between !important;">
-                      <div class="col-lg-3 animation-delay-0 animated fadeInUp active">
-                        <a class="card card--flex card--shadow-orange" href="blog/vaccines-to-travel-to-thailand.html"
-                          title="Vaccines to travel to Thailand">
-                          <!--<div
-                                class="card__image lazy"
-                                id="recent-article_01669719281"
-                                data-name="recent-article_01669719281"
-                                data-style="    @media screen and (max-width:420px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }    @media screen and (min-width:421px) and (max-width:768px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }    @media screen and (min-width:769px) and (max-width:1440px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }    @media screen and (min-width:1441px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }   "
-                              ></div>-->
-  
-                          <img src="images/DSC_9798-915x612-1.webp">
-  
-                          <div class="card__content card__content--with-footer">
-                            <div>
-                              <p class="headline-5 color-orange">Dubai</p>
-                              <div class="headline-wave">
-                                <h4 class="headline-4">Dune Buggies</h4>
-                                <svg width="100px" height="16px" class="stroke-orange">
-                                  <use xlink:href="#icon-wave-squiggle"></use>
-                                </svg>
-                              </div>
-                              <div class="content mt-10em">
-                                Contact your local GP or hospital to make an
-                                appointment as soon as possible. Ideally at least
-                                four weeks before you leave. Your local GP or
-                                hospital will have your vaccine history and advice
-                                you on what you will need to take.
-                              </div>
-                            </div>
-                            <div class="card__footer">
-                              <div>
-                                <span class="chip chip--orange">General Info</span>
-                              </div>
-                              <span class="btn-link">Read More</span>
+              <div class="swiper-wrapper" style="flex-direction:column;">
+                <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                  {{-- <div class="carousel-indicators">
+                    @foreach($deal as $key => $deals)
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{$key}}" class="{{ $loop->first ? 'active' : '' }}"
+                      aria-label="Slide 1" style="visibility: hidden;"></button>
+                   @endforeach
+                  </div> --}}
+                  
+                  <div class="carousel-inner swiper mySwiper">
+                    @foreach($deal as $key => $deals)
+                        <div class="col swiper-wrapper">
+                          <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-bs-interval="1000">
+                            <div class="row row-cols-1 row-cols-md-3 g-4">
+                              <a class="card card--flex card--shadow-orange" href="#"
+                                title="Vaccines to travel to Thailand">
+                                <img src="{{ asset('admin/uploads/tour/' . $deals['tours']->image) }}">
+                                <div class="card__content card__content--with-footer">
+                                  <div>
+                                    {{-- <p class="headline-5 color-orange">Dubai</p> --}}
+                                    <div class="headline-wave">
+                                      <h4 class="headline-4">{{$deals['tours']->name}}</h4>
+                                      <svg width="100px" height="16px" class="stroke-orange">
+                                        <use xlink:href="#icon-wave-squiggle"></use>
+                                      </svg>
+                                    </div>
+                                    <div class="content mt-10em">
+                                      {{$deals['tours']->description}}
+                                    </div>
+                                  </div>
+                                  <div class="card__footer">
+                                    <div>
+                                      <span class="chip chip--orange">Book Now</span>
+                                    </div>
+                                    {{-- <span class="btn-link">Read More</span> --}}
+                                  </div>
+                                </div>
+                              </a>
                             </div>
                           </div>
-                        </a>
-                      </div>
-                      <div class="col-lg-3 animation-delay-0 animated fadeInUp active">
-                        <a class="card card--flex card--shadow-orange" href="blog/vaccines-to-travel-to-thailand.html"
-                          title="Vaccines to travel to Thailand" >
-                          <!--<div
-                                class="card__image lazy"
-                                id="recent-article_01669719281"
-                                data-name="recent-article_01669719281"
-                                data-style="    @media screen and (max-width:420px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }    @media screen and (min-width:421px) and (max-width:768px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }    @media screen and (min-width:769px) and (max-width:1440px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }    @media screen and (min-width:1441px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }   "
-                              ></div>-->
-  
-                          <img src="images/DSC_9798-915x612-1.webp">
-  
-                          <div class="card__content card__content--with-footer">
-                            <div>
-                              <p class="headline-5 color-orange">Dubai</p>
-                              <div class="headline-wave">
-                                <h4 class="headline-4">Dune Buggies</h4>
-                                <svg width="100px" height="16px" class="stroke-orange">
-                                  <use xlink:href="#icon-wave-squiggle"></use>
-                                </svg>
-                              </div>
-                              <div class="content mt-10em">
-                                Contact your local GP or hospital to make an
-                                appointment as soon as possible. Ideally at least
-                                four weeks before you leave. Your local GP or
-                                hospital will have your vaccine history and advice
-                                you on what you will need to take.
-                              </div>
-                            </div>
-                            <div class="card__footer">
-                              <div>
-                                <span class="chip chip--orange">General Info</span>
-                              </div>
-                              <span class="btn-link">Read More</span>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
-                      <div class="col-lg-3 animation-delay-0 animated fadeInUp active">
-                        <a class="card card--flex card--shadow-orange" href="blog/vaccines-to-travel-to-thailand.html"
-                          title="Vaccines to travel to Thailand" style="border: none;">
-                          <!--<div
-                                class="card__image lazy"
-                                id="recent-article_01669719281"
-                                data-name="recent-article_01669719281"
-                                data-style="    @media screen and (max-width:420px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }    @media screen and (min-width:421px) and (max-width:768px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }    @media screen and (min-width:769px) and (max-width:1440px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }    @media screen and (min-width:1441px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }   "
-                              ></div>-->
-  
-                          <img src="images/DSC_9798-915x612-1.webp">
-  
-                          <div class="card__content card__content--with-footer">
-                            <div>
-                              <p class="headline-5 color-orange">Dubai</p>
-                              <div class="headline-wave">
-                                <h4 class="headline-4">Dune Buggies</h4>
-                                <svg width="100px" height="16px" class="stroke-orange">
-                                  <use xlink:href="#icon-wave-squiggle"></use>
-                                </svg>
-                              </div>
-                              <div class="content mt-10em">
-                                Contact your local GP or hospital to make an
-                                appointment as soon as possible. Ideally at least
-                                four weeks before you leave. Your local GP or
-                                hospital will have your vaccine history and advice
-                                you on what you will need to take.
-                              </div>
-                            </div>
-                            <div class="card__footer">
-                              <div>
-                                <span class="chip chip--orange">General Info</span>
-                              </div>
-                              <span class="btn-link">Read More</span>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
+                        </div>
+                    @endforeach
                   </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="flex-box align-items-center ">
-                    <div class="row pt-50em"
-                      style="justify-content: center;align-items: center;padding-top:100px;justify-content: space-between !important;">
-                      <div class="col-lg-3 animation-delay-0 animated fadeInUp active">
-                        <a class="card card--flex card--shadow-orange" href="blog/vaccines-to-travel-to-thailand.html"
-                          title="Vaccines to travel to Thailand">
-                          <!--<div
-                                class="card__image lazy"
-                                id="recent-article_01669719281"
-                                data-name="recent-article_01669719281"
-                                data-style="    @media screen and (max-width:420px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }    @media screen and (min-width:421px) and (max-width:768px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }    @media screen and (min-width:769px) and (max-width:1440px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }    @media screen and (min-width:1441px) {  #recent-article_01669719281 {  background-image: url('images/iyylp09p2xc17zpk8uzz.webp')  } }   "
-                              ></div>-->
-  
-                          <img src="images/DSC_9798-915x612-1.webp">
-  
-                          <div class="card__content card__content--with-footer">
-                            <div>
-                              <p class="headline-5 color-orange">Dubai</p>
-                              <div class="headline-wave">
-                                <h4 class="headline-4">Dune Buggies</h4>
-                                <svg width="100px" height="16px" class="stroke-orange">
-                                  <use xlink:href="#icon-wave-squiggle"></use>
-                                </svg>
-                              </div>
-                              <div class="content mt-10em">
-                                Contact your local GP or hospital to make an
-                                appointment as soon as possible. Ideally at least
-                                four weeks before you leave. Your local GP or
-                                hospital will have your vaccine history and advice
-                                you on what you will need to take.
-                              </div>
-                            </div>
-                            <div class="card__footer">
-                              <div>
-                                <span class="chip chip--orange">General Info</span>
-                              </div>
-                              <span class="btn-link">Read More</span>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
-                      <div class="col-lg-3 animation-delay-0 animated fadeInUp active">
-                        <a class="card card--flex card--shadow-orange" href="blog/vaccines-to-travel-to-thailand.html"
-                          title="Vaccines to travel to Thailand">
-  
-                          <img src="images/DSC_9798-915x612-1.webp">
-  
-                          <div class="card__content card__content--with-footer">
-                            <div>
-                              <p class="headline-5 color-orange">Dubai</p>
-                              <div class="headline-wave">
-                                <h4 class="headline-4">Dune Buggies</h4>
-                                <svg width="100px" height="16px" class="stroke-orange">
-                                  <use xlink:href="#icon-wave-squiggle"></use>
-                                </svg>
-                              </div>
-                              <div class="content mt-10em">
-                                Contact your local GP or hospital to make an
-                                appointment as soon as possible. Ideally at least
-                                four weeks before you leave. Your local GP or
-                                hospital will have your vaccine history and advice
-                                you on what you will need to take.
-                              </div>
-                            </div>
-                            <div class="card__footer">
-                              <div>
-                                <span class="chip chip--orange">General Info</span>
-                              </div>
-                              <span class="btn-link">Read More</span>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
-                      <div class="col-lg-3 animation-delay-0 animated fadeInUp active">
-                        <a class="card card--flex card--shadow-orange" href="blog/vaccines-to-travel-to-thailand.html"
-                          title="Vaccines to travel to Thailand">
-                          <img src="images/DSC_9798-915x612-1.webp">
-  
-                          <div class="card__content card__content--with-footer">
-                            <div>
-                              <p class="headline-5 color-orange">Dubai</p>
-                              <div class="headline-wave">
-                                <h4 class="headline-4">Dune Buggies</h4>
-                                <svg width="100px" height="16px" class="stroke-orange">
-                                  <use xlink:href="#icon-wave-squiggle"></use>
-                                </svg>
-                              </div>
-                              <div class="content mt-10em">
-                                Contact your local GP or hospital to make an
-                                appointment as soon as possible. Ideally at least
-                                four weeks before you leave. Your local GP or
-                                hospital will have your vaccine history and advice
-                                you on what you will need to take.
-                              </div>
-                            </div>
-                            <div class="card__footer">
-                              <div>
-                                <span class="chip chip--orange">General Info</span>
-                              </div>
-                              <span class="btn-link">Read More</span>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
+                  
+                   
+                  {{-- <p class="text-center">
+                    <a class="btn btn--black" href="book-a-backpacking-tour8130.html?country=Vietnam"
+                      style="margin-top:100px;">See All Popular Tours </a> </a>
+                  </p> --}}
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+                      data-bs-slide="prev" style="visibility: hidden;">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+                      data-bs-slide="next" style="visibility: hidden;">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
                   </div>
+                  <button class="js-trip-slider-prev swiper-button swiper-button--prev" aria-label="Previous tour"
+                    type="button" style="visibility: hidden;">
+                    <svg width="24" height="24">
+                      <use xlink:href="images/icons.svg#icon-play-button"></use>
+                    </svg>
+                  </button>
+                  <button class="js-trip-slider-next swiper-button" aria-label="Next tour" type="button"
+                    style="visibility: hidden;">
+                    <svg width="24" height="24">
+                      <use xlink:href="images/icons.svg#icon-play-button"></use>
+                    </svg>
+                  </button>
+                  <div class="js-trip-slider-pagination swiper-pagination"></div>
                 </div>
-                <div class="swiper-slide">
-                  <div class="flex-box align-items-center ">
-  
-                    <div class="row pt-50em "
-                      style="justify-content: center;align-items: center;padding-top:100px;justify-content: space-between !important;">
-                      <div class="col-lg-3 animation-delay-0 animated fadeInUp active">
-                        <a class="card card--flex card--shadow-orange" href="blog/vaccines-to-travel-to-thailand.html"
-                          title="Vaccines to travel to Thailand">
-  
-                          <img src="images/DSC_9798-915x612-1.webp">
-  
-                          <div class="card__content card__content--with-footer">
-                            <div>
-                              <p class="headline-5 color-orange">Dubai</p>
-                              <div class="headline-wave">
-                                <h4 class="headline-4">Dune Buggies</h4>
-                                <svg width="100px" height="16px" class="stroke-orange">
-                                  <use xlink:href="#icon-wave-squiggle"></use>
-                                </svg>
-                              </div>
-                              <div class="content mt-10em">
-                                Contact your local GP or hospital to make an
-                                appointment as soon as possible. Ideally at least
-                                four weeks before you leave. Your local GP or
-                                hospital will have your vaccine history and advice
-                                you on what you will need to take.
-                              </div>
-                            </div>
-                            <div class="card__footer">
-                              <div>
-                                <span class="chip chip--orange">General Info</span>
-                              </div>
-                              <span class="btn-link">Read More</span>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
-                      <div class="col-lg-3 animation-delay-0 animated fadeInUp active">
-                        <a class="card card--flex card--shadow-orange" href="blog/vaccines-to-travel-to-thailand.html"
-                          title="Vaccines to travel to Thailand">
-                          <img src="images/DSC_9798-915x612-1.webp">
-  
-                          <div class="card__content card__content--with-footer">
-                            <div>
-                              <p class="headline-5 color-orange">Dubai</p>
-                              <div class="headline-wave">
-                                <h4 class="headline-4">Dune Buggies</h4>
-                                <svg width="100px" height="16px" class="stroke-orange">
-                                  <use xlink:href="#icon-wave-squiggle"></use>
-                                </svg>
-                              </div>
-                              <div class="content mt-10em">
-                                Contact your local GP or hospital to make an
-                                appointment as soon as possible. Ideally at least
-                                four weeks before you leave. Your local GP or
-                                hospital will have your vaccine history and advice
-                                you on what you will need to take.
-                              </div>
-                            </div>
-                            <div class="card__footer">
-                              <div>
-                                <span class="chip chip--orange">General Info</span>
-                              </div>
-                              <span class="btn-link">Read More</span>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
-                      <div class="col-lg-3 animation-delay-0 animated fadeInUp active">
-                        <a class="card card--flex card--shadow-orange" href="blog/vaccines-to-travel-to-thailand.html"
-                          title="Vaccines to travel to Thailand">
-                          <img src="images/DSC_9798-915x612-1.webp">
-                          <div class="card__content card__content--with-footer">
-                            <div>
-                              <p class="headline-5 color-orange">Dubai</p>
-                              <div class="headline-wave">
-                                <h4 class="headline-4">Dune Buggies</h4>
-                                <svg width="100px" height="16px" class="stroke-orange">
-                                  <use xlink:href="#icon-wave-squiggle"></use>
-                                </svg>
-                              </div>
-                              <div class="content mt-10em">
-                                Contact your local GP or hospital to make an
-                                appointment as soon as possible. Ideally at least
-                                four weeks before you leave. Your local GP or
-                                hospital will have your vaccine history and advice
-                                you on what you will need to take.
-                              </div>
-                            </div>
-                            <div class="card__footer">
-                              <div>
-                                <span class="chip chip--orange">General Info</span>
-                              </div>
-                              <span class="btn-link">Read More</span>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <button class="js-trip-slider-prev swiper-button swiper-button--prev" aria-label="Previous tour"
-                type="button">
-                <svg width="24" height="24">
-                  <use xlink:href="images/icons.svg#icon-play-button"></use>
-                </svg>
-              </button>
-              <button class="js-trip-slider-next swiper-button" aria-label="Next tour" type="button">
-                <svg width="24" height="24">
-                  <use xlink:href="images/icons.svg#icon-play-button"></use>
-                </svg>
-              </button>
-              <div class="js-trip-slider-pagination swiper-pagination"></div>
-            </div>
-            <p class="text-center">
-              <a class="btn btn--black" href="book-a-backpacking-tour8130.html?country=Vietnam">
-                See All Popular Tours
-              </a>
-            </p>
           </section>
         </main>
       </div>

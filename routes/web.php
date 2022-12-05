@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\MyprofileController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SingleProductController;
+use App\Http\Controllers\AlltoursController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +36,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Route::get('/all-other-tours', function () {
+//     return view('front.pages.all_other_tours.index');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -259,4 +263,9 @@ Route::group([
     Route::get('/',[HomeController::class, 'index']);
 
     Route::get('/view-detail/{id}',[SingleProductController::class, 'index']);
+    
+
+    Route::get('/all-other-tours',[AlltoursController::class, 'index']);
+    Route::get('tours/{id}',[AlltoursController::class, 'toursListing']);
+  
 

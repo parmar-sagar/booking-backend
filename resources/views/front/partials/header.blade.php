@@ -27,11 +27,21 @@
       <ul class="l-navbar__menu-right">
         <li class="l-navbar__menu-item">
           <a
-            class="l-navbar__menu-link"
+            class="l-navbar__menu-link dpdn"
             href="book-a-backpacking-tour.html"
             title="Tours"
           >
-            Tours
+            <div class="dropdown">
+              <button class="dropbtn">Tours</button>
+              <div class="dropdown-Tour_content">
+                <a href="#">Dune Buggies</a>
+                <a href="#">Quad Bikes</a>
+                <a href="#">Other Desert Adventures</a>
+                <a href="#">Jet Skis</a>
+                <a href="#">Luxury Yachts</a>
+                <a href="#">All Other Tours</a>
+              </div>
+            </div>
           </a>
         </li>
         <li class="l-navbar__menu-item">

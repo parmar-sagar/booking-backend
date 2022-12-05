@@ -16,6 +16,7 @@
     {{-- <link rel="manifest" href="{{asset ('assets/front/manifest.json')}}" /> --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset ('assets/front/styles/mainbcf3.css?v=IJr3UOaPYY')}}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
    
     <link
       rel="preload"
@@ -60,6 +61,7 @@
     <script src="{{asset ('assets/front/scripts/app5a78.js?v=WpWqOtpeFX')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <link
       href="https://fonts.googleapis.com/css?family=Just+Another+Hand&amp;display=swap"
       rel="stylesheet"

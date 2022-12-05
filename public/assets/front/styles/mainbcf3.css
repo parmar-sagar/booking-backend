@@ -528,7 +528,7 @@ textarea {
     border-radius: 50%
 }
 
-.l-navbar__menu-link {
+.l-navbar__menu-link,button.dropbtn {
     position: relative;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -12880,7 +12880,7 @@ screen and (-ms-high-contrast:active) {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top;
-    padding-bottom: 56.25%
+   /* padding-bottom: 56.25%*/
 }
 
 .card__image--slider {
@@ -25239,3 +25239,43 @@ span.tab-box-btn__icon.tab-box-btn__icon--blue6 {
     color: #fff
 }
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-Tour_content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-Tour_content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+
+
+.dropdown:hover .dropdown-Tour_content {
+    display: block;
+}
+
+a.l-navbar__menu-link.dpdn:after {
+    content: none;
+
+}
+
+
+.row.row-cols-1.row-cols-md-3.g-4.swiper-slide.swiper-slide-active {
+    width: 70% !important;
+}
+
+h2.headline-3.all-other{
+    color: #1ebbd7;
+}
