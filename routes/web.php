@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\MyprofileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SingleProductController;
 use App\Http\Controllers\AlltoursController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -269,3 +270,7 @@ Route::group([
     Route::get('tours/{id}',[AlltoursController::class, 'toursListing']);
   
 
+    Route::get('/cart',[CartController::class, 'index']);
+    Route::get('/add-to-cart',[CartController::class, 'add']);
+    Route::get('/update-cart',[CartController::class, 'update']);
+    Route::get('/delete-cart',[CartController::class, 'delete']);
