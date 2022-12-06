@@ -22,10 +22,10 @@ class HomeController extends Controller
         $this->outputData = [
             'imgVideo' => HomeSlider::status('1')->select('image_video','type')->order()->get(),
             'discount' => Discount::order()->get(),
-            'deal' => Vehicle::where('is_deals','1')->with('tours')->status('1')->get()
+            'deal' => Vehicle::where('is_deals','1')->sequence()->status('1')->get()
         ];
 
-        $tour = Tour::status('1')->with('location')->take(4)->get();
+        $tour = Tour::status('1')->with('location')->take(3)->get();
         $res= array();
         foreach($tour as $key => $value){
               $res[$key]['tour_id'] = $value->id;

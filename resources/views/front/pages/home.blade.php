@@ -54,19 +54,7 @@
               @php ++$i; 
               @endphp
              
-                <li class="tab-box-nav__item js-tabBtn {{ $loop->first ? 'active' : '' }}" data-name="tab-{{$value['tour_id']}}">
-                    @if($value['tour_name'] === 'All other tours')
-                    <a class="" href="{{url('/all-other-tours')}}" title="Login" aria-label="Login">
-                    <button class="tab-box-btn tab-box-btn--blue5"data-name="tab" type="button">
-                      <span class="tab-box-btn__icon tab-box-btn__icon--blue5">
-                        <svg>
-                          <use xlink:href="images/icons.svg#icon-vietnam"></use>
-                        </svg>
-                      </span>
-                      All other Tours
-                    </button>
-                    </a>
-                    @else
+                <li class="tab-box-nav__item js-tabBtn {{ $loop->first ? 'active' : '' }}" data-name="tab-{{$value['tour_id']}}">   
                   <button class="tab-box-btn tab-box-btn--blue{{$i}}" type="button">
                     <span class="tab-box-btn__icon tab-box-btn__icon--blue{{$i}}">
                       <svg>
@@ -75,11 +63,9 @@
                     </span>
                     {{$value['tour_name']}}
                   </button>
-                  @endif
-                {{-- </a> --}}
+                  @endforeach
               </li>
-                @endforeach
-                {{-- <a class="l-navbar__login-link" href="{{url('/all-other-tours')}}" title="Login" aria-label="Login">
+                <a class="l-navbar__login-link" href="{{url('/all-other-tours')}}" title="Login" aria-label="Login">
                 <button class="tab-box-btn tab-box-btn--blue5"data-name="tab" type="button">
                   <span class="tab-box-btn__icon tab-box-btn__icon--blue5">
                     <svg>
@@ -87,9 +73,7 @@
                     </svg>
                   </span>
                   All other Tours
-                </button> --}}
-              
-                
+                </button>
               </ul>
               @php $colors = ['bg-blue','bg-green','bg-yellow','bg-orange','bg-pink','bg-navy']; @endphp
               @foreach($tourVehicles as $key => $value)
@@ -590,85 +574,94 @@
                 Popular Tours Deals
               </h2>
             </div>
-            <div
-              class="container-extra-large bg-backpack-right bg-backpack-right--sm-none bg-backpack-right--to-rt swiper swiper--trip js-trip-slider">
-              <div class="js-trip-slider-pagination swiper-pagination swiper-pagination--top"></div>
-              <div class="swiper-wrapper" style="flex-direction:column;">
-                <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                  {{-- <div class="carousel-indicators">
-                    @foreach($deal as $key => $deals)
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{$key}}" class="{{ $loop->first ? 'active' : '' }}"
-                      aria-label="Slide 1" style="visibility: hidden;"></button>
-                   @endforeach
-                  </div> --}}
-                  
-                  <div class="carousel-inner swiper mySwiper">
-                    @foreach($deal as $key => $deals)
-                        <div class="col swiper-wrapper">
-                          <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-bs-interval="1000">
-                            <div class="row row-cols-1 row-cols-md-3 g-4">
-                              <a class="card card--flex card--shadow-orange" href="#"
-                                title="Vaccines to travel to Thailand">
-                                <img src="{{ asset('admin/uploads/tour/' . $deals['tours']->image) }}">
-                                <div class="card__content card__content--with-footer">
-                                  <div>
-                                    {{-- <p class="headline-5 color-orange">Dubai</p> --}}
-                                    <div class="headline-wave">
-                                      <h4 class="headline-4">{{$deals['tours']->name}}</h4>
-                                      <svg width="100px" height="16px" class="stroke-orange">
-                                        <use xlink:href="#icon-wave-squiggle"></use>
-                                      </svg>
-                                    </div>
-                                    <div class="content mt-10em">
-                                      {{$deals['tours']->description}}
-                                    </div>
-                                  </div>
-                                  <div class="card__footer">
-                                    <div>
-                                      <span class="chip chip--orange">Book Now</span>
-                                    </div>
-                                    {{-- <span class="btn-link">Read More</span> --}}
-                                  </div>
-                                </div>
-                              </a>
-                            </div>
-                          </div>
+            <div #swiperRef="" class="swiper mySwiper">
+              <div class="swiper-wrapper">
+                @foreach($deal as $key => $deals)
+                  <div class="swiper-slide">
+                    
+                    <div class="card card--flex card--shadow-orange">
+                        <div class="card__image lazy">
+                            <img src="{{ asset('admin/uploads/vehicle/' .$deals->image) }}">
                         </div>
-                    @endforeach
-                  </div>
-                  
-                   
-                  {{-- <p class="text-center">
-                    <a class="btn btn--black" href="book-a-backpacking-tour8130.html?country=Vietnam"
-                      style="margin-top:100px;">See All Popular Tours </a> </a>
-                  </p> --}}
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
-                      data-bs-slide="prev" style="visibility: hidden;">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
-                      data-bs-slide="next" style="visibility: hidden;">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
-                    </button>
-                  </div>
-                  <button class="js-trip-slider-prev swiper-button swiper-button--prev" aria-label="Previous tour"
-                    type="button" style="visibility: hidden;">
-                    <svg width="24" height="24">
-                      <use xlink:href="images/icons.svg#icon-play-button"></use>
-                    </svg>
-                  </button>
-                  <button class="js-trip-slider-next swiper-button" aria-label="Next tour" type="button"
-                    style="visibility: hidden;">
-                    <svg width="24" height="24">
-                      <use xlink:href="images/icons.svg#icon-play-button"></use>
-                    </svg>
-                  </button>
-                  <div class="js-trip-slider-pagination swiper-pagination"></div>
+                        <div class="card__content card__content--stretch">
+                            <div class="card__headline card__headline--with-price">
+                                <h2 class="headline-3 all-other">{{$deals->name}}</h2>
+                            </div>
+                            <div class="tour-list-text">
+                                <p>{{ substr($deals->description,0,400)}}</p>
+                            </div>
+                            <div
+                                class="card__footer card__footer--center card__footer--block-mobile card__footer--to-bottom pt-20em">
+                                <a href="{{url('view-detail/'.$deals->id)}}"><span class="btn btn--small btn--purple">View Tour</span></a>
+                            </div>
+                        </div>
+                    </div> 
+           
                 </div>
+                @endforeach
+              </div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+              {{-- <div class="swiper-pagination"></div> --}}
+            </div>
           </section>
         </main>
       </div>
     </div>
   </x-front.master-layout>
+  <script>
+    var swiper = new Swiper('.mySwiper', {
+    slidesPerView: 3,
+    centeredSlides: true,
+    spaceBetween: 30,
+    autoplay: {
+     delay: 2500,
+     disableOnInteraction: false,
+    },
+    pagination: {
+    el: '.swiper-pagination',
+    type: 'fraction',
+    },
+    navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+    },
+    });
+    
+    // var appendNumber = 4;
+    // var prependNumber = 1;
+    // document
+    // .querySelector('.prepend-2-slides')
+    // .addEventListener('click', function (e) {
+    // e.preventDefault();
+    // swiper.prependSlide([
+    //   '<div class="swiper-slide">Slide ' + --prependNumber + '</div>',
+    //   '<div class="swiper-slide">Slide ' + --prependNumber + '</div>',
+    // ]);
+    // });
+    // document
+    // .querySelector('.prepend-slide')
+    // .addEventListener('click', function (e) {
+    // e.preventDefault();
+    // swiper.prependSlide(
+    //   '<div class="swiper-slide">Slide ' + --prependNumber + '</div>'
+    // );
+    // });
+    // document
+    // .querySelector('.append-slide')
+    // .addEventListener('click', function (e) {
+    // e.preventDefault();
+    // swiper.appendSlide(
+    //   '<div class="swiper-slide">Slide ' + ++appendNumber + '</div>'
+    // );
+    // });
+    // document
+    // .querySelector('.append-2-slides')
+    // .addEventListener('click', function (e) {
+    // e.preventDefault();
+    // swiper.appendSlide([
+    //   '<div class="swiper-slide">Slide ' + ++appendNumber + '</div>',
+    //   '<div class="swiper-slide">Slide ' + ++appendNumber + '</div>',
+    // ]);
+    // });
+    </script>

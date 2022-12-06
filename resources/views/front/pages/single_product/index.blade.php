@@ -69,35 +69,6 @@
                                                 Facebook 00/00/00</b> 
                                         </span> --}}
                                     </blockquote>
-                                    <script
-                                        type="application/ld+json"> { "@context": "https://schema.org/", "@type": "Product",  "name": "Backpacking Tours",   "description": "Travel the best of Bali and meet new friends with all accommodation, activities, in-country transport, and 21 meals included! Check out all trips and everything included in the 18-day tour package.",   "image": ["https://www.backpackingtours.com/storage/uploads/images/seo1200x1200/BT-SEO_ngwll.jpg"],   "brand": { "@type": "Thing", "name": "Backpacking Tours" },  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "538" } } </script>
-                                    <div class="circle-fb-rate circle-fb-rate--blurple"> <svg
-                                            class="circle-fb-rate__shape" viewBox="0 0 400.668 211.151">
-                                            <use xlink:href="images/icons.svg#icon-shape-with-arrow" />
-                                        </svg>
-                                        <div class="circle-fb-rate__content">
-                                            <div> <svg width="22px" height="22px" class="fill-blurple">
-                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                        xlink:href="images/icons.svg#icon-star"></use>
-                                                </svg> <svg width="22px" height="22px" class="fill-blurple">
-                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                        xlink:href="images/icons.svg#icon-star"></use>
-                                                </svg> <svg width="22px" height="22px" class="fill-blurple">
-                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                        xlink:href="images/icons.svg#icon-star"></use>
-                                                </svg> <svg width="22px" height="22px" class="fill-blurple">
-                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                        xlink:href="images/icons.svg#icon-star"></use>
-                                                </svg> <svg width="22px" height="22px" class="fill-blurple">
-                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                        xlink:href="images/icons.svg#icon-star"></use>
-                                                </svg> </div> <span class="circle-fb-rate__content-text underline">
-                                                Rated <span>5</span>/5 by <a class="color-blurple" target="_blank"
-                                                    href="https://www.facebook.com/backpackingtours/"
-                                                    rel="noopener nofollow"> <span>538</span> Travellers on Facebook
-                                                </a> </span>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <a class="btn btn--purple" href="#tour-dates" title="View Tour Dates"> Book Now </a>
@@ -109,7 +80,7 @@
                                         <div
                                             class="card__headline card__headline--with-price card__headline--extra-bottom-margin">
                                             <div class="card__headline-left headline-wave">
-                                                <h2 class="headline-3 text-upper">Dubbai Buggy Ride</h2> <svg width="100px"
+                                                <h2 class="headline-3 text-upper">{{$singlePrdct->name}}</h2> <svg width="100px"
                                                     height="16px" class="stroke-blurple">
                                                     <use xlink:href="images/icons.svg#icon-wave-squiggle" />
                                                 </svg>
@@ -131,7 +102,7 @@
                                                 Nusa Lembongan, so many waterfalls, snorkel with sea turtles, Gili T
                                                 beaches and more. </p>
                                         </div>
-                                        <ul class="list-tour-info list-tour-info--two-cols">
+                                        {{-- <ul class="list-tour-info list-tour-info--two-cols">
                                             <li class="list-tour-info__item"> <svg width="36px" height="36px"
                                                     class="fill-blurple" aria-hidden="true" aria-focusable="false">
                                                     <use xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -164,7 +135,7 @@
                                                 <div class="list-tour-info__item-desc"> <b>Avg. Group Size</b> <span>16
                                                         - 24</span> </div>
                                             </li>
-                                        </ul>
+                                        </ul> --}}
                                     </div>
                                 </div>
                             </div>
@@ -185,7 +156,7 @@
                                         <li>90 Mins Ride : 2700 AED</li>
                                         <li>120 Mins Ride : 3000 AED</li>
                                     </ul>
-                                        <ul class="list-tour-info list-tour-info--two-cols">
+                                        {{-- <ul class="list-tour-info list-tour-info--two-cols">
                                             <li class="list-tour-info__item"> <svg width="36px" height="36px"
                                                     class="fill-blurple" aria-hidden="true" aria-focusable="false">
                                                     <use xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -218,7 +189,7 @@
                                                 <div class="list-tour-info__item-desc"> <b>Avg. Group Size</b> <span>16
                                                         - 24</span> </div>
                                             </li> -->
-                                        </ul>
+                                        </ul> --}}
                                     </div>
                                 </div>
                             </div>

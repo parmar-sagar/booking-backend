@@ -25279,3 +25279,69 @@ a.l-navbar__menu-link.dpdn:after {
 h2.headline-3.all-other{
     color: #1ebbd7;
 }
+
+.card__headline-price-wrapper.col-8 {
+    display: block;
+}
+.great_dealsbtn .col-12.col-lg-12 {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+/*--banner----*/
+.banner-image img {
+    width: 100%;
+}
+.tours-banner {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 300px;
+    padding: 0px;
+    margin: 0px;
+}
+.tours-banner-tex {
+    position: absolute;
+    top: 30%;
+    left: 2%;
+    color: #fff;
+    z-index: 1;
+}
+.overlay-effect {
+    position: absolute;
+    background-color: #0000005c;
+    width: 100%;
+    height: 100%;
+}
+h1.headline-2.tour-name {
+    font-size: 70px;
+}
+
+.card.card--flex {
+    height: 75vh;
+}
+
+@media(min-width:2000px){
+    .card.card--flex {
+        height: 50vh;
+    }
+}
+@media(max-width:1800px){
+    .card.card--flex {
+        height: 42vh;
+    }
+}
+@media(max-width:992px){
+    .swiper-slide.swiper-slide-next, .swiper-slide.swiper-slide-active, .swiper-slide.swiper-slide-prev {
+        width: 100% !important;
+    }
+}
+@media(max-width:600px){
+    span.btn.btn--small.btn--purple {
+        width: 70%;
+    }
+}
+img.mt-10em.list {
+    border: 5px solid #6610f2;
+}
+

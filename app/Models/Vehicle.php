@@ -59,5 +59,8 @@ class Vehicle extends Model
     public function tours(){
         return $this->hasOne('App\Models\Tour','id','tour_id');
     }
+    public function ScopeSequence($query){
+        return $query->orderBy('sequence','ASC');
+    }
     
 }
