@@ -6,13 +6,13 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
+use App\Models\VehicleInfo;
 use App\Handlers\Error;
-use App\Models\Discount;
 use DataTables;
 
-class GroupController extends Controller
+class RefreshmentController extends Controller
 {
-    const ControllerCode = "G_";
+    const ControllerCode = "RF_";
 
     function __construct(){
         $this->outputData = [];
@@ -20,20 +20,20 @@ class GroupController extends Controller
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Group Discount',
-            'dataTables' => url('admin/group-discount/datatable'),
-            'delete' => url('admin/group-discount/delete'),
-            'create' => url('admin/group-discount/create'),
-            'edit' => url('admin/group-discount/edit')
+            'pageName' => 'Refreshment',
+            'dataTables' => url('admin/refreshments/datatable'),
+            'delete' => url('admin/refreshments/delete'),
+            'create' => url('admin/refreshments/create'),
+            'edit' => url('admin/refreshments/edit')
         ];
         
-        return view('admin.pages.group.index',$this->outputData);
+        return view('admin.pages.refreshment.index',$this->outputData);
     }
 
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Discount::order()->get();
+                $datas = VehicleInfo::type(6)->order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -49,8 +49,7 @@ class GroupController extends Controller
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'no_of_vehicle' => 'required|integer',
-                    'discount' => 'required|integer'
+                    'title' => 'required|string|min:3|unique:vehicle_infos',
                 ]);
                   
                 if($validator->fails()){
@@ -58,19 +57,20 @@ class GroupController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                
+                $validated['type'] = 6;
                 $snowflake = new \Godruoyi\Snowflake\Snowflake;
-                $validated['random_id'] = $snowflake->id();
 
-                Discount::create($validated);
+                $validated['random_id'] = $snowflake->id();
+                
+                VehicleInfo::create($validated);
     
-                return response()->json(['success' => "Group Discount Created successfully."]);
+                return response()->json(['success' => "refreshments Created successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'New Group Discount',
-                'action' => url('admin/group-discount/store'),
+                'pageName' => 'New Refreshment',
+                'action' => url('admin/refreshments/store'),
             ];
-            return view('admin.pages.group.create',$this->outputData);
+            return view('admin.pages.safety_gear.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '02');
@@ -84,10 +84,8 @@ class GroupController extends Controller
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'id' => 'required|exists:discounts',
-                    'no_of_vehicle' => 'required|integer',
-                    'discount' => 'required|integer'
-
+                    'id' => 'required|exists:vehicle_infos',
+                    'title' => 'required|string|min:3|unique:vehicle_infos,title,'.$id,
                 ]);
     
                 if($validator->fails()){
@@ -95,17 +93,18 @@ class GroupController extends Controller
                 }
                 
                 $validated = $validator->validated();
-
-                Discount::find($validated['id'])->update($validated);
+                $validated['type'] = 6;
+                
+                VehicleInfo::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Group Discount Updated successfully."]);
+                return response()->json(['success' => "refreshments Updated successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'Edit Group Discount',
-                'action' => url('admin/group-discount/update/'.$id),
-                'objData' => Discount::findOrFail($id),
+                'pageName' => 'Edit refreshments',
+                'action' => url('admin/refreshments/update/'.$id),
+                'objData' => VehicleInfo::findOrFail($id),
             ];
-            return view('admin.pages.group.create',$this->outputData);
+            return view('admin.pages.refreshment.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '03');
@@ -114,7 +113,7 @@ class GroupController extends Controller
 
     public function destroy($id){
         try {
-            $res = Discount::find($id)->delete();   
+            $res = VehicleInfo::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

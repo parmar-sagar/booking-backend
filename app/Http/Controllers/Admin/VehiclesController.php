@@ -87,7 +87,8 @@ class VehiclesController extends Controller
                     $path = 'vehicle';
                     $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
-                $validated['random_id'] = resolve('snowflake')->id();
+                $snowflake = new \Godruoyi\Snowflake\Snowflake;
+                $validated['random_id'] = $snowflake->id();
                 
                 Vehicle::create($validated);
     

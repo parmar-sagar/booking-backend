@@ -14,46 +14,33 @@ class CartController extends Controller
     }
 
     public function index(){
-
+        return view('front.pages.cart.index');
     }
 
-    public function add(){
-        $Product = Vehicle::findOrfail(3); // assuming you have a Product model with id, name, description & price
-        $rowId = 456; // generate a unique() row ID
-        $userID = 2; // the user ID to bind the cart contents
+    public function add($id){
+    
+        $Product = Vehicle::where('random_id',$id)->get()->toArray(); 
 
         // add the product to cart
-        \Cart::session($userID)->add(array(
-            'id' => $rowId,
-            'name' => $Product->name,
-            'price' => '200',
-            'quantity' => 4,
-        ));
-
-        $items = \Cart::getContent();
-        foreach($items as $row) {
-
-            echo $row->id;
-            echo $row->name;
-            echo $row->qty;
-            echo $row->quantity;
-          
-        }
-        
+            \Cart::add(array(
+                'id' => $id,
+                'name' => $Product[0]['name'],
+                'price' => 200,
+                'quantity' => 1,
+            ));   
     }
-    public function update(){
+    public function update($id){
 
         // update the item on cart
-        \Cart::session($userID)->update($rowId,[
+        \Cart::update($id,[
             'quantity' => 2,
-            'price' => 98.67
         ]);
         
     }
 
-    public function delete(){
+    public function delete($id){
         // delete an item on cart
-        \Cart::session($userID)->remove($rowId);
+        \Cart::remove($id);
     }
 
 

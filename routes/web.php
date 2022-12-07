@@ -17,7 +17,9 @@ use App\Http\Controllers\Admin\SafariController;
 use App\Http\Controllers\Admin\SafariVehicleController;
 use App\Http\Controllers\Admin\DealsController;
 use App\Http\Controllers\Admin\GroupController;
-use App\Http\Controllers\Admin\MyprofileController;
+use App\Http\Controllers\Admin\MyprofileController; 
+use App\Http\Controllers\Admin\SafetyGearController;
+use App\Http\Controllers\Admin\RefreshmentController;
 
 /* Frontend Controller start*/
 
@@ -25,6 +27,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SingleProductController;
 use App\Http\Controllers\AlltoursController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\BooktourController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -123,6 +127,30 @@ Route::group([
         Route::get('/edit/{id}',[ActivityController::class, 'edit']);
 		Route::post('/update/{id}',[ActivityController::class, 'edit']);
 		Route::get('/delete/{id}',[ActivityController::class, 'destroy']);
+    });
+
+    Route::group([
+        'prefix' => 'safety-gears'
+    ], function(){
+        Route::get('/',[SafetyGearController::class, 'index']);
+        Route::get('/datatable',[SafetyGearController::class, 'datatable']);
+        Route::get('/create',[SafetyGearController::class, 'create']);
+        Route::post('/store',[SafetyGearController::class, 'create']);
+        Route::get('/edit/{id}',[SafetyGearController::class, 'edit']);
+		Route::post('/update/{id}',[SafetyGearController::class, 'edit']);
+		Route::get('/delete/{id}',[SafetyGearController::class, 'destroy']);
+    });
+
+    Route::group([
+        'prefix' => 'refreshments'
+    ], function(){
+        Route::get('/',[RefreshmentController::class, 'index']);
+        Route::get('/datatable',[RefreshmentController::class, 'datatable']);
+        Route::get('/create',[RefreshmentController::class, 'create']);
+        Route::post('/store',[RefreshmentController::class, 'create']);
+        Route::get('/edit/{id}',[RefreshmentController::class, 'edit']);
+		Route::post('/update/{id}',[RefreshmentController::class, 'edit']);
+		Route::get('/delete/{id}',[RefreshmentController::class, 'destroy']);
     });
 
     Route::group([
@@ -262,15 +290,25 @@ Route::group([
 /*Frontend Routes start */
 
     Route::get('/',[HomeController::class, 'index']);
+    Route::get('/refund-policy',[HomeController::class, 'refundPolicy']);
+    Route::get('/privacy-policy',[HomeController::class, 'privacyPolicy']);
+    Route::get('/terma-and_conditions',[HomeController::class, 'termsAndConditions']);
+    
 
     Route::get('/view-detail/{id}',[SingleProductController::class, 'index']);
     
-
+    // All tours
     Route::get('/all-other-tours',[AlltoursController::class, 'index']);
     Route::get('tours/{id}',[AlltoursController::class, 'toursListing']);
   
-
+    // cart
     Route::get('/cart',[CartController::class, 'index']);
-    Route::get('/add-to-cart',[CartController::class, 'add']);
+    Route::get('/add-to-cart/{id}',[CartController::class, 'add']);
     Route::get('/update-cart',[CartController::class, 'update']);
-    Route::get('/delete-cart',[CartController::class, 'delete']);
+    Route::get('/delete-cart/{id}',[CartController::class, 'delete']);
+
+    // contact us
+    Route::get('/delete-cart/{id}',[CartController::class, 'delete']);
+
+    // payment page
+    Route::get('/contact-us',[ContactController::class, 'index']);

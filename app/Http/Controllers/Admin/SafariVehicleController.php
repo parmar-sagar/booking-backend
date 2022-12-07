@@ -86,7 +86,9 @@ class SafariVehicleController extends Controller
                         $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                     }
                     
-                $validated['random_id'] = resolve('snowflake')->id();
+                    $snowflake = new \Godruoyi\Snowflake\Snowflake;
+                    $validated['random_id'] = $snowflake->id();
+                    
                 $validated['type'] = "Safari";
 
                 Vehicle::create($validated);

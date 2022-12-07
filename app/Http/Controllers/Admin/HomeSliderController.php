@@ -77,7 +77,10 @@ class HomeSliderController extends Controller
                 }
 
                 $validated['link'] = $request->link;
-                $validated['random_id'] = resolve('snowflake')->id();
+
+                $snowflake = new \Godruoyi\Snowflake\Snowflake;
+  
+                $validated['random_id'] = $snowflake->id();
                 
                 HomeSlider::create($validated);
     

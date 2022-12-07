@@ -76,7 +76,8 @@ class UserController extends Controller{
                     $path = 'users';
                     $validated['photo'] = Helper::uploadFile($request->photo, $path);
                 }
-                $validated['random_id'] = resolve('snowflake')->id();
+                $snowflake = new \Godruoyi\Snowflake\Snowflake;
+                $validated['random_id'] = $snowflake->id();
                 
                 User::create($validated);
     

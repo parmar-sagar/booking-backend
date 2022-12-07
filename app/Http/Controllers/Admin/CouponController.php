@@ -80,7 +80,9 @@ class CouponController extends Controller
                 }
 
                 $validated['expiry_date'] = Helper::dateformateFrominput($validated['expiry_date']);
-                $validated['random_id'] = resolve('snowflake')->id();
+
+                $snowflake = new \Godruoyi\Snowflake\Snowflake;
+                $validated['random_id'] = $snowflake->id();
                  
                 Coupon::create($validated);
     

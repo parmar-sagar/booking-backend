@@ -32,6 +32,30 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
+                            <label for="min_age" class="form-label">Minimum Age</label>
+                            <input type="text" id="min_age" class="form-control" name="min_age" value="@if(isset($objData->min_age) && $objData->min_age){{ $objData->min_age }}@endif" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="convoy_leader" class="form-label">Convoy Leader</label>
+                            <input type="text" id="convoy_leader" class="form-control" name="convoy_leader" value="@if(isset($objData->convoy_leader) && $objData->convoy_leader){{ $objData->convoy_leader }}@endif" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="tour_guide" class="form-label">Tour Guide</label>
+                            <input type="text" id="tour_guide" class="form-control" name="tour_guide" value="@if(isset($objData->tour_guide) && $objData->tour_guide){{ $objData->tour_guide }}@endif" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="pickup_and_drop" class="form-label">Pickup & Drop off </label>
+                            <input type="text" id="pickup_and_drop" class="form-control" name="pickup_and_drop" value="@if(isset($objData->pickup_and_drop) && $objData->pickup_and_drop){{ $objData->pickup_and_drop }}@endif" placeholder="ex- Dubai to Sharjah" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
                             <label for="description" class="form-label">Times</label>
                             <select  class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Choose ..." name="time_ids[]" required>
                                 @foreach($time as $time_tour)
@@ -48,6 +72,26 @@
                                     <option value="{{$location->id}}" @if(isset($objData->location_id) && $objData->location_id == $location->id) selected @endif>{{$location->name}}</option>
                                 @endforeach    
                             </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="activities" class="form-label">Safety Gears</label>
+                            <select class="select2 form-control select2-multiple" data-toggle="select2" name="safety_gear_ids[]" multiple="multiple" data-placeholder="Choose ...">
+                                @foreach($safetyGear as $safetyGears)
+                                <option value="{{$safetyGears->id}}" @if(isset($selctdSftyGear)) @foreach($selctdSftyGear as $selctdSftyGears) @if($selctdSftyGears == $safetyGears->id) selected @endif @endforeach @endif>{{$safetyGears->title}}</option>
+                                @endforeach  
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="activities" class="form-label">Refreshments</label>
+                            <select class="select2 form-control select2-multiple" data-toggle="select2" name="refreshments_ids[]" multiple="multiple" data-placeholder="Choose ...">
+                                @foreach($refreshment as $refreshments)
+                                <option value="{{$refreshments->id}}" @if(isset($selctdRefreshment)) @foreach($selctdRefreshment as $selctdRefreshments) @if($selctdRefreshments == $refreshments->id) selected @endif @endforeach @endif>{{$refreshments->title}}</option>
+                                @endforeach  
+                            </select>
+                        </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">

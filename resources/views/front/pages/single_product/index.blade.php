@@ -47,7 +47,7 @@
                             </div>
                             <div class="row">
                                 
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="list-icon-wrapper">
                                         <ul class="list-icon list-icon--tick">
                                             @foreach($include as $includes)
@@ -62,16 +62,66 @@
                                     </div>
                                 </div>
                               
-                                <div class="col-md-6">
+                                <div class="col-md-7">
                                     <blockquote class="blockquote blockquote--margin-sm blockquote--blurple">
-                                        <p>{{$singlePrdct->description}}</p> 
-                                        {{-- <span class="font-sm color-blurple"> <b>Lorem ipsum,
-                                                Facebook 00/00/00</b> 
-                                        </span> --}}
+                                        <ul
+                                        class="list-tour-info list-tour-info--two-cols"
+                                      >
+                                        <li class="list-tour-info__item">
+                                          <div class="list-tour-info__item-desc">
+                                            <b>Min Age</b> <span>{{$list->min_age}}Yrs</span>
+                                          </div>
+                                        </li>
+                                        <li class="list-tour-info__item">
+                                          <div class="list-tour-info__item-desc">
+                                            <b>Pickup & Drop off</b> <span>{{$list->pickup_and_drop}}</span>
+                                          </div>
+                                        </li>
+                                        <li class="list-tour-info__item">
+                                          <div class="list-tour-info__item-desc">
+                                            <b>Ride Duration</b> 
+                                            @foreach($time as $times)
+                                            <span>{{$times->time}}@if($times->time_type == 'Minutes'){{ 'Mins'}} @else {{'Hours'}} @endif</span>
+                                            @endforeach
+                                          </div>
+                                        </li>
+                                        <li class="list-tour-info__item">
+                                          <div class="list-tour-info__item-desc">
+                                            <b>Convoy Leader</b> <span>{{$list->convoy_leader}}</span>
+                                          </div>
+                                        </li>
+                                        <li class="list-tour-info__item">
+                                          <div class="list-tour-info__item-desc">
+                                            <b>Tour Guide</b> <span>{{$list->tour_guide}}</span>
+                                          </div>
+                                        </li>
+                                        <li class="list-tour-info__item">
+                                          <div class="list-tour-info__item-desc">
+                                            <b>Safety Gears</b>
+                                            @foreach($refreshment as $refreshments)
+                                            <span>{{$refreshments->title}}</span>
+                                            @endforeach
+                                            
+                                          </div>
+                                        </li>
+                                        <li class="list-tour-info__item">
+                                          <div class="list-tour-info__item-desc">
+                                            <b>Refreshments</b>
+                                            @foreach($saftyGear as $saftyGears)
+                                            <span>{{$saftyGears->title}}</span>
+                                            @endforeach
+                                          </div>
+                                        </li>
+                                        <li class="list-tour-info__item">
+                                          <div class="list-tour-info__item-desc">
+                                            <b>Available Everyday</b> <span>Sunrise to Sunset</span>
+                                          </div>
+                                        </li>
+                                      </ul>
                                     </blockquote>
                                 </div>
                             </div>
-                            <a class="btn btn--purple" href="#tour-dates" title="View Tour Dates"> Book Now </a>
+                            <a class="btn btn--purple" href="{{url('add-to-cart/'.$singlePrdct->random_id)}}" title="View Tour Dates"> Book Now </a>
                         </div>
                         <div class="col-12 col-lg-5 col-xl-5 col-xxl-4 offset-xxl-1">
                             <div class="animation-fadeInUp mb-30em">
@@ -97,11 +147,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="content mt-10em mb-10em">
+                                        {{-- <div class="content mt-10em mb-10em">
                                             <p> Absolutely epic! Cliff temples in Uluwatu, sunset at Tanah Lot, SUP in
                                                 Nusa Lembongan, so many waterfalls, snorkel with sea turtles, Gili T
                                                 beaches and more. </p>
-                                        </div>
+                                        </div> --}}
                                         {{-- <ul class="list-tour-info list-tour-info--two-cols">
                                             <li class="list-tour-info__item"> <svg width="36px" height="36px"
                                                     class="fill-blurple" aria-hidden="true" aria-focusable="false">
@@ -197,7 +247,7 @@
                         
                     </div>
                 </div>
-                <section
+                {{-- <section
                     class=" section border-img-top border-img-top--blurple border-img-bottom border-img-bottom--blurple bg-blurple ">
                     <h2 class="headline-2 text-center mb-10em"> Tour Itinerary </h2>
                     <div class="row row--g-10">
@@ -1969,7 +2019,7 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> --}}
             </main>
             <div class="fixed-bar bg-purple"> <a class="btn-link" href="#tour-dates" title="View Tour Dates"> View Tour
                     Dates </a> </div>

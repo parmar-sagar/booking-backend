@@ -59,8 +59,16 @@
           </a>
         </li>
         <li class="l-navbar__menu-item">
-          <a class="l-navbar__menu-link" href="contact.html" title="Contact">
+          <a class="l-navbar__menu-link" href="{{url('contact-us')}}" title="Contact">
             Contact
+          </a>
+        </li>
+        <li class="l-navbar__menu-item">
+          <a class="l-navbar__menu-link" href="{{url('cart')}}" title="Contact">
+            @php 
+            $cartCollection = Cart::getContent();
+              $count = $cartCollection->count(); @endphp
+            My Cart ({{$count}})
           </a>
         </li>
       </ul>

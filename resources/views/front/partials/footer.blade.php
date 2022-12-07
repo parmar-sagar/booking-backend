@@ -204,10 +204,10 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="why-choose-us.html"
+                href="{{url('refund-policy')}}"
                 title="About Us"
               >
-                Why Choose Us
+               Refund Policy
               </a>
             </li>
             <li class="l-footer__menu-list-item">
@@ -222,8 +222,8 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="contact.html"
-                title="About Us"
+                href="{{url('contact-us')}}"
+                title="Contact Us"
               >
                 Contact Us
               </a>
@@ -231,10 +231,19 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="terms-and-conditions.html"
-                title="About Us"
+                href="{{url('privacy-policy')}}"
+                title="privacy-policy"
               >
-                Terms
+                Privacy & Policy
+              </a>
+            </li>
+            <li class="l-footer__menu-list-item">
+              <a
+                class="l-footer__menu-list-link"
+                href="{{url('terma-and_conditions')}}"
+                title="terma-and_conditions"
+              >
+                Terms & Conditions
               </a>
             </li>
           </ul>

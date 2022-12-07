@@ -26,14 +26,29 @@ class HomeController extends Controller
         ];
 
         $tour = Tour::status('1')->with('location')->take(3)->get();
+        
         $res= array();
         foreach($tour as $key => $value){
               $res[$key]['tour_id'] = $value->id;
               $res[$key]['tour_name'] = $value->name;
+              $res[$key]['min_age'] = $value->min_age;
+              $res[$key]['tour_guide'] = $value->tour_guide;
+              $res[$key]['convoy_leader'] = $value->convoy_leader;
+              $res[$key]['pickup_and_drop'] = $value->pickup_and_drop;
               $res[$key]['location'] = $value['location']->name;
               $res[$key]['veh'] = Vehicle::where('tour_id',$value->id)->status('1')->order()->get()->toArray();
         }
         $this->outputData['tourVehicles'] = $res;
         return view('front.pages.home',$this->outputData);
+    }
+
+    public function refundPolicy(){
+        return view('front.pages.refund_policy.index');
+    }
+    public function privacyPolicy(){
+        return view('front.pages.privacy_policy.index');
+    }
+    public function termsAndConditions(){
+        return view('front.pages.terms_conditions.index');
     }
 }

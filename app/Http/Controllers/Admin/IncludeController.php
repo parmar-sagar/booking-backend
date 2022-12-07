@@ -58,7 +58,9 @@ class IncludeController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 2;
-                $validated['random_id'] = resolve('snowflake')->id();
+                $snowflake = new \Godruoyi\Snowflake\Snowflake;
+
+                $validated['random_id'] = $snowflake->id();
                 
                 VehicleInfo::create($validated);
     

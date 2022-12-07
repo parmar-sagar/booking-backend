@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
+use App\Models\VehicleInfo;
 use App\Models\Location;
 use App\Handlers\Error;
 use App\Helpers\Helper;
@@ -58,7 +59,13 @@ class SafariController extends Controller
                     'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
                     'status' => 'required|in:0,1',
                     'safari_sequence' => 'required|integer',
-                    'location_id' => 'required|integer'
+                    'location_id' => 'required|integer',
+                    'min_age' => 'required|integer',
+                    'pickup_and_drop' => 'required|string',
+                    'tour_guide' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'convoy_leader' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'safety_gear_ids' => 'required|array',
+                    'refreshments_ids' => 'required|array',
                 ]);
     
                 if($validator->fails()){
@@ -68,6 +75,8 @@ class SafariController extends Controller
                 $validated = $validator->validated();
 
                 $validated['time_ids'] = Helper::implode($request['time_ids']);
+                $validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
+                $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
                     $path = 'tour';
@@ -77,7 +86,9 @@ class SafariController extends Controller
                     $path = 'tour';
                     $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
-                $validated['random_id'] = resolve('snowflake')->id();
+                $snowflake = new \Godruoyi\Snowflake\Snowflake;
+                $validated['random_id'] = $snowflake->id();
+                
                 $validated['type'] = 'Safari';
 
                 Tour::create($validated);
@@ -88,7 +99,9 @@ class SafariController extends Controller
                 'pageName' => 'New Safari',
                 'action' => url('admin/safaris/store'),
                 'time' => Time::order()->get(),
-                'locations' => Location::order()->get()
+                'locations' => Location::order()->get(),
+                'safetyGear' => VehicleInfo::type(5)->order()->get(),
+                'refreshment' => VehicleInfo::type(6)->order()->get(),
             ];
             return view('admin.pages.Safari.create',$this->outputData);
 
@@ -112,7 +125,13 @@ class SafariController extends Controller
                     'banner_img' => 'mimes:jpeg,jpg,png,gif',
                     'status' => 'required|in:0,1',
                     'safari_sequence' => 'required|integer',
-                    'location_id' => 'required|integer'
+                    'location_id' => 'required|integer',
+                    'min_age' => 'required|integer',
+                    'pickup_and_drop' => 'required|string',
+                    'tour_guide' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'convoy_leader' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'safety_gear_ids' => 'required|array',
+                    'refreshments_ids' => 'required|array',
                 ]);
     
                 if($validator->fails()){
@@ -122,6 +141,8 @@ class SafariController extends Controller
                 $validated = $validator->validated();
 
                 $validated['time_ids'] = Helper::implode($request['time_ids']);
+                $validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
+                $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
                     $path = 'tour';
@@ -141,9 +162,13 @@ class SafariController extends Controller
                 'action' => url('admin/safaris/update/'.$id),
                 'objData' => Tour::findOrFail($id),
                 'time' => Time::order()->get(),
-                'locations' => Location::order()->get()
+                'locations' => Location::order()->get(),
+                'safetyGear' => VehicleInfo::type(5)->order()->get(),
+                'refreshment' => VehicleInfo::type(6)->order()->get(),
             ];
             $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
+            $this->outputData['selctdSftyGear'] = Helper::explode( $this->outputData['objData']->safety_gear_ids );
+            $this->outputData['selctdRefreshment'] = Helper::explode( $this->outputData['objData']->refreshments_ids );
             
             return view('admin.pages.safari.create',$this->outputData);
 

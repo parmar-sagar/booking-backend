@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
+use App\Models\VehicleInfo;
 use App\Models\Location;
 use App\Handlers\Error;
 use App\Helpers\Helper;
@@ -51,13 +52,19 @@ class TourController extends Controller{
                 $Input = $request->all();
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'name' => 'required|string|max:100',
                     'description' => 'required|string',
                     'time_ids' => 'required|array',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
                     'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
                     'status' => 'required|in:0,1',
-                    'location_id' => 'required|integer'
+                    'location_id' => 'required|integer',
+                    'min_age' => 'required|integer',
+                    'pickup_and_drop' => 'required|string',
+                    'tour_guide' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'convoy_leader' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'safety_gear_ids' => 'required|array',
+                    'refreshments_ids' => 'required|array',
                 ]);
     
                 if($validator->fails()){
@@ -67,6 +74,8 @@ class TourController extends Controller{
                 $validated = $validator->validated();
 
                 $validated['time_ids'] = Helper::implode($request['time_ids']);
+                $validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
+                $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
                     $path = 'tour';
@@ -77,7 +86,8 @@ class TourController extends Controller{
                     $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
                 
-                $validated['random_id'] = resolve('snowflake')->id();
+                $snowflake = new \Godruoyi\Snowflake\Snowflake;
+                $validated['random_id'] = $snowflake->id();
 
                 Tour::create($validated);
     
@@ -87,7 +97,9 @@ class TourController extends Controller{
                 'pageName' => 'New Tour',
                 'action' => url('admin/tours/store'),
                 'time' => Time::orderBy('id','DESC')->get(),
-                'locations' => Location::orderBy('id','DESC')->get()
+                'locations' => Location::orderBy('id','DESC')->get(),
+                'safetyGear' => VehicleInfo::type(5)->order()->get(),
+                'refreshment' => VehicleInfo::type(6)->order()->get(),
             ];
             return view('admin.pages.tour.create',$this->outputData);
 
@@ -110,7 +122,13 @@ class TourController extends Controller{
                     'image' => 'mimes:jpeg,jpg,png,gif',
                     'banner_img' => 'mimes:jpeg,jpg,png,gif',
                     'status' => 'required|in:0,1',
-                    'location_id' => 'required|integer'
+                    'location_id' => 'required|integer',
+                    'min_age' => 'required|integer',
+                    'pickup_and_drop' => 'required|string',
+                    'tour_guide' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'convoy_leader' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'safety_gear_ids' => 'required|array',
+                    'refreshments_ids' => 'required|array',
                 ]);
     
                 if($validator->fails()){
@@ -120,6 +138,8 @@ class TourController extends Controller{
                 $validated = $validator->validated();
 
                 $validated['time_ids'] = Helper::implode($request['time_ids']);
+                $validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
+                $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
                     $path = 'tour';
@@ -139,9 +159,13 @@ class TourController extends Controller{
                 'action' => url('admin/tours/update/'.$id),
                 'objData' => Tour::findOrFail($id),
                 'time' => Time::order()->get(),
-                'locations' => Location::order()->get()
+                'locations' => Location::order()->get(),
+                'safetyGear' => VehicleInfo::type(5)->order()->get(),
+                'refreshment' => VehicleInfo::type(6)->order()->get(),
             ];
             $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
+            $this->outputData['selctdSftyGear'] = Helper::explode( $this->outputData['objData']->safety_gear_ids );
+            $this->outputData['selctdRefreshment'] = Helper::explode( $this->outputData['objData']->refreshments_ids );
 
             return view('admin.pages.tour.create',$this->outputData);
 

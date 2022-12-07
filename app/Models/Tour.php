@@ -22,7 +22,13 @@ class Tour extends Model
         'type',
         'safari_sequence',
         'location_id',
-        'random_id'
+        'random_id',
+        'min_age',
+        'pickup_and_drop',
+        'convoy_leader',
+        'tour_guide',
+        'refreshments_ids',
+        'safety_gear_ids'
     ];
     protected $hidden = [
         'created_at','updated_at',

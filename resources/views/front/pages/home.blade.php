@@ -82,7 +82,9 @@
                 <div class="container-extra-large bg-backpack-right bg-backpack-right--sm-none bg-backpack-right--to-rt swiper swiper--trip js-trip-slider">
                   <div class="js-trip-slider-pagination swiper-pagination swiper-pagination--top"></div>
                   <div class="swiper-wrapper">
+                   
                     @foreach($value['veh'] as $key => $vehicle)
+                    
                     <div class="swiper-slide">
                       <div class="flex-box align-items-center">
                         <div
@@ -173,7 +175,7 @@
                                     ></use>
                                   </svg>
                                   <div class="list-tour-info__item-desc">
-                                    <b>Length</b> <span>23 Days</span>
+                                    <b>Min Age</b> <span>{{$value['min_age']}}Yrs</span>
                                   </div>
                                 </li>
                                 <li class="list-tour-info__item">
@@ -190,10 +192,10 @@
                                     ></use>
                                   </svg>
                                   <div class="list-tour-info__item-desc">
-                                    <b>Avg. Age</b> <span>18-39</span>
+                                    <b>Pickup & Drop off</b> <span>{{$value['pickup_and_drop']}}</span>
                                   </div>
                                 </li>
-                                <li class="list-tour-info__item">
+                                {{-- <li class="list-tour-info__item">
                                   <svg
                                     width="36px"
                                     height="36px"
@@ -207,9 +209,9 @@
                                     ></use>
                                   </svg>
                                   <div class="list-tour-info__item-desc">
-                                    <b>No. Of Activities</b> <span>30+</span>
+                                    <b>Ride Duration</b> <span>30 / 60 / 90 / 120 Mins </span>
                                   </div>
-                                </li>
+                                </li> --}}
                                 <li class="list-tour-info__item">
                                   <svg
                                     width="36px"
@@ -224,7 +226,7 @@
                                     ></use>
                                   </svg>
                                   <div class="list-tour-info__item-desc">
-                                    <b>No. Of Meals</b> <span>28</span>
+                                    <b>Convoy Leader</b> <span>{{$value['convoy_leader']}}</span>
                                   </div>
                                 </li>
                                 <li class="list-tour-info__item">
@@ -241,27 +243,10 @@
                                     ></use>
                                   </svg>
                                   <div class="list-tour-info__item-desc">
-                                    <b>Avg. Group Size</b> <span>14 - 20</span>
+                                    <b>Tour Guide</b> <span>{{$value['tour_guide']}}</span>
                                   </div>
                                 </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-star"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Operator</b>
-                                    <span>Quads Dubai</span>
-                                  </div>
-                                </li>
+
                                 <li class="list-tour-info__item">
                                   <svg
                                     width="36px"
@@ -276,24 +261,7 @@
                                     ></use>
                                   </svg>
                                   <div class="list-tour-info__item-desc">
-                                    <b>Starting Point</b> <span>Hanoi</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg
-                                    width="36px"
-                                    height="36px"
-                                    class="fill-blue"
-                                    aria-hidden="true"
-                                    aria-focusable="false"
-                                  >
-                                    <use
-                                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                                      xlink:href="images/icons.svg#icon-map"
-                                    ></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Ending Point</b> <span>Ho Chi Minh</span>
+                                    <b>Available Everyday</b> <span>Sunrise to Sunset</span>
                                   </div>
                                 </li>
                               </ul>
@@ -372,6 +340,7 @@
                 </p>
               </div>
               @endforeach
+              
             </div>
           </section>
           <section
