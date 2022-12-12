@@ -121,7 +121,8 @@
                                     </blockquote>
                                 </div>
                             </div>
-                            <a class="btn btn--purple" href="{{url('add-to-cart/'.$singlePrdct->random_id)}}" title="View Tour Dates"> Book Now </a>
+                            {{-- href="{{url('add-to-cart/'.$singlePrdct->random_id)}}" --}}
+                            <a class="btn btn--purple add_cart" href="javascript:void(0);" data-id="{{$singlePrdct->random_id}}" title="add-to-cart"> Book Now </a>
                         </div>
                         <div class="col-12 col-lg-5 col-xl-5 col-xxl-4 offset-xxl-1">
                             <div class="animation-fadeInUp mb-30em">
@@ -2025,4 +2026,23 @@
                     Dates </a> </div>
         </div>
     </div>
-</x-front.master-layout>    
+</x-front.master-layout>  
+
+ <script>
+    $(document).ready(function() {
+        $(document).on('click', '.add_cart', function() {
+        let id = $(this).data('id');
+            $.ajax({
+                url: "add-to-cart/"+ id,  
+                success: function (data) {
+                    window.location.reload();
+
+                },
+                error: function (data) {
+                console.log('Error:', data);
+                }
+            });
+        });
+    });
+            </script>
+    

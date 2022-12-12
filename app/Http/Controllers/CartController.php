@@ -18,22 +18,19 @@ class CartController extends Controller
     }
 
     public function add($id){
-    
-        $Product = Vehicle::where('random_id',$id)->get()->toArray(); 
-
+        $Product = Vehicle::where('random_id',$id)->first();
         // add the product to cart
             \Cart::add(array(
                 'id' => $id,
-                'name' => $Product[0]['name'],
+                'name' => $Product->name,
                 'price' => 200,
                 'quantity' => 1,
             ));   
     }
     public function update($id){
-
         // update the item on cart
         \Cart::update($id,[
-            'quantity' => 2,
+            'quantity' => 1,
         ]);
         
     }
@@ -42,6 +39,5 @@ class CartController extends Controller
         // delete an item on cart
         \Cart::remove($id);
     }
-
 
 }

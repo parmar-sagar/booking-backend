@@ -65,7 +65,7 @@
                   </button>
                   @endforeach
               </li>
-                <a class="l-navbar__login-link" href="{{url('/all-other-tours')}}" title="Login" aria-label="Login">
+                <a class="l-navbar__login-link" href="{{url('/all-other-tours')}}" title="all other tour" aria-label="all-other-tours">
                 <button class="tab-box-btn tab-box-btn--blue5"data-name="tab" type="button">
                   <span class="tab-box-btn__icon tab-box-btn__icon--blue5">
                     <svg>
@@ -75,7 +75,7 @@
                   All other Tours
                 </button>
               </ul>
-              @php $colors = ['bg-blue','bg-green','bg-yellow','bg-orange','bg-pink','bg-navy']; @endphp
+              @php $colors = ['bg-blue','bg-green','bg-orange','bg-pink','bg-navy']; @endphp
               @foreach($tourVehicles as $key => $value)
           
               <div class="tab-box-content tab-box-content--{{ $loop->first ? 'active' : '' }} {{$colors[$key];}} border-img-top border-img-top--blue border-img-bottom border-img-bottom--blue js-tabContent"  data-content="tab-{{$value['tour_id']}}" >
@@ -91,8 +91,8 @@
                           class="flex-box__col flex-box__col-30 pr-10em text-center"
                         >
                           <a
-                            href="https://www.youtube.com/watch?v=5vP29nxEZCg"
-                            class="play-video play-video--bordered play-video--no-cover rotate-left js-video animation-rollInLeft"
+                            href="{{url('view-detail/'.$vehicle['id'])}}"
+                            class="play-video play-video--bordered play-video--no-cover rotate-left "
                             title="Watch video"
                             aria-label="Watch video"
                           >
@@ -102,17 +102,17 @@
                               media="(max-width: 420px)"
                             />
                           </picture>
-                                <img
+                                {{-- <img
                                   class="play-video__icon play-video__icon--width lazy"
                                   data-src="{{asset ('assets/front/images/icons/play-button.svg')}}"
                                   alt="Play Video"
-                                />
+                                /> --}}
                               </a>
-                              <svg width="200">
+                              {{-- <svg width="200">
                                 <use
                                   xlink:href="{{asset ('assets/front/images/icons.svg#icon-watch-the-video')}}"
                                 />
-                              </svg>
+                              </svg> --}}
                         </div>
                         <div
                           class="flex-box__col flex-box__col-40 animation-fadeInUp"
@@ -573,6 +573,14 @@
               <div class="swiper-button-prev"></div>
               {{-- <div class="swiper-pagination"></div> --}}
             </div>
+            <p class="text-center">
+              <a
+                class="btn btn--black"
+                href="{{url('deals')}}"
+              >
+              View All Deals
+              </a>
+            </p>
           </section>
         </main>
       </div>

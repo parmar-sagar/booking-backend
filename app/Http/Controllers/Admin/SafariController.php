@@ -58,7 +58,7 @@ class SafariController extends Controller
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
                     'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
                     'status' => 'required|in:0,1',
-                    'safari_sequence' => 'required|integer',
+                    // 'safari_sequence' => 'required|integer',
                     'location_id' => 'required|integer',
                     'min_age' => 'required|integer',
                     'pickup_and_drop' => 'required|string',

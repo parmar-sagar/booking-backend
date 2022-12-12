@@ -19,7 +19,7 @@
           title="Quads Dubai"
         />
       </a>
-      <div class="l-footer__select">
+      {{-- <div class="l-footer__select">
         <select
           name="select"
           class="select select--purple"
@@ -42,7 +42,7 @@
         >
           <input type="hidden" name="currency" value="" />
         </form>
-      </div>
+      </div> --}}
       <div class="l-footer__social">
         <ul class="social-media">
           <li class="social-media__item">
@@ -258,7 +258,7 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="useful-information.html"
+                href="{{url('faqs')}}"
                 title="Useful pages"
               >
                 FAQs
@@ -267,7 +267,7 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="auth/login.html"
+                href=" @if (Auth::check()){{url('my-account')}}@else {{url('login')}}@endif"
                 title="Useful pages"
               >
                 My Account
@@ -276,7 +276,7 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="tour-deals.html"
+                href="{{url('deals')}}"
                 title="Useful pages"
               >
                 Deals

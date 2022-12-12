@@ -51,4 +51,22 @@ class HomeController extends Controller
     public function termsAndConditions(){
         return view('front.pages.terms_conditions.index');
     }
+    public function aboutUs(){
+        return view('front.pages.about_us.index');
+    }
+
+    public function deals(){
+        $this->outputData = [
+            'deal' => Vehicle::where('is_deals','1')->sequence()->status('1')->get()
+        ];
+        return view('front.pages.deals.index',$this->outputData);
+    }
+
+    public function myAccount(){
+       return view('front.pages.my_account.index');
+    }
+
+    public function faqs(){
+       return view('front.pages.faqs.index');
+    }
 }

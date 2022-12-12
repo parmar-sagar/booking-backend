@@ -27,7 +27,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SingleProductController;
 use App\Http\Controllers\AlltoursController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\BooktourController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
@@ -293,6 +292,10 @@ Route::group([
     Route::get('/refund-policy',[HomeController::class, 'refundPolicy']);
     Route::get('/privacy-policy',[HomeController::class, 'privacyPolicy']);
     Route::get('/terma-and_conditions',[HomeController::class, 'termsAndConditions']);
+    Route::get('/about-us',[HomeController::class, 'aboutUs']);
+    Route::get('/deals',[HomeController::class, 'deals']);
+    Route::get('/my-account',[HomeController::class, 'myAccount']);
+    Route::get('/faqs',[HomeController::class, 'faqs']);
     
 
     Route::get('/view-detail/{id}',[SingleProductController::class, 'index']);
@@ -303,7 +306,7 @@ Route::group([
   
     // cart
     Route::get('/cart',[CartController::class, 'index']);
-    Route::get('/add-to-cart/{id}',[CartController::class, 'add']);
+    Route::get('view-detail/add-to-cart/{id}',[CartController::class, 'add']);
     Route::get('/update-cart',[CartController::class, 'update']);
     Route::get('/delete-cart/{id}',[CartController::class, 'delete']);
 
