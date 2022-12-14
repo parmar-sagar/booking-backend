@@ -19,7 +19,7 @@ class SingleProductController extends Controller
         $this->outputData = [];
     }
 
-    public function index($id){
+    public function index($id){   
         $this->outputData = [
             'singlePrdct' => Vehicle::findOrFail($id),
             'list'        => Tour::findOrFail($id)

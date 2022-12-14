@@ -27,7 +27,7 @@
           <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
             <div class="d-flex justify-content-between align-items-center mb-3">
               <h4 class="text-right">Profile Settings</h4>
-            </div>
+            </div>       
             <div class="row">
               <div class="p-3 py-5">
                 <div class="form__row__left">
@@ -38,14 +38,14 @@
                         <label class="form__label-blank" for="first_name">Name*</label>
                       </div>
                     </div>
-                    {{-- <div class="col">
+                    <div class="col">
                       <div class="form__row__left">
                         <div class="form__group">
                           <input type="text" name="surname" id="_name" class="form__input-blank" required="">
                           <label class="form__label-blank" for="first_name">Last Name*</label>
                         </div>
                       </div>
-                    </div> --}}
+                    </div>
                   </div>
                 </div>
                 <div class="form__row">
@@ -76,7 +76,7 @@
                     <label class="form__label-blank" for="email">Email*</label>
                   </div>
                 </div>
-                {{-- <div class="form__row">
+                <div class="form__row">
                   <div class="form__group">
                     <input type="text" name="address[line_1]" id="address-line-1" class="form__input-blank" required="">
                     <label for="address-line-1" class="form__label-blank">Address*</label>
@@ -87,7 +87,7 @@
                     <input type="text" name="address[line_2]" id="address-line-2" class="form__input-blank">
                     <label class="form__label-blank" for="address-line-2">Address 2nd Line</label>
                   </div>
-                </div> --}}
+                </div>
               </div>
               <div class="col-md-5 border-right"></div>
             </div>

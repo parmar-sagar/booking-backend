@@ -20,7 +20,7 @@ class Tour extends Model
         'on_home',
         'on_home_sequence',
         'type',
-        'safari_sequence',
+        'sequence',
         'location_id',
         'random_id',
         'min_age',
@@ -50,6 +50,10 @@ class Tour extends Model
 
     public function ScopeOrder($query){
         return $query->orderBy('id','DESC');
+    }
+
+    public function ScopeSequence($query){
+        return $query->orderBy('sequence','ASC');
     }
 
     public function location(){

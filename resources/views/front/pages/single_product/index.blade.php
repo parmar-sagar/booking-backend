@@ -1,6 +1,6 @@
 <x-front.master-layout>
-    <div id="barba-wrapper">
-        <div class="barba-container">
+    <div id="barba-wrappers">
+        <div class="barba-containers">
             <nav class="l-submenu l-submenu--blurple border-img-bottom border-img-bottom--blurple">
                 <div class="l-submenu__scroll row row--10 align-items-center justify-content-start">
                     <div class="col-6 p-3">
@@ -2036,7 +2036,6 @@
                 url: "add-to-cart/"+ id,  
                 success: function (data) {
                     window.location.reload();
-
                 },
                 error: function (data) {
                 console.log('Error:', data);

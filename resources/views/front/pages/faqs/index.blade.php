@@ -1,5 +1,5 @@
 <x-front.master-layout>
-    <div id="barba-wrapper" aria-live="polite">
+    <div id="barba-wrappers" aria-live="polite">
       <div class="barba-container">
         {{-- <header class="l-header">
           <div class="row row--full row--g-10">

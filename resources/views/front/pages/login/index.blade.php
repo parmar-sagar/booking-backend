@@ -1,7 +1,7 @@
 @extends('front.layouts.master')
 @section('content')
-    <div id="barba-wrapper">
-      <div class="barba-container" style="    background-color: #69fff5;">
+    <div id="barba-wrappers">
+      <div class="barba-containers" style="    background-color: #69fff5;">
         <main>
           <div class="full-height-fixed-bg-wrapper">
             <div class="full-height-fixed-bg" id="auth-page-1669716376">

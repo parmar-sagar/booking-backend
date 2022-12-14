@@ -1,7 +1,12 @@
 <x-front.master-layout>
  
     <div class="container cart " style="margin-bottom:100px;padding-bottom:100px;">
-      {{-- <div class="row row--g-10 pb-2em">
+      @php 
+      $cartCollection = Cart::getContent();
+      $total = Cart::getSubTotal();
+      @endphp
+      @if(Cart::isEmpty())
+      <div class="row row--g-10 pb-2em">
         <div class="col-12 col-lg-10 offset-xxl-1">
           <div class="card card--shadow-purple mb-80em">
             <div class="row row--full row--g-10">
@@ -23,7 +28,8 @@
             </div>
           </div>
         </div>
-      </div> --}}
+      </div>
+      @else
       <div class="content  mb-20 pb-20">
         <div class="basket card--shadow-blurple">
           <div class="basket-labels">
@@ -34,10 +40,7 @@
               <li class="subtotal">Subtotal</li>
             </ul>
           </div>
-          @php 
-          $cartCollection = Cart::getContent();
-          $total = Cart::getSubTotal();
-          @endphp
+
           @foreach($cartCollection as $cartItems)
           <div class="basket-product">
             <div class="item">
@@ -63,9 +66,10 @@
               </div>
           </div>
           @endforeach
+          
         </div>
         @if (Auth::check())
-        <div class="basket  mb-20em card--shadow-blue mt-5" style="margin-bottom:30px!important;">
+        {{-- <div class="basket  mb-20em card--shadow-blue mt-5" style="margin-bottom:30px!important;">
           <div class="basket-product">
             <button class="accordion bg-orange">Section 1</button>
             <div class="panel">
@@ -106,7 +110,7 @@
                     <label class="form__label-blank" for="email">Email*</label>
                   </div>
                 </div> --}}
-                <div class="form__row">
+                {{-- <div class="form__row">
                   <div class="form__group">
                     <input type="text" name="address[line_1]" id="address-line-1" class="form__input-blank" required="">
                     <label for="address-line-1" class="form__label-blank">Address*</label>
@@ -150,13 +154,13 @@
                 </p>
               </div>
             </div>
-          </div>
+          </div> --}}
         </div>
         @else
-        <a class="btn btn--purple mt-15em"  href="{{url('login')}}" title="Login"> LogIn</a>
+        {{-- <a class="btn btn--purple mt-15em"  href="{{url('login')}}" title="Login"> LogIn</a>
         <a class="btn btn--purple mt-15em"  href="{{url('register')}}" title="Login"> Register</a>
         <br>
-        <br>
+        <br> --}}
         @endif
       </div>
       <aside>
@@ -175,6 +179,7 @@
             </div>
           </div>
         </div>
+        @endif
       </aside>
     </div>
   </x-front.master-layout>

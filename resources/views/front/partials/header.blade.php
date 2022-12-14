@@ -26,33 +26,25 @@
     <div class="l-navbar__menu-wrapper">
       <ul class="l-navbar__menu-right">
         <li class="l-navbar__menu-item">
-          <a
-            class="l-navbar__menu-link dpdn"
-            href="book-a-backpacking-tour.html"
-            title="Tours"
-          >
             <div class="dropdown">
-              <button class="dropbtn">Tours</button>
+              <span class="dropbtn l-navbar__menu-link ">Tours</span>
               <div class="dropdown-Tour_content">
-                <a href="#">Dune Buggies</a>
-                <a href="#">Quad Bikes</a>
-                <a href="#">Other Desert Adventures</a>
-                <a href="#">Jet Skis</a>
-                <a href="#">Luxury Yachts</a>
-                <a href="#">All Other Tours</a>
+                <a href="{{url('tours/3')}}">Dune Buggies</a>
+                <a href="{{url('tours/1')}}">Quad Bikes</a>
+                <a href="{{url('tours/4')}}">Desert Safari</a>
+                <a href="{{url('/all-other-tours')}}">All Other Tours</a>
               </div>
             </div>
-          </a>
         </li>
         <li class="l-navbar__menu-item">
-          <a class="l-navbar__menu-link" href="tour-deals.html" title="Deals">
+          <a class="l-navbar__menu-link" href="{{url('deals')}}" title="Deals">
             Deals
           </a>
         </li>
         <li class="l-navbar__menu-item">
           <a
             class="l-navbar__menu-link"
-            href="about-us.html"
+            href="{{url('about-us')}}"
             title="About Us"
           >
             About Us
@@ -64,7 +56,7 @@
           </a>
         </li>
         <li class="l-navbar__menu-item">
-          <a class="l-navbar__menu-link" href="{{url('cart')}}" title="Contact">
+          <a class="l-navbar__menu-link" href="{{url('cart')}}" title="Cart">
             @php 
             $cartCollection = Cart::getContent();
               $count = $cartCollection->count(); @endphp
@@ -76,7 +68,7 @@
     @guest
     @if (Route::has('login'))
         <a class="l-navbar__login-link" href="{{url('login')}}" title="Login" aria-label="Login">
-        <i class="fa-solid fa-user"></i>
+        <i class="c"></i>
          <span>Login</span>
         </a>
    @endif

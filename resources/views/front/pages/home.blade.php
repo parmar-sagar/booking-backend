@@ -1,5 +1,5 @@
 <x-front.master-layout>
-  <div id="barba-wrapper">
+  <div id="">
       <div class="barba-container">
         <header class="l-header l-header--full-height l-header--curtain">
           <div class="bg-media bg-media--video"
@@ -82,7 +82,7 @@
                 <div class="container-extra-large bg-backpack-right bg-backpack-right--sm-none bg-backpack-right--to-rt swiper swiper--trip js-trip-slider">
                   <div class="js-trip-slider-pagination swiper-pagination swiper-pagination--top"></div>
                   <div class="swiper-wrapper">
-                   
+                  
                     @foreach($value['veh'] as $key => $vehicle)
                     
                     <div class="swiper-slide">
@@ -91,7 +91,7 @@
                           class="flex-box__col flex-box__col-30 pr-10em text-center"
                         >
                           <a
-                            href="{{url('view-detail/'.$vehicle['id'])}}"
+                            href="{{url('view-detail/'.$vehicle['random_id'])}}"
                             class="play-video play-video--bordered play-video--no-cover rotate-left "
                             title="Watch video"
                             aria-label="Watch video"
@@ -375,7 +375,7 @@
                             <div class="box-multi__item box-multi__item--right border--green"> <span
                                 class="box-multi__headline">{{$discounts->discount}}%</span><br>Discount on {{$discounts->no_of_vehicle}} Vehicles </div>
                           </div> 
-                            <a class=" btn btn--black " href="/tour-deals" title="Find Out More"> Find Out More </a>
+                            {{-- <a class=" btn btn--black " href="/tour-deals" title="Find Out More"> Find Out More </a> --}}
                       </div>
                       @endforeach
                      
@@ -561,7 +561,7 @@
                             </div>
                             <div
                                 class="card__footer card__footer--center card__footer--block-mobile card__footer--to-bottom pt-20em">
-                                <a href="{{url('view-detail/'.$deals->id)}}"><span class="btn btn--small btn--purple">View Tour</span></a>
+                                <a href="{{url('view-detail/'.$deals->random_id)}}"><span class="btn btn--small btn--purple">View Tour</span></a>
                             </div>
                         </div>
                     </div> 

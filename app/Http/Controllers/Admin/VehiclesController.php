@@ -11,7 +11,10 @@ use App\Models\Vehicle;
 use App\Handlers\Error;
 use App\Helpers\Helper;
 use App\Models\Tour;
+use App\Models\price;
 use App\Models\Time;
+use App\Models\timeSlote;
+use App\Models\avalableSlote;
 use DataTables;
 
 
@@ -51,6 +54,7 @@ class VehiclesController extends Controller
         try {
             if($request->method() == 'POST'){
                 $Input = $request->all();
+
                 // Validation section
                 $validator = Validator::make($Input, [
                     'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
@@ -58,12 +62,14 @@ class VehiclesController extends Controller
                     'description' => 'required|string',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
                     'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
-                    'time_ids' => 'required|array',
+                    'time' => 'required|array',
+                    'amount' => 'required|array',
                     'tour_id' => 'required|integer',
                     'includes_ids' => 'required|array',
                     'highlight_ids' => 'required|array',
                     'warning_ids' => 'required|array',
                     'status' => 'required|in:0,1',
+                    'time_slots_ids' => 'required|array',
                     'no_of_persons' => 'required|integer',
                     'activities_ids' => 'required|array'
                 ]);
@@ -73,7 +79,7 @@ class VehiclesController extends Controller
                 }
                 $validated = $validator->validated();
 
-                    $validated['time_ids'] = Helper::implode( $request['time_ids'] );
+                    // $validated['time_ids'] = Helper::implode( $request['time_ids'] );
                     $validated['includes_ids'] = Helper::implode( $request['includes_ids'] );
                     $validated['highlight_ids'] = Helper::implode( $request['highlight_ids'] );
                     $validated['warning_ids'] = Helper::implode( $request['warning_ids'] );
@@ -89,9 +95,31 @@ class VehiclesController extends Controller
                 }
                 $snowflake = new \Godruoyi\Snowflake\Snowflake;
                 $validated['random_id'] = $snowflake->id();
+
+                $lastInsertId = Vehicle::create($validated)->id;
                 
-                Vehicle::create($validated);
-    
+                $array1 = $validated['amount'];
+                $array2 = $validated['time'];
+                $array3 = $validated['time_slots_ids'];
+
+                foreach( $array1 as $index => $amount ) {
+                    $amounts=$amount;
+                    $times=$array2[$index];
+                    price::create([
+                        'amount' => $amounts,
+                        'time' => $times,
+                        'vehicle_id' => $lastInsertId,
+                        'tour_id' => $validated['tour_id'],
+                    ]);
+                }
+                foreach( $array3 as $index => $timeSlotes){
+                    
+                    avalableSlote::create([
+                        'vehicle_id' => $lastInsertId,
+                        'time_slots_ids' => $timeSlotes
+                        
+                    ]);
+                }
                 return response()->json(['success' => "Vehicle Created successfully."]);
             }
             $this->outputData = [
@@ -102,7 +130,8 @@ class VehiclesController extends Controller
                 'includes' => VehicleInfo::type(2)->order()->get(),
                 'warnings' => VehicleInfo::type(3)->order()->get(),
                 'activities' => VehicleInfo::type(4)->order()->get(),
-                'time' => Time::order()->get()
+                'time' => Time::order()->get(),
+                'timeSlotes' => timeSlote::get()
             ];
             return view('admin.pages.vehicles.create',$this->outputData);
 
@@ -123,7 +152,7 @@ class VehiclesController extends Controller
                     'description' => 'required|string',
                     'image' => 'mimes:jpeg,jpg,png,gif',
                     'banner_img' => 'mimes:jpeg,jpg,png,gif',
-                    'time_ids' => 'required|array',
+                    'time_slots_ids' => 'required|array',
                     'tour_id' => 'required|integer',
                     'includes_ids' => 'required|array',
                     'highlight_ids' => 'required|array',
@@ -138,7 +167,7 @@ class VehiclesController extends Controller
                 }
                 $validated = $validator->validated();
 
-                $validated['time_ids'] = Helper::implode( $request['time_ids'] );
+                // $validated['time_ids'] = Helper::implode( $request['time_ids'] );
                 $validated['includes_ids'] = Helper::implode( $request['includes_ids'] );
                 $validated['highlight_ids'] = Helper::implode( $request['highlight_ids'] );
                 $validated['warning_ids'] = Helper::implode( $request['warning_ids'] );
@@ -153,6 +182,16 @@ class VehiclesController extends Controller
                 $validated['banner_img'] = Helper::uploadFile( $request->banner_img, $path );
             }
                 Vehicle::find($validated['id'])->update($validated);
+                avalableSlote::where('vehicle_id',$validated['id'])->delete();
+                $array3 = $validated['time_slots_ids'];
+                foreach( $array3 as $index => $timeSlotes){
+
+                    avalableSlote::create([
+                        'vehicle_id' => $validated['id'],
+                        'time_slots_ids' => $timeSlotes
+                        
+                    ]);
+                }
     
                 return response()->json(['success' => "Vehicle Updated successfully."]);
             }
@@ -165,9 +204,11 @@ class VehiclesController extends Controller
                 'includes' => VehicleInfo::type(2)->order()->get(),
                 'warnings' => VehicleInfo::type(3)->order()->get(),
                 'activities' => VehicleInfo::type(4)->order()->get(),
-                'time' => Time::order()->get()
+                'time' => Time::order()->get(),
+                'timeSlotes' => timeSlote::get()
             ];
 
+            $this->outputData['selctdTimeSlots'] = avalableSlote::where('vehicle_id',$id)->select('time_slots_ids')->first()->toArray();  
             $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
             $this->outputData['selctdTour'] = Helper::explode( $this->outputData['objData']->tour_id );
             $this->outputData['selctdIncludes'] = Helper::explode( $this->outputData['objData']->includes_ids );

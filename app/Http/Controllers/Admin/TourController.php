@@ -58,6 +58,7 @@ class TourController extends Controller{
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
                     'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
                     'status' => 'required|in:0,1',
+                    'sequence' => 'required|integer',
                     'location_id' => 'required|integer',
                     'min_age' => 'required|integer',
                     'pickup_and_drop' => 'required|string',
@@ -116,6 +117,7 @@ class TourController extends Controller{
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:tours',
+                    'sequence' => 'required|integer|unique:tours,sequence,'.$id,
                     'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
                     'description' => 'required|string',
                     'time_ids' => 'required|array',

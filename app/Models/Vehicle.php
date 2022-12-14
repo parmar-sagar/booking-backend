@@ -16,7 +16,7 @@ class Vehicle extends Model
         'name',
         'short_name',
         'description',
-        'time_ids',
+        // 'time_ids',
         'includes_ids',
         'highlight_ids',
         'warning_ids',

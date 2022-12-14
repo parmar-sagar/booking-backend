@@ -32,7 +32,7 @@
                     </div>
                 </div> 
             </article>
-             @endforeach
+            @endforeach
         </div>
     </div>
 </main>

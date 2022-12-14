@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\MyprofileController; 
 use App\Http\Controllers\Admin\SafetyGearController;
 use App\Http\Controllers\Admin\RefreshmentController;
+use App\Http\Controllers\Admin\TimeSlotController;
 
 /* Frontend Controller start*/
 
@@ -228,6 +229,18 @@ Route::group([
     });
     
     Route::group([
+        'prefix' => 'time-slotes'
+    ], function(){
+        Route::get('/',[TimeSlotController::class, 'index']);
+        Route::get('/datatable',[TimeSlotController::class, 'datatable']);
+        Route::get('/create',[TimeSlotController::class, 'create']);
+        Route::post('/store',[TimeSlotController::class, 'create']);
+        Route::get('/edit/{id}',[TimeSlotController::class, 'edit']);
+		Route::post('/update/{id}',[TimeSlotController::class, 'edit']);
+		Route::get('/delete/{id}',[TimeSlotController::class, 'destroy']);
+    });
+
+    Route::group([
         'prefix' => 'safaris'
     ], function(){
         Route::get('/',[SafariController::class, 'index']);
@@ -296,6 +309,8 @@ Route::group([
     Route::get('/deals',[HomeController::class, 'deals']);
     Route::get('/my-account',[HomeController::class, 'myAccount']);
     Route::get('/faqs',[HomeController::class, 'faqs']);
+    Route::post('update-profile',[HomeController::class, 'updateProfile']);
+    Route::post('update-password',[HomeController::class, 'updatePassword']);
     
 
     Route::get('/view-detail/{id}',[SingleProductController::class, 'index']);

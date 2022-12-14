@@ -113,6 +113,12 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
+                            <label for="sequence" class="form-label">Sequence</label>
+                            <input type="text" id="sequence" class="form-control" name="sequence" value="@if(isset($objData->sequence) && $objData->sequence){{ $objData->sequence }}@endif" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
                             <label for="status" class="form-label">Status</label>
                             <div>
                                 <div class="form-check form-check-inline">

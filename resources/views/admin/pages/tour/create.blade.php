@@ -111,12 +111,12 @@
                             @endif
                         </div>
                     </div>
-                    {{-- <div class="col-lg-6">
+                    <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="link" class="form-label">Link</label>
-                            <input type="text" id="link" class="form-control" name="link" value="@if(isset($objData->link) && $objData->link){{ $objData->link }}@endif" required>
+                            <label for="sequence" class="form-label">Sequence</label>
+                            <input type="text" id="sequence" class="form-control" name="sequence" value="@if(isset($objData->sequence) && $objData->sequence){{ $objData->sequence }}@endif" required>
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="status" class="form-label">Status</label>

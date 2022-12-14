@@ -1,5 +1,5 @@
 <x-front.master-layout>
-<div id="barba-wrapper" aria-live="polite">
+<div id="barba-wrappers" aria-live="polite">
     <div class="barba-container">
       <header class="l-header l-header--bottom-pad tours-banner" style="background-image: url('{{ asset('/admin/uploads/tour/' . $tourName->banner_img) }}')">
         <div class="banner-image"> 
@@ -323,5 +323,5 @@
         </section>
       </main>
     </div>
-  </div>
+</div>
 </x-front.master-layout>

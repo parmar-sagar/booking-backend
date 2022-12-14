@@ -50,7 +50,7 @@
               class="l-footer__social-link social-media__link"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://www.facebook.com/backpackingtours/"
+              href="#"
               aria-label="Our Facebook"
               title="Our Facebook"
             >
@@ -68,7 +68,7 @@
               class="l-footer__social-link social-media__link"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://www.instagram.com/backpackingtours/"
+              href="#"
               aria-label="Our Instagram"
               title="Our Instagram"
             >
@@ -86,7 +86,7 @@
               class="l-footer__social-link social-media__link"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://www.youtube.com/c/BackpackingTours"
+              href="#"
               aria-label="Our YouTube"
               title="Our YouTube"
             >
@@ -104,7 +104,7 @@
               class="l-footer__social-link social-media__link"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://www.facebook.com/groups/backpackingtours/"
+              href="#"
               aria-label="Our Facebook Group"
               title="Our Facebook Group"
             >
@@ -132,7 +132,7 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="thailand-backpacking-tour.html"
+                href="#"
                 title="Tours"
               >
                 Dune Buggies
@@ -141,7 +141,7 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="bali-backpacking-tour.html"
+                href="#"
                 title="Tours"
               >
                 Quad Bikes
@@ -150,7 +150,7 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="cambodia-backpacking-tour.html"
+                href="#"
                 title="Tours"
               >
                 Other Desert Adventures
@@ -159,7 +159,7 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="sri-lanka-backpacking-tour.html"
+                href="#"
                 title="Tours"
               >
                 Jet Skis
@@ -168,7 +168,7 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="vietnam-backpacking-tour.html"
+                href="#"
                 title="Tours"
               >
                 Luxury Yachts
@@ -177,7 +177,7 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="vietnam-backpacking-tour.html"
+                href="#"
                 title="Tours"
               >
                 All Other Tours
@@ -195,7 +195,7 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="about-us.html"
+                href="{{url('about-us')}}"
                 title="About Us"
               >
                 About Us
@@ -240,7 +240,7 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="{{url('terma-and_conditions')}}"
+                href="{{url('term-and-conditions')}}"
                 title="terma-and_conditions"
               >
                 Terms & Conditions

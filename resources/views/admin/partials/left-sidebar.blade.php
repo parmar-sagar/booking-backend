@@ -188,6 +188,12 @@
                                 <span> Times </span>
                             </a>
                         </li>
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/time-slotes') }}" class="side-nav-link">
+                                {{-- <i class="ri-time-line"></i> --}}
+                                <span> Times Slotes </span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
