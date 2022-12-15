@@ -25,7 +25,8 @@ class CartController extends Controller
                 'name' => $Product->name,
                 'price' => 200,
                 'quantity' => 1,
-            ));   
+            ));  
+            return response()->json(['success' => "Tour has been added to your cart"]); 
     }
     public function update($id){
         // update the item on cart
@@ -38,6 +39,7 @@ class CartController extends Controller
     public function delete($id){
         // delete an item on cart
         \Cart::remove($id);
+        return response()->json(['success' => "Cart Item Remove"]);
     }
 
 }

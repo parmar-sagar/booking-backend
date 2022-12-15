@@ -25317,23 +25317,23 @@ h1.headline-2.tour-name {
     font-size: 70px;
 }
 
-.card.card--flex {
+/*.card.card--flex {
     height: 75vh;
-}
+}*/
 .blockquote li.list-tour-info__item {
     text-align: left;
 }
 
-@media(min-width:2000px){
+/*@media(min-width:2000px){
     .card.card--flex {
-        height: 50vh;
+        height: 62vh;
     }
 }
 @media(max-width:1800px){
     .card.card--flex {
-        height: 42vh;
+        height: 80vh;
     }
-}
+}*/
 @media(max-width:992px){
     .swiper-slide.swiper-slide-next, .swiper-slide.swiper-slide-active, .swiper-slide.swiper-slide-prev {
         width: 100% !important;
@@ -26501,3 +26501,75 @@ input:checked+.slider:before {
     background-color: rgb(232, 82, 232);
     color: white;
   }
+  .dropdown .l-navbar__menu-link:after{
+    display: none;
+  }
+  .dropdown a {
+    text-decoration: none;
+}
+
+/* 15/12/2022 (procced to checkout)*/
+.procced {
+    display: flex;
+    justify-content: end;
+  }
+.btn-procced {
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #ffc132;
+    border-radius: 4px;
+  }
+  /* end */
+
+  /* listing page css updated */
+  
+  #listing .card__headline-price-wrapper.col-8 {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.button_nd {
+    display: flex;
+    justify-content:end;
+    padding: 15px;
+}
+@media ( max-width:768px) {
+
+  #listing  .card__headline.card__headline--with-price.row {
+     display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+}    
+
+#listing .card__headline-left {
+    flex: 0 0 30%;
+    width: 100% !important;
+}} 
+
+
+#listing   .card__headline-price-wrapper {
+    display: flex;
+    flex-direction: column; }
+
+#listing    .card--shadow-green {
+    margin-left: 12px;
+    margin-bottom: 12px;
+    border: 6px solid #4417ff;
+    box-shadow: -12px 12px 0 #0fba68;}
+
+    #listing    .card--shadow-green:hover {
+    margin-left: 12px;
+    margin-bottom: 12px;
+    border: 6px solid #0fba68;
+    box-shadow: -12px 12px 0 #4417ff;}  
+
+.image_cnt {
+
+}
+
+#listing .btn {
+    
+    padding: 13px 20px;}
+    /* end */
+

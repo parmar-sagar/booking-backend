@@ -16,6 +16,7 @@
     {{-- <link rel="manifest" href="{{asset ('assets/front/manifest.json')}}" /> --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset ('assets/front/styles/mainbcf3.css?v=IJr3UOaPYY')}}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
    
     <link
@@ -65,6 +66,7 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
   {{-- <script src="{{asset ('assets/front/js/vendor.js')}}"></script> --}}
   <script src="{{asset ('assets/front/js/app.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link
       href="https://fonts.googleapis.com/css?family=Just+Another+Hand&amp;display=swap"

@@ -69,6 +69,9 @@ class HomeController extends Controller
     public function faqs(){
        return view('front.pages.faqs.index');
     }
+    public function whyChooseus(){
+        return view('front.pages.why_choose.index');
+     }
     public function updateProfile(Request $request){
 
         try {

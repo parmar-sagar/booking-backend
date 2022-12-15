@@ -202,10 +202,9 @@
                                         <p> Keep up to date with us on social media. </p>
                                     </div>
                                     <ul class="list-icon list-icon--tick list-1-cols list-mobile-limit js-limit-list">
-                                        <li>30 Mins Ride : 1200 AED</li>
-                                        <li>60 Mins Ride : 1600 AED</li>
-                                        <li>90 Mins Ride : 2700 AED</li>
-                                        <li>120 Mins Ride : 3000 AED</li>
+                                        @foreach($price as $prices)
+                                        <li>{{$prices->time}} Mins Ride : {{$prices->amount}} AED</li>
+                                        @endforeach
                                     </ul>
                                         {{-- <ul class="list-tour-info list-tour-info--two-cols">
                                             <li class="list-tour-info__item"> <svg width="36px" height="36px"
@@ -2034,8 +2033,13 @@
         let id = $(this).data('id');
             $.ajax({
                 url: "add-to-cart/"+ id,  
-                success: function (data) {
-                    window.location.reload();
+                success: function (response) {
+                if((response.error)){
+                  toastr.error(response.error);
+                }else{
+                  $("#my_cart").load(window.location + " #my_cart");
+                  toastr.success(response.success); 
+                }
                 },
                 error: function (data) {
                 console.log('Error:', data);

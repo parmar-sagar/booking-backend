@@ -204,8 +204,17 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
+                href="{{url('why-choose-us')}}"
+                title="Why Choose Us"
+              >
+                Why Choose Us
+              </a>
+            </li>
+            <li class="l-footer__menu-list-item">
+              <a
+                class="l-footer__menu-list-link"
                 href="{{url('refund-policy')}}"
-                title="About Us"
+                title="Refund Policy"
               >
                Refund Policy
               </a>
@@ -214,7 +223,7 @@
               <a
                 class="l-footer__menu-list-link"
                 href="blog.html"
-                title="About Us"
+                title="Blog"
               >
                 Blog
               </a>
@@ -241,7 +250,7 @@
               <a
                 class="l-footer__menu-list-link"
                 href="{{url('term-and-conditions')}}"
-                title="terma-and_conditions"
+                title="terms & conditions"
               >
                 Terms & Conditions
               </a>
@@ -259,7 +268,7 @@
               <a
                 class="l-footer__menu-list-link"
                 href="{{url('faqs')}}"
-                title="Useful pages"
+                title="FAQs"
               >
                 FAQs
               </a>
@@ -268,7 +277,7 @@
               <a
                 class="l-footer__menu-list-link"
                 href=" @if (Auth::check()){{url('my-account')}}@else {{url('login')}}@endif"
-                title="Useful pages"
+                title="My Account"
               >
                 My Account
               </a>
@@ -277,7 +286,7 @@
               <a
                 class="l-footer__menu-list-link"
                 href="{{url('deals')}}"
-                title="Useful pages"
+                title="Deals"
               >
                 Deals
               </a>
@@ -286,7 +295,7 @@
               <a
                 class="l-footer__menu-list-link"
                 href="reviews.html"
-                title="Useful pages"
+                title="Reviews"
               >
                 Reviews
               </a>

@@ -1,12 +1,12 @@
 <x-front.master-layout>
  
-    <div class="container cart " style="margin-bottom:100px;padding-bottom:100px;">
+    <div class="container cart " style="margin-bottom:100px;padding-bottom:100px;" id="carts">
       @php 
       $cartCollection = Cart::getContent();
       $total = Cart::getSubTotal();
       @endphp
       @if(Cart::isEmpty())
-      <div class="row row--g-10 pb-2em">
+      <div class="row row--g-10 pb-2em mt-5">
         <div class="col-12 col-lg-10 offset-xxl-1">
           <div class="card card--shadow-purple mb-80em">
             <div class="row row--full row--g-10">
@@ -23,7 +23,7 @@
             </div>
             <div class="row row--full row--g-10">
               <div class="col-lg-4 mt-20em mb-20em  text-center">
-                <a class="btn btn--orange " href="/why-choose-us" title="Why Choose Us"> Back To Home </a>
+                <a class="btn btn--orange " href="{{url('/')}}" title="Why Choose Us"> Back To Home </a>
               </div>
             </div>
           </div>
@@ -178,7 +178,11 @@
               <div class="total-value final-value" id="basket-total">{{$total}}</div>
             </div>
           </div>
+          <div class="procced">
+            <button class="btn-procced">Procced to checkout</button>
+          </div>
         </div>
+        
         @endif
       </aside>
     </div>
@@ -205,10 +209,16 @@ $(document).ready(function() {
     $.ajax({
           url: "delete-cart/"+ id,  
           data: {'_token': $('input[name=_token]').val()},
-          success: function (data) {
-            window.location.reload();
-            // $('#cart_product').html(data);        
-          }               
+          success: function (response) {
+                if((response.error)){
+                  toastr.error(response.error);
+                }else{
+                  $("#carts").load(window.location + " #carts");
+                  toastr.success(response.success); 
+                }
+            },error: function (error){
+              toastr.warning(error);
+            }            
       });
     });
 });  

@@ -9,6 +9,7 @@ use App\Helpers\Helper;
 use App\Models\Vehicle;
 use App\Models\Tour;
 use App\Models\Time;
+use App\Models\Price;
 
 
 class SingleProductController extends Controller
@@ -31,6 +32,7 @@ class SingleProductController extends Controller
        $sIds = Helper::explode($this->outputData['list']->safety_gear_ids);	
        $tIds = Helper::explode($this->outputData['list']->time_ids);
 
+       $this->outputData['price'] = Price::where('vehicle_id',$id);
        $this->outputData['include'] = VehicleInfo::whereIn('id',$iIds)->select('title')->get();
        $this->outputData['notInclude'] = VehicleInfo::whereIn('id',$hIds)->select('title')->get();
        $this->outputData['refreshment'] = VehicleInfo::whereIn('id',$rIds)->select('title')->get();

@@ -11,7 +11,7 @@ use App\Models\Vehicle;
 use App\Handlers\Error;
 use App\Helpers\Helper;
 use App\Models\Tour;
-use App\Models\price;
+use App\Models\Price;
 use App\Models\Time;
 use App\Models\timeSlote;
 use App\Models\avalableSlote;
@@ -105,7 +105,7 @@ class VehiclesController extends Controller
                 foreach( $array1 as $index => $amount ) {
                     $amounts=$amount;
                     $times=$array2[$index];
-                    price::create([
+                    Price::create([
                         'amount' => $amounts,
                         'time' => $times,
                         'vehicle_id' => $lastInsertId,

@@ -35,7 +35,7 @@ class MyprofileController extends Controller
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:admins',
                     'name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
-                    'email' => 'required|max:100|email:rfc,dns|unique:users,email,'.$Input['id'],
+                    'email' => 'required|max:100|email:rfc,dns|unique:admins,email,'.$Input['id'],
                 ]);
     
                 if($validator->fails()){

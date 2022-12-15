@@ -24,7 +24,7 @@ class AlltoursController extends Controller
     }
 
     public function toursListing($id){
-        $this->outputData['listing'] = Vehicle::where('tour_id',$id)->get();
+        $this->outputData['listing'] = Vehicle::where('tour_id',$id)->with('tours')->get();
         $this->outputData['tourName'] = Tour::select('name','banner_img','description')->findOrfail($id);
       return view('front.pages.listing.index',$this->outputData);
     }

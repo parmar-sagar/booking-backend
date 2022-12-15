@@ -27,7 +27,8 @@
       <ul class="l-navbar__menu-right">
         <li class="l-navbar__menu-item">
             <div class="dropdown">
-              <span class="dropbtn l-navbar__menu-link ">Tours</span>
+              <a href="{{url('all-other-tours')}}">
+              <span class="dropbtn l-navbar__menu-link ">Tours</span></a>
               <div class="dropdown-Tour_content">
                 <a href="{{url('tours/3')}}">Dune Buggies</a>
                 <a href="{{url('tours/1')}}">Quad Bikes</a>
@@ -56,7 +57,7 @@
           </a>
         </li>
         <li class="l-navbar__menu-item">
-          <a class="l-navbar__menu-link" href="{{url('cart')}}" title="Cart">
+          <a class="l-navbar__menu-link" href="{{url('cart')}}" title="Cart" id="my_cart">
             @php 
             $cartCollection = Cart::getContent();
               $count = $cartCollection->count(); @endphp

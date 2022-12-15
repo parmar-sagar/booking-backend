@@ -306,6 +306,7 @@ Route::group([
     Route::get('/privacy-policy',[HomeController::class, 'privacyPolicy']);
     Route::get('/terma-and_conditions',[HomeController::class, 'termsAndConditions']);
     Route::get('/about-us',[HomeController::class, 'aboutUs']);
+    Route::get('why-choose-us',[HomeController::class, 'whyChooseus']);
     Route::get('/deals',[HomeController::class, 'deals']);
     Route::get('/my-account',[HomeController::class, 'myAccount']);
     Route::get('/faqs',[HomeController::class, 'faqs']);
