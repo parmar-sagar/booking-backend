@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('tours', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('random_id')->unsigned();
             $table->string('name', 100);
             $table->string('image', 100);
             $table->string('banner_img', 100);

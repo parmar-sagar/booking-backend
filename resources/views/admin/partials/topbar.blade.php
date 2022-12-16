@@ -92,10 +92,6 @@
                     </a> --}}
 
                     <!-- item-->
-                    <a href="{{ url('admin/my-profile') }}" class="side-nav-link">
-                            <i class="mdi mdi-logout me-1"></i>
-                            <span>{{ __('My Profile') }}</span>
-                        </a>
                     <form method="POST" action="{{ route('admin.logout') }}">
                         @csrf
                         <a href="{{ route('admin.logout') }}" class="dropdown-item notify-item" onclick="event.preventDefault();
@@ -104,6 +100,7 @@
                             <span>{{ __('Log Out') }}</span>
                         </a>
                     </form>
+
                 </div>
             </li>
         </ul>

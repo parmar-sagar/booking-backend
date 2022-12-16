@@ -13,20 +13,10 @@ class HomeSlider extends Model
         'status',
         'link',
         'image_video',
-        'type',
-        'random_id'
+        'type'
     ];
 
     protected $hidden = [
         'created_at','updated_at',
     ];
-
-    public function ScopeOrder($query){
-        return $query->orderBy('id','DESC');
-    }
-
-    public function status($query, $type)
-    {
-        return $query->where('status', $type);
-    }
 }

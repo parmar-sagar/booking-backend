@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Godruoyi\Snowflake\Snowflake;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use App\Models\Location;
 use App\Handlers\Error;
-use App\Helpers\Helper;
 use App\Models\Tour;
+use App\Models\Location;
 use App\Models\Time;
 use DataTables;
 
@@ -36,7 +34,7 @@ class SafariController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Tour::type('Safari')->order()->get();
+                $datas = Tour::where('type','Safari')->orderBy('id','DESC')->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -67,17 +65,18 @@ class SafariController extends Controller
                 
                 $validated = $validator->validated();
 
-                $validated['time_ids'] = Helper::implode($request['time_ids']);
-
+                if(isset($request['time_ids']) && !empty($request['time_ids'])){
+                    $validated['time_ids']=implode(',',$request['time_ids']);
+                }
                 if ($request->file('image')) {
-                    $path = 'tour';
-                    $validated['image'] = Helper::uploadFile($request->image, $path);
+                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
+                    $request->image->move(public_path('admin/uploads/tour'), $validated['image']);
                 }
                 if ($request->file('banner_img')) {
-                    $path = 'tour';
-                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
+                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
+                    $request->banner_img->move(public_path('admin/uploads/tour'), $validated['banner_img']);
                 }
-                $validated['random_id'] = resolve('snowflake')->id();
+
                 $validated['type'] = 'Safari';
 
                 Tour::create($validated);
@@ -87,8 +86,8 @@ class SafariController extends Controller
             $this->outputData = [
                 'pageName' => 'New Safari',
                 'action' => url('admin/safaris/store'),
-                'time' => Time::order()->get(),
-                'locations' => Location::order()->get()
+                'time' => Time::orderBy('id','DESC')->get(),
+                'locations' => Location::orderBy('id','DESC')->get()
             ];
             return view('admin.pages.Safari.create',$this->outputData);
 
@@ -121,15 +120,17 @@ class SafariController extends Controller
                 
                 $validated = $validator->validated();
 
-                $validated['time_ids'] = Helper::implode($request['time_ids']);
-
+                if(isset($request['time_ids']) && !empty($request['time_ids'])){
+                    $validated['time_ids']=implode(',',$request['time_ids']);
+                }
+    
                 if ($request->file('image')) {
-                    $path = 'tour';
-                    $validated['image'] = Helper::uploadFile($request->image, $path);
+                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
+                    $request->image->move(public_path('admin/uploads/tour'), $validated['image']);
                 }
                 if ($request->file('banner_img')) {
-                    $path = 'tour';
-                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
+                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
+                    $request->banner_img->move(public_path('admin/uploads/tour'), $validated['banner_img']);
                 }
                 
                 Tour::find($validated['id'])->update($validated);
@@ -140,11 +141,12 @@ class SafariController extends Controller
                 'pageName' => 'Edit Safari',
                 'action' => url('admin/safaris/update/'.$id),
                 'objData' => Tour::findOrFail($id),
-                'time' => Time::order()->get(),
-                'locations' => Location::order()->get()
+                'time' => Time::orderBy('id','DESC')->get(),
+                'locations' => Location::orderBy('id','DESC')->get()
             ];
-            $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
-            
+            $time = $this->outputData['objData']->time_ids;
+            $timeIds=explode(',',$time);
+            $this->outputData['selctdTime'] = $timeIds;
             return view('admin.pages.safari.create',$this->outputData);
 
         } catch (\Throwable $e) {
