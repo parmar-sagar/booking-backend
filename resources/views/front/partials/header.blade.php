@@ -8,12 +8,7 @@
       />
     </a>
     <button type="button" class="burger js-burger" aria-label="Open menu">
-      <svg width="36px" height="36px">
-        <use
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xlink:href="images/icons.svg#icon-menu"
-        ></use>
-      </svg>
+      <i class="fa-solid fa-bars"></i>
     </button>
     <a class="l-navbar__logo-link" href="index.html">
       <img
@@ -69,9 +64,14 @@
     @guest
     @if (Route::has('login'))
         <a class="l-navbar__login-link" href="{{url('login')}}" title="Login" aria-label="Login">
-        <i class="c"></i>
+          <svg width="36px" height="36px" aria-hidden="true" focusable="false"> 
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account')}}"></use> 
+          </svg>
          <span>Login</span>
         </a>
+
+
+          
    @endif
    {{-- @if (Route::has('register'))
        <li class="nav-item">

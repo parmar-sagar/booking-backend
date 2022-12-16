@@ -25,7 +25,7 @@ class HomeController extends Controller
         $this->outputData = [
             'imgVideo' => HomeSlider::status('1')->select('image_video','type')->order()->get(),
             'discount' => Discount::order()->get(),
-            'deal' => Vehicle::where('is_deals','1')->sequence()->status('1')->get()
+            'deal' => Vehicle::where('is_deals','1')->with('tours')->sequence()->status('1')->get()
         ];
 
         $tour = Tour::status('1')->with('location')->take(3)->Sequence()->get();
@@ -59,7 +59,7 @@ class HomeController extends Controller
     }
     public function deals(){
         $this->outputData = [
-            'deal' => Vehicle::where('is_deals','1')->sequence()->status('1')->get()
+            'deal' => Vehicle::where('is_deals','1')->with('tours')->sequence()->status('1')->get()
         ];
         return view('front.pages.deals.index',$this->outputData);
     }

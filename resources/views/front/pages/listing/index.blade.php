@@ -46,7 +46,7 @@
                               <ul class="list-tour-info list-tour-info--two-cols">
                                 <li class="list-tour-info__item">
                                   <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/icons.svg#icon-calendar-range">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account')}}">
                                     </use>
                                   </svg>
                                   <div class="list-tour-info__item-desc">
@@ -56,7 +56,7 @@
                                 </li>
                                 <li class="list-tour-info__item">
                                   <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset ('assets/images/icons.svg#icon-baby-face-outline')}}">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-star')}}">
                                     </use>
                                   </svg>
                                   <div class="list-tour-info__item-desc">
@@ -66,17 +66,17 @@
                                 </li>
                                 <li class="list-tour-info__item">
                                   <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/icons.svg#icon-rowing">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account-multiple')}}">
                                     </use>
                                   </svg>
                                   <div class="list-tour-info__item-desc">
-                                    <b>No. Of Person</b>
+                                    <b>No. Of Persons</b>
                                     <span>{{$listings->no_of_persons}}</span>
                                   </div>
                                 </li>
                                 <li class="list-tour-info__item">
                                   <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/icons.svg#icon-silverware-fork-knife">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-map')}}">
                                     </use>
                                   </svg>
                                   <div class="list-tour-info__item-desc">
@@ -86,7 +86,7 @@
                                 </li>
                                 <li class="list-tour-info__item">
                                   <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/icons.svg#icon-account-multiple">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-calendar-range')}}">
                                     </use>
                                   </svg>
                                   <div class="list-tour-info__item-desc">
@@ -96,7 +96,7 @@
                                 </li>
                                 <li class="list-tour-info__item">
                                   <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/icons.svg#icon-star">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-baby-face-outline')}}">
                                     </use>
                                   </svg>
                                   <div class="list-tour-info__item-desc">

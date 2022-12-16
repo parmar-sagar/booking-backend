@@ -214,6 +214,7 @@ $(document).ready(function() {
                   toastr.error(response.error);
                 }else{
                   $("#carts").load(window.location + " #carts");
+                  $("#my_cart").load(window.location + " #my_cart");
                   toastr.success(response.success); 
                 }
             },error: function (error){

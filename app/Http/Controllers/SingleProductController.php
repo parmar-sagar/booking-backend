@@ -20,7 +20,7 @@ class SingleProductController extends Controller
         $this->outputData = [];
     }
 
-    public function index($id){   
+    public function index($id){  
         $this->outputData = [
             'singlePrdct' => Vehicle::findOrFail($id),
             'list'        => Tour::findOrFail($id)
@@ -32,7 +32,7 @@ class SingleProductController extends Controller
        $sIds = Helper::explode($this->outputData['list']->safety_gear_ids);	
        $tIds = Helper::explode($this->outputData['list']->time_ids);
 
-       $this->outputData['price'] = Price::where('vehicle_id',$id);
+       $this->outputData['price'] = Price::where('vehicle_id',$id)->get();
        $this->outputData['include'] = VehicleInfo::whereIn('id',$iIds)->select('title')->get();
        $this->outputData['notInclude'] = VehicleInfo::whereIn('id',$hIds)->select('title')->get();
        $this->outputData['refreshment'] = VehicleInfo::whereIn('id',$rIds)->select('title')->get();
