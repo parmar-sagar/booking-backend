@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Godruoyi\Snowflake\Snowflake;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\VehicleInfo;
 use App\Models\Vehicle;
 use App\Handlers\Error;
-use App\Helpers\Helper;
 use App\Models\Tour;
 use App\Models\Price;
 use App\Models\Time;
 use App\Models\timeSlote;
 use App\Models\avalableSlote;
 use DataTables;
-
+use App\Helpers\Helper;
 
 
 class VehiclesController extends Controller
@@ -126,8 +124,8 @@ class VehiclesController extends Controller
                 'pageName' => 'New Vehicle',
                 'action' => url('admin/vehicles/store'),
                 'tourName' => Tour::type('Tour')->select('name','id')->order()->get(),
-                'highlights' => VehicleInfo::type(1)->order()->get(),
                 'includes' => VehicleInfo::type(2)->order()->get(),
+                'highlights' => VehicleInfo::type(1)->order()->get(),
                 'warnings' => VehicleInfo::type(3)->order()->get(),
                 'activities' => VehicleInfo::type(4)->order()->get(),
                 'time' => Time::order()->get(),

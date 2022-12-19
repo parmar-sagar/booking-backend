@@ -11,8 +11,7 @@ class Time extends Model
 
     protected $fillable = [
         'time',
-        'time_type',
-        'random_id'
+        'time_type'
     ];
 
     protected $hidden = [

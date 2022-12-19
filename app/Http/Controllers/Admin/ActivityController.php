@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\VehicleInfo;
@@ -48,7 +47,7 @@ class ActivityController extends Controller
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'title' => 'required|regex:/^[\pL\s\-\/\_]+$/u|unique:vehicle_infos',
+                    'title' => 'required|string|unique:vehicle_infos',
                 ]);
                   
                 if($validator->fails()){
@@ -84,7 +83,7 @@ class ActivityController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:vehicle_infos',
-                    'title' => 'required|regex:/^[\pL\s\-\/\_]+$/u|unique:vehicle_infos,title,'.$id,
+                    'title' => 'required|string|unique:vehicle_infos,title,'.$id,
                 ]);
     
                 if($validator->fails()){

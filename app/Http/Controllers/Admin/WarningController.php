@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
-use App\Models\VehicleInfo;
 use App\Handlers\Error;
+use App\Models\VehicleInfo;
 use DataTables;
 
 class WarningController extends Controller
@@ -33,7 +32,7 @@ class WarningController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehicleInfo::type(3)->order()->get();
+                $datas = VehicleInfo::where('type',3)->orderBy('id','DESC')->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -49,7 +48,7 @@ class WarningController extends Controller
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'title' => 'required|regex:/^[\pL\s\-\/\_]+$/u|min:3|unique:vehicle_infos',
+                    'title' => 'required|string|min:5|unique:vehicle_infos',
                 ]);
                   
                 if($validator->fails()){
@@ -84,7 +83,7 @@ class WarningController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:vehicle_infos',
-                    'title' => 'required|regex:/^[\pL\s\-\/\_]+$/u|min:3|unique:vehicle_infos,title,'.$id,
+                    'title' => 'required|string|min:5|unique:vehicle_infos,title,'.$id,
                 ]);
     
                 if($validator->fails()){
@@ -93,7 +92,6 @@ class WarningController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 3;
-                
                 VehicleInfo::find($validated['id'])->update($validated);
     
                 return response()->json(['success' => "Warnings Updated successfully."]);

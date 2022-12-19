@@ -155,12 +155,12 @@
                 <div class="collapse" id="mngHomepage">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/home/tours') }}" class="side-nav-link">
+                            <a href="{{ url('admin/home-tours') }}" class="side-nav-link">
                                 <span> Home Tours </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/home/sliders') }}" class="side-nav-link">
+                            <a href="{{ url('admin/home-sliders') }}" class="side-nav-link">
                                 <span> Home Sliders </span>
                             </a>
                         </li>
@@ -207,10 +207,7 @@
                 <a href="{{ url('admin/deals') }}" class="side-nav-link">
                     <i class="ri-shield-user-line"></i>
                     <span> Deals </span>
-                </a>
-            </li>
-            <li class="side-nav-item">
-                <a href="{{ url('admin/group-discount') }}" class="side-nav-link">
+                <a href="{{ url('admin/group') }}" class="side-nav-link">
                     <i class="ri-shape-fill"></i>
                     <span> Group Discount </span>
                 </a>

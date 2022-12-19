@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
@@ -21,10 +21,10 @@ class HomeTourController extends Controller
     public function index(){
         $this->outputData = [
             'pageName' => 'Home Tours',
-            'dataTables' => url('admin/home/tours/datatable'),
-            'delete' => url('admin/home/tours/delete'),
-            'create' => url('admin/home/tours/create'),
-            'edit' => url('admin/home/tours/edit')
+            'dataTables' => url('admin/home-tours/datatable'),
+            'delete' => url('admin/home-tours/delete'),
+            'create' => url('admin/home-tours/create'),
+            'edit' => url('admin/home-tours/edit')
         ];
         
         return view('admin.pages.home_tour.index',$this->outputData);
@@ -33,7 +33,7 @@ class HomeTourController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Tour::onhome(1)->order()->get();
+                $datas = Tour::orderBy('id','DESC')->where('on_home','=',1)->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -57,15 +57,14 @@ class HomeTourController extends Controller
                 }
                 $validated = $validator->validated();
                 $validated['on_home'] = 1; 
-
                 Tour::find($validated['tourId'])->update($validated);
     
                 return response()->json(['success' => "Home Tour Created successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'New Home Tour',
-                'action' => url('admin/home/tours/store'),
-                'tourName' => Tour::onhome(0)->select('name','id')->order()->get()
+                'action' => url('admin/home-tours/store'),
+                'tourName' => Tour::orderBy('id','DESC')->select('name','id')->where('on_home','=',0)->get()
             ];
             return view('admin.pages.home_tour.create',$this->outputData);
 
@@ -107,9 +106,9 @@ class HomeTourController extends Controller
             }
             $this->outputData = [
                 'pageName' => 'Edit Home Tour',
-                'action' => url('admin/home/tours/update/'.$id),
+                'action' => url('admin/home-tours/update/'.$id),
                 'objData' => Tour::findOrFail($id),
-                'tourName' => Tour::onhome(0)->orWhere('id',$id)->select('name','id')->order()->get()
+                'tourName' => Tour::orderBy('id','DESC')->select('name','id')->where('id',$id)->orWhere('on_home','=',0)->get()
             ];
             return view('admin.pages.home_tour.create',$this->outputData);
 

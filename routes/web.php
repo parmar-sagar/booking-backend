@@ -41,9 +41,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/all-other-tours', function () {
-//     return view('front.pages.all_other_tours.index');
-// });
+
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -188,11 +189,9 @@ Route::group([
 		Route::post('/update/{id}',[LocationController::class, 'edit']);
 		Route::get('/delete/{id}',[LocationController::class, 'destroy']);
     });
-Route::group([
-        'prefix' => 'home' 
-    ], function(){   
+    
  Route::group([
-        'prefix' => 'sliders'
+        'prefix' => 'home-sliders'
     ], function(){
         Route::get('/',[HomeSliderController::class, 'index']);
         Route::get('/datatable',[HomeSliderController::class, 'datatable']);
@@ -204,7 +203,7 @@ Route::group([
     });
     
     Route::group([
-        'prefix' => 'tours'
+        'prefix' => 'home-tours'
     ], function(){
         Route::get('/',[HomeTourController::class, 'index']);
         Route::get('/datatable',[HomeTourController::class, 'datatable']);
@@ -214,7 +213,6 @@ Route::group([
 		Route::post('/update/{id}',[HomeTourController::class, 'edit']);
 		Route::get('/delete/{id}',[HomeTourController::class, 'destroy']);
     });
-});
 
     Route::group([
         'prefix' => 'times'
@@ -278,7 +276,7 @@ Route::group([
     }); 
      
     Route::group([ 
-        'prefix' => 'group-discount'
+        'prefix' => 'group'
     ], function(){
         Route::get('/',[GroupController::class, 'index']);
         Route::get('/datatable',[GroupController::class, 'datatable']);
@@ -331,3 +329,4 @@ Route::group([
 
     // payment page
     Route::get('/contact-us',[ContactController::class, 'index']);
+
