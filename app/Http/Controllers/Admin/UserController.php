@@ -74,7 +74,8 @@ class UserController extends Controller{
                     $validated['photo'] = time().'.'.$request->photo->getClientOriginalExtension();  
                     $request->photo->move(public_path('admin/uploads/users'), $validated['photo']);
                 }
-                // $validated['photo'] = $request->file('photo')->store('uploads','public');
+                $snowflake = new \Godruoyi\Snowflake\Snowflake;
+                $validated['random_id'] = $snowflake->id();
                 
                 User::create($validated);
     

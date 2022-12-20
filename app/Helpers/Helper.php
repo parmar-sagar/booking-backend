@@ -15,8 +15,10 @@ class Helper {
     }
 
     public static function uploadFile($file, $pathFolder){
-        $image = time().'.'.$file->extension();  
-        $file->move(public_path('admin/uploads/'.$pathFolder), $image);
+        $snowflake = new \Godruoyi\Snowflake\Snowflake;
+        $validated['random_id'] = $snowflake->id();
+        $image = $snowflake->id().'.'.$file->getClientOriginalExtension();  
+        $dt=$file->move(public_path('admin/uploads/'.$pathFolder), $image);
         return $image;
     }
 

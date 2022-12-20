@@ -70,6 +70,11 @@ class HomeSliderController extends Controller
                 }
 
                 $validated['link'] = $request->link;
+
+                $snowflake = new \Godruoyi\Snowflake\Snowflake;
+  
+                $validated['random_id'] = $snowflake->id();
+                
                 HomeSlider::create($validated);
     
                 return response()->json(['success' => "Home slider Created successfully."]);
@@ -98,7 +103,7 @@ class HomeSliderController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:home_sliders',
-                    'sequence' => 'required|integer',
+                    'sequence' => 'required|integer|unique:home_sliders,sequence,'.$id,
                     'status' => 'required|in:1,0',
                     'image_video' => $imageVdo,
                     'type' => 'required|in:0,1'

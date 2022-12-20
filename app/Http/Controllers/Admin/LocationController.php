@@ -56,6 +56,9 @@ class LocationController extends Controller
                     throw new \Exception($validator->errors()->first());
                 }
                 $validated = $validator->validated();
+                
+                $snowflake = new \Godruoyi\Snowflake\Snowflake;
+                $validated['random_id'] = $snowflake->id();
 
                 Location::create($validated);
     

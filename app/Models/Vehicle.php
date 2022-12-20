@@ -16,7 +16,7 @@ class Vehicle extends Model
         'name',
         'short_name',
         'description',
-        'time_ids',
+        // 'time_ids',
         'includes_ids',
         'highlight_ids',
         'warning_ids',
@@ -46,4 +46,15 @@ class Vehicle extends Model
     public function ScopeOrder($query){
         return $query->orderBy('id','DESC');
     }
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+    public function tours(){
+        return $this->hasOne('App\Models\Tour','id','tour_id');
+    }
+    public function ScopeSequence($query){
+        return $query->orderBy('sequence','ASC');
+    }
+    
 }

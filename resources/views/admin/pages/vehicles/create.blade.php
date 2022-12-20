@@ -34,6 +34,24 @@
                             <textarea class="form-control" name="description" required rows="4"> @if(isset($objData->description) && $objData->description){{ $objData->description }}@endif</textarea>
                         </div>
                     </div>
+                    <div class="col-lg-12">
+                        <table class="table table-bordered" id="dynamic_field">  
+                             <tr>  
+                                <td><label for="amount" class="form-label">Amount</label>
+                                    <input type="text" name="amount[]" placeholder="Enter Amounte" class="form-control name_list" />
+                                </td>  
+                                  <td><label for="no_of_persons" class="form-label">Time</label>
+                                    <select class="form-control select2" data-toggle="select2" name="time[]">
+                                        <option>Select</option>
+                                        @foreach($time as $time_tour)
+                                        <option value="{{$time_tour->time}}"@if(isset($selctdTime)) @foreach($selctdTime as $Times) @if($Times == $time_tour->id) selected @endif @endforeach @endif>{{$time_tour->time}}</option>
+                                        @endforeach        
+                                    </select>
+                                </td> 
+                                  <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>  
+                             </tr>  
+                        </table>  
+                    </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="description" class="form-label">Tour Name</label>
@@ -47,11 +65,21 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
+                            <label for="description" class="form-label">Time Slotes</label>
+                            <select class="select2 form-control select2-multiple" data-toggle="select2" name="time_slots_ids[]" multiple="multiple" data-placeholder="Choose ...">
+                                @foreach($timeSlotes as $timeSlote)
+                                <option value="{{$timeSlote->id}}" @if(isset($selctdTimeSlots)) @foreach($selctdTimeSlots as $selctdTimeSlot) @if($selctdTimeSlot == $timeSlote->id) selected @endif @endforeach @endif>{{$timeSlote->text}}</option>
+                                @endforeach  
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
                             <label for="no_of_persons" class="form-label">No Of Persons</label>
                             <input type="text" id="no_of_persons" class="form-control" name="no_of_persons" value="@if(isset($objData->no_of_persons) && $objData->no_of_persons){{ $objData->no_of_persons }}@endif" required>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    {{-- <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="description" class="form-label">Times</label>
                             <select  class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Choose ..." name="time_ids[]">
@@ -60,7 +88,7 @@
                                 @endforeach    
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="description" class="form-label">Includes</label>
@@ -101,21 +129,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" id="active" name="status" class="form-check-input" value="1" @if(isset($objData) && $objData->status ==1)) checked @endif checked>
-                                    <label class="form-check-label" for="active">Active</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" id="inactive" name="status" class="form-check-input" value="0" @if(isset($objData) && $objData->status ==0)) checked @endif>
-                                    <label class="form-check-label" for="inactive">InActive</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="image" class="form-label">Image</label>
@@ -134,6 +148,21 @@
                             @endif
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="active" name="status" class="form-check-input" value="1" @if(isset($objData) && $objData->status ==1)) checked @endif checked>
+                                    <label class="form-check-label" for="active">Active</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="inactive" name="status" class="form-check-input" value="0" @if(isset($objData) && $objData->status ==0)) checked @endif>
+                                    <label class="form-check-label" for="inactive">InActive</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-auto">
                     <button type="submit" class="btn btn-success mb-2">Submit</button>
@@ -143,6 +172,32 @@
         </div> <!-- end card-body -->
     </div> <!-- end card -->
 </div><!-- end col -->
+
 <script>
-    $('.select2').select2();
+    $('.select2').select2();  
+ $(document).ready(function(){  
+      var i=1;  
+      $('#add').click(function(){  
+           i++;  
+           $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="amount[]" placeholder="Enter amount" class="form-control name_list" /></td><td><label for="no_of_persons" class="form-label">Time</label><select class="form-control select2" data-toggle="select2" name="time[]"><option>Select</option>@foreach($time as $time_tour)\
+                                        <option value="{{$time_tour->time}}"@if(isset($selctdTime)) @foreach($selctdTime as $Times) @if($Times == $time_tour->id) selected @endif @endforeach @endif>{{$time_tour->time}}</option>@endforeach</select>\
+                                        </td> <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+      });  
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+      });  
+      $('#submit').click(function(){            
+           $.ajax({  
+                url:"name.php",  
+                method:"POST",  
+                data:$('#add_name').serialize(),  
+                success:function(data)  
+                {  
+                     alert(data);  
+                     $('#add_name')[0].reset();  
+                }  
+           });  
+      });  
+ });  
 </script>

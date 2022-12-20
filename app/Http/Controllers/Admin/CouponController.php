@@ -78,6 +78,11 @@ class CouponController extends Controller
                     $request->image->move(public_path('admin/uploads/coupon'), $validated['image']);
                 }
 
+                $validated['expiry_date'] = Helper::dateformateFrominput($validated['expiry_date']);
+
+                $snowflake = new \Godruoyi\Snowflake\Snowflake;
+                $validated['random_id'] = $snowflake->id();
+                 
                 $getDate = $validated['expiry_date'];
                 $Date=strtotime($getDate);
                 $validated['expiry_date'] = date('Y-m-d', $Date);

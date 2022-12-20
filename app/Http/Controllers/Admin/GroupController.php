@@ -57,6 +57,9 @@ class GroupController extends Controller
                 }
                 
                 $validated = $validator->validated();
+                
+                $snowflake = new \Godruoyi\Snowflake\Snowflake;
+                $validated['random_id'] = $snowflake->id();
 
                 Discount::create($validated);
     

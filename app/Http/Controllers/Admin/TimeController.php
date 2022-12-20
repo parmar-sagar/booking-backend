@@ -57,6 +57,10 @@ class TimeController extends Controller
                 }
                 
                 $validated = $validator->validated();
+                $snowflake = new \Godruoyi\Snowflake\Snowflake;
+  
+                $validated['random_id'] = $snowflake->id();
+                
                 Time::create($validated);
     
                 return response()->json(['success' => "Times Created successfully."]);
@@ -87,6 +91,10 @@ class TimeController extends Controller
                 if($validator->fails()){
                     throw new \Exception($validator->errors()->first());
                 }
+
+                $validated = $validator->validated();
+                $snowflake = new \Godruoyi\Snowflake\Snowflake;
+                $validated['random_id'] = $snowflake->id();
                 
                 $validated = $validator->validated();
                 Time::find($validated['id'])->update($validated);

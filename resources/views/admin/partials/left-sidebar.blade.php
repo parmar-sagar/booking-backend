@@ -119,10 +119,19 @@
             
                         <li class="side-nav-item">
                             <a href="{{ url('admin/highlights') }}" class="side-nav-link">
-                                <span> Highlights </span>
+                                <span> Excludes </span>
                             </a>
                         </li>
-            
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/safety-gears') }}" class="side-nav-link">
+                                <span> Safety Gears </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/refreshments') }}" class="side-nav-link">
+                                <span> Refreshments </span>
+                            </a>
+                        </li>
                         <li class="side-nav-item">
                             <a href="{{ url('admin/warnings') }}" class="side-nav-link">
                                 <span> Warnings </span>
@@ -177,6 +186,12 @@
                             <a href="{{ url('admin/times') }}" class="side-nav-link">
                                 {{-- <i class="ri-time-line"></i> --}}
                                 <span> Times </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/time-slotes') }}" class="side-nav-link">
+                                {{-- <i class="ri-time-line"></i> --}}
+                                <span> Times Slotes </span>
                             </a>
                         </li>
                     </ul>
