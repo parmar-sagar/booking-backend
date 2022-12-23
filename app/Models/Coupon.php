@@ -18,12 +18,17 @@ class Coupon extends Model
         'type',
         'status',
         'expiry_date',
-        'ammount'
+        'ammount',
+        'random_id'
     ];
 
     protected $hidden = [
         'created_at','updated_at',
     ];
+
+    public function ScopeOrder($query){
+        return $query->orderBy('id','DESC');
+    }
 
     protected $dates = ['deleted_at'];
 }

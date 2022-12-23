@@ -11,7 +11,8 @@ class VehicleInfo extends Model
 
     protected $fillable = [
         'title',
-        'type'
+        'type',
+        'random_id'
     ];
 
     protected $hidden = [

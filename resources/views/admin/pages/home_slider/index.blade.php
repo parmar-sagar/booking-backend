@@ -21,6 +21,7 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Sequence</th>
+                                    <th>Type</th>
                                     <th>Status</th>
                                     <th style="width: 85px;">Action</th>
                                 </tr>
