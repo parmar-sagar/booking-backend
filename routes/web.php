@@ -287,14 +287,14 @@ Route::group([
 		Route::get('/delete/{id}',[GroupController::class, 'destroy']);
     });
 
-    Route::group([ 
-        'prefix' => 'my-profile'
-    ], function(){
-        Route::get('/',[MyprofileController::class, 'index']);
-		Route::post('/update',[MyprofileController::class, 'edit']);
-        Route::get('/edit-password',[MyprofileController::class, 'edit_password']);
-        Route::post('/update-password',[MyprofileController::class, 'edit_password']);
-    });
+    // Route::group([ 
+    //     'prefix' => 'my-profile'
+    // ], function(){
+    //     Route::get('/',[MyprofileController::class, 'index']);
+	// 	Route::post('/update',[MyprofileController::class, 'edit']);
+    //     Route::get('/edit-password',[MyprofileController::class, 'edit_password']);
+    //     Route::post('/update-password',[MyprofileController::class, 'edit_password']);
+    // });
 });
 
 /*Frontend Routes start */

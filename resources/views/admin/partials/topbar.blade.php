@@ -79,19 +79,11 @@
                         <h6 class="text-overflow m-0">Welcome !</h6>
                     </div>
 
-                    <!-- item-->
-                    {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="{{ route('admin.account') }}" class="dropdown-item notify-item">
                         <i class="mdi mdi-account-circle me-1"></i>
                         <span>My Account</span>
-                    </a> --}}
+                    </a>
 
-                    <!-- item-->
-                    {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="mdi mdi-lock-outline me-1"></i>
-                        <span>Lock Screen</span>
-                    </a> --}}
-
-                    <!-- item-->
                     <form method="POST" action="{{ route('admin.logout') }}">
                         @csrf
                         <a href="{{ route('admin.logout') }}" class="dropdown-item notify-item" onclick="event.preventDefault();

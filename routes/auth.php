@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController as AdminAuthenticatedController;
+use App\Http\Controllers\Admin\AccountController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -65,4 +66,8 @@ Route::middleware('guest:admin')->prefix('admin')->group(function(){
 Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::post('logout', [AdminAuthenticatedController::class, 'destroy'])
                 ->name('admin.logout');
+    Route::get('account', [AccountController::class, 'index'])
+                ->name('admin.account');
+    Route::post('account/update', [AccountController::class, 'update']);
+    Route::post('account/update-password', [AccountController::class, 'updatePassword']);
 });
