@@ -15,6 +15,7 @@ class Tour extends Model
         'time_ids',
         'image',
         'banner_img',
+        'link',
         'status',
         'on_home',
         'on_home_sequence',
@@ -41,6 +42,10 @@ class Tour extends Model
     public function scopeOnhome($query, $onHome)
     {
         return $query->where('on_home', $onHome);
+    }
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('status', $status);
     }
 
     public function ScopeOrder($query){

@@ -1,6 +1,9 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
+            <div>
+                <p><span style="color:red">Note : </span> Used to manage the sequence in which you want to show your tours. Which tour should be visible 1st and so on.</p>
+            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>

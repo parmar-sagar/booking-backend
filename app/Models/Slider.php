@@ -10,7 +10,7 @@ class Slider extends Model
     use HasFactory;
 
     protected $fillable = [
-        'image','video','link','title','status','sort'
+        'image','video','link','title','status','sort','random_id'
     ];
 
     protected $hidden = [

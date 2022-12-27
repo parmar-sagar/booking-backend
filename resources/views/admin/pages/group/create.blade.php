@@ -1,6 +1,10 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
+            <div>
+                <p><span style="color:red">Note : </span>These can be added, removed or modified as desired. The discount percentage can be created according to the size of the 
+                    group.</p>
+            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>
@@ -24,7 +28,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="discount" class="form-label">Discount (In Percentage)</label>
-                            <input type="text" id="discount" class="form-control" name="discount" value="@if(isset($objData->no_of_vehicle) && $objData->no_of_vehicle){{ $objData->no_of_vehicle }}@endif" required>
+                            <input type="text" id="discount" class="form-control" name="discount" value="@if(isset($objData->discount) && $objData->discount){{ $objData->discount }}@endif" required>
                         </div>
                     </div>
                     <div class="col-auto">

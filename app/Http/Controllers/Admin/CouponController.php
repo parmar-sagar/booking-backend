@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use Godruoyi\Snowflake\Snowflake;
+use Illuminate\Http\Request;
 use App\Handlers\Error;
+use App\Helpers\Helper;
 use App\Models\Coupon;
 use DataTables;
 
@@ -32,10 +34,9 @@ class CouponController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Coupon::orderBy('id','DESC')->get();
+                $datas = Coupon::order()->get();
                 $datas = $datas->map(function($query){
-                    $date = strtotime($query->expiry_date);
-                    $expDate = date('m/d/Y', $date);
+                $expDate = Helper::dateformateFromdb($query->expiry_date);
                     return [
                         'id' => $query->id,
                         'name' =>$query->name,
@@ -57,13 +58,13 @@ class CouponController extends Controller
                 $Input = $request->all();
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100|unique:coupons',
+                    'name' => 'required|regex:/^[\pL\s\-\/\_]+$/u|max:100|unique:coupons',
                     'description' => 'required|string',
                     'code' => 'required|min:5|max:50',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
                     'type' => 'required|in:0,1',
                     'expiry_date' => 'required',
-                    'ammount' => 'required|numeric|min:2',
+                    'ammount' => 'required|numeric',
                     'status' => 'required',
                 ]);
     
@@ -74,8 +75,8 @@ class CouponController extends Controller
                 $validated = $validator->validated();
 
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->extension();  
-                    $request->image->move(public_path('admin/uploads/coupon'), $validated['image']);
+                    $path = 'coupon';
+                    $validated['image'] = Helper::uploadFile($request->image, $path);
                 }
 
                 $validated['expiry_date'] = Helper::dateformateFrominput($validated['expiry_date']);
@@ -83,10 +84,6 @@ class CouponController extends Controller
                 $snowflake = new \Godruoyi\Snowflake\Snowflake;
                 $validated['random_id'] = $snowflake->id();
                  
-                $getDate = $validated['expiry_date'];
-                $Date=strtotime($getDate);
-                $validated['expiry_date'] = date('Y-m-d', $Date);
-                
                 Coupon::create($validated);
     
                 return response()->json(['success' => "Coupon Created successfully."]);
@@ -110,13 +107,13 @@ class CouponController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:coupons',
-                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100|',
+                    'name' => 'required|regex:/^[\pL\s\-\/\_]+$/u|max:100|',
                     'description' => 'required|string',
                     'code' => 'required|min:5|max:50',
                     'image' => 'mimes:jpeg,jpg,png,gif',
                     'type' => 'required|in:0,1',
                     'expiry_date' => 'required',
-                    'ammount' => 'required|numeric|min:2',
+                    'ammount' => 'required|numeric',
                     'status' => 'required',
                 ]);
     
@@ -126,13 +123,11 @@ class CouponController extends Controller
                 $validated = $validator->validated();
 
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->extension();  
-                    $request->image->move(public_path('admin/uploads/coupon'), $validated['image']);
+                    $path = 'coupon';
+                    $validated['image'] = Helper::uploadFile($request->image, $path);
                 }
 
-                $getDate = $validated['expiry_date'];
-                $Date=strtotime($getDate);
-                $validated['expiry_date'] = date('Y-m-d', $Date);
+                $validated['expiry_date'] = Helper::dateformateFrominput($validated['expiry_date']);
                 
                 Coupon::find($validated['id'])->update($validated);
     
@@ -143,8 +138,9 @@ class CouponController extends Controller
                 'action' => url('admin/coupons/update/'.$id),
                 'objData' => Coupon::findOrFail($id)
             ];
-            $timestamp = strtotime($this->outputData['objData']->expiry_date);
-            $this->outputData['selectDate'] = date('m/d/Y', $timestamp);
+
+            $this->outputData['selectDate'] = Helper::dateformateFromdb($this->outputData['objData']->expiry_date);
+
             return view('admin.pages.coupon.create',$this->outputData);
 
         } catch (\Throwable $e) {

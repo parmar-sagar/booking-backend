@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Models\VehicleInfo;
 use App\Models\Location;
 use App\Handlers\Error;
+use App\Helpers\Helper;
 use App\Models\Tour;
 use App\Models\Time;
 use DataTables;
@@ -35,7 +37,7 @@ class SafariController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Tour::where('type','Safari')->orderBy('id','DESC')->get();
+                $datas = Tour::type('Safari')->order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -77,12 +79,12 @@ class SafariController extends Controller
                 $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
-                    $request->image->move(public_path('admin/uploads/tour'), $validated['image']);
+                    $path = 'tour';
+                    $validated['image'] = Helper::uploadFile($request->image, $path);
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
-                    $request->banner_img->move(public_path('admin/uploads/tour'), $validated['banner_img']);
+                    $path = 'tour';
+                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
                 $snowflake = new \Godruoyi\Snowflake\Snowflake;
                 $validated['random_id'] = $snowflake->id();
@@ -143,12 +145,12 @@ class SafariController extends Controller
                 $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
-                    $request->image->move(public_path('admin/uploads/tour'), $validated['image']);
+                    $path = 'tour';
+                    $validated['image'] = Helper::uploadFile($request->image, $path);
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
-                    $request->banner_img->move(public_path('admin/uploads/tour'), $validated['banner_img']);
+                    $path = 'tour';
+                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
                 
                 Tour::find($validated['id'])->update($validated);

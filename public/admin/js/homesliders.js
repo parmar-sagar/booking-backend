@@ -24,6 +24,15 @@ $(document).ready(function() {
                     }
                 },
                 {data: 'sequence', name: 'sequence'},
+                {data: 'type', name:'type',
+                    "render": function ( data, type, row, meta ) {
+                        var status = {
+                            0: {'text': 'Image'},
+                            1: {'text': 'Video'},
+                        };
+                        return '<span>'+status[row.type].text+'</span>';
+                    }
+                },
                 {data: 'status', name:'status',
                     "render": function ( data, type, row, meta ) {
                         var status = {
