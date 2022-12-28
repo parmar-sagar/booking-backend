@@ -9,11 +9,11 @@
                   <div class="card card--shadow-green">
                     <div class="card__content">
                       <div class="card__headline card__headline--with-price row">
-                        <div class="card__headline-left headline-wave col-4">
+                        <div class="card__headline-left headline-wave  col-lg-4 col-sm-12">
                           <!-- <h2 class="headline-3">{{$deals->name}}</h2>-->
                           <img src="{{ asset('admin/uploads/vehicle/' . $deals->image) }}" class="mt-10em list" alt="">
                         </div>
-                        <div class="card__headline-price-wrapper  col-8">
+                        <div class="card__headline-price-wrapper  col-lg-8 col-sm-12">
                           <div class="row">
                             <div class="col-12 col-lg-12">
                               <h2 class="headline-3">{{$deals->name}}</h2>

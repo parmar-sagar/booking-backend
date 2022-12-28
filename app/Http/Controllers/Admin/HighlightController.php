@@ -48,7 +48,7 @@ class HighlightController extends Controller
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'title' => 'required|regex:/^[\pL\s\-\/\_]+$/u|min:3|unique:vehicle_infos',
+                    'title' => 'required|string|unique:vehicle_infos',
                 ]);
                   
                 if($validator->fails()){
@@ -83,7 +83,7 @@ class HighlightController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:vehicle_infos',
-                    'title' => 'required|regex:/^[\pL\s\-\/\_]+$/u|min:3|unique:vehicle_infos,title,'.$id,
+                    'title' => 'required|string|unique:vehicle_infos,title,'.$id,
                 ]);
     
                 if($validator->fails()){

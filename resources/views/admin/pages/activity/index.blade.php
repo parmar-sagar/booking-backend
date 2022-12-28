@@ -21,6 +21,7 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
+                                    {{-- <th>Price</th> --}}
                                     <th style="width: 85px;">Action</th>
                                 </tr>
                             </thead>

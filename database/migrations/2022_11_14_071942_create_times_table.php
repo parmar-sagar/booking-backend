@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('times', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('random_id')->unsigned();
             $table->integer('time');
             $table->enum('time_type',['Minutes','Hours'])->default('Minutes');
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
