@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Handlers\Error;
 use App\Models\User;
 use DataTables;
+use Godruoyi\Snowflake\Snowflake;
 
 class UserController extends Controller{
 
@@ -74,8 +75,7 @@ class UserController extends Controller{
                     $validated['photo'] = time().'.'.$request->photo->getClientOriginalExtension();  
                     $request->photo->move(public_path('admin/uploads/users'), $validated['photo']);
                 }
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-                $validated['random_id'] = $snowflake->id();
+                $validated['random_id'] = (new Snowflake())->id();
                 
                 User::create($validated);
     

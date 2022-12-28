@@ -57,9 +57,6 @@ class TimeController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-  
-                $validated['random_id'] = $snowflake->id();
                 
                 Time::create($validated);
     
@@ -93,8 +90,6 @@ class TimeController extends Controller
                 }
 
                 $validated = $validator->validated();
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-                $validated['random_id'] = $snowflake->id();
                 
                 $validated = $validator->validated();
                 Time::find($validated['id'])->update($validated);

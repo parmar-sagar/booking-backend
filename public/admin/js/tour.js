@@ -20,7 +20,7 @@ $(document).ready(function() {
         columns: [
             {data: 'id', name:'id',
                     "render": function ( data, type, row, meta ) {
-                        return meta.row+1;
+                        return row+random_id;
                     }
                 },
                 {data: 'name', name: 'name'},
