@@ -11,8 +11,7 @@ class Discount extends Model
 
     protected $fillable = [
         'no_of_vehicle',
-        'discount',
-        'random_id'
+        'discount'
     ];
 
     protected $hidden = [

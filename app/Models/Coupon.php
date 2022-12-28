@@ -11,6 +11,7 @@ class Coupon extends Model
     use HasFactory;
 
     protected $fillable = [
+        'random_id',
         'name',
         'code',
         'description',
@@ -18,8 +19,7 @@ class Coupon extends Model
         'type',
         'status',
         'expiry_date',
-        'ammount',
-        'random_id'
+        'amount'
     ];
 
     protected $hidden = [

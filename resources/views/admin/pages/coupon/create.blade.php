@@ -20,8 +20,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="mb-3">
-                            <label for="short_description" class="form-label">Name</label>
-                            <input type="text" id="title" class="form-control" name="name" value="@if(isset($objData->name) && $objData->name){{ $objData->name }}@endif" required>
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" id="name" class="form-control" name="name" value="@if(isset($objData->name) && $objData->name){{ $objData->name }}@endif" required>
                         </div>
                     </div>
                     <div class="col-lg-12">
@@ -32,14 +32,14 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="expiryDate" class="form-label">Code</label>
+                            <label for="code" class="form-label">Code</label>
                             <input type="text" name="code" class="form-control " id="code" value="@if(isset($objData->code) && $objData->code){{ $objData->code }}@endif" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="expiryDate" class="form-label">Exipry Date</label>
-                            <input type="text" name="expiry_date" class="form-control date" id="expiryDate" value="@if(isset($selectDate)){{ $selectDate }}@endif" data-toggle="date-picker" data-single-date-picker="true" required>
+                            <label for="example-date" class="form-label">Exipry Date</label>
+                            <input type="date" name="expiry_date" class="form-control" id="example-date" value="@if(isset($objData->expiry_date)){{ date('Y-m-d',strtotime($objData->expiry_date)) }}@endif" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -53,38 +53,39 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="code" class="form-label">Ammount</label>
-                            <input type="text" id="ammount" class="form-control" name="ammount" value="@if(isset($objData->ammount) && $objData->ammount){{ $objData->ammount }}@endif" required>
+                            <label for="status" class="form-label">Status</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="active" name="status" class="form-check-input" value="1" @if(isset($objData) && $objData->status == 1 ) checked @endif checked>
+                                    <label class="form-check-label" for="active">Active</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="inactive" name="status" class="form-check-input" value="0" @if(isset($objData) && $objData->status == 0 ) checked @endif>
+                                    <label class="form-check-label" for="inactive">InActive</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="status" class="form-label">Type</label>
+                            <label for="type" class="form-label">Type</label>
                             <div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="active" name="type" class="form-check-input" value="0" @if(isset($objData) && $objData->type ==0)) checked @endif checked>
+                                    <input type="radio" id="flate" name="type" class="form-check-input" value="0" @if(isset($objData) && $objData->type == 0) checked @endif checked>
                                     <label class="form-check-label" for="flate">Flate</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="inactive" name="type" class="form-check-input" value="1" @if(isset($objData) && $objData->type ==1)) checked @endif>
+                                    <input type="radio" id="percentage" name="type" class="form-check-input" value="1" @if(isset($objData) && $objData->type == 1) checked @endif>
                                     <label class="form-check-label" for="percentage">Percentage</label>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" id="active" name="status" class="form-check-input" value="1" @if(isset($objData) && $objData->status ==1)) checked @endif checked>
-                                    <label class="form-check-label" for="active">Active</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" id="inactive" name="status" class="form-check-input" value="0" @if(isset($objData) && $objData->status ==0)) checked @endif>
-                                    <label class="form-check-label" for="inactive">InActive</label>
-                                </div>
-                            </div>
+                            <label for="amount" class="form-label">Amount</label>
+                            <input type="number" min="1" id="amount" class="form-control" name="amount" value="@if(isset($objData->amount) && $objData->amount){{ $objData->amount }}@endif" required>
                         </div>
                     </div>
                 </div>
@@ -96,9 +97,3 @@
         </div> <!-- end card-body -->
     </div> <!-- end card -->
 </div><!-- end col -->
-<script>
-    $("#expiryDate").datepicker({ 
-        dateFormat: 'dd-mm-yy'
-    });
-</script>
- 

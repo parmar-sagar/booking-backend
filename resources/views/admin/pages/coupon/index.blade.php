@@ -22,7 +22,6 @@
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Coupon Code</th>
-                                    {{-- <th>Description</th> --}}
                                     <th>Expire</th>
                                     <th>Status</th>
                                     <th style="width: 85px;">Action</th>
@@ -41,19 +40,8 @@
         
     </div>
     <!-- end row -->   
-    <x-slot name="styles">
-        <link href="{{ asset('assets/admin/vendor/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/admin/vendor/daterangepicker/daterangepicker.css') }}" type="text/css" />
-        <!-- Bootstrap Datepicker css -->
-        <link href="{{ asset('assets/admin/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
-    </x-slot>  
-
     <x-slot name="scripts">
         <!-- Custom App js -->
         <script src="{{ asset('admin/js/coupon.js') }}"></script>
-        <script src="{{ asset('assets/admin/vendor/daterangepicker/moment.min.js') }}"></script>
-        <script src="{{ asset('assets/admin/vendor/daterangepicker/daterangepicker.js') }}"></script>
-        <!-- Bootstrap Datepicker js -->
-        <script src="{{ asset('assets/admin/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     </x-slot>    
 </x-admin.master-layout>

@@ -18,15 +18,14 @@ $(document).ready(function() {
         ordering: false,
         ajax: table.data('table-href'),
         columns: [
-            {data: 'id', name:'id',
+            {data: 'random_id', name:'random_id',
                     "render": function ( data, type, row, meta ) {
-                        return meta.row+1;
+                        return row.random_id;
                     }
                 },
                 {data: 'name', name: 'name'},
                 {data: 'code', name: 'code'}, 
-                // {data: 'description', name: 'description'},
-                {data: 'expiryDate', name: 'expiryDate'},
+                {data: 'expiry_date', name: 'expiry_date'},
                 {data: 'status', name:'status',
                     "render": function ( data, type, row, meta ) {
                         var status = {

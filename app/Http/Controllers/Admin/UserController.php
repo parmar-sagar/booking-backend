@@ -11,7 +11,6 @@ use App\Handlers\Error;
 use App\Helpers\Helper;
 use App\Models\User;
 use DataTables;
-use Godruoyi\Snowflake\Snowflake;
 
 class UserController extends Controller{
 
@@ -43,7 +42,7 @@ class UserController extends Controller{
                                         return date('d M Y H:i:s',strtotime($data->created_at));
                                     })
                                     ->rawColumns(['created_at'])
-                                    ->toJson();;
+                                    ->toJson();
             }
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '01');
