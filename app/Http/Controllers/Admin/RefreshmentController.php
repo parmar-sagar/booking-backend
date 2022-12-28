@@ -49,7 +49,7 @@ class RefreshmentController extends Controller
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'title' => 'required|string|min:3|unique:vehicle_infos',
+                    'title' => 'required|string|unique:vehicle_infos',
                 ]);
                   
                 if($validator->fails()){
@@ -85,7 +85,7 @@ class RefreshmentController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:vehicle_infos',
-                    'title' => 'required|string|min:3|unique:vehicle_infos,title,'.$id,
+                    'title' => 'required|string|unique:vehicle_infos,title,'.$id,
                 ]);
     
                 if($validator->fails()){

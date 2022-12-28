@@ -12,6 +12,7 @@ use App\Handlers\Error;
 use App\Helpers\Helper;
 use App\Models\Tour;
 use App\Models\Time;
+use App\Models\TourGallary;
 use DataTables;
 
 class TourController extends Controller{
@@ -90,7 +91,21 @@ class TourController extends Controller{
                 $snowflake = new \Godruoyi\Snowflake\Snowflake;
                 $validated['random_id'] = $snowflake->id();
 
-                Tour::create($validated);
+                $lastId = Tour::create($validated);
+                $tourId = $lastId->id;
+                if(!empty($request->gallry_images)){    
+                    if ($request->hasfile('gallry_images')) {
+                        $images = $request->file('gallry_images');
+                        foreach($images as $glryImages) {
+                            $path = 'gallry_images';
+                            $gimages = Helper::uploadFile($glryImages, $path); 
+                            $multipleImages = new TourGallary();
+                            $multipleImages->fill(['tour_id'=>$tourId,
+                            'gallry_images' => $gimages,
+                            ])->save();
+                        }
+                    }
+                }
     
                 return response()->json(['success' => "Tour Created successfully."]);
             }
@@ -153,6 +168,21 @@ class TourController extends Controller{
                 }
                 
                 Tour::find($validated['id'])->update($validated);
+
+                if(!empty($request->gallry_images)){    
+                    if ($request->hasfile('gallry_images')) {
+                        TourGallary::where('tour_id',$validated['id'])->delete();
+                        $images = $request->file('gallry_images');
+                        foreach($images as $glryImages) {
+                            $path = 'gallry_images';
+                            $gimages = Helper::uploadFile($glryImages, $path); 
+                            $multipleImages = new TourGallary();
+                            $multipleImages->fill(['tour_id'=>$validated['id'],
+                            'gallry_images' => $gimages,
+                            ])->save();
+                        }
+                    }
+                }
     
                 return response()->json(['success' => "Tour Updated successfully."]);
             }
@@ -164,6 +194,7 @@ class TourController extends Controller{
                 'locations' => Location::order()->get(),
                 'safetyGear' => VehicleInfo::type(5)->order()->get(),
                 'refreshment' => VehicleInfo::type(6)->order()->get(),
+                'gallaryImages' => TourGallary::where('tour_id',$id)
             ];
             $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
             $this->outputData['selctdSftyGear'] = Helper::explode( $this->outputData['objData']->safety_gear_ids );

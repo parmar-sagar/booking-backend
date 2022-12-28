@@ -2261,16 +2261,42 @@ screen and (-ms-high-contrast:active) {
         height: calc(var(--vh, 1vh)*100)
     }
 }
-
-@media(max-width:1024px) {
+@media(max-width:1200px) {
     .l-header--full-height {
-        height: calc(100vh - 80px)
+        height: calc(89vh - 80px)
     }
 }
+@media(max-width:1024px) {
+    .l-header--full-height {
+        height: calc(77vh - 80px)
+    }
+}
+@media (max-width: 992px){
+.l-header--full-height {
+    height: calc(75vh - 80px);
+}
+}
+@media (max-width: 768px){
+    .l-header--full-height {
+        height: calc(60vh - 80px);
+}
+ }
+@media (max-width: 600px){
+    .l-header--full-height {
+       height: calc(34vh - 80px);
+}
+.card__content {
+    padding: 0px !important;
+}
+.button_nd {
+    justify-content: center !important;
+}
+ }
 
 @media(max-width:320px) {
     .l-header--full-height {
-        padding-top: 70px
+        padding-top: 70px;
+        height: calc(30vh - 80px);
     }
 }
 
@@ -7066,6 +7092,7 @@ input:-webkit-autofill.filled~.form__label-blank {
 
 .select--blank~.sbHolder .sbSelector {
     height: 61px;
+    width: 86px;
     padding-left: 0;
     background-color: transparent;
     border-radius: 0;
@@ -7101,7 +7128,7 @@ input:-webkit-autofill.filled~.form__label-blank {
 }
 
 .select--blank~.sbHolder .sbOptions li a {
-    padding: 15px 36px;
+    /* padding: 15px 36px; */
     color: #313131
 }
 
@@ -13355,8 +13382,8 @@ screen and (-ms-high-contrast:active) {
 .card--shadow-orange {
     margin-left: 12px;
     margin-bottom: 12px;
-    border: 6px solid #aa7eff;
-    /*box-shadow: -12px 12px 0 #feb100*/
+    border: 6px solid #ffc132;
+    box-shadow: -12px 12px 0 #feb100;
 }
 
 .card--shadow-orange.card--shadow-xl {
@@ -13464,7 +13491,7 @@ screen and (-ms-high-contrast:active) {
     margin-left: 12px;
     margin-bottom: 12px;
     border: 6px solid #36e0dc;
-    /*box-shadow: -12px 12px 0 #1ec5c1*/
+    box-shadow: -12px 12px 0 #1ec5c1
 }
 
 .card--shadow-blue.card--shadow-xl {
@@ -17883,7 +17910,8 @@ screen and (min-width:992px)and (-ms-high-contrast:active) {
     -ms-flex-item-align: stretch;
     align-self: stretch;
     padding: 36px;
-    width: calc(100% - 170px)
+    width: calc(100% - 170px);
+     justify-content: space-around; 
 }
 
 @media (max-width:991px) {
@@ -17940,6 +17968,11 @@ screen and (min-width:992px)and (-ms-high-contrast:active) {
 @media (min-width:992px) {
     .tour-gallery__days-arrows-image {
         display: none
+    }
+    figure.tour-gallery__preview-wrapper {
+        align-items: center;
+        display: flex;
+        justify-content: center;
     }
 }
 
@@ -26598,5 +26631,173 @@ input:checked+.slider:before {
     
     padding: 13px 20px;}
     /* end */
+
+    .l-footer__logo img.l-navbar__logo {
+        width: 250px !important;
+    }
+    /* calander */
+    .tour-gallery__days {
+        display:none; }
+    
+    button {
+          display: inline-block;
+          margin: 5px 5px 0 0;
+          padding: 10px 30px;
+          outline: 0;
+          border: 0;
+          cursor: pointer;
+          background: #5185a8;
+          color: #fff;
+          text-decoration: none;
+          /* font-family: arial, verdana, sans-serif; */
+          font-size: 14px;
+          font-weight: 100;
+        }
+    
+        input {
+          width: 100%;
+          margin: 0 0 5px 0;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 0;
+          /* font-family: arial, verdana, sans-serif; */
+          font-size: 14px;
+          box-sizing: border-box;
+          -webkit-appearance: none;  }
+    /* 
+        .mbsc-page { padding: 1em;} */
+    
+        ul.sbOptions { overflow: hidden; }
+    
+        table, td, th {
+          padding: 10px;
+        }
+    
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+    
+    .date-picker {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        height: 60px;
+        background-color: #FFF;
+        margin: 30px auto;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+    
+        cursor: pointer;
+        user-select: none;
+    }
+    
+    .date-picker:hover {
+        background-color: #F3F3F3;
+    }
+    
+    .date-picker .selected-date {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #313131;
+        font-size: 28px;
+    }
+    
+    .date-picker .dates {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #FFF;
+    }
+    
+    .date-picker .dates.active {
+        display: block;}
+    
+    .date-picker .dates .month {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #EEE;
+    }
+    
+    .date-picker .dates .month .arrows {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #313131;
+        font-size: 20px;
+    }
+    
+    .date-picker .dates .month .arrows:hover {
+        background-color: #F3F3F3;
+    }
+    
+    .date-picker .dates .month .arrows:active {
+        background-color: #00CA85;
+    }
+    
+    .date-picker .dates .days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        height: 200px;
+    }
+    .date-picker .dates .days .day { 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #313131;
+    }
+    .date-picker .dates .days .day.selected {
+        background-color: #00CA85;
+    }
+    .dates h1 {
+        font-size: 2em;
+        margin: .67em 0;
+    }
+    /* end calander */
+    
+    @media(max-width:600px){
+        .text-center a.btn.btn--black {
+            margin: 10px 30px 30px 30px;
+        }
+        .box-photo__left.shadow.animated.fadeInUp.active {
+            padding: 0px;
+        }
+        .box-multi__item {
+            padding: 10px;
+        }
+    }
+    .list-tour-info__item-desc {
+        text-align: left;
+    }
+    .text-center a.btn.btn--black {
+        margin: 10px 30px 30px 30px;
+    }
+    @media(max-width:600px){
+        .card.card--flex.card--shadow-orange {
+            margin: 0px;
+        }
+    section.section.mt-20em.mr-20em.ml-20em.bg-white-top-jaw.pb-50em.pt-20em {
+        margin: 0px;
+        padding: 2px;
+    }
+    div#image1-1669719281 {
+        width: 100%;
+        height: 100%;
+        left: 0;
+    }
+    .col-12.col-lg-5.col-xl-5.col-xxl-4.offset-xxl-1 .card__content{
+        padding: 18px !important;
+    }
+    .card__headline--with-price {
+        display: inline;
+    }
+}
+      
 
     

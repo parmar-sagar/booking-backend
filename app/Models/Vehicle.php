@@ -29,7 +29,11 @@ class Vehicle extends Model
         'is_deals',
         'discount',
         'sequence',
-        'random_id'
+        'random_id',
+        'tour_itenary',
+        'additional_info_ids',
+        'pickup_time',
+        'dropoff_time'
     ];
 
     protected $hidden = [

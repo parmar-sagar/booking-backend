@@ -119,7 +119,7 @@
             
                         <li class="side-nav-item">
                             <a href="{{ url('admin/highlights') }}" class="side-nav-link">
-                                <span> Excludes </span>
+                                <span> Not Includes </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
@@ -134,12 +134,17 @@
                         </li>
                         <li class="side-nav-item">
                             <a href="{{ url('admin/warnings') }}" class="side-nav-link">
-                                <span> Warnings </span>
+                                <span> Must Know Befor You Book </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
                             <a href="{{ url('admin/activities') }}" class="side-nav-link">
-                                <span> Activities </span>
+                                <span> Extra Activities </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{ url('admin/additional-info') }}" class="side-nav-link">
+                                <span> Additional Info </span>
                             </a>
                         </li>
                     </ul>

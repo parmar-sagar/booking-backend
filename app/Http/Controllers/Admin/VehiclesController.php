@@ -70,7 +70,9 @@ class VehiclesController extends Controller
                     'status' => 'required|in:0,1',
                     'time_slots_ids' => 'required|array',
                     'no_of_persons' => 'required|integer',
-                    'activities_ids' => 'required|array'
+                    'activities_ids' => 'required|array',
+                    'additional_info_ids' => 'required|array',
+                    'tour_itenary' => 'required'
                 ]);
     
                 if($validator->fails()){
@@ -83,6 +85,7 @@ class VehiclesController extends Controller
                     $validated['highlight_ids'] = Helper::implode( $request['highlight_ids'] );
                     $validated['warning_ids'] = Helper::implode( $request['warning_ids'] );
                     $validated['activities_ids'] = Helper::implode( $request['activities_ids'] );
+                    $validated['additional_info_ids'] = Helper::implode( $request['additional_info_ids'] );
 
                 if ($request->file('image')) {
                     $path = 'vehicle';
@@ -129,6 +132,7 @@ class VehiclesController extends Controller
                 'includes' => VehicleInfo::type(2)->order()->get(),
                 'warnings' => VehicleInfo::type(3)->order()->get(),
                 'activities' => VehicleInfo::type(4)->order()->get(),
+                'addiInfo' => VehicleInfo::type(7)->order()->get(),
                 'time' => Time::order()->get(),
                 'timeSlotes' => timeSlote::get()
             ];
@@ -158,7 +162,9 @@ class VehiclesController extends Controller
                     'warning_ids' => 'required|array',
                     'status' => 'required|in:0,1',
                     'no_of_persons' => 'required|integer',
-                    'activities_ids' => 'required|array'
+                    'activities_ids' => 'required|array',
+                    'additional_info_ids' => 'required|array',
+                    'tour_itenary' => 'required'
                 ]);
     
                 if($validator->fails()){
@@ -171,6 +177,7 @@ class VehiclesController extends Controller
                 $validated['highlight_ids'] = Helper::implode( $request['highlight_ids'] );
                 $validated['warning_ids'] = Helper::implode( $request['warning_ids'] );
                 $validated['activities_ids'] = Helper::implode( $request['activities_ids'] );
+                $validated['additional_info_ids'] = Helper::implode( $request['additional_info_ids'] );
 
             if ($request->file('image')) {
                 $path = 'vehicle';
@@ -182,7 +189,7 @@ class VehiclesController extends Controller
             }
                 Vehicle::find($validated['id'])->update($validated);
                 avalableSlote::where('vehicle_id',$validated['id'])->delete();
-                $array3 = $validated['time_slots_ids'];
+                $array3 = $validated['time_slots_ids'];   
                 foreach( $array3 as $index => $timeSlotes){
 
                     avalableSlote::create([
@@ -203,10 +210,11 @@ class VehiclesController extends Controller
                 'includes' => VehicleInfo::type(2)->order()->get(),
                 'warnings' => VehicleInfo::type(3)->order()->get(),
                 'activities' => VehicleInfo::type(4)->order()->get(),
+                'addiInfo' => VehicleInfo::type(7)->order()->get(),
                 'time' => Time::order()->get(),
                 'timeSlotes' => timeSlote::get()
             ];
-
+            //  dd($this->outputData['addiInfo']);
             $this->outputData['selctdTimeSlots'] = avalableSlote::where('vehicle_id',$id)->select('time_slots_ids')->first()->toArray();  
             $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
             $this->outputData['selctdTour'] = Helper::explode( $this->outputData['objData']->tour_id );
@@ -214,6 +222,7 @@ class VehiclesController extends Controller
             $this->outputData['selctdWarning'] = Helper::explode( $this->outputData['objData']->warning_ids );
             $this->outputData['selctdHighlight'] = Helper::explode( $this->outputData['objData']->highlight_ids );
             $this->outputData['selctdActivitie'] = Helper::explode( $this->outputData['objData']->activities_ids );
+            $this->outputData['selctdAddInfo'] = Helper::explode( $this->outputData['objData']->additional_info_ids );
 
             return view('admin.pages.vehicles.create',$this->outputData);
 

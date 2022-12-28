@@ -22,8 +22,7 @@
                             <h2 class="headline-3 all-other">{{$allTours->name}}</h2>
                         </div>
                         <div class="tour-list-text">
-                            <p> It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                                 and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            <p>{{$allTours->description}}</p>
                         </div>
                         <div
                             class="card__footer card__footer--center card__footer--block-mobile card__footer--to-bottom pt-20em">

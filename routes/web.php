@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\MyprofileController;
 use App\Http\Controllers\Admin\SafetyGearController;
 use App\Http\Controllers\Admin\RefreshmentController;
 use App\Http\Controllers\Admin\TimeSlotController;
+use App\Http\Controllers\Admin\AdditionalInfoController;
 
 /* Frontend Controller start*/
 
@@ -288,7 +289,7 @@ Route::group([
 		Route::post('/update/{id}',[GroupController::class, 'edit']);
 		Route::get('/delete/{id}',[GroupController::class, 'destroy']);
     });
-
+    
     Route::group([ 
         'prefix' => 'my-profile'
     ], function(){
@@ -296,6 +297,18 @@ Route::group([
 		Route::post('/update',[MyprofileController::class, 'edit']);
         Route::get('/edit-password',[MyprofileController::class, 'edit_password']);
         Route::post('/update-password',[MyprofileController::class, 'edit_password']);
+    });
+
+    Route::group([
+        'prefix' => 'additional-info'
+    ], function(){
+        Route::get('/',[AdditionalInfoController::class, 'index']);
+        Route::get('/datatable',[AdditionalInfoController::class, 'datatable']);
+        Route::get('/create',[AdditionalInfoController::class, 'create']);
+        Route::post('/store',[AdditionalInfoController::class, 'create']);
+        Route::get('/edit/{id}',[AdditionalInfoController::class, 'edit']);
+		Route::post('/update/{id}',[AdditionalInfoController::class, 'edit']);
+		Route::get('/delete/{id}',[AdditionalInfoController::class, 'destroy']);
     });
 });
 
