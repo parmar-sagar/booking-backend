@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\VehicleInfo;
@@ -48,6 +49,7 @@ class ActivityController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'title' => 'required|string|unique:vehicle_infos',
+                    'price' => 'required|digits_between:1,99999999999999',
                 ]);
                   
                 if($validator->fails()){
@@ -84,6 +86,7 @@ class ActivityController extends Controller
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:vehicle_infos',
                     'title' => 'required|string|unique:vehicle_infos,title,'.$id,
+                    'price' => 'required|digits_between:1,99999999999999',
                 ]);
     
                 if($validator->fails()){

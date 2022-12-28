@@ -92,7 +92,6 @@
                             <span>{{ __('Log Out') }}</span>
                         </a>
                     </form>
-
                 </div>
             </li>
         </ul>

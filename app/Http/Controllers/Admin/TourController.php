@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Models\VehicleInfo;
 use App\Models\Location;
-use Illuminate\Support\Facades\Validator;
 use App\Handlers\Error;
+use App\Helpers\Helper;
 use App\Models\Tour;
 use App\Models\Time;
+use App\Models\TourGallary;
 use DataTables;
 
 class TourController extends Controller{
@@ -35,7 +38,7 @@ class TourController extends Controller{
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Tour::where('type','Tour')->orderBy('id','DESC')->get();
+                $datas = Tour::type('Tour')->order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -77,20 +80,32 @@ class TourController extends Controller{
                 $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
-                    $request->image->move(public_path('admin/uploads/tour'), $validated['image']);
+                    $path = 'tour';
+                    $validated['image'] = Helper::uploadFile($request->image, $path);
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
-                    $request->banner_img->move(public_path('admin/uploads/tour'), $validated['banner_img']);
+                    $path = 'tour';
+                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
-                // $validated['image'] = $request->file('image')->store('uploads','public');
-                // $validated['banner_img'] = $request->file('banner_img')->store('uploads','public');
                 
                 $snowflake = new \Godruoyi\Snowflake\Snowflake;
                 $validated['random_id'] = $snowflake->id();
 
-                Tour::create($validated);
+                $lastId = Tour::create($validated);
+                $tourId = $lastId->id;
+                if(!empty($request->gallry_images)){    
+                    if ($request->hasfile('gallry_images')) {
+                        $images = $request->file('gallry_images');
+                        foreach($images as $glryImages) {
+                            $path = 'gallry_images';
+                            $gimages = Helper::uploadFile($glryImages, $path); 
+                            $multipleImages = new TourGallary();
+                            $multipleImages->fill(['tour_id'=>$tourId,
+                            'gallry_images' => $gimages,
+                            ])->save();
+                        }
+                    }
+                }
     
                 return response()->json(['success' => "Tour Created successfully."]);
             }
@@ -144,15 +159,30 @@ class TourController extends Controller{
                 $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
-                    $validated['image'] = time().'.'.$request->image->getClientOriginalExtension();  
-                    $request->image->move(public_path('admin/uploads/tour'), $validated['image']);
+                    $path = 'tour';
+                    $validated['image'] = Helper::uploadFile($request->image, $path);
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = time().'.'.$request->banner_img->getClientOriginalExtension();  
-                    $request->banner_img->move(public_path('admin/uploads/tour'), $validated['banner_img']);
+                    $path = 'tour';
+                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
                 
                 Tour::find($validated['id'])->update($validated);
+
+                if(!empty($request->gallry_images)){    
+                    if ($request->hasfile('gallry_images')) {
+                        TourGallary::where('tour_id',$validated['id'])->delete();
+                        $images = $request->file('gallry_images');
+                        foreach($images as $glryImages) {
+                            $path = 'gallry_images';
+                            $gimages = Helper::uploadFile($glryImages, $path); 
+                            $multipleImages = new TourGallary();
+                            $multipleImages->fill(['tour_id'=>$validated['id'],
+                            'gallry_images' => $gimages,
+                            ])->save();
+                        }
+                    }
+                }
     
                 return response()->json(['success' => "Tour Updated successfully."]);
             }
@@ -164,6 +194,7 @@ class TourController extends Controller{
                 'locations' => Location::order()->get(),
                 'safetyGear' => VehicleInfo::type(5)->order()->get(),
                 'refreshment' => VehicleInfo::type(6)->order()->get(),
+                'gallaryImages' => TourGallary::where('tour_id',$id)
             ];
             $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
             $this->outputData['selctdSftyGear'] = Helper::explode( $this->outputData['objData']->safety_gear_ids );

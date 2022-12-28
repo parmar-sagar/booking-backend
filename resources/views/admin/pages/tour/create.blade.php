@@ -1,6 +1,9 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
+            <div>
+                <p><span style="color:red">Note:</span> Time and location can be selected from drop-down menu that are previously added in Manage Master Module</p>
+            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>
@@ -63,7 +66,7 @@
                     </div>
                     <div class="col-lg-6">
                         <label for="location_id" class="form-label">Location</label>
-                            <select class="form-control select2" data-toggle="select2" name="location_id">
+                            <select class="form-control select2" data-toggle="select2" name="location_id" required>
                                 <option>Select</option>
                                 @foreach($locations as $location)
                                     <option value="{{$location->id}}" @if(isset($objData->location_id) && $objData->location_id == $location->id) selected @endif>{{$location->name}}</option>
@@ -93,7 +96,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="image" class="form-label">Image</label>
-                            <input type="file" id="image" class="form-control" name="image" @if(!isset($objData)) required @endif>
+                            <input type="file" id="image" accept=".png, .jpg, .jpeg" class="form-control" name="image" @if(!isset($objData)) required @endif>
                             @if(isset($objData->image))
                                 <img src="{{ asset('admin/uploads/tour/' . $objData->image) }}" width="50" class="mt-3">
                             @endif
@@ -102,9 +105,20 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="image" class="form-label">Banner Image</label>
-                            <input type="file" id="banner_img" class="form-control" name="banner_img" @if(!isset($objData)) required @endif>
+                            <input type="file" id="banner_img" accept=".png, .jpg, .jpeg" class="form-control" name="banner_img" @if(!isset($objData)) required @endif>
                             @if(isset($objData->banner_img))
                                 <img src="{{ asset('admin/uploads/tour/' . $objData->banner_img) }}" width="50" class="mt-3">
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="gallry_images" class="form-label">Galllary Image</label>
+                            <input type="file" id="gallry_images" accept=".png, .jpg, .jpeg" class="form-control" name="gallry_images[]"  @if(!isset($objData)) required @endif multiple />
+                            @if(isset($gallaryImages))
+                            @foreach($gallaryImages as $tourGallary)
+                                <img src="{{ asset('admin/uploads/gallry_images/' . $tourGallary->gallry_images) }}" width="50" class="mt-3">
+                            @endforeach
                             @endif
                         </div>
                     </div>

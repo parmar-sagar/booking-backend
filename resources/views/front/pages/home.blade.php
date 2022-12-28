@@ -83,8 +83,10 @@
                   <div class="js-trip-slider-pagination swiper-pagination swiper-pagination--top"></div>
                   <div class="swiper-wrapper">
                   
+                    @php
+                    $vehicle="";
+                    @endphp
                     @foreach($value['veh'] as $key => $vehicle)
-                    
                     <div class="swiper-slide">
                       <div class="flex-box align-items-center">
                         <div
@@ -336,14 +338,15 @@
                 <p class="text-center">
                   <a
                     class="btn btn--black"
+                    @if(isset($vehicle['tour_id']))
                     href="{{url('tours/'.$vehicle['tour_id'])}}"
+                    @endif
                   >
                   View All {{$value['tour_name']}} Tours
                   </a>
                 </p>
               </div>
               @endforeach
-              
             </div>
           </section>
           <section
@@ -540,181 +543,172 @@
               </div>
             </div>
           </section>
-          <section class="section mt-20em bg-white-top-jaw pb-50em pt-20em">
+          <section class="swipper-section10">
             <div class="headline-container">
-              <h2 class="headline-10 headline-pad-mob text-center">
-                Popular Tours Deals
-              </h2>
-            </div>
-            <div #swiperRef="" class="swiper mySwiper">
-              <div class="swiper-wrapper">
-                @foreach($deal as $key => $deals)
-                  <div class="swiper-slide">
-                    
-                    <div class="card card--flex card--shadow-orange">
-                        <div class="card__image lazy">
-                            <img src="{{ asset('admin/uploads/vehicle/' .$deals->image) }}">
-                        </div>
-                        <div class="card__content card__content--stretch">
-                            <div class="card__headline card__headline--with-price">
-                                <h2 class="headline-3 all-other">{{$deals->name}}</h2>
-                            </div>
-                            <div class="tour-list-text">
-                                <div class="row mt-3">
-                                  <div class="col-12">
-                                    <ul class="list-tour-info list-tour-info--two-cols">
-                                      <li class="list-tour-info__item">
-                                        <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account')}}">
-                                          </use>
-                                        </svg>
-                                        <div class="list-tour-info__item-desc">
-                                          <b>Tour Guide</b>
-                                          <span>{{$deals['tours']->tour_guide}}</span>
-                                        </div>
-                                      </li>
-                                      <li class="list-tour-info__item">
-                                        <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-star')}}">
-                                          </use>
-                                        </svg>
-                                        <div class="list-tour-info__item-desc">
-                                          <b>Convey Leader</b>
-                                          <span>{{$deals['tours']->convoy_leader}}</span>
-                                        </div>
-                                      </li>
-                                      <li class="list-tour-info__item">
-                                        <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account-multiple')}}">
-                                          </use>
-                                        </svg>
-                                        <div class="list-tour-info__item-desc">
-                                          <b>No. Of Persons</b>
-                                          <span>{{$deals->no_of_persons}}</span>
-                                        </div>
-                                      </li>
-                                      <li class="list-tour-info__item">
-                                        <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-map')}}">
-                                          </use>
-                                        </svg>
-                                        <div class="list-tour-info__item-desc">
-                                          <b>Pickup & Drop off</b>
-                                          <span>{{$deals['tours']->pickup_and_drop}}</span>
-                                        </div>
-                                      </li>
-                                      <li class="list-tour-info__item">
-                                        <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-calendar-range')}}">
-                                          </use>
-                                        </svg>
-                                        <div class="list-tour-info__item-desc">
-                                          <b>Available Everyday</b>
-                                          <span>Sunrise to Sunset</span>
-                                        </div>
-                                      </li>
-                                      <li class="list-tour-info__item">
-                                        <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-baby-face-outline')}}">
-                                          </use>
-                                        </svg>
-                                        <div class="list-tour-info__item-desc">
-                                          <b>Min Age</b>
-                                          <span>{{$deals['tours']->min_age}}Yrs</span>
-                                        </div>
-                                      </li>
-                                    </ul>
-                                  </div>
+                   <h2 class="headline-10  mb-20em headline-pad-mob text-center">
+                     Popular Tours Deals
+                   </h2>
+                 </div>
+        <div class="swiper mySwiper">
+             <div class="swiper-wrapper">
+              @foreach($deal as $key => $deals)
+               <div class="swiper-slide"><div class="card card--flex card--shadow-orange">
+                 <div class="card__image lazy">
+                  <img src="{{ asset('admin/uploads/vehicle/' .$deals->image) }}">
+                 </div>
+                 <div class="card__content card__content--stretch">
+                     <div class="card__headline card__headline--with-price">
+                         <h2 class="headline-3 all-other">{{$deals->name}}</h2>
+                     </div>
+                     <div class="tour-list-text">
+                         <div class="row mt-3">
+                           <div class="col-12">
+                             <ul class="list-tour-info list-tour-info--two-cols">
+                              <li class="list-tour-info__item">
+                                <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
+                                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account')}}">
+                                  </use>
+                                </svg>
+                                <div class="list-tour-info__item-desc">
+                                  <b>Tour Guide</b>
+                                  <span>{{$deals['tours']->tour_guide}}</span>
                                 </div>
-                            </div>
-                            <div
-                                class="card__footer card__footer--center card__footer--block-mobile card__footer--to-bottom pt-20em">
-                                <a href="{{url('view-detail/'.$deals->id)}}"><span class="btn btn--small btn--purple">View Tour</span></a>
-                            </div>
-                        </div>
-                    </div> 
+                              </li>
+                              <li class="list-tour-info__item">
+                                <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
+                                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-star')}}">
+                                  </use>
+                                </svg>
+                                <div class="list-tour-info__item-desc">
+                                  <b>Convey Leader</b>
+                                  <span>{{$deals['tours']->convoy_leader}}</span>
+                                </div>
+                              </li>
+                              <li class="list-tour-info__item">
+                                <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
+                                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account-multiple')}}">
+                                  </use>
+                                </svg>
+                                <div class="list-tour-info__item-desc">
+                                  <b>No. Of Persons</b>
+                                  <span>{{$deals->no_of_persons}}</span>
+                                </div>
+                              </li>
+                              <li class="list-tour-info__item">
+                                <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
+                                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-map')}}">
+                                  </use>
+                                </svg>
+                                <div class="list-tour-info__item-desc">
+                                  <b>Pickup & Drop off</b>
+                                  <span>{{$deals['tours']->pickup_and_drop}}</span>
+                                </div>
+                              </li>
+                              <li class="list-tour-info__item">
+                                <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
+                                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-calendar-range')}}">
+                                  </use>
+                                </svg>
+                                <div class="list-tour-info__item-desc">
+                                  <b>Available Everyday</b>
+                                  <span>Sunrise to Sunset</span>
+                                </div>
+                              </li>
+                              <li class="list-tour-info__item">
+                                <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
+                                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-baby-face-outline')}}">
+                                  </use>
+                                </svg>
+                                <div class="list-tour-info__item-desc">
+                                  <b>Min Age</b>
+                                  <span>{{$deals['tours']->min_age}}Yrs</span>
+                                </div>
+                              </li>
+                             </ul>
+                           </div>
+                         </div>
+                     </div>
+                     <div class="card__footer card__footer--center card__footer--block-mobile card__footer--to-bottom pt-20em">
+                      <a href="{{url('view-detail/'.$deals->id)}}"><span class="btn btn--small btn--purple">View Tour</span></a>
+                     </div>
+                 </div>
+             </div></div>
+             @endforeach
+             </div>
+             <div class="swiper-button-next"></div>
+             <div class="swiper-button-prev"></div>
+             <div class="swiper-pagination"></div>
+             
+           </div>
+           <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                 <p class="text-center">
+                  <a class="btn btn--black" href="{{url('deals')}}">View All Deals</a>
+                 </p>
            
-                </div>
-                @endforeach
-              </div>
-              <div class="swiper-button-next"></div>
-              <div class="swiper-button-prev"></div>
-              {{-- <div class="swiper-pagination"></div> --}}
-            </div>
-            <p class="text-center">
-              <a
-                class="btn btn--black"
-                href="{{url('deals')}}"
-              >
-              View All Deals
-              </a>
-            </p>
-          </section>
+       
+       </section>
         </main>
       </div>
     </div>
   </x-front.master-layout>
   <script>
-    var swiper = new Swiper('.mySwiper', {
-    slidesPerView: 3,
-    centeredSlides: true,
-    spaceBetween: 30,
-    autoplay: {
-     delay: 2500,
-     disableOnInteraction: false,
-    },
-    pagination: {
-    el: '.swiper-pagination',
-    type: 'fraction',
-    },
-    navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-    },
-    });
-    
-    // var appendNumber = 4;
-    // var prependNumber = 1;
-    // document
-    // .querySelector('.prepend-2-slides')
-    // .addEventListener('click', function (e) {
-    // e.preventDefault();
-    // swiper.prependSlide([
-    //   '<div class="swiper-slide">Slide ' + --prependNumber + '</div>',
-    //   '<div class="swiper-slide">Slide ' + --prependNumber + '</div>',
-    // ]);
-    // });
-    // document
-    // .querySelector('.prepend-slide')
-    // .addEventListener('click', function (e) {
-    // e.preventDefault();
-    // swiper.prependSlide(
-    //   '<div class="swiper-slide">Slide ' + --prependNumber + '</div>'
-    // );
-    // });
-    // document
-    // .querySelector('.append-slide')
-    // .addEventListener('click', function (e) {
-    // e.preventDefault();
-    // swiper.appendSlide(
-    //   '<div class="swiper-slide">Slide ' + ++appendNumber + '</div>'
-    // );
-    // });
-    // document
-    // .querySelector('.append-2-slides')
-    // .addEventListener('click', function (e) {
-    // e.preventDefault();
-    // swiper.appendSlide([
-    //   '<div class="swiper-slide">Slide ' + ++appendNumber + '</div>',
-    //   '<div class="swiper-slide">Slide ' + ++appendNumber + '</div>',
-    // ]);
-    // });
+    $(document).ready(function(){
+      var alterClass = function() {
+      var ww = document.body.clientWidth;
+        if (ww <= 1024) {
+         var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                slidesPerGroup: 1,
+                loop: true,
+                loopFillGroupWithBlank: true,
+                autoplay: {
+              delay: 2500,
+                disableOnInteraction: false,
+              },
+                pagination: {
+                  el: ".swiper-pagination",
+                  clickable: true,
+                },
+                navigation: {
+                  nextEl: ".swiper-button-next",
+                  prevEl: ".swiper-button-prev",
+                },
+              });
+          }else{
+              var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 3,
+                spaceBetween: 30,
+                slidesPerGroup: 3,
+                loop: true,
+                loopFillGroupWithBlank: true,
+                autoplay: {
+              delay: 2500,
+                disableOnInteraction: false,
+              },
+                pagination: {
+                  el: ".swiper-pagination",
+                  clickable: true,
+                },
+                navigation: {
+                  nextEl: ".swiper-button-next",
+                  prevEl: ".swiper-button-prev",
+                },
+              });
+          } 
+        };
+        $(window).resize(function(){
+          alterClass();
+        });
+        // //Fire it when the page first loads:
+    alterClass();
+  });
     $(document).ready(function(){
     var alterClass = function() {
     var ww = document.body.clientWidth;
       if (ww < 1024) {
           $("#addclass").on("click", function() {
-            $(this).toggleClass('open');
+            $(this).addclass('open');
           });
         } 
       };

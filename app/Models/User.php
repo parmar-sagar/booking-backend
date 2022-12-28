@@ -25,6 +25,7 @@ class User extends Authenticatable
         'photo',
         'status',
         'password',
+        'random_id'
     ];
 
     /**

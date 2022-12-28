@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Godruoyi\Snowflake\Snowflake;
+use Illuminate\Http\Request;
 use App\Handlers\Error;
+use App\Helpers\Helper;
 use App\Models\User;
 use DataTables;
 use Godruoyi\Snowflake\Snowflake;
@@ -55,11 +57,11 @@ class UserController extends Controller{
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|max:50',
+                    'name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
                     'email' => 'required|max:100|email:rfc,dns|unique:users',
                     'mobile' => 'required|string|min:10|max:12',
                     'photo' => 'required|mimes:jpeg,jpg,png,gif',
-                    'status' => 'required',
+                    'status' => 'required|in:0,1',
                     'password' => 'required|string|max:20',
                 ]);
     
@@ -72,8 +74,8 @@ class UserController extends Controller{
                 $validated['password'] = Hash::make($validated['password']);
 
                 if ($request->file('photo')) {
-                    $validated['photo'] = time().'.'.$request->photo->getClientOriginalExtension();  
-                    $request->photo->move(public_path('admin/uploads/users'), $validated['photo']);
+                    $path = 'users';
+                    $validated['photo'] = Helper::uploadFile($request->photo, $path);
                 }
                 $validated['random_id'] = (new Snowflake())->id();
                 
@@ -100,7 +102,7 @@ class UserController extends Controller{
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:users',
-                    'name' => 'required|regex:/^[a-zA-Z_\- ]*$/|max:50',
+                    'name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
                     'email' => 'required|max:100|email:rfc,dns|unique:users,email,'.$id,
                     'mobile' => 'required|string||min:10|max:12',
                     'photo' => 'mimes:jpeg,jpg,png,gif',
@@ -114,8 +116,8 @@ class UserController extends Controller{
                 $validated = $validator->validated();
     
                 if ($request->file('photo')) {
-                    $validated['photo'] = time().'.'.$request->photo->getClientOriginalExtension();  
-                    $request->photo->move(public_path('admin/uploads/users'), $validated['photo']);
+                    $path = 'users';
+                    $validated['photo'] = Helper::uploadFile($request->photo, $path);
                 }
                 
                 User::find($validated['id'])->update($validated);

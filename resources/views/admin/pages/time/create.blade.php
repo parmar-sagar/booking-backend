@@ -1,6 +1,9 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
+            <div>
+                <p><span style="color:red">Note : </span> Time can be managed here that is to be shown in safari and tour module. These can be added, removed and modified</p>
+            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>
@@ -23,11 +26,17 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Type</label>
-                            <select class="form-control select2" data-toggle="select2" name="time_type" required>
-                                    <option value="Minutes" @if(isset($objData->time_type) && $objData->time_type == 'Minutes') selected @endif>Minutes</option> 
-                                    <option value="Hours" @if(isset($objData->time_type) && $objData->time_type == 'Hours') selected @endif>Hours</option>  
-                            </select>
+                            <label for="type" class="form-label">Type</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="time_type" name="time_type" class="form-check-input" value="Minutes" @if(isset($objData->time_type) && $objData->time_type == 'Minutes') checked @endif checked>
+                                    <label class="form-check-label" for="Minutes">Minutes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="time_type" name="time_type" class="form-check-input" value="Hours" @if(isset($objData->time_type) && $objData->time_type == 'Hours') checked @endif>
+                                    <label class="form-check-label" for="Hours">Hours</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-auto">

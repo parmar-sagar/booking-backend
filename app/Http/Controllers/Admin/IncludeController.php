@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
-use App\Handlers\Error;
 use App\Models\VehicleInfo;
+use App\Handlers\Error;
 use DataTables;
 
 class IncludeController extends Controller
@@ -32,7 +33,7 @@ class IncludeController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehicleInfo::where('type',2)->orderBy('id','DESC')->get();
+                $datas = VehicleInfo::type(2)->order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -48,7 +49,7 @@ class IncludeController extends Controller
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'title' => 'required|string|min:5|unique:vehicle_infos',
+                    'title' => 'required|string|unique:vehicle_infos',
                 ]);
                   
                 if($validator->fails()){
@@ -84,7 +85,7 @@ class IncludeController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:vehicle_infos',
-                    'title' => 'required|string|min:5|unique:vehicle_infos,title,'.$id,
+                    'title' => 'required|string|unique:vehicle_infos,title,'.$id,
                 ]);
     
                 if($validator->fails()){
@@ -93,6 +94,7 @@ class IncludeController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 2;
+                
                 VehicleInfo::find($validated['id'])->update($validated);
     
                 return response()->json(['success' => "Includes Updated successfully."]);
