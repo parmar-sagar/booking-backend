@@ -42,13 +42,13 @@
                         <table class="table table-bordered" id="dynamic_field">  
                              <tr>  
                                 <td><label for="amount" class="form-label">Amount</label>
-                                    <input type="text" name="amount[]" placeholder="Enter Amounte" class="form-control name_list" />
+                                    <input type="text" name="amount[]" placeholder="Enter Amounte" value="" class="form-control name_list" />
                                 </td>  
                                   <td><label for="no_of_persons" class="form-label">Time</label>
                                     <select class="form-control select2" data-toggle="select2" name="time[]">
                                         <option>Select</option>
                                         @foreach($time as $time_tour)
-                                        <option value="{{$time_tour->time}}"@if(isset($selctdTime)) @foreach($selctdTime as $Times) @if($Times == $time_tour->id) selected @endif @endforeach @endif>{{$time_tour->time}}</option>
+                                        <option value="{{$time_tour->time}}"@if(isset($selctdTime)) @foreach($price as $times) @if($times->time == $time_tour->id) selected @endif @endforeach @endif>{{$time_tour->time}}</option>
                                         @endforeach        
                                     </select>
                                 </td> 

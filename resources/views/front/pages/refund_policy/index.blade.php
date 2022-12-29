@@ -1,6 +1,6 @@
 <x-front.master-layout>
     <div id="barba-wrappers" aria-live="polite">
-        <div class="barba-container">
+        <div class="barba-containers">
           <header class="l-header l-header--bottom-pad">
             <div class="row row--full row--g-10">
               <div class="col-lg-6 offset-lg-3 text-center">

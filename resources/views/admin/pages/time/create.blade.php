@@ -25,19 +25,20 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="mb-3">
+                    <div class="mb-3">
                             <label for="type" class="form-label">Type</label>
                             <div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="time_type" name="time_type" class="form-check-input" value="Minutes" @if(isset($objData->time_type) && $objData->time_type == 'Minutes') checked @endif checked>
+                                    <input type="radio" id="Minutes" name="time_type" class="form-check-input" value="Minutes" @if(isset($objData->time_type) && $objData->time_type == 'Minutes') checked @endif checked>
                                     <label class="form-check-label" for="Minutes">Minutes</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="time_type" name="time_type" class="form-check-input" value="Hours" @if(isset($objData->time_type) && $objData->time_type == 'Hours') checked @endif>
+                                    <input type="radio" id="Hours" name="time_type" class="form-check-input" value="Hours" @if(isset($objData->time_type) && $objData->time_type == 'Hours') checked @endif>
                                     <label class="form-check-label" for="Hours">Hours</label>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-success mb-2">Submit</button>

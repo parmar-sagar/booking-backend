@@ -10,7 +10,7 @@
     <button type="button" class="burger js-burger" aria-label="Open menu">
       <i class="fa-solid fa-bars"></i>
     </button>
-    <a class="l-navbar__logo-link" href="index.html">
+    <a class="l-navbar__logo-link" href="{{url('/')}}">
       <img
         class="l-navbar__logo"
         src="{{asset ('assets/front/images/image_2022_11_21T04_57_12_733Z-U-bg.png')}}"

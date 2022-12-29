@@ -48,30 +48,50 @@ class HomeController extends Controller
     public function refundPolicy(){
         return view('front.pages.refund_policy.index');
     }
+    
     public function privacyPolicy(){
         return view('front.pages.privacy_policy.index');
     }
+
     public function termsAndConditions(){
         return view('front.pages.terms_conditions.index');
     }
+
     public function aboutUs(){
         return view('front.pages.about_us.index');
     }
+
     public function deals(){
         $this->outputData = [
             'deal' => Vehicle::where('is_deals','1')->with('tours')->sequence()->status('1')->get()
         ];
         return view('front.pages.deals.index',$this->outputData);
     }
+
     public function myAccount(){
        return view('front.pages.my_account.index');
     }
+
     public function faqs(){
        return view('front.pages.faqs.index');
     }
+
     public function whyChooseus(){
         return view('front.pages.why_choose.index');
-     }
+    }
+
+    public function termsConditions(){
+        return view('front.pages.terms_conditions.index');
+    }
+
+    public function reviews(){
+        return view('front.pages.reviews.index');
+    }
+
+    public function checkout(){
+        return view('front.pages.checkout_page.index');
+    }
+
     public function updateProfile(Request $request){
 
         try {

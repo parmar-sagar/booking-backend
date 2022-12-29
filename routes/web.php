@@ -325,9 +325,15 @@ Route::group([
     Route::get('/faqs',[HomeController::class, 'faqs']);
     Route::post('update-profile',[HomeController::class, 'updateProfile']);
     Route::post('update-password',[HomeController::class, 'updatePassword']);
+    Route::get('checkout',[HomeController::class, 'checkout']);
+    Route::get('term-and-conditions',[HomeController::class, 'termsConditions']);
+    Route::get('reviews',[HomeController::class, 'reviews']);
     
 
-    Route::get('/view-detail/{id}',[SingleProductController::class, 'index']);
+    Route::prefix('view-detail')->group(function() {
+        Route::get('/{id}', [SingleProductController::class, 'index']);
+    });
+    
     
     // All tours
     Route::get('/all-other-tours',[AlltoursController::class, 'index']);

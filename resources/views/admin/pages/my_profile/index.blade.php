@@ -6,7 +6,7 @@
         {{ $pageName }}
     </x-slot>
     <!-- end page title -->
-    <div class="row" id="content-table">
+    <div class="row" id="content-table my_profile">
         <div class="col-xl-6">
             <div class="card">
                 <div class="card-body">
@@ -14,10 +14,10 @@
                         <div id="basicwizard">
                             <ul class="nav nav-pills nav-justified form-wizard-header mb-4">
                                 <li class="nav-item">
-                                    <a href="javascript:void(0);" class="nav-link rounded-0 py-2 open-form" data-create-href={{ $password }}> <i class="mdi mdi-face-man-profile font-18 align-middle me-1"></i> Password</a>
+                                    <a href="javascript:void(0);" class="nav-link rounded-0 py-2 open-form" data-create-href={{ $password }}> <i class="mdi mdi-face-man-profile font-18 align-middle me-1"></i> Change Password</a>
                                 </li>
                             </ul>
-                            <form id="submit-form" action="{{ $edit }}" method="POST" autocomplete="off" enctype="multipart/form-data">
+                            <form id="submit-profile" action="{{ $edit }}" method="POST" autocomplete="off" enctype="multipart/form-data">
                                 @csrf
                             <div class="tab-pane">
                                 <input type="hidden" value="{{ Auth::user()->id }}" name="id">
@@ -48,9 +48,38 @@
                 </div> <!-- end card-body -->
             </div> <!-- end card-->
         </div> <!-- end col -->
-    </div>
-    <div class="row" id="content-form">
+        <div class="row" id="content-form">
         
     </div>
+    </div>
     <!-- end row -->      
+<x-slot name="scripts">
+<script>
+$(document).on('submit','#submit-profile',function(e){
+    e.preventDefault();
+    $.ajax({
+        type: $(this).prop('method'),
+        url: $(this).prop('action'),
+        data:new FormData(this),
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (response) {
+            if((response.error)){
+                toastr.error(response.error);
+            }else{
+                $("#my_profile").load(window.location + " #my_profile");
+                $("#authName").load(window.location + " #authName");
+                toastr.success(response.success);
+            }
+        },error: function (error){
+            toastr.error("Something is wrong please try again");
+        }
+    });
+    toastr.options = {
+    positionClass: 'toast-top-center'
+};
+});
+</script>
+</x-slot>  
 </x-admin.master-layout>
