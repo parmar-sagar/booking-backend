@@ -74,7 +74,7 @@
           </div>
         </div>
       </div>
-      <main class="l-main">
+    <!--  <main class="l-main">
         <section class=" section  ">
           <div class="">
             <div class="row row--g-10">
@@ -124,7 +124,7 @@
             </div>
           </div>
         </section>
-      </main>
+      </main>-->
     </div>
   </div>
 </x-front.master-layout>

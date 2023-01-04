@@ -2285,7 +2285,7 @@ screen and (-ms-high-contrast:active) {
     .l-header--full-height {
        height: calc(34vh - 80px);
 }
-.card__content {
+#listing .card__content {
     padding: 0px !important;
 }
 .button_nd {
@@ -2902,7 +2902,7 @@ img.lazy:not(.lazy--no-fade-in) {
 }
 
 img.lazy.loaded:not(.lazy--no-fade-in) {
-    opacity: 1
+    opacity: 1 !important;
 }
 
 .media-arrow {
@@ -25333,6 +25333,7 @@ h2.headline-3.all-other{
     height: 300px;
     padding: 0px;
     margin: 0px;
+    background-position: right;
 }
 .tours-banner-tex {
     position: absolute;
@@ -25442,7 +25443,6 @@ button:focus {
 .cart .subtotal-value:before,
 .cart .total-value:before,
 .cart .promo-value:before {
-  content: '£';
 }
 
 .cart .hide {
@@ -25747,6 +25747,9 @@ button:focus {
     margin-top: 1.25rem;
     position: relative;
   }
+  .basket-U {
+    display: block !important;
+}
 }
 
 @media screen and (min-width: 641px) and (max-width: 960px) {
@@ -25909,7 +25912,6 @@ background-color: #555;
 .cart .subtotal-value:before,
 .cart .total-value:before,
 .cart .promo-value:before {
-    content: '£';
 }
 
 .cart .hide {
@@ -26068,13 +26070,16 @@ background-color: #555;
     width: 3.75rem;
 }
 
-.cart aside {
+/* .cart aside {
     float: right;
     position: fixed;
-    right: 10%;
+    right: 0%;
     width: 28%;
+    top: 10%;
+} */
+.cart aside {
+    width: 100%;
 }
-
 .cart .summary {
     padding: 1rem;
     -webkit-box-sizing: border-box;
@@ -26236,7 +26241,11 @@ background-color: #555;
         width: 28%;
     }
 }
-
+@media(max-width:992px){
+    .cart-payment .summary.card--shadow-orangeBlood {
+        width: 100% !important;
+    }
+}
 @media screen and (max-width: 960px) {
     .cart main {
         width: 100%;
@@ -26760,7 +26769,215 @@ input:checked+.slider:before {
         margin: .67em 0;
     }
     /* end calander */
-    
+    /* 29/12/2022 */
+/* login page */
+::placeholder {
+    color: #fff;
+}
+.btn--white {
+    background-color: #fff;
+    color: #313131 !important;
+}
+.btn--white:hover {
+    color: #fff !important;
+}
+/* end  */
+
+.payment_selection
+{
+    width:100%;
+}
+.payment_selection .form__row__left {
+    padding: 0px;
+}
+.select--blank~.sbHolder .sbSelector {
+    width: 100% !important;
+    border-bottom: 3px solid rgb(109 74 255) !important;
+}
+/* date picker css  */
+.Zebra_DatePicker {
+    width: 50%;
+}
+.picker div#container {
+    display: flex;
+    justify-content: center;
+}
+.content ul li::before, .list-ul li::before { 
+    display:none;
+}
+
+.cart .product-image {
+    width: 50%;
+}
+.cart .item {
+    width: 37%;
+}
+
+.cart .product-details {
+    padding: 10px 0rem;
+}
+#sbHolder_25710544 {
+    width:250px;
+  }
+  #sect .row.row--g-10 {
+    justify-content: center;
+}
+.well .row {
+    display: flex;
+    justify-content: center;
+}
+.dates.picker {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* date picker  */
+.Zebra_DatePicker {
+    width: 90% !important;
+}
+.Zebra_DatePicker {
+    background: transparent !important;
+    border-radius:unset;
+    box-shadow: unset !important;;
+    color: unset !important;;
+    font: unset;
+    padding: 3px;
+    position: absolute;
+    display: unset !important;;
+    *width: unset ;
+    z-index: unset !important;
+  }
+  
+  .Zebra_DatePicker .dp_body td, .Zebra_DatePicker .dp_body th {
+    border:unset !important;;
+  }
+  
+  .Zebra_DatePicker .dp_actions td {
+    border-radius: 4px;
+    color: #000 !important;
+  }
+  .dp_daypicker.dp_body {
+    margin-bottom: 7px;
+  }
+  .col-sm-3 {
+  }
+  .well .row .col-sm-3  {
+    margin-top:70px;
+  }
+  
+  .Zebra_DatePicker .dp_body .dp_weekend {
+    background: #36e0dc !important;
+  }
+  
+  .Zebra_DatePicker .dp_body .dp_selected {
+    background: #6d4aff !important;;
+    color: #fff;
+  }
+  
+  .dp_footer.dp_actions {
+    display: none;
+  }
+  .dp_daypicker.dp_body tr td  {
+    padding:7px;
+    margin:12px;
+    border:3px solid #F0F0F0 !important;;
+  }
+  .dates.picker.card--shadow-orange {
+    height:auto;
+  }
+  .well {
+    margin-top: 150px;
+}
+/* end */
+
+#times td {
+    cursor: pointer;
+}
+#times td:active {
+    border: 2px solid #b5b5b5;
+    box-shadow: 4px 4px 20px 2px #878787;
+}
+div#carts {
+    padding: 70px 0px;
+}
+button.btn.btn-primary.btn-apply.coupon {
+    font-size: 18px;
+    padding: 5px 18px;
+    background-color: #00bcd4;
+}
+input.form-control.coupon {
+    width: 100%;
+}
+button.btn.btn-primary.btn-apply.coupon::after {
+    display: none;
+}
+.summary-subtotal {
+    border-bottom: none !important;
+}
+.container.payment-profile {
+    display: flex !important;
+    padding: 20px 0px 40px 0px;
+}
+.payment-profile .basket {
+    margin-top: 0px !important;
+}
+.cart .cart-item {
+    padding: 0px;
+}
+.basket-product button.btn.mt-10em.chip--orange.profile-button {
+    margin: 20px;
+}
+.cart-item .basket.card--shadow-blurple {
+    width: 96%;
+}
+@media(min-width:1025px){
+    div#container {
+        height: 180px !important;
+    }
+}
+@media (max-width:425px) {
+    .dp_daypicker.dp_body tr td {
+        padding:0px !important;
+    }}
+
+@media(max-width:1024px){
+    .tours-banner {
+        height: 170px !important;
+    }
+    table.dp_daypicker.dp_body {
+        padding:10px !important;
+   }
+   .dp_daypicker.dp_body tr td{
+       padding: 4px;
+   }
+   div#container {
+    height: 122px !important;
+}
+}
+@media(max-width:992px){
+    .cart-item {
+        margin-bottom: 42%;
+    }
+    .cart aside {
+        padding: 0px !important;
+    }
+}
+@media(max-width:800px){
+    .Zebra_DatePicker {
+        width: 100% !important;
+    }
+    .col-lg-4.col-sm-12.col-md-6.cart-payment {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 30px;
+    }
+    .coupon .input-group {
+        justify-content: center;
+    }
+}
     @media(max-width:600px){
         .text-center a.btn.btn--black {
             margin: 10px 30px 30px 30px;
@@ -26771,6 +26988,22 @@ input:checked+.slider:before {
         .box-multi__item {
             padding: 10px;
         }
+        /* date picker */
+        .dates.picker {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        table.responsive-large-tabU {
+            display: none;
+        }
+        .responsive-mobileU th, .responsive-mobileU td {
+    padding: 4px 0px !important;
+}
+.cart-item .card--shadow-blurple {
+    padding: 0px 10px;
+}
+        /* end */
     }
     .list-tour-info__item-desc {
         text-align: left;
@@ -26797,7 +27030,69 @@ input:checked+.slider:before {
     .card__headline--with-price {
         display: inline;
     }
-}
-      
-
+    .cart .product-image {
+        width: 100%;
+    }
+    .cart .item {
+        width: 100%;
+    }
+    .product-details {
+        width: 100% !important;
+    }
+    .price {
+        width: 100% !important;
+    }
+    span.tag-detail {
+        font-weight: 600;
+    }
+    /* .dp_daypicker.dp_body tr td {
+        padding: 8px !important;
+        min-width: 0px !important;
+    } */
+    }
+    @media(min-width:600px){
+        .toggle-payment {
+            display: inline-flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        span.tag-detail {
+            display: none;
+        }
+        input.form-control.coupon {
+            width: 50%;
+        }
+        button.btn.btn-primary.btn-apply.coupon {
+            font-size: 18px;
+            padding: 7px 18px;
+            background-color: #00bcd4;
+            margin-top: 0px;
+            margin-left: 10px;
+        }
+        button.btn.btn-primary.btn-apply.coupon::after {
+            display: none;
+        }
+        table.responsive-mobileU {
+            display: none;
+        }
+    }
+    @media (max-width: 320px) {
+        .card__content {
+            padding: 0px !important;
+        } 
+        
+        .card.card--shadow-orange {
+            padding:15px 5px ;
+        }
+        .card__content {
+            padding: 20px 0px !important;} 
+        .card.card--shadow-orange {
+            margin: 0px 0px 0px  1px;}
+        }
+    @media only screen and (max-width:1260px) and (min-width:1060px){
+        .l-navbar__menu-right a.l-navbar__menu-link {
+    font-size: 18px;
+    }
+    }
+   
     

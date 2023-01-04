@@ -1,14 +1,14 @@
 <div class="col-xl-6">
     <div class="card">
         <div class="card-body">
-            <h4 class="header-title mb-3">My Profile</h4>
+            <h4 class="header-title mb-3">Change Password</h4>
                 <div id="basicwizard">
                     <ul class="nav nav-pills nav-justified form-wizard-header mb-4">
                         <li class="nav-item">
-                            <a href="javascript:void(0);" class="nav-link rounded-0 py-2 goBack" > <i class="mdi mdi-face-man-profile font-18 align-middle me-1"></i> Account</a>
+                            <a href="javascript:void(0);" class="nav-link rounded-0 py-2 goBack" > <i class="mdi mdi-face-man-profile font-18 align-middle me-1"></i> Close</a>
                         </li>
                     </ul>
-                    <form id="submit-form" action="{{ $action }}" method="POST" autocomplete="off" enctype="multipart/form-data">
+                    <form id="submit-profile" action="{{ $action }}" method="POST" autocomplete="off" enctype="multipart/form-data">
                         @csrf
                     <div class="tab-pane" id="basictab2">
                         <input type="hidden" value="{{ Auth::user()->id }}" name="id">

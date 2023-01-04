@@ -59,7 +59,7 @@
                 height="43.14px"
                 class="social-media__icon"
               >
-                <use xlink:href="images/icons.svg#icon-facebook"></use>
+                <use xlink:href="{{asset('assets/front/images/icons.svg#icon-facebook')}}"></use>
               </svg>
             </a>
           </li>
@@ -77,7 +77,7 @@
                 height="43.14px"
                 class="social-media__icon"
               >
-                <use xlink:href="images/icons.svg#icon-instagram"></use>
+                <use xlink:href="{{asset('assets/front/images/icons.svg#icon-instagram')}}"></use>
               </svg>
             </a>
           </li>
@@ -95,25 +95,7 @@
                 height="43.14px"
                 class="social-media__icon"
               >
-                <use xlink:href="images/icons.svg#icon-youtube"></use>
-              </svg>
-            </a>
-          </li>
-          <li class="social-media__item">
-            <a
-              class="l-footer__social-link social-media__link"
-              target="_blank"
-              rel="noopener noreferrer"
-              href="#"
-              aria-label="Our Facebook Group"
-              title="Our Facebook Group"
-            >
-              <svg
-                width="43.14px"
-                height="43.14px"
-                class="social-media__icon"
-              >
-                <use xlink:href="images/icons.svg#icon-fb-group"></use>
+                <use xlink:href="{{asset('assets/front/images/icons.svg#icon-youtube')}}"></use>
               </svg>
             </a>
           </li>
@@ -153,25 +135,7 @@
                 href="#"
                 title="Tours"
               >
-                Other Desert Adventures
-              </a>
-            </li>
-            <li class="l-footer__menu-list-item">
-              <a
-                class="l-footer__menu-list-link"
-                href="#"
-                title="Tours"
-              >
-                Jet Skis
-              </a>
-            </li>
-            <li class="l-footer__menu-list-item">
-              <a
-                class="l-footer__menu-list-link"
-                href="#"
-                title="Tours"
-              >
-                Luxury Yachts
+              Desert Safari
               </a>
             </li>
             <li class="l-footer__menu-list-item">
@@ -219,7 +183,7 @@
                Refund Policy
               </a>
             </li>
-            <li class="l-footer__menu-list-item">
+            <!-- <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
                 href="blog.html"
@@ -227,7 +191,7 @@
               >
                 Blog
               </a>
-            </li>
+            </li> -->
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
@@ -273,7 +237,7 @@
                 FAQs
               </a>
             </li>
-            <li class="l-footer__menu-list-item">
+            <!-- <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
                 href=" @if (Auth::check()){{url('my-account')}}@else {{url('login')}}@endif"
@@ -281,7 +245,7 @@
               >
                 My Account
               </a>
-            </li>
+            </li> -->
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
@@ -294,7 +258,7 @@
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
-                href="reviews.html"
+                href="{{url('reviews')}}"
                 title="Reviews"
               >
                 Reviews
