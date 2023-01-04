@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Models\VehicleInfo;
 use App\Handlers\Error;
@@ -21,10 +20,10 @@ class WarningController extends Controller
     public function index(){
         $this->outputData = [
             'pageName' => 'Warnings',
-            'dataTables' => url('admin/warnings/datatable'),
-            'delete' => url('admin/warnings/delete'),
-            'create' => url('admin/warnings/create'),
-            'edit' => url('admin/warnings/edit')
+            'dataTables' => url('admin/vehicles/warnings/datatable'),
+            'delete' => url('admin/vehicles/warnings/delete'),
+            'create' => url('admin/vehicles/warnings/create'),
+            'edit' => url('admin/vehicles/warnings/edit')
         ];
         
         return view('admin.pages.warning.index',$this->outputData);
@@ -33,7 +32,7 @@ class WarningController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehicleInfo::type(3)->order()->get();
+                $datas = VehicleInfo::warning()->order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -58,16 +57,14 @@ class WarningController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 3;
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-                $validated['random_id'] = $snowflake->id();
-
+                
                 VehicleInfo::create($validated);
     
                 return response()->json(['success' => "Warnings Created successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'New Warnings',
-                'action' => url('admin/warnings/store'),
+                'action' => url('admin/vehicles/warnings/store'),
             ];
             return view('admin.pages.warning.create',$this->outputData);
 
@@ -92,7 +89,6 @@ class WarningController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['type'] = 3;
                 
                 VehicleInfo::find($validated['id'])->update($validated);
     
@@ -100,7 +96,7 @@ class WarningController extends Controller
             }
             $this->outputData = [
                 'pageName' => 'Edit Warnings',
-                'action' => url('admin/warnings/update/'.$id),
+                'action' => url('admin/vehicles/warnings/update/'.$id),
                 'objData' => VehicleInfo::findOrFail($id),
             ];
             return view('admin.pages.include.create',$this->outputData);
@@ -112,7 +108,7 @@ class WarningController extends Controller
 
     public function destroy($id){
         try {
-            $res = VehicleInfo::find($id)->delete();   
+            VehicleInfo::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

@@ -21,7 +21,7 @@
                     <div class="col-lg-12">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" id="title" class="form-control" name="title" value="@if(isset($objData->title) && $objData->title){{ $objData->title }}@endif" required>
+                            <input type="text" id="name" class="form-control" name="title" value="@if(isset($objData->title) && $objData->title){{ $objData->title }}@endif" required>
                         </div>
                     </div>
                     <div class="col-auto">

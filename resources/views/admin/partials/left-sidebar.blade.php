@@ -112,38 +112,38 @@
                 <div class="collapse" id="sidebarManageVehicles">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/includes') }}" class="side-nav-link">
+                            <a href="{{ url('admin/vehicles/includes') }}" class="side-nav-link">
                                 <span> Includes </span>
                             </a>
                         </li>
             
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/highlights') }}" class="side-nav-link">
+                            <a href="{{ url('admin/vehicles/highlights') }}" class="side-nav-link">
                                 <span> Not Includes </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/safety-gears') }}" class="side-nav-link">
+                            <a href="{{ url('admin/vehicles/safety-gears') }}" class="side-nav-link">
                                 <span> Safety Gears </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/refreshments') }}" class="side-nav-link">
+                            <a href="{{ url('admin/vehicles/refreshments') }}" class="side-nav-link">
                                 <span> Refreshments </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/warnings') }}" class="side-nav-link">
+                            <a href="{{ url('admin/vehicles/warnings') }}" class="side-nav-link">
                                 <span> Must Know Befor You Book </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/activities') }}" class="side-nav-link">
+                            <a href="{{ url('admin/vehicles/activities') }}" class="side-nav-link">
                                 <span> Extra Activities </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/additional-info') }}" class="side-nav-link">
+                            <a href="{{ url('admin/vehicles/additional-info') }}" class="side-nav-link">
                                 <span> Additional Info </span>
                             </a>
                         </li>

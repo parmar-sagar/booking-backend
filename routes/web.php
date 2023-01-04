@@ -83,78 +83,6 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => 'includes'
-    ], function(){
-        Route::get('/',[IncludeController::class, 'index']);
-        Route::get('/datatable',[IncludeController::class, 'datatable']);
-        Route::get('/create',[IncludeController::class, 'create']);
-        Route::post('/store',[IncludeController::class, 'create']);
-        Route::get('/edit/{id}',[IncludeController::class, 'edit']);
-		Route::post('/update/{id}',[IncludeController::class, 'edit']);
-		Route::get('/delete/{id}',[IncludeController::class, 'destroy']);
-    });
-
-    Route::group([
-        'prefix' => 'highlights'
-    ], function(){
-        Route::get('/',[HighlightController::class, 'index']);
-        Route::get('/datatable',[HighlightController::class, 'datatable']);
-        Route::get('/create',[HighlightController::class, 'create']);
-        Route::post('/store',[HighlightController::class, 'create']);
-        Route::get('/edit/{id}',[HighlightController::class, 'edit']);
-		Route::post('/update/{id}',[HighlightController::class, 'edit']);
-		Route::get('/delete/{id}',[HighlightController::class, 'destroy']);
-    });
-
-    Route::group([
-        'prefix' => 'warnings'
-    ], function(){
-        Route::get('/',[WarningController::class, 'index']);
-        Route::get('/datatable',[WarningController::class, 'datatable']);
-        Route::get('/create',[WarningController::class, 'create']);
-        Route::post('/store',[WarningController::class, 'create']);
-        Route::get('/edit/{id}',[WarningController::class, 'edit']);
-		Route::post('/update/{id}',[WarningController::class, 'edit']);
-		Route::get('/delete/{id}',[WarningController::class, 'destroy']);
-    });
-
-    Route::group([
-        'prefix' => 'activities'
-    ], function(){
-        Route::get('/',[ActivityController::class, 'index']);
-        Route::get('/datatable',[ActivityController::class, 'datatable']);
-        Route::get('/create',[ActivityController::class, 'create']);
-        Route::post('/store',[ActivityController::class, 'create']);
-        Route::get('/edit/{id}',[ActivityController::class, 'edit']);
-		Route::post('/update/{id}',[ActivityController::class, 'edit']);
-		Route::get('/delete/{id}',[ActivityController::class, 'destroy']);
-    });
-
-    Route::group([
-        'prefix' => 'safety-gears'
-    ], function(){
-        Route::get('/',[SafetyGearController::class, 'index']);
-        Route::get('/datatable',[SafetyGearController::class, 'datatable']);
-        Route::get('/create',[SafetyGearController::class, 'create']);
-        Route::post('/store',[SafetyGearController::class, 'create']);
-        Route::get('/edit/{id}',[SafetyGearController::class, 'edit']);
-		Route::post('/update/{id}',[SafetyGearController::class, 'edit']);
-		Route::get('/delete/{id}',[SafetyGearController::class, 'destroy']);
-    });
-
-    Route::group([
-        'prefix' => 'refreshments'
-    ], function(){
-        Route::get('/',[RefreshmentController::class, 'index']);
-        Route::get('/datatable',[RefreshmentController::class, 'datatable']);
-        Route::get('/create',[RefreshmentController::class, 'create']);
-        Route::post('/store',[RefreshmentController::class, 'create']);
-        Route::get('/edit/{id}',[RefreshmentController::class, 'edit']);
-		Route::post('/update/{id}',[RefreshmentController::class, 'edit']);
-		Route::get('/delete/{id}',[RefreshmentController::class, 'destroy']);
-    });
-
-    Route::group([
         'prefix' => 'vehicles'
     ], function(){
         Route::get('/',[VehiclesController::class, 'index']);
@@ -164,6 +92,90 @@ Route::group([
         Route::get('/edit/{id}',[VehiclesController::class, 'edit']);
 		Route::post('/update/{id}',[VehiclesController::class, 'edit']);
 		Route::get('/delete/{id}',[VehiclesController::class, 'destroy']);
+
+        Route::group([
+            'prefix' => 'includes'
+        ], function(){
+            Route::get('/',[IncludeController::class, 'index']);
+            Route::get('/datatable',[IncludeController::class, 'datatable']);
+            Route::get('/create',[IncludeController::class, 'create']);
+            Route::post('/store',[IncludeController::class, 'create']);
+            Route::get('/edit/{id}',[IncludeController::class, 'edit']);
+            Route::post('/update/{id}',[IncludeController::class, 'edit']);
+            Route::get('/delete/{id}',[IncludeController::class, 'destroy']);
+        });
+    
+        Route::group([
+            'prefix' => 'highlights'
+        ], function(){
+            Route::get('/',[HighlightController::class, 'index']);
+            Route::get('/datatable',[HighlightController::class, 'datatable']);
+            Route::get('/create',[HighlightController::class, 'create']);
+            Route::post('/store',[HighlightController::class, 'create']);
+            Route::get('/edit/{id}',[HighlightController::class, 'edit']);
+            Route::post('/update/{id}',[HighlightController::class, 'edit']);
+            Route::get('/delete/{id}',[HighlightController::class, 'destroy']);
+        });
+    
+        Route::group([
+            'prefix' => 'warnings'
+        ], function(){
+            Route::get('/',[WarningController::class, 'index']);
+            Route::get('/datatable',[WarningController::class, 'datatable']);
+            Route::get('/create',[WarningController::class, 'create']);
+            Route::post('/store',[WarningController::class, 'create']);
+            Route::get('/edit/{id}',[WarningController::class, 'edit']);
+            Route::post('/update/{id}',[WarningController::class, 'edit']);
+            Route::get('/delete/{id}',[WarningController::class, 'destroy']);
+        });
+    
+        Route::group([
+            'prefix' => 'activities'
+        ], function(){
+            Route::get('/',[ActivityController::class, 'index']);
+            Route::get('/datatable',[ActivityController::class, 'datatable']);
+            Route::get('/create',[ActivityController::class, 'create']);
+            Route::post('/store',[ActivityController::class, 'create']);
+            Route::get('/edit/{id}',[ActivityController::class, 'edit']);
+            Route::post('/update/{id}',[ActivityController::class, 'edit']);
+            Route::get('/delete/{id}',[ActivityController::class, 'destroy']);
+        });
+    
+        Route::group([
+            'prefix' => 'safety-gears'
+        ], function(){
+            Route::get('/',[SafetyGearController::class, 'index']);
+            Route::get('/datatable',[SafetyGearController::class, 'datatable']);
+            Route::get('/create',[SafetyGearController::class, 'create']);
+            Route::post('/store',[SafetyGearController::class, 'create']);
+            Route::get('/edit/{id}',[SafetyGearController::class, 'edit']);
+            Route::post('/update/{id}',[SafetyGearController::class, 'edit']);
+            Route::get('/delete/{id}',[SafetyGearController::class, 'destroy']);
+        });
+    
+        Route::group([
+            'prefix' => 'refreshments'
+        ], function(){
+            Route::get('/',[RefreshmentController::class, 'index']);
+            Route::get('/datatable',[RefreshmentController::class, 'datatable']);
+            Route::get('/create',[RefreshmentController::class, 'create']);
+            Route::post('/store',[RefreshmentController::class, 'create']);
+            Route::get('/edit/{id}',[RefreshmentController::class, 'edit']);
+            Route::post('/update/{id}',[RefreshmentController::class, 'edit']);
+            Route::get('/delete/{id}',[RefreshmentController::class, 'destroy']);
+        });
+    
+        Route::group([
+            'prefix' => 'additional-info'
+        ], function(){
+            Route::get('/',[AdditionalInfoController::class, 'index']);
+            Route::get('/datatable',[AdditionalInfoController::class, 'datatable']);
+            Route::get('/create',[AdditionalInfoController::class, 'create']);
+            Route::post('/store',[AdditionalInfoController::class, 'create']);
+            Route::get('/edit/{id}',[AdditionalInfoController::class, 'edit']);
+            Route::post('/update/{id}',[AdditionalInfoController::class, 'edit']);
+            Route::get('/delete/{id}',[AdditionalInfoController::class, 'destroy']);
+        });
     });
 
     Route::group([
@@ -290,17 +302,6 @@ Route::group([
 		Route::get('/delete/{id}',[GroupController::class, 'destroy']);
     });
 
-    Route::group([
-        'prefix' => 'additional-info'
-    ], function(){
-        Route::get('/',[AdditionalInfoController::class, 'index']);
-        Route::get('/datatable',[AdditionalInfoController::class, 'datatable']);
-        Route::get('/create',[AdditionalInfoController::class, 'create']);
-        Route::post('/store',[AdditionalInfoController::class, 'create']);
-        Route::get('/edit/{id}',[AdditionalInfoController::class, 'edit']);
-		Route::post('/update/{id}',[AdditionalInfoController::class, 'edit']);
-		Route::get('/delete/{id}',[AdditionalInfoController::class, 'destroy']);
-    });
 });
 
 /*Frontend Routes start */

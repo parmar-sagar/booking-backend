@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Models\VehicleInfo;
 use App\Handlers\Error;
@@ -21,10 +20,10 @@ class RefreshmentController extends Controller
     public function index(){
         $this->outputData = [
             'pageName' => 'Refreshment',
-            'dataTables' => url('admin/refreshments/datatable'),
-            'delete' => url('admin/refreshments/delete'),
-            'create' => url('admin/refreshments/create'),
-            'edit' => url('admin/refreshments/edit')
+            'dataTables' => url('admin/vehicles/refreshments/datatable'),
+            'delete' => url('admin/vehicles/refreshments/delete'),
+            'create' => url('admin/vehicles/refreshments/create'),
+            'edit' => url('admin/vehicles/refreshments/edit')
         ];
         
         return view('admin.pages.refreshment.index',$this->outputData);
@@ -33,7 +32,7 @@ class RefreshmentController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehicleInfo::type(6)->order()->get();
+                $datas = VehicleInfo::refreshment()->order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -58,9 +57,6 @@ class RefreshmentController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 6;
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-
-                $validated['random_id'] = $snowflake->id();
                 
                 VehicleInfo::create($validated);
     
@@ -68,7 +64,7 @@ class RefreshmentController extends Controller
             }
             $this->outputData = [
                 'pageName' => 'New Refreshment',
-                'action' => url('admin/refreshments/store'),
+                'action' => url('admin/vehicles/refreshments/store'),
             ];
             return view('admin.pages.safety_gear.create',$this->outputData);
 
@@ -93,7 +89,6 @@ class RefreshmentController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['type'] = 6;
                 
                 VehicleInfo::find($validated['id'])->update($validated);
     
@@ -101,7 +96,7 @@ class RefreshmentController extends Controller
             }
             $this->outputData = [
                 'pageName' => 'Edit refreshments',
-                'action' => url('admin/refreshments/update/'.$id),
+                'action' => url('admin/vehicles/refreshments/update/'.$id),
                 'objData' => VehicleInfo::findOrFail($id),
             ];
             return view('admin.pages.refreshment.create',$this->outputData);
@@ -113,7 +108,7 @@ class RefreshmentController extends Controller
 
     public function destroy($id){
         try {
-            $res = VehicleInfo::find($id)->delete();   
+            VehicleInfo::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

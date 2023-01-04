@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\VehicleInfo;
@@ -21,10 +20,10 @@ class ActivityController extends Controller
     public function index(){
         $this->outputData = [
             'pageName' => 'Activities',
-            'dataTables' => url('admin/activities/datatable'),
-            'delete' => url('admin/activities/delete'),
-            'create' => url('admin/activities/create'),
-            'edit' => url('admin/activities/edit')
+            'dataTables' => url('admin/vehicles/activities/datatable'),
+            'delete' => url('admin/vehicles/activities/delete'),
+            'create' => url('admin/vehicles/activities/create'),
+            'edit' => url('admin/vehicles/activities/edit')
         ];
         
         return view('admin.pages.activity.index',$this->outputData);
@@ -33,7 +32,7 @@ class ActivityController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehicleInfo::where('type',4)->orderBy('id','DESC')->get();
+                $datas = VehicleInfo::activity()->order()->get();
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -58,9 +57,6 @@ class ActivityController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 4;
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-  
-                $validated['random_id'] = $snowflake->id();
                 
                 VehicleInfo::create($validated);
     
@@ -68,7 +64,7 @@ class ActivityController extends Controller
             }
             $this->outputData = [
                 'pageName' => 'New Activities',
-                'action' => url('admin/activities/store'),
+                'action' => url('admin/vehicles/activities/store'),
             ];
             return view('admin.pages.activity.create',$this->outputData);
 
@@ -86,7 +82,7 @@ class ActivityController extends Controller
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:vehicle_infos',
                     'title' => 'required|string|unique:vehicle_infos,title,'.$id,
-                    'price' => 'required|digits_between:1,99999999999999',
+                    'price' => 'required',
                 ]);
     
                 if($validator->fails()){
@@ -94,14 +90,14 @@ class ActivityController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['type'] = 4;
+              
                 VehicleInfo::find($validated['id'])->update($validated);
     
                 return response()->json(['success' => "Activities Updated successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'Edit Activities',
-                'action' => url('admin/activities/update/'.$id),
+                'action' => url('admin/vehicles/activities/update/'.$id),
                 'objData' => VehicleInfo::findOrFail($id),
             ];
             return view('admin.pages.activity.create',$this->outputData);
@@ -113,7 +109,7 @@ class ActivityController extends Controller
 
     public function destroy($id){
         try {
-            $res = VehicleInfo::find($id)->delete();   
+            VehicleInfo::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

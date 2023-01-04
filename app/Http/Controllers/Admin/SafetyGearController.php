@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Models\VehicleInfo;
 use App\Handlers\Error;
@@ -21,10 +20,10 @@ class SafetyGearController extends Controller
     public function index(){
         $this->outputData = [
             'pageName' => 'Safety Gear',
-            'dataTables' => url('admin/safety-gears/datatable'),
-            'delete' => url('admin/safety-gears/delete'),
-            'create' => url('admin/safety-gears/create'),
-            'edit' => url('admin/safety-gears/edit')
+            'dataTables' => url('admin/vehicles/safety-gears/datatable'),
+            'delete' => url('admin/vehicles/safety-gears/delete'),
+            'create' => url('admin/vehicles/safety-gears/create'),
+            'edit' => url('admin/vehicles/safety-gears/edit')
         ];
         
         return view('admin.pages.safety_gear.index',$this->outputData);
@@ -33,7 +32,7 @@ class SafetyGearController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehicleInfo::type(5)->order()->get();
+                $datas = VehicleInfo::safetyGear()->order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -58,17 +57,14 @@ class SafetyGearController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 5;
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-
-                $validated['random_id'] = $snowflake->id();
                 
                 VehicleInfo::create($validated);
     
-                return response()->json(['success' => "safety-gears Created successfully."]);
+                return response()->json(['success' => "Safety Gears Created successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'New Safety Gear',
-                'action' => url('admin/safety-gears/store'),
+                'action' => url('admin/vehicles/safety-gears/store'),
             ];
             return view('admin.pages.safety_gear.create',$this->outputData);
 
@@ -93,15 +89,14 @@ class SafetyGearController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['type'] = 5;
                 
                 VehicleInfo::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "safety-gears Updated successfully."]);
+                return response()->json(['success' => "Safety Gears Updated successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'Edit safety-gears',
-                'action' => url('admin/safety-gears/update/'.$id),
+                'pageName' => 'Edit Safety Gears',
+                'action' => url('admin/vehicles/safety-gears/update/'.$id),
                 'objData' => VehicleInfo::findOrFail($id),
             ];
             return view('admin.pages.safety_gear.create',$this->outputData);
@@ -113,7 +108,7 @@ class SafetyGearController extends Controller
 
     public function destroy($id){
         try {
-            $res = VehicleInfo::find($id)->delete();   
+            VehicleInfo::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

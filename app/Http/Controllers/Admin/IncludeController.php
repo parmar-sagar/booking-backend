@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Models\VehicleInfo;
 use App\Handlers\Error;
@@ -21,10 +20,10 @@ class IncludeController extends Controller
     public function index(){
         $this->outputData = [
             'pageName' => 'Includes',
-            'dataTables' => url('admin/includes/datatable'),
-            'delete' => url('admin/includes/delete'),
-            'create' => url('admin/includes/create'),
-            'edit' => url('admin/includes/edit')
+            'dataTables' => url('admin/vehicles/includes/datatable'),
+            'delete' => url('admin/vehicles/includes/delete'),
+            'create' => url('admin/vehicles/includes/create'),
+            'edit' => url('admin/vehicles/includes/edit')
         ];
         
         return view('admin.pages.include.index',$this->outputData);
@@ -33,7 +32,7 @@ class IncludeController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = VehicleInfo::type(2)->order()->get();
+                $datas = VehicleInfo::include()->order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -58,9 +57,6 @@ class IncludeController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 2;
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-
-                $validated['random_id'] = $snowflake->id();
                 
                 VehicleInfo::create($validated);
     
@@ -68,7 +64,7 @@ class IncludeController extends Controller
             }
             $this->outputData = [
                 'pageName' => 'New Include',
-                'action' => url('admin/includes/store'),
+                'action' => url('admin/vehicles/includes/store'),
             ];
             return view('admin.pages.include.create',$this->outputData);
 
@@ -93,7 +89,6 @@ class IncludeController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['type'] = 2;
                 
                 VehicleInfo::find($validated['id'])->update($validated);
     
@@ -101,7 +96,7 @@ class IncludeController extends Controller
             }
             $this->outputData = [
                 'pageName' => 'Edit Includes',
-                'action' => url('admin/includes/update/'.$id),
+                'action' => url('admin/vehicles/includes/update/'.$id),
                 'objData' => VehicleInfo::findOrFail($id),
             ];
             return view('admin.pages.include.create',$this->outputData);
@@ -113,7 +108,7 @@ class IncludeController extends Controller
 
     public function destroy($id){
         try {
-            $res = VehicleInfo::find($id)->delete();   
+            VehicleInfo::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');
