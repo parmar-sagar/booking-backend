@@ -35,10 +35,10 @@
                 <th>Extra Activities :-</th>
                 </tr>
                 
-                @foreach($cartItems->attributes->extra as $name)
+                @foreach($cartItems->attributes->extra as $key => $val)
                 <tr  style="border-bottom: 1px solid;">
-                  <td>{{$name}}</td>
-                  <td>40 AED</td>
+                  <td>{{$key}}</td>
+                  <td>{{$val}} AED</td>
                 </tr>
                 @endforeach 
                 @endforeach
@@ -77,15 +77,15 @@
                   <tr>
                 <th>Extra Activities :-</th>
                 </tr>
-                @foreach($cartItems->attributes->extra as $name)
+                @foreach($cartItems->attributes->extra as $key => $val)
                 <tr>
                 <tr>
                   <th >Item</th>
-                  <td>{{$name}}</td>
+                  <td>{{$key}}</td>
                   </tr>
                   <tr>
                   <th>Price</th>
-                  <td>40 AED</td>
+                  <td>{{$val}} AED</td>
                   </tr>
                 </tr>
                 </tr >

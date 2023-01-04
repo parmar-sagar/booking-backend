@@ -36,16 +36,22 @@ class CartController extends Controller
         $extraActivity = array();
         $name = array();
         $prices = array();
+        $additional = array();
+        
         if(isset($input['extra_price'])){
         foreach($input['extra_price'] as $key=> $value){
             
            $extraActivity[] = VehicleInfo::where('random_id',$value)->select('title','price')->first()->toArray();
            $name[] = $extraActivity[$key]['title'];
            $prices[] = $extraActivity[$key]['price'];
+           
         }
+        $additional = array_combine($name,$prices);
        }
+  
+        // dd($additional);   
         $sum = 0;
-        foreach($prices as $key=>$value)
+        foreach($additional as $key=>$value)
         {
            $sum+= $value;
         }
@@ -66,8 +72,7 @@ class CartController extends Controller
                 'attributes' => array( 
                     'bookingdate' => $validated['bookingDate'],
                     'subtotal' => $subtotal,
-                    'extra' => $name,
-                    'extra_Price' => $prices,
+                    'extra' => $additional,
                     'total' => $subtotal,
                     'time' =>$time
                 )

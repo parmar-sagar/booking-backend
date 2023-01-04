@@ -64,22 +64,13 @@
              <h1>
              <strong>{{$cartItems->name}}</strong>
              </h1>
-             <!-- <p>Extra Activities :- </p>
-                            <ul> 
-                              @foreach($cartItems->attributes->extra as $name)
-                                <li>{{$name}}</li><br>
-                               @endforeach 
-                            </ul>
-                            <div class="product-details"> -->
-             
              <p>Extra Activities :- </p>
               <div class="row">
-              @foreach($cartItems->attributes->extra as $name)
-                  <div class="col-6">  <h6>{{$name}}</h6></div>
-                @endforeach
-                @foreach($cartItems->attributes->extra_Price as $price)
-                  <div class="col-6">  <h6>{{$price}} AED</h6></div>
-                  @endforeach 
+              @foreach($cartItems->attributes->extra as $key => $val)
+                  <div class="col-6"><h6>{{$key}}</h6></div>
+                  <div class="col-6"><h6>{{$val}}AED</h6></div>
+              @endforeach
+
               </div>
     
              <!-- <p>Product Code - 232321939</p> -->
