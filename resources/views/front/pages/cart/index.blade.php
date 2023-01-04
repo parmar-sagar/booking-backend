@@ -1,5 +1,5 @@
 <x-front.master-layout>
-<div class="container cart " style="margin-bottom:100px;padding-bottom:100px;" id="carts">
+<div class="container cart mb-3 " id="carts">
       @php 
       $cartCollection = Cart::getContent();
       $total = Cart::getSubTotal();
@@ -30,45 +30,66 @@
       </div>
       @else
       
-   <div class="content  mb-20 pb-20">
-     <div class="basket card--shadow-blurple">
-       <div class="basket-labels">
-         <ul>
-           <li class="item item-heading">Item</li>
-           <li class="price">Price</li>
-           <!-- <li class="quantity">Quantity</li> -->
-           <li class="subtotal">Subtotal</li>
-         </ul>
-       </div>
-       @foreach($cartCollection as $cartItems)
-       <div class="basket-product">
-         <div class="item">
+      <div class="content  mb-20 pb-20">
+            <div class="basket card--shadow-blurple">
+                <div class="basket-labels">
+                    <ul>
+                        <li class="item item-heading">Item</li>
+                        <li class="price">Price</li>
+                        <li class="price">Date</li>
+                        <li class="price">Time</li>
+                        <li class="price">Subtotal</li>
+                    </ul>
+                </div>
+                 @php $grandTotal=0; @endphp
+       @foreach($cartCollection as $key => $cartItems)
+       @php $grandTotal += $cartItems->attributes->total;
+       @endphp
+       <div class="basket-product" style="border-top:2px solid black; ">
+         <div class="item" >
            <div class="product-image">
              <img src="https://img.veenaworld.com/wp-content/uploads/2022/02/Dubai-800x530.jpg?imwidth=1080" alt="Placholder Image 2" class="product-frame">
            </div>
-           <div class="product-details">
-             <h1>
-               <strong>
-                 <span class="item-quantity">4</span> x Eliza J </strong> Lace Sleeve Cuff Dress
-             </h1>
-             <p>
-             <strong>{{$cartItems->name}}</strong>
-             </p>
-             <p>Product Code - 232321939</p>
-           </div>
          </div>
-         <div class="price">{{$cartItems->price}}</div>
+         <div class="price"><span class="tag-detail">Price - </span>{{$cartItems->price}} AED</div>
             <!-- <div class="quantity"><input type="number" value="4" min="1" class="quantity-field"></div> -->
-            <div class="subtotal">{{$cartItems->price*$cartItems->quantity}}</div>
+            <div class="price"><span class="tag-detail">Booking Date - </span>{{$cartItems->attributes->bookingdate}}</div>
+            <div class="price"><span class="tag-detail">Time - </span>{{$cartItems->attributes->time}}</div>
+            <div class="price"><span class="tag-detail">Subtotal - </span>{{$cartItems->attributes->subtotal}} AED</div>
             <div class="remove">
                 <a class="remove remove_cart" href="javascript:void(0);" data-id="{{$cartItems->id}}">Remove</a>
             </div>
         </div>
+        <div class="product-details">
+             <h1>
+             <strong>{{$cartItems->name}}</strong>
+             </h1>
+             <!-- <p>Extra Activities :- </p>
+                            <ul> 
+                              @foreach($cartItems->attributes->extra as $name)
+                                <li>{{$name}}</li><br>
+                               @endforeach 
+                            </ul>
+                            <div class="product-details"> -->
+             
+             <p>Extra Activities :- </p>
+              <div class="row">
+              @foreach($cartItems->attributes->extra as $name)
+                  <div class="col-6">  <h6>{{$name}}</h6></div>
+                @endforeach
+                @foreach($cartItems->attributes->extra_Price as $price)
+                  <div class="col-6">  <h6>{{$price}} AED</h6></div>
+                  @endforeach 
+              </div>
+    
+             <!-- <p>Product Code - 232321939</p> -->
+           </div>
         @endforeach
      </div>
      <br>
      <br>
    </div>
+   <div class="col-lg-4 col-sm-12 col-md-6 cart-payment">
    <aside>
      <div class="summary card--shadow-orangeBlood" style="margin-bottom:50px;padding-bottom:50px;">
        <div class="summary-total-items">
@@ -76,12 +97,12 @@
        </div>
        <div class="summary-subtotal">
          <div class="subtotal-title">Subtotal</div>
-         <div class="subtotal-value final-value" id="basket-subtotal">{{$total}}</div>
+         <div class="subtotal-value final-value" id="basket-subtotal">{{$grandTotal}} AED</div>
          <br>
          <br>
          <div class="summary-total">
            <div class="total-title">Total</div>
-           <div class="total-value final-value" id="basket-total">{{$total}}</div>
+         <div class="subtotal-value final-value grandCoupon" id="basket-subtotal">{{$grandTotal}} AED</div>
          </div>
        </div>
      </div>
@@ -89,6 +110,7 @@
      <br>
      <br>
    </aside>
+</div>
    @endif
  </div> 
 </x-front.master-layout>

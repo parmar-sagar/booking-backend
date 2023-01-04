@@ -10,7 +10,7 @@
                <use xlink:href="fonts/icons.svg#icon-wave-squiggle"></use>
              </svg>
            </div>
-           <div class="content mt-10em"> Gateway Tours is the gateway to all the tours in Middle East. We specialize in bringing you the most effective, customer oriented hospitality solutions catering for all your holiday destinations and events throughout UAE. We bring you the latest tourism adventures and sightseeing attractions including various water sports, desert adventures with entertainment, dhow cruises and many more. </div>
+           <div class="content mt-10em"> Quads Tours is the gateway to all the tours in Middle East. We specialize in bringing you the most effective, customer oriented hospitality solutions catering for all your holiday destinations and events throughout UAE. We bring you the latest tourism adventures and sightseeing attractions including various water sports, desert adventures with entertainment, dhow cruises and many more. </div>
          </div>
        </div>
      </header>
@@ -325,9 +325,9 @@
                </div>
              </div>
            </div>
-           <p class="text-center">
+           <p class="text-center pb-5">
              <button type="button" class="btn btn--orange" onclick="javascript:App.loadMore({obj: this, target: '.js-load-more-container', url: 'https://www.backpackingtours.com/reviews?category=&amp;page=2'});"> Load more </button>
-             <a href="https://www.facebook.com/pg/backpackingtours/reviews/" class="btn btn--black" title="See All Facebook Reviews"> See All Facebook Reviews </a>
+             {{-- <a href="https://www.facebook.com/pg/backpackingtours/reviews/" class="btn btn--black" title="See All Facebook Reviews"> See All Facebook Reviews </a> --}}
            </p>
          </div>
        </div>

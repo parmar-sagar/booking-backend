@@ -4,13 +4,13 @@
           <div class="row row--g-10">
             <div class="col-12 col-lg-7 col-xl-7 col-xxl-5 offset-xxl-1">
                 <header>
-                    <div class="headline-wave animation-fadeInLeft">
+                    <div class="headline-wave">
                         <h1 class="headline-2">{{$singlePrdct->name}}</h1> <svg width="100px" height="16px"
                             class="stroke-blurple">
                             <use xlink:href="images/icons.svg#icon-wave-squiggle"></use>
                         </svg>
                     </div>
-                    <div class="content mt-10em animation-fadeInLeft animation-delay-1">
+                    <div class="content mt-10em">
                         <p>{{$singlePrdct->description}}</p>
                     </div>
                 </header>
@@ -154,10 +154,11 @@
                             height="16px" class="stroke-blurple">
                             <use xlink:href="images/icons.svg#icon-wave-squiggle" />
                         </svg>
+                        <h3 style="color:yellow">@if(isset($dealsDiscount)){{$dealsDiscount}}% Off @endif</h3>
                     </div>
                     <ul class="list-icon list-icon--tick list-1-cols list-mobile-limit js-limit-list">
                         @foreach($price as $prices)
-                        <li>{{$prices->time}} Mins Ride : {{$prices->amount}} AED</li>
+                        <li>{{$prices->time}} Mins Ride :@if(isset($dealsDiscount))<del style="color:red">{{$prices->amount}} AED</del> @endif @if(isset($dealsDiscount)) {{$prices->amount - ($prices->amount * ($dealsDiscount / 100))}}@endif AED</li>
                         @endforeach
                         @if(isset($safariPrice))
                         <li>{{$safariPrice->amount}} AED</li>
@@ -1473,51 +1474,51 @@
           </section>
           {{-- <p class="text-center"> <a class="btn btn--black" href="/book-a-Duen buggy tours-tour?country=Vietnam"> View More </a> </p> --}}
         </div>
-      
      <div class="section" id="sect">
+     <form method="POST" id="cartItems">
+       @csrf
+       <input type="hidden" name="id" value="{{$singlePrdct->random_id}}">
           <div class="row row--g-10">
-            <div class="col-12 col-lg-7 col-xl-7 col-xxl-5 offset-xxl-1 col-sm-12" style="height: 550px;"
+            <div class="col-12 col-lg-6 col-xxl-5 col-xl-5  col-sm-12" 
               data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769"
               data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1">
               <!-- <div mbsc-page class="demo-date-time-picker"> -->
                 <!-- <div style="height:100%;padding:20px 5px;" class="card--shadow-purple"> -->
-                  <div class="date-picker ">
-                  <div class="selected-date card--shadow-purple"></div>
-                  <br>
-                  <br>
-                    <div class="dates card--shadow-orange">
+                    <div class="dates picker card--shadow-orange">
                       <!-- calander -->
-                      <input type="text" id="datetimepicker12"/>
+                      <div id="container" style="margin: 10px 0 15px 0; height: 255px; position: relative"></div>
+
+                      <div class="well">
+                            <div class="row">
+                            <div class="col-sm-6">
+                              <label>Date</label>
+                            <input id="datepicker" type="text" name="bookingDate" class="form-control filled" data-zdp_readonly_element="false"></div>
+                            @if($tourType != 'Safari')
+                            <div class="col-sm-6">
+                              <label>Time</label>
+                            <input id="slctAvTime" type="text" name="time" class="form-control filled" value="">
+                            </div>
+                              <div class="col-sm-12 pt-2">
+                                <h3 style="text-align:center;"> Time  </h3>
+                                <div style="overflow-x:auto;">
+                                <table id="times">
+                                  <tbody>
+                                    <tr>
+                                    @foreach($avTime as $times) 
+                                    <td value="{{$times['text']}}">{{$times['text']}}</th>
+                                    @endforeach
+                                  </tr>
+                                </tbody>
+                              </table>
+                              </div>
+                              </div>
+                              @endif
+                          </div>
+                      </div>
                       <!-- end -->
                      </div>
-                      <div class="days"></div>
-                      <h1 class="text-center">Time</h1>
-                     <div class="row">
-                     
-                      <div class="col">
-                       <p>10:00</p>
-                      </div>
-                      <div class="col">
-                        <p>11:00</p>
-                      </div>
-                      <div class="col">
-                        <p>12:00</p>
-                      </div>
-                      <div class="col">
-                        <p>1:00</p>
-                      </div>
-                      <div class="col">
-                        <p>2:00</p>
-                      </div>
-                     </div>
                     </div>
-
-
-                  <!-- </div> -->
-                <!-- </div> -->
-              </div>
-            </div>
-            <div class="col-12 col-lg-7 col-xl-7 col-xxl-5 col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769"
+            <div class="col-12 col-lg-6 col-xl-7 col-xxl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769"
               data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100"
               data-gtm-vis-has-fired-30257650_40="1">
               <div class="mb-30em animated fadeInUp active " id="duration">
@@ -1536,76 +1537,121 @@
                     <div class="content mt-10em mb-10em">
                       <p>{{$singlePrdct->description}}</p>
                     </div>
+                    @if($tourType == 'Safari')
+                    <div>
+                      <h5>Ammount</h5>
+                      @if(isset($safariPrice))
+                        <p  >{{$safariPrice->amount}} AED</p>
+                        <input type="hidden"  name ="timeSelect" value="{{$safariPrice->amount}}">
+                      @endif
+                    </div>
+                    <div class="mt-2">
+                      <h5>PickUp Time</h5>
+                      @if(isset($singlePrdct->pickup_time))
+                        <p  value="{{$singlePrdct->pickup_time}}">{{$singlePrdct->pickup_time}}</p>
+                        <input type="hidden" value="{{$singlePrdct->pickup_time}}" name="time">
+                      @endif
+                    </div>
+                    @endif
+                    @if($tourType != 'Safari')
                     <table class="list-tour-info list-tour-info--two-cols">
                     <tr>
                         <th>Duration</th>
                         <th>Amount</th>
                     </tr>
                       <tr>
-                        <td>
+                        <td style="width: 181px;">
                           <div class="form__row">
                             <div class="form__row__left">
                               <div class="form__group"> 
-                                <select name="gender" class="select select--blank" id="gender" required="" sb="5212269" style="display: none;">
+                                <select name="timeSelect" class="" id="timeSelect">
                                   @foreach($price as $prices)  
-                                  <option value="03">{{$prices->time}} Min</option>
+                                  <option value="@if(isset($dealsDiscount)) {{$prices->amount - ($prices->amount * ($dealsDiscount / 100))}}@else{{$prices->amount}}@endif">{{$prices->time}} Min</option>
                                   @endforeach
                                 </select>
                               </div>
                             </div>
                           </div>
                         </td>
-                        <td> $230</td>
+                        <td name="priceGet" value="" id="slctPrice"></td>
                       </tr>
                     </table>
+                    @endif
                     </li>
                     </ul>
                     </table>
+                    
                     <h1 style="font-size: 1.75rem">  Extra Activities</h1>
                     <table>
                         @foreach($extraActivity as $extraActivitys)
                       <tr>
-                        <td><strong class="mb-20em">{{$extraActivitys->title}}</strong></td>
+                        <td><strong class="mb-20em" name="etraname">{{$extraActivitys->title}}</strong></td>
                         <td><label class="switch">
-                          <input type="checkbox" class="filled">
+                          <input type="checkbox" name="extra_price[]" value="{{$extraActivitys->random_id}}" class="filled">
                           <span class="slider round"></span>
                       </label></td>
                       <td><strong class="mb-20em">{{$extraActivitys->price}} AED</strong></td>
                       </tr>   
                       @endforeach                
                     </table>
-                    <a class="btn btn--purple add_cart" href="javascript:void(0);" data-id="{{$singlePrdct->random_id}}" title="add-to-cart"> Book Now </a>
+                    <!-- <a class="btn btn--purple add_cart" href="javascript:void(0);" data-id="{{$singlePrdct->random_id}}" title="add-to-cart"> Book Now </a> -->
+                    <x-primary-button class="ml-4 btn btn-primary profile-button btn--purple" >
+                      {{ __('Book Now') }}
+                    </x-primary-button>
                   </div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
-  </main>
+  </main> 
 </x-front.master-layout> 
  <script>
     $(document).ready(function() {
-      
-        $(document).on('click', '.add_cart', function() {
-        let id = $(this).data('id');
-            $.ajax({
-                url: "add-to-cart/"+ id,  
-                success: function (response) {
-                if((response.error)){
-                  toastr.error(response.error);
-                }else{
-                  $("#my_cart").load(window.location + " #my_cart");
-                  toastr.success(response.success); 
-                }
-                },
-                error: function (data) {
-                console.log('Error:', data);
-                }
-            });
+        $(document).on('submit','#cartItems',function(e){
+          // alert(jhj);
+        e.preventDefault();
+        $.ajax({
+            type: $(this).prop('method'),
+            url: "{{ url('add-to-cart') }}",
+            data:new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (response) {
+            window.location.href = "{{URL::to('cart')}}"
+              toastr.success(response.success); 
+              },
+              error: function (response){
+              var text = JSON.parse(response.responseText)
+              toastr.error(text.message);
+            }
         });
+        toastr.options = {
+        positionClass: 'toast-top-center'
+    };
+    });
+// time select
+      var prc = $('#timeSelect').val();
+      $('#slctPrice').html(prc);
+        $(document).on('change','#timeSelect', function(){
+          var price = $(this).val();
+          $('#slctPrice').text(price);
+        })
+
+        $('#times').click(function(e) { 
+          var time = $(e.target).text();
+          $('#slctAvTime').val(time);
+        })
+
+    $('#datepicker').Zebra_DatePicker({
+         direction: true,
+        always_visible: $('#container')
         
     });
-// calander
+// end
+});
 
       
 </script>

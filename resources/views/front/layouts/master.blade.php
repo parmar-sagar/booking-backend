@@ -13,11 +13,13 @@
     />
 
     <link rel="icon" href="favicon.ico" />
-    {{-- <link rel="manifest" href="{{asset ('assets/front/manifest.json')}}" /> --}}
+    <!-- <link rel="manifest" href="{{asset ('assets/front/manifest.json')}}" />  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset ('assets/front/styles/mainbcf3.css?v=IJr3UOaPYY')}}" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+
+    <link rel="stylesheet" href="{{asset ('assets/dist/css/default/zebra_datepicker.min.css')}}" type="text/css">
    
     <link
       rel="preload"
@@ -58,16 +60,23 @@
  @include('front.partials.footer')
  <!-- ========== Footer End ========== -->
 
-    <script src="{{asset ('assets/front/scripts/vendor7369.js?v=m0Wgcip88r')}}"></script>
-    {{-- <script src="{{asset ('assets/front/scripts/app5a78.js?v=WpWqOtpeFX')}}"></script> --}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  
+
+    <!-- {{-- <script src="{{asset ('assets/front/scripts/app5a78.js?v=WpWqOtpeFX')}}"></script> --}} -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-  {{-- <script src="{{asset ('assets/front/js/vendor.js')}}"></script> --}}
+
+  <!-- {{-- <script src="{{asset ('assets/front/js/vendor.js')}}"></script> --}} -->
   <script src="{{asset ('assets/front/js/app.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
+
+ 
+  <script src="{{asset ('assets/dist/zebra_datepicker.min.js')}}"></script>
+  <script src="{{asset ('assets/examples/examples.js')}}"></script>
+ 
     <link
       href="https://fonts.googleapis.com/css?family=Just+Another+Hand&amp;display=swap"
       rel="stylesheet"

@@ -100,7 +100,8 @@ class HomeController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:users',
-                    'name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
+                    'first_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
+                    'last_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
                     'email' => 'required|max:100|email:rfc,dns|unique:users,email,'.$Input['id'],
                 ]);
     
@@ -147,4 +148,5 @@ class HomeController extends Controller
             return Error::Handle($e, self::ControllerCode, '03');
         }
     }
+
 }
