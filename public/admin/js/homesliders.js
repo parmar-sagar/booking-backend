@@ -23,7 +23,6 @@ $(document).ready(function() {
                         return meta.row+1;
                     }
                 },
-                {data: 'sequence', name: 'sequence'},
                 {data: 'type', name:'type',
                     "render": function ( data, type, row, meta ) {
                         var status = {

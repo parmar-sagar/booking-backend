@@ -10,10 +10,18 @@ class Slider extends Model
     use HasFactory;
 
     protected $fillable = [
-        'image','video','link','title','status','sort','random_id'
+        'type','image_video','link','status','sequence'
     ];
 
     protected $hidden = [
         'created_at','updated_at',
     ];
+
+    public function ScopeOrder($query){
+        return $query->orderBy('sequence','ASC');
+    }
+
+    public function ScopeActive($query, $type){
+        return $query->where('status', 1);
+    }
 }

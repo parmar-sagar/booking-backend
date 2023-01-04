@@ -21,7 +21,7 @@ return new class extends Migration
             $table->longText('description');
             $table->string('image', 50);
             $table->enum('type', ['0','1'])->default(0)->comment('0 => flat , 1 => percentage');
-            $table->decimal('amount', ['10','2']);
+            $table->decimal('amount', '10','2');
             $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active')->index('idx_status');
             $table->datetime('expiry_date');
             $table->softDeletes();
