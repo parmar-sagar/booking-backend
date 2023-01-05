@@ -38,6 +38,7 @@
                         <li class="price">Price</li>
                         <li class="price">Date</li>
                         <li class="price">Time</li>
+                        <li class="price">Quantity</li>
                         <li class="price">Subtotal</li>
                     </ul>
                 </div>
@@ -50,36 +51,35 @@
            <div class="product-image">
              <img src="https://img.veenaworld.com/wp-content/uploads/2022/02/Dubai-800x530.jpg?imwidth=1080" alt="Placholder Image 2" class="product-frame">
            </div>
+           <div class="productName">
+           <h1>
+             <strong>{{$cartItems->name}}</strong>
+            </h1>
+           </div>
          </div>
          <div class="price"><span class="tag-detail">Price - </span>{{$cartItems->price}} AED</div>
-            <!-- <div class="quantity"><input type="number" value="4" min="1" class="quantity-field"></div> -->
             <div class="price"><span class="tag-detail">Booking Date - </span>{{$cartItems->attributes->bookingdate}}</div>
             <div class="price"><span class="tag-detail">Time - </span>{{$cartItems->attributes->time}}</div>
+            <div class="quantity"><span class="tag-detail">Quantity - </span>{{$cartItems->quantity}}</div>
             <div class="price"><span class="tag-detail">Subtotal - </span>{{$cartItems->attributes->subtotal}} AED</div>
+            <div class="remove-edit">
             <div class="remove">
                 <a class="remove remove_cart" href="javascript:void(0);" data-id="{{$cartItems->id}}">Remove</a>
             </div>
+            <a class="" href="{{$cartItems->id}}" data-id="">Edit</a>
+            {{-- <div class="edit-product">
+                <a class="edit-product edit_cart" href="javascript:void(0);" data-id="{{$cartItems->id}}">Edit</a>
+            </div> --}}
+            </div>
         </div>
         <div class="product-details">
-             <h1>
-             <strong>{{$cartItems->name}}</strong>
-             </h1>
-             <!-- <p>Extra Activities :- </p>
-                            <ul> 
-                              @foreach($cartItems->attributes->extra as $name)
-                                <li>{{$name}}</li><br>
-                               @endforeach 
-                            </ul>
-                            <div class="product-details"> -->
-             
              <p>Extra Activities :- </p>
               <div class="row">
-              @foreach($cartItems->attributes->extra as $name)
-                  <div class="col-6">  <h6>{{$name}}</h6></div>
-                @endforeach
-                @foreach($cartItems->attributes->extra_Price as $price)
-                  <div class="col-6">  <h6>{{$price}} AED</h6></div>
-                  @endforeach 
+              @foreach($cartItems->attributes->extra as $key => $val)
+                  <div class="col-6"><h6>{{$key}}</h6></div>
+                  <div class="col-6"><h6>{{$val}}AED</h6></div>
+              @endforeach
+
               </div>
     
              <!-- <p>Product Code - 232321939</p> -->

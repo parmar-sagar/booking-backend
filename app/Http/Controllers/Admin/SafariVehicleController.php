@@ -173,7 +173,7 @@ class SafariVehicleController extends Controller
                 $validated['banner_img'] = Helper::uploadFile( $request->banner_img, $path );
             }
                 Vehicle::find($validated['id'])->update($validated);
-                SafariPrice::where('tour_id',$validated['tour_id'])->update([
+                SafariPrice::where('vehicle_id',$validated['id'])->update([
                     'amount' => $validated['amount'],
                     'vehicle_id' => $validated['id'],
                     'tour_id' => $validated['tour_id'],

@@ -27,18 +27,18 @@
                   <td>{{$cartItems->price}} AED</td>
                   <td>{{$cartItems->attributes->bookingdate}}</td>
                   <td>{{$cartItems->attributes->time}}</td>
-                  <td>1</td>
-                  <td>{{$cartItems->attributes->subtotal}}</td>
+                  <td>{{$cartItems->quantity}}</td>
+                  <td>{{$cartItems->attributes->subtotal}} AED</td>
                 </tr>
 
                 <tr>
                 <th>Extra Activities :-</th>
                 </tr>
                 
-                @foreach($cartItems->attributes->extra as $name)
+                @foreach($cartItems->attributes->extra as $key => $val)
                 <tr  style="border-bottom: 1px solid;">
-                  <td>{{$name}}</td>
-                  <td>40 AED</td>
+                  <td>{{$key}}</td>
+                  <td>{{$val}} AED</td>
                 </tr>
                 @endforeach 
                 @endforeach
@@ -68,7 +68,8 @@
                   <td>{{$cartItems->attributes->time}}</td>
                   </tr>
                   <tr>
-                  <th>Qnty</th>
+                  <th>Quantity</th>
+                  <td>{{$cartItems->quantity}}</td>
                   </tr>
                   <tr>
                   <th>Subtotal</th>
@@ -77,15 +78,15 @@
                   <tr>
                 <th>Extra Activities :-</th>
                 </tr>
-                @foreach($cartItems->attributes->extra as $name)
+                @foreach($cartItems->attributes->extra as $key => $val)
                 <tr>
                 <tr>
                   <th >Item</th>
-                  <td>{{$name}}</td>
+                  <td>{{$key}}</td>
                   </tr>
                   <tr>
                   <th>Price</th>
-                  <td>40 AED</td>
+                  <td>{{$val}} AED</td>
                   </tr>
                 </tr>
                 </tr >
@@ -113,7 +114,7 @@
           </div>
           <div class="summary-subtotal">
           <div class="subtotal-title">Subtotal</div>
-            <div class="subtotal-value final-value" id="basket-subtotal">{{$grandTotal}}</div>
+            <div class="subtotal-value final-value" id="basket-subtotal">{{$grandTotal}} AED</div>
             <br>
             <br>
             <form id="submit-form" method="POST" autocomplete="off" enctype="multipart/form-data">
@@ -128,9 +129,25 @@
                   </div>
               </div>
           </form>
+          <div id="couponTable" style="display: none;">
+          <table class="responsive-large-tabU">
+                <tr>
+                  <th>Subtotal</th>
+                  <td>{{$grandTotal}} AED</td>
+                </tr>
+                <tr>
+                  <th>Coupon Discount</th>
+                  <td id="discount"></td>
+                <tr>
+                <tr>
+                  <th>Total</th>
+                  <td class="grandCoupon"></td>
+                <tr>
+          </table>
+          </div>
             <div class="summary-total">
               <div class="total-title">Total</div>
-              <div class="total-value final-value grandCoupon" id="basket-total">{{$grandTotal}}</div>
+              <div class="total-value final-value grandCoupon" id="basket-total">{{$grandTotal}} AED</div>
             </div>
           </div>
         </div>
@@ -292,10 +309,12 @@ $(document).ready(function(){
                 if(type == 0){
                   var totalamt = "{{$grandTotal}}" - coupondiscount;
                 }
-
+                  var discount = totalamt - grandtotal;
                 $('.apBtn').text('Applied');
                 $('.apBtn').css('background','#0fba68');
-                $('.grandCoupon').text(totalamt);
+                $('.grandCoupon').text(totalamt +'  '+'AED');
+                $('#discount').text(discount +'  '+'AED');
+                $('#couponTable').show();
                 toastr.success(response.success);
                 }
             },error: function (error){

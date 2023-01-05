@@ -33,7 +33,9 @@ class Vehicle extends Model
         'tour_itenary',
         'additional_info_ids',
         'pickup_time',
-        'dropoff_time'
+        'dropoff_time',
+        'quantity',
+        'available_quantity'
     ];
 
     protected $hidden = [

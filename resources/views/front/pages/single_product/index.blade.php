@@ -1473,6 +1473,7 @@
             </div>
           </section>
           {{-- <p class="text-center"> <a class="btn btn--black" href="/book-a-Duen buggy tours-tour?country=Vietnam"> View More </a> </p> --}}
+          
         </div>
      <div class="section" id="sect">
      <form method="POST" id="cartItems">
@@ -1490,16 +1491,8 @@
 
                       <div class="well">
                             <div class="row">
-                            <div class="col-sm-6">
-                              <label>Date</label>
-                            <input id="datepicker" type="text" name="bookingDate" class="form-control filled" data-zdp_readonly_element="false"></div>
-                            @if($tourType != 'Safari')
-                            <div class="col-sm-6">
-                              <label>Time</label>
-                            <input id="slctAvTime" type="text" name="time" class="form-control filled" value="">
-                            </div>
-                              <div class="col-sm-12 pt-2">
-                                <h3 style="text-align:center;"> Time  </h3>
+                             <div class="col-sm-12 pt-2">
+                                <h3 style="text-align:center;"> Available Slots  </h3>
                                 <div style="overflow-x:auto;">
                                 <table id="times">
                                   <tbody>
@@ -1512,6 +1505,14 @@
                               </table>
                               </div>
                               </div>
+                            <div class="col-sm-6">
+                              <label>Date</label>
+                            <input id="datepicker" type="text" name="bookingDate" class="form-control filled" data-zdp_readonly_element="false"></div>
+                            @if($tourType != 'Safari')
+                            <div class="col-sm-6">
+                              <label>Time</label>
+                            <input id="slctAvTime" type="text" name="time" class="form-control filled" value="">
+                            </div>
                               @endif
                           </div>
                       </div>
@@ -1558,13 +1559,15 @@
                     <tr>
                         <th>Duration</th>
                         <th>Amount</th>
+                        <th>Quantity</th>
+                        <th>Total Amount</th>
                     </tr>
                       <tr>
-                        <td style="width: 181px;">
+                        <td style="width:25%;">
                           <div class="form__row">
                             <div class="form__row__left">
                               <div class="form__group"> 
-                                <select name="timeSelect" class="" id="timeSelect">
+                                <select class="" id="timeSelect">
                                   @foreach($price as $prices)  
                                   <option value="@if(isset($dealsDiscount)) {{$prices->amount - ($prices->amount * ($dealsDiscount / 100))}}@else{{$prices->amount}}@endif">{{$prices->time}} Min</option>
                                   @endforeach
@@ -1573,7 +1576,13 @@
                             </div>
                           </div>
                         </td>
-                        <td name="priceGet" value="" id="slctPrice"></td>
+                        <td id="slctPrice" style="width:25%"></td>
+                        <td class="qntityBtn" style="width:25%">
+                        <button type="button" id="sub" class="sub">-</button>
+                        <input style="width:40px" name="qnty" class="qntyPrce"type="number" id="1" value="1" min="1" max="10" />
+                        <button type="button" id="add" class="add">+</button>
+                        </td>
+                        <td style="width:25%"><input name="totalPrice" value="" id="totaltourAmt" readonly></td>
                       </tr>
                     </table>
                     @endif
@@ -1590,7 +1599,12 @@
                           <input type="checkbox" name="extra_price[]" value="{{$extraActivitys->random_id}}" class="filled">
                           <span class="slider round"></span>
                       </label></td>
-                      <td><strong class="mb-20em">{{$extraActivitys->price}} AED</strong></td>
+                      <td id="extraAcPrice"><strong class="mb-20em">{{$extraActivitys->price}} AED</strong></td>
+                      {{-- <td><button type="button" id="sub" class="sub">-</button>
+                        <input style="width:40px" class="qntyPrce"type="number" id="1" value="1" min="1" max="10" />
+                        <button type="button" id="add" class="add">+</button>
+                        </td>
+                        <td name="priceGet" value="" id="totaltourAmt">40</td> --}}
                       </tr>   
                       @endforeach                
                     </table>
@@ -1638,6 +1652,7 @@
         $(document).on('change','#timeSelect', function(){
           var price = $(this).val();
           $('#slctPrice').text(price);
+          $('#totaltourAmt').val(price);
         })
 
         $('#times').click(function(e) { 
@@ -1651,6 +1666,43 @@
         
     });
 // end
+//add subtract qntity
+  $('.add').click(function () {
+    var val ="{{$singlePrdct->available_quantity}}";
+      if ($(this).prev().val() < val) {
+        $(this).prev().val(+$(this).prev().val() + 1);
+      }
+  });
+  $('.sub').click(function () {
+      if ($(this).next().val() > 1) {
+        if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
+      }
+  });
+//end
+
+//amount with quntity
+    var prc = $('#timeSelect').val();
+    $('#totaltourAmt').val(prc);
+$(document).on('click','.add',function(e){
+        e.preventDefault();
+     var qntity = $('.qntyPrce').val();
+     var curentPrice = $('#slctPrice').text();
+     var price = curentPrice * qntity;
+     $('#totaltourAmt').val(price);  
+})
+$(document).on('click','.sub',function(e){
+        e.preventDefault();
+     var qntity = $('.qntyPrce').val();
+     var curentPrice = $('#slctPrice').text();
+     var price = curentPrice * qntity;
+     $('#totaltourAmt').val(price);  
+})
+
+
+
+//end
+
+
 });
 
       

@@ -25543,7 +25543,7 @@ button:focus {
 }
 
 .cart .remove {
-  bottom: 1.125rem;
+  bottom: 0px !important; 
   float: right;
   position: absolute;
   right: 0;
@@ -25727,10 +25727,10 @@ button:focus {
   .cart .subtotal {
     width: 33%;
   }
-  .cart .quantity {
+  /* .cart .quantity {
     text-align: center;
     width: 34%;
-  }
+  } */
   .cart .quantity-field {
     float: none;
   }
@@ -26893,10 +26893,10 @@ input:checked+.slider:before {
 #times td {
     cursor: pointer;
 }
-#times td:active {
+/* #times td:active {
     border: 2px solid #b5b5b5;
     box-shadow: 4px 4px 20px 2px #878787;
-}
+} */
 div#carts {
     padding: 70px 0px;
 }
@@ -26929,6 +26929,27 @@ button.btn.btn-primary.btn-apply.coupon::after {
 }
 .cart-item .basket.card--shadow-blurple {
     width: 96%;
+}
+table.list-tour-info.list-tour-info--two-cols {
+    display: initial !important;
+}
+.qntityBtn button {
+    margin: 0px;
+    padding: 6px 14px;
+    font-size: 16px;
+}
+input#totaltourAmt {
+    border: none !important;
+    text-align: center;
+}
+#times td:active {
+    background-color: #6d4aff;
+    color: #fff;
+    border-radius: 22px;
+    text-align: center;
+}
+  .productName h1 {
+    font-size: 18px;
 }
 @media(min-width:1025px){
     div#container {
@@ -27045,6 +27066,13 @@ button.btn.btn-primary.btn-apply.coupon::after {
     span.tag-detail {
         font-weight: 600;
     }
+    .productName {
+        padding-top: 72%;
+    }
+    .cart .quantity {
+        text-align: left;
+        width: 100%;
+      }
     /* .dp_daypicker.dp_body tr td {
         padding: 8px !important;
         min-width: 0px !important;
@@ -27074,6 +27102,15 @@ button.btn.btn-primary.btn-apply.coupon::after {
         }
         table.responsive-mobileU {
             display: none;
+        }
+        .cart .product-image {
+            width: 100% !important;
+        }
+        .product-image img.product-frame {
+            width: 50%;
+        }
+        .cart .item {
+            width: 25% !important;
         }
     }
     @media (max-width: 320px) {
