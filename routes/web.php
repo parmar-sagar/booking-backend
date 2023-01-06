@@ -30,6 +30,7 @@ use App\Http\Controllers\SingleProductController;
 use App\Http\Controllers\AlltoursController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -324,7 +325,8 @@ Route::group([
     Route::post('update-password',[HomeController::class, 'updatePassword']);
     Route::get('checkout',[HomeController::class, 'checkout']);
     Route::get('term-and-conditions',[HomeController::class, 'termsConditions']);
-    Route::get('reviews',[HomeController::class, 'reviews']); 
+    Route::get('reviews',[HomeController::class, 'reviews']);
+    Route::get('gallary/{id}',[HomeController::class, 'gallary']); 
 
     Route::prefix('view-detail')->group(function() {
         Route::get('/{id}', [SingleProductController::class, 'index']);
@@ -342,9 +344,11 @@ Route::group([
     Route::get('/delete-cart/{id}',[CartController::class, 'delete']);
     Route::post('apply-coupon',[CartController::class, 'applyCoupon']);
 
-
     // contact us
     // Route::get('/delete-cart/{id}',[CartController::class, 'delete']);
 
     // contact page
     Route::get('/contact-us',[ContactController::class, 'index']);
+
+    //payment 
+    Route::post('/payment',[PaymentController::class, 'payment']);

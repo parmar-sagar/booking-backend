@@ -40,6 +40,7 @@
                         <li class="price">Time</li>
                         <li class="price">Quantity</li>
                         <li class="price">Subtotal</li>
+                        <li class="price">Action</li>
                     </ul>
                 </div>
                  @php $grandTotal=0; @endphp
@@ -57,20 +58,44 @@
             </h1>
            </div>
          </div>
-         <div class="price"><span class="tag-detail">Price - </span>{{$cartItems->price}} AED</div>
-            <div class="price"><span class="tag-detail">Booking Date - </span>{{$cartItems->attributes->bookingdate}}</div>
-            <div class="price"><span class="tag-detail">Time - </span>{{$cartItems->attributes->time}}</div>
-            <div class="quantity"><span class="tag-detail">Quantity - </span>{{$cartItems->quantity}}</div>
-            <div class="price"><span class="tag-detail">Subtotal - </span>{{$cartItems->attributes->subtotal}} AED</div>
-            <div class="remove-edit">
-            <div class="remove">
+         <div class="product-tag-details-D">
+         <div class="price"><span class="tag-detail1"></span>{{$cartItems->price}} AED</div>
+            <div class="price"><span class="tag-detail1"></span>{{$cartItems->attributes->bookingdate}}</div>
+            <div class="price"><span class="tag-detail1"></span>{{$cartItems->attributes->time}}</div>
+            <div class="quantity"><span class="tag-detail1"></span>{{$cartItems->quantity}}</div>
+            <div class="price"><span class="tag-detail1"></span>{{$cartItems->attributes->subtotal}} AED</div>
+            <div class="price" style="display: flex;"><span class="tag-detail1">
+            <a class="" href="{{url('view-detail/'.$cartItems->id)}}">
+              <i class="fa-sharp fa-solid fa-pen-to-square">
+              </i>
+              </a>
+              <a class="remove remove_cart" href="javascript:void(0);" data-id="{{$cartItems->id}}"><i class="fa-solid fa-trash"></i>
+              </a>
+            </span>
+          </div>
+          </div>
+           <div class="product-tag-details-M">
+              <div class="price"><span class="tag-detail">Price - </span>{{$cartItems->price}} AED</div>
+              <div class="price"><span class="tag-detail">Booking Date - </span>{{$cartItems->attributes->bookingdate}}</div>
+              <div class="price"><span class="tag-detail">Time - </span>{{$cartItems->attributes->time}}</div>
+              <div class="quantity"><span class="tag-detail">Quantity - </span>{{$cartItems->quantity}}</div>
+              <div class="price"><span class="tag-detail">Subtotal - </span>{{$cartItems->attributes->subtotal}} AED</div>
+              <div class="price"><span class="tag-detail">Action -<a class="" href="{{url('view-detail/'.$cartItems->id)}}">
+              <i class="fa-sharp fa-solid fa-pen-to-square">
+              </i>
+              </a>
+              <a class="remove remove_cart" href="javascript:void(0);" data-id="{{$cartItems->id}}"><i class="fa-solid fa-trash"></i>
+              </a></span></div>
+           </div>
+            <!-- <div class="remove-edit"> -->
+            <!-- <div class="remove">
                 <a class="remove remove_cart" href="javascript:void(0);" data-id="{{$cartItems->id}}">Remove</a>
-            </div>
-            <a class="" href="{{$cartItems->id}}" data-id="">Edit</a>
-            {{-- <div class="edit-product">
+            </div> -->
+            <!-- <a class="" href="{{$cartItems->id}}" data-id="">Edit</a> -->
+            <!-- <div class="edit-product">
                 <a class="edit-product edit_cart" href="javascript:void(0);" data-id="{{$cartItems->id}}">Edit</a>
-            </div> --}}
-            </div>
+            </div>  -->
+            <!-- </div> -->
         </div>
         <div class="product-details">
              <p>Extra Activities :- </p>
@@ -106,7 +131,7 @@
          </div>
        </div>
      </div>
-     <a class="btn btn--purple mt-0" href="{{url('checkout')}}"> Proceed to payment </a>
+     <a class="btn btn--purple mt-0" href="{{url('checkout')}}"> Proceed to Checkout </a>
      <br>
      <br>
    </aside>

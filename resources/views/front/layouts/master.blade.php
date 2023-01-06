@@ -15,7 +15,7 @@
     <link rel="icon" href="favicon.ico" />
     <!-- <link rel="manifest" href="{{asset ('assets/front/manifest.json')}}" />  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset ('assets/front/styles/mainbcf3.css?v=IJr3UOaPYY')}}" />
+    <link rel="stylesheet" href="{{asset ('assets/front/styles/style.css')}}" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
 

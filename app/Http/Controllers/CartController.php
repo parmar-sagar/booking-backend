@@ -60,11 +60,10 @@ class CartController extends Controller
           $time = $input['time'];
         }
         $Product = Vehicle::where('random_id',$input['id'])->first();
-        $snowflake = new \Godruoyi\Snowflake\Snowflake;
-        $rowId = $snowflake->id();
+        \Cart::remove($input['id']);
         // add the product to cart
             \Cart::add(array(
-                'id' => $rowId,
+                'id' => $input['id'],
                 'name' => $Product->name,
                 'price' => $input['totalPrice'],
                 'quantity' => $input['qnty'],
