@@ -29,6 +29,8 @@ return new class extends Migration
             $table->string('banner_img', 100);
             $table->string('image', 100);
             $table->integer('no_of_persons');
+            $table->integer('quantity');
+            $table->integer('available_quantity');
             $table->integer('sequence')->default(0);
             $table->longText('tour_itenary');
             $table->string('pickup_time', 100)->nullable();

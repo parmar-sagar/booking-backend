@@ -17873,7 +17873,8 @@ a.card .headline-wave svg {
     width: 100%;
     -webkit-align-items: center;
     -ms-flex-align: center;
-    align-items: center
+    align-items: center;
+    justify-content: center;
 }
 
 @media (min-width:992px) {
@@ -18183,7 +18184,7 @@ screen and (min-width:992px)and (-ms-high-contrast:active) {
 }
 
 .tour-gallery__image-list {
-    width: 20%;
+    width: 30%;
     overflow: auto;
     height: 100%;
     padding-right: 30px;
@@ -25542,14 +25543,6 @@ button:focus {
   text-align: right;
 }
 
-.cart .remove {
-  bottom: 0px !important; 
-  float: right;
-  position: absolute;
-  right: 0;
-  text-align: right;
-  width: 45%;
-}
 
 .cart .remove button {
   background-color: transparent;
@@ -26005,21 +25998,14 @@ background-color: #555;
 .cart .price,
 .cart .quantity,
 .cart .subtotal {
-    width: 15%;
+    width: 15% !important;
 }
 
 .cart .subtotal {
     text-align: right;
 }
 
-.cart .remove {
-    bottom: 1.125rem;
-    float: right;
-    position: absolute;
-    right: 0;
-    text-align: right;
-    width: 45%;
-}
+
 
 .cart .remove button {
     background-color: transparent;
@@ -26170,7 +26156,9 @@ background-color: #555;
     height: 34px;
     width: 100%;
 }
-
+.price i.fa-sharp.fa-solid.fa-pen-to-square, .price i.fa-solid.fa-trash {
+    padding: 0px 5px;
+}
 @media screen and (max-width: 640px) {
 
     .cart aside,
@@ -26865,10 +26853,24 @@ input:checked+.slider:before {
     margin-top:70px;
   }
   
-  .Zebra_DatePicker .dp_body .dp_weekend {
+  /* .Zebra_DatePicker .dp_body .dp_weekend {
     background: #36e0dc !important;
-  }
-  
+  } */
+  .Zebra_DatePicker .dp_body td {
+    background: #6d4aff !important;
+    color: #fff !important;
+}
+.Zebra_DatePicker .dp_body .dp_disabled {
+    background: #a7e7e5 !important;
+    color: #fff !important;
+    cursor: text;
+}
+/*.Zebra_DatePicker .dp_daypicker th {*/
+/*    background: #dc3545 !important;*/
+/*    cursor: text;*/
+/*    font-weight: 700;*/
+/*    color: #fff !important;*/
+/*}*/
   .Zebra_DatePicker .dp_body .dp_selected {
     background: #6d4aff !important;;
     color: #fff;
@@ -26915,7 +26917,7 @@ button.btn.btn-primary.btn-apply.coupon::after {
     border-bottom: none !important;
 }
 .container.payment-profile {
-    display: flex !important;
+    /* display: flex !important; */
     padding: 20px 0px 40px 0px;
 }
 .payment-profile .basket {
@@ -26951,9 +26953,21 @@ input#totaltourAmt {
   .productName h1 {
     font-size: 18px;
 }
+.product-details .row {
+    width: 70%;
+}
+.payment-profile h1 {
+    font-size: 28px;
+    font-weight: 600;
+    padding-bottom: 26px;
+}
 @media(min-width:1025px){
     div#container {
         height: 180px !important;
+    }
+    img.tour-gallery__preview-ratio.js-gallery-preview.lazy.loaded {
+        width: 100%;
+        height: 540px;
     }
 }
 @media (max-width:425px) {
@@ -27024,6 +27038,11 @@ input#totaltourAmt {
 .cart-item .card--shadow-blurple {
     padding: 0px 10px;
 }
+.cart .price,
+.cart .quantity,
+.cart .subtotal {
+    width: 100% !important;
+}
         /* end */
     }
     .list-tour-info__item-desc {
@@ -27073,6 +27092,9 @@ input#totaltourAmt {
         text-align: left;
         width: 100%;
       }
+      .product-tag-details-D {
+        display: none;
+    }
     /* .dp_daypicker.dp_body tr td {
         padding: 8px !important;
         min-width: 0px !important;
@@ -27112,6 +27134,14 @@ input#totaltourAmt {
         .cart .item {
             width: 25% !important;
         }
+        .product-tag-details-M {
+            display: none;
+        }
+        .cart .price,
+        .cart .quantity,
+        .cart .subtotal {
+            width: 12% !important;
+        }
     }
     @media (max-width: 320px) {
         .card__content {
@@ -27125,6 +27155,14 @@ input#totaltourAmt {
             padding: 20px 0px !important;} 
         .card.card--shadow-orange {
             margin: 0px 0px 0px  1px;}
+        }
+    @media only screen and (max-width:1024px) and (min-width:992px){
+            .tour-gallery__inner {
+                justify-content: center;
+            }
+            .tour-gallery__image-list {
+                width: 40% !important;
+            }
         }
     @media only screen and (max-width:1260px) and (min-width:1060px){
         .l-navbar__menu-right a.l-navbar__menu-link {

@@ -106,7 +106,7 @@
                           </div>
                           <div class="row">
                             <div class="col-12 col-lg-12 button_nd">
-                              <a class="btn btn--purple " href="{{url('view-detail/'.$deals['id'])}}" title="Book now"> Book Now </a>
+                              <a class="btn btn--purple " href="{{url('view-detail/'.$deals['random_id'])}}" title="Book now"> Book Now </a>
                             </div>
                           </div>
                         </div>

@@ -27,18 +27,18 @@
                   <td>{{$cartItems->price}} AED</td>
                   <td>{{$cartItems->attributes->bookingdate}}</td>
                   <td>{{$cartItems->attributes->time}}</td>
-                  <td>1</td>
-                  <td>{{$cartItems->attributes->subtotal}}</td>
+                  <td>{{$cartItems->quantity}}</td>
+                  <td>{{$cartItems->attributes->subtotal}} AED</td>
                 </tr>
 
                 <tr>
                 <th>Extra Activities :-</th>
                 </tr>
                 
-                @foreach($cartItems->attributes->extra as $name)
+                @foreach($cartItems->attributes->extra as $key => $val)
                 <tr  style="border-bottom: 1px solid;">
-                  <td>{{$name}}</td>
-                  <td>40 AED</td>
+                  <td>{{$key}}</td>
+                  <td>{{$val}} AED</td>
                 </tr>
                 @endforeach 
                 @endforeach
@@ -68,7 +68,8 @@
                   <td>{{$cartItems->attributes->time}}</td>
                   </tr>
                   <tr>
-                  <th>Qnty</th>
+                  <th>Quantity</th>
+                  <td>{{$cartItems->quantity}}</td>
                   </tr>
                   <tr>
                   <th>Subtotal</th>
@@ -77,15 +78,15 @@
                   <tr>
                 <th>Extra Activities :-</th>
                 </tr>
-                @foreach($cartItems->attributes->extra as $name)
+                @foreach($cartItems->attributes->extra as $key => $val)
                 <tr>
                 <tr>
                   <th >Item</th>
-                  <td>{{$name}}</td>
+                  <td>{{$key}}</td>
                   </tr>
                   <tr>
                   <th>Price</th>
-                  <td>40 AED</td>
+                  <td>{{$val}} AED</td>
                   </tr>
                 </tr>
                 </tr >
@@ -113,7 +114,7 @@
           </div>
           <div class="summary-subtotal">
           <div class="subtotal-title">Subtotal</div>
-            <div class="subtotal-value final-value" id="basket-subtotal">{{$grandTotal}}</div>
+            <div class="subtotal-value final-value" id="basket-subtotal">{{$grandTotal}} AED</div>
             <br>
             <br>
             <form id="submit-form" method="POST" autocomplete="off" enctype="multipart/form-data">
@@ -128,24 +129,46 @@
                   </div>
               </div>
           </form>
+          <div id="couponTable" style="display: none;">
+          <table class="responsive-large-tabU">
+                <tr>
+                  <th>Subtotal</th>
+                  <td>{{$grandTotal}} AED</td>
+                </tr>
+                <tr>
+                  <th>Coupon Discount</th>
+                  <td id="discount"></td>
+                <tr>
+                <tr>
+                  <th>Total</th>
+                  <td class="grandCoupon"></td>
+                <tr>
+          </table>
+          </div>
             <div class="summary-total">
               <div class="total-title">Total</div>
-              <div class="total-value final-value grandCoupon" id="basket-total">{{$grandTotal}}</div>
+              <div class="total-value final-value grandCoupon" id="basket-total">{{$grandTotal}} AED</div>
             </div>
           </div>
         </div>
       </aside>
       </div>    
 </div>   
+
 <div class="container payment-profile">
+  <div class="row">
+    <h1>Fill the primary contact details</h1>
+</div>
   <div class="basket  col-lg-12  col-md-12 col-sm-12 mb-20em card--shadow-blue payment_selection mt-5" style="margin-bottom:30px!important;">
           <div class="basket-product">
             <button class="accordion bg-orange">My Profile</button>
-            <div class="panel">
+            <div class="">
               <div class="p-0 py-0 mt-10em">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   <h4 class="text-right">Contact Details</h4>
                 </div>
+                <form id="submit-payment" method="POST" autocomplete="off" enctype="multipart/form-data">
+                @csrf
                 <div class="row mt-2">
                   <div class="form__row__left">
                     <div class="form__group">
@@ -183,29 +206,29 @@
                 </div>
                 <div class="form__row">
                   <div class="form__group">
-                    <input type="tel" name="number" id="number" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->number }}@endif" class="form__input-blank" required="">
+                    <input type="tel" name="number" id="number" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->number }}@endif" class="form__input-blank">
                     <label class="form__label-blank" for="pickup_location*">Pickup Location*</label>
                   </div>
                 </div>
                 <div class="form__row">
                   <div class="form__group">
-                    <input type="tel" name="number" id="number" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->number }}@endif" class="form__input-blank" required="">
+                    <input type="tel" name="number" id="number" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->number }}@endif" class="form__input-blank">
                     <label class="form__label-blank" for="pickup_location*">Write Your Preferred Pickup Time*</label>
                   </div>
                 </div>
-                {{-- <div class="form__row">
+                <!-- <div class="form__row">
                   <div class="form__group">
                     <input type="text" name="address[line_1]" id="address-line-1" class="form__input-blank" required="">
                     <label for="address-line-1" class="form__label-blank">Address*</label>
                   </div>
-                </div> --}}
+                </div>  -->
                 <div class="form__row">
-                  {{-- <h3 class="headline-6 mt-20em mb-10em">Get yourself registered by clicking the button </h3> --}}
-                  {{-- <label class="switch">
+                  <!-- <h3 class="headline-6 mt-20em mb-10em">Get yourself registered by clicking the button </h3> --}}
+                   <label class="switch">
                     <input type="checkbox">
                     <span class="slider round"></span>
-                  </label> --}}
-                  <h3 class="headline-6 mt-20em mb-10em"> I agree to the Terms & Conditions</h3>
+                  </label>  -->
+                  <h3 class="headline-6 mt-20em mb-10em"><a href="{{url('term-and-conditions')}}" target="blank"> I agree to the Terms & Conditions</a></h3>
                   <label class="switch">
                     <input type="checkbox">
                     <span class="slider round"></span>
@@ -220,23 +243,23 @@
             <div class="panel">
               <div class="product-details mt-10em ">
                 <div class="toggle-payment"><p>
-                  <strong class="mb-20em">Paypal</strong>
+                  <strong class="mb-20em ">Paypal</strong>
                   <label class="switch">
-                    <input type="checkbox" class="filled">
+                    <input type="checkbox" class="filled checkoption">
                     <span class="slider round"></span>
                   </label>
                 </p>
                 <p>
                   <strong class="mb-20em">Stripe </strong>
                   <label class="switch">
-                    <input type="checkbox" class="filled">
+                    <input type="checkbox" class="filled checkoption">
                     <span class="slider round"></span>
                   </label>
                 </p>
                 <p>
                   <strong class="mb-1em">Payment on Arrival </strong>
                   <label class="switch">
-                    <input type="checkbox" class="filled">
+                    <input type="checkbox" class="filled checkoption">
                     <span class="slider round"></span>
                   </label>
                 </p></div>
@@ -244,6 +267,7 @@
                   <button class="btn mt-10em chip--orange profile-button" type="button"> Pay </button>
                 </div>
               </div>
+              </form>
             </div>
           </div>
         </div>
@@ -267,6 +291,28 @@
         });
     }
 $(document).ready(function(){
+         /* payment form Using Ajax */
+      $(document).on('submit','#submit-payment',function(e){
+        e.preventDefault();
+        $.ajax({
+            type: $(this).prop('method'),
+            url: "{{url('payment')}}",
+            data:new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (response) {
+                if((response.error)){
+                  toastr.error(response.error);
+                }else{
+                  // $("#myProfile").load(window.location + " #myProfile");
+                  toastr.success(response.success); 
+                }
+            },error: function (error){
+              toastr.warning(error);
+            }
+        });
+      });
     //Apply Coupon
     $(document).on('submit','#submit-form',function(e){
         e.preventDefault();
@@ -292,10 +338,12 @@ $(document).ready(function(){
                 if(type == 0){
                   var totalamt = "{{$grandTotal}}" - coupondiscount;
                 }
-
+                  var discount = totalamt - grandtotal;
                 $('.apBtn').text('Applied');
                 $('.apBtn').css('background','#0fba68');
-                $('.grandCoupon').text(totalamt);
+                $('.grandCoupon').text(totalamt +'  '+'AED');
+                $('#discount').text(discount +'  '+'AED');
+                $('#couponTable').show();
                 toastr.success(response.success);
                 }
             },error: function (error){
@@ -303,5 +351,10 @@ $(document).ready(function(){
             }
         });
     });
+    // select only one payment option
+    $('.checkoption').click(function() {
+         $('.checkoption').not(this).prop('checked', false);
+      });
+    // end
 });    
 </script>

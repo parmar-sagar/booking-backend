@@ -23,7 +23,6 @@ class CartController extends Controller
 
     public function add(Request $request){
         $input = $request->all();
-        // dd($input);
         $validator = Validator::make($input, [
             'bookingDate' => 'required',
             'time' => 'required'
@@ -36,38 +35,42 @@ class CartController extends Controller
         $extraActivity = array();
         $name = array();
         $prices = array();
+        $additional = array();
+        
         if(isset($input['extra_price'])){
         foreach($input['extra_price'] as $key=> $value){
             
            $extraActivity[] = VehicleInfo::where('random_id',$value)->select('title','price')->first()->toArray();
            $name[] = $extraActivity[$key]['title'];
            $prices[] = $extraActivity[$key]['price'];
+           
         }
+        $additional = array_combine($name,$prices);
        }
+  
+        // dd($additional);   
         $sum = 0;
-        foreach($prices as $key=>$value)
+        foreach($additional as $key=>$value)
         {
            $sum+= $value;
         }
-        $subtotal = $sum+$input['timeSelect'];
+        $subtotal = $sum+$input['totalPrice'];
 
         if(isset($input['time'])){
           $time = $input['time'];
         }
         $Product = Vehicle::where('random_id',$input['id'])->first();
-        $snowflake = new \Godruoyi\Snowflake\Snowflake;
-        $rowId = $snowflake->id();
+        \Cart::remove($input['id']);
         // add the product to cart
             \Cart::add(array(
-                'id' => $rowId,
+                'id' => $input['id'],
                 'name' => $Product->name,
-                'price' => $input['timeSelect'],
-                'quantity' => 1,
+                'price' => $input['totalPrice'],
+                'quantity' => $input['qnty'],
                 'attributes' => array( 
                     'bookingdate' => $validated['bookingDate'],
                     'subtotal' => $subtotal,
-                    'extra' => $name,
-                    'extra_Price' => $prices,
+                    'extra' => $additional,
                     'total' => $subtotal,
                     'time' =>$time
                 )

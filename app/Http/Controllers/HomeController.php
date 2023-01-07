@@ -12,6 +12,7 @@ use App\Models\Vehicle;
 use App\Models\Discount;
 use App\Models\Tour;
 use App\Models\User;
+use App\Models\TourGallary;
 
 class HomeController extends Controller
 {
@@ -90,6 +91,19 @@ class HomeController extends Controller
 
     public function checkout(){
         return view('front.pages.checkout_page.index');
+    }
+
+    public function gallary($id){
+        $tourId = Vehicle::where('random_id',$id)->select('tour_id')->first()->toArray();
+        $gallaryImg = TourGallary::where('tour_id',$tourId)->select('gallry_images')->get()->toArray();
+        $this->outputData['singleImglry'] = TourGallary::where('tour_id',$tourId)->select('gallry_images')->take(1)->first();
+
+        $gallary = array();
+        foreach($gallaryImg as $key => $images){
+            $this->outputData['gallary'][] = $images['gallry_images'];
+        }
+        // dd($this->outputData['gallary']);
+        return view('front.pages.tour_gallary.index',$this->outputData);
     }
 
     public function updateProfile(Request $request){

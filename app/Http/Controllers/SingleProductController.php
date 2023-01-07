@@ -25,13 +25,13 @@ class SingleProductController extends Controller
 
     public function index($id){  
         $this->outputData = [
-            'singlePrdct' => Vehicle::findOrFail($id)
+            'singlePrdct' => Vehicle::where('random_id',$id)->first(),
         ];
        $tourId = $this->outputData['singlePrdct']->tour_id;
        $this->outputData['list'] = Tour::findOrFail($tourId);
-
+       $id = $this->outputData['singlePrdct']->id;
        $timeslotIds = AvalableSlote::where('vehicle_id',$id)->select('time_slots_ids')->get()->toArray();
-    //    dd($timeslotIds);
+
     $tsIds = array();
     foreach($timeslotIds as $key=>$val){
         $tsIds[$key]['sids'] = $val['time_slots_ids']; 
