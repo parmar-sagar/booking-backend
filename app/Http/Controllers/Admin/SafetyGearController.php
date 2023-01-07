@@ -57,7 +57,7 @@ class SafetyGearController extends Controller
                 
                 $validated = $validator->validated();
                 $validated['type'] = 5;
-                
+
                 VehicleInfo::create($validated);
     
                 return response()->json(['success' => "Safety Gears Created successfully."]);

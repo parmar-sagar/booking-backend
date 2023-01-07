@@ -110,7 +110,7 @@ class TimeController extends Controller
 
     public function destroy($id){
         try {
-            $res = Time::find($id)->delete();   
+            Time::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

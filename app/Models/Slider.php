@@ -21,7 +21,7 @@ class Slider extends Model
         return $query->orderBy('sequence','ASC');
     }
 
-    public function ScopeActive($query, $type){
+    public function ScopeActive($query){
         return $query->where('status', 1);
     }
 }

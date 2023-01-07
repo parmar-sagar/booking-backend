@@ -56,24 +56,24 @@ class VehiclesController extends Controller
 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'name' => 'required|string|max:255',
                     'short_name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:20',
                     'description' => 'required|string',
-                    'image' => 'required|mimes:jpeg,jpg,png,gif',
-                    'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
-                    'time' => 'required|array',
-                    'amount' => 'required|array',
                     'tour_id' => 'required|integer',
+                    'time_slots_ids' => 'required|array',
+                    'no_of_persons' => 'required|integer',
                     'includes_ids' => 'required|array',
                     'highlight_ids' => 'required|array',
                     'warning_ids' => 'required|array',
-                    'status' => 'required|in:0,1',
-                    'time_slots_ids' => 'required|array',
-                    'no_of_persons' => 'required|integer',
                     'activities_ids' => 'required|array',
                     'additional_info_ids' => 'required|array',
                     'tour_itenary' => 'required',
-                    'quantity' => 'required|integer'
+                    'quantity' => 'required|integer',
+                    'status' => 'required|in:0,1',
+                    'image' => 'required|mimes:jpeg,jpg,png,gif',
+                    'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
+                    'time' => 'required|array',
+                    'amount' => 'required|array'
                 ]);
     
                 if($validator->fails()){
@@ -81,12 +81,11 @@ class VehiclesController extends Controller
                 }
                 $validated = $validator->validated();
 
-                    // $validated['time_ids'] = Helper::implode( $request['time_ids'] );
-                    $validated['includes_ids'] = Helper::implode( $request['includes_ids'] );
-                    $validated['highlight_ids'] = Helper::implode( $request['highlight_ids'] );
-                    $validated['warning_ids'] = Helper::implode( $request['warning_ids'] );
-                    $validated['activities_ids'] = Helper::implode( $request['activities_ids'] );
-                    $validated['additional_info_ids'] = Helper::implode( $request['additional_info_ids'] );
+                $validated['includes_ids'] = Helper::implode( $request['includes_ids'] );
+                $validated['highlight_ids'] = Helper::implode( $request['highlight_ids'] );
+                $validated['warning_ids'] = Helper::implode( $request['warning_ids'] );
+                $validated['activities_ids'] = Helper::implode( $request['activities_ids'] );
+                $validated['additional_info_ids'] = Helper::implode( $request['additional_info_ids'] );
 
                 if ($request->file('image')) {
                     $path = 'vehicle';
@@ -96,31 +95,23 @@ class VehiclesController extends Controller
                     $path = 'vehicle';
                     $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-                $validated['random_id'] = $snowflake->id();
+
+                $validated['random_id'] = (new Snowflake())->id();
                 $validated['available_quantity'] = $validated['quantity'];
                 $lastInsertId = Vehicle::create($validated)->id;
                 
-                $array1 = $validated['amount'];
-                $array2 = $validated['time'];
-                $array3 = $validated['time_slots_ids'];
-
-                foreach( $array1 as $index => $amount ) {
-                    $amounts=$amount;
-                    $times=$array2[$index];
+                foreach( $validated['amount'] as $index => $amount ) {
                     Price::create([
-                        'amount' => $amounts,
-                        'time' => $times,
+                        'amount' => $amount,
+                        'time' => $validated['time'][$index],
                         'vehicle_id' => $lastInsertId,
                         'tour_id' => $validated['tour_id'],
                     ]);
                 }
-                foreach( $array3 as $index => $timeSlotes){
-                    
+                foreach( $validated['time_slots_ids'] as $time){
                     AvalableSlote::create([
                         'vehicle_id' => $lastInsertId,
-                        'time_slots_ids' => $timeSlotes
-                        
+                        'time_slots_ids' => $time    
                     ]);
                 }
                 return response()->json(['success' => "Vehicle Created successfully."]);
@@ -129,11 +120,11 @@ class VehiclesController extends Controller
                 'pageName' => 'New Vehicle',
                 'action' => url('admin/vehicles/store'),
                 'tourName' => Tour::type('Tour')->select('name','id')->order()->get(),
-                'highlights' => VehicleInfo::type(1)->order()->get(),
-                'includes' => VehicleInfo::type(2)->order()->get(),
-                'warnings' => VehicleInfo::type(3)->order()->get(),
-                'activities' => VehicleInfo::type(4)->order()->get(),
-                'addiInfo' => VehicleInfo::type(7)->order()->get(),
+                'highlights' => VehicleInfo::highlight()->order()->get(),
+                'includes' => VehicleInfo::include()->order()->get(),
+                'warnings' => VehicleInfo::warning()->order()->get(),
+                'activities' => VehicleInfo::activity()->order()->get(),
+                'addiInfo' => VehicleInfo::additionalInfo()->order()->get(),
                 'time' => Time::order()->get(),
                 'timeSlotes' => TimeSlote::get()
             ];
@@ -151,24 +142,24 @@ class VehiclesController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:vehicles',
-                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'name' => 'required|string|max:255',
                     'short_name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:20',
                     'description' => 'required|string',
-                    'image' => 'mimes:jpeg,jpg,png,gif',
-                    'banner_img' => 'mimes:jpeg,jpg,png,gif',
-                    'time_slots_ids' => 'required|array',
                     'tour_id' => 'required|integer',
-                    'time' => 'required|array',
-                    'amount' => 'required|array',
+                    'time_slots_ids' => 'required|array',
+                    'no_of_persons' => 'required|integer',
                     'includes_ids' => 'required|array',
                     'highlight_ids' => 'required|array',
                     'warning_ids' => 'required|array',
-                    'status' => 'required|in:0,1',
-                    'no_of_persons' => 'required|integer',
                     'activities_ids' => 'required|array',
                     'additional_info_ids' => 'required|array',
                     'tour_itenary' => 'required',
-                    'quantity' => 'required|integer'
+                    'quantity' => 'required|integer',
+                    'status' => 'required|in:0,1',
+                    'image' => 'required|mimes:jpeg,jpg,png,gif',
+                    'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
+                    'time' => 'required|array',
+                    'amount' => 'required|array'
                 ]);
     
                 if($validator->fails()){
@@ -176,31 +167,30 @@ class VehiclesController extends Controller
                 }
                 $validated = $validator->validated();
 
-                // $validated['time_ids'] = Helper::implode( $request['time_ids'] );
                 $validated['includes_ids'] = Helper::implode( $request['includes_ids'] );
                 $validated['highlight_ids'] = Helper::implode( $request['highlight_ids'] );
                 $validated['warning_ids'] = Helper::implode( $request['warning_ids'] );
                 $validated['activities_ids'] = Helper::implode( $request['activities_ids'] );
                 $validated['additional_info_ids'] = Helper::implode( $request['additional_info_ids'] );
 
-            if ($request->file('image')) {
-                $path = 'vehicle';
-                $validated['image'] = Helper::uploadFile( $request->image, $path );
-            }
-            if ($request->file('banner_img')) {
-                $path = 'vehicle';
-                $validated['banner_img'] = Helper::uploadFile( $request->banner_img, $path );
-            } 
+                if ($request->file('image')) {
+                    $path = 'vehicle';
+                    $validated['image'] = Helper::uploadFile( $request->image, $path );
+                }
+                if ($request->file('banner_img')) {
+                    $path = 'vehicle';
+                    $validated['banner_img'] = Helper::uploadFile( $request->banner_img, $path );
+                } 
 
                 $validated['available_quantity'] = $validated['quantity'];
                 Vehicle::find($validated['id'])->update($validated);
 
                 AvalableSlote::where('vehicle_id',$validated['id'])->delete();
-                $array3 = $validated['time_slots_ids'];  
-                foreach( $array3 as $index => $timeSlotes){
+  
+                foreach( $validated['time_slots_ids'] as $time){
                     AvalableSlote::create([
                         'vehicle_id' => $validated['id'],
-                        'time_slots_ids' => $timeSlotes
+                        'time_slots_ids' => $time
                     ]);
                 }
                 Price::where('vehicle_id',$id)->delete();
@@ -208,12 +198,10 @@ class VehiclesController extends Controller
                 $array1 = $validated['amount'];
                 $array2 = $validated['time'];
 
-                foreach( $array1 as $index => $amount ) {
-                    $amounts=$amount;
-                    $times=$array2[$index];
+                foreach( $validated['amount'] as $index => $amount ) {                    
                     Price::create([
-                        'amount' => $amounts,
-                        'time' => $times,
+                        'amount' => $amount,
+                        'time' => $validated['time'][$index],
                         'vehicle_id' => $validated['id'],
                         'tour_id' => $validated['tour_id'],
                     ]);
@@ -226,11 +214,11 @@ class VehiclesController extends Controller
                 'action' => url('admin/vehicles/update/'.$id),
                 'objData' => Vehicle::findOrFail($id),
                 'tourName' => Tour::type('Tour')->select('name','id')->order()->get(),
-                'highlights' => VehicleInfo::type(1)->order()->get(),
-                'includes' => VehicleInfo::type(2)->order()->get(),
-                'warnings' => VehicleInfo::type(3)->order()->get(),
-                'activities' => VehicleInfo::type(4)->order()->get(),
-                'addiInfo' => VehicleInfo::type(7)->order()->get(),
+                'highlights' => VehicleInfo::highlight()->order()->get(),
+                'includes' => VehicleInfo::include()->order()->get(),
+                'warnings' => VehicleInfo::warning()->order()->get(),
+                'activities' => VehicleInfo::activity()->order()->get(),
+                'addiInfo' => VehicleInfo::additionalInfo()->order()->get(),
                 'time' => Time::order()->get(),
                 'timeSlotes' => TimeSlote::get()
             ];
@@ -240,8 +228,9 @@ class VehiclesController extends Controller
             $timeSlotes = AvalableSlote::where('vehicle_id',$id)->get()->toArray();  
 
             foreach($timeSlotes as $key => $value){
-            $this->outputData['selctdTimeSlots'][] = $value['time_slots_ids'];
+                $this->outputData['selctdTimeSlots'][] = $value['time_slots_ids'];
             }
+            
             $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
             $this->outputData['selctdTour'] = Helper::explode( $this->outputData['objData']->tour_id );
             $this->outputData['selctdIncludes'] = Helper::explode( $this->outputData['objData']->includes_ids );
@@ -259,7 +248,7 @@ class VehiclesController extends Controller
 
     public function destroy($id){
         try {
-            $res = Vehicle::find($id)->delete();   
+            Vehicle::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

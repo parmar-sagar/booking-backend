@@ -20,8 +20,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="mb-3">
-                            <label for="short_description" class="form-label">Name</label>
-                            <input type="text" id="title" class="form-control" name="name" value="@if(isset($objData->name) && $objData->name){{ $objData->name }}@endif" required>
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" id="name" class="form-control" name="name" value="@if(isset($objData->name) && $objData->name){{ $objData->name }}@endif" required>
                         </div>
                     </div>
                     <div class="col-lg-12">
@@ -33,7 +33,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="min_age" class="form-label">Minimum Age</label>
-                            <input type="text" id="min_age" class="form-control" name="min_age" value="@if(isset($objData->min_age) && $objData->min_age){{ $objData->min_age }}@endif" required>
+                            <input type="number" min="1" id="min_age" class="form-control" name="min_age" value="@if(isset($objData->min_age) && $objData->min_age){{ $objData->min_age }}@endif" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -56,17 +56,17 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="description" class="form-label">Times</label>
-                            <select  class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Choose ..." name="time_ids[]" required>
+                            <label for="time_ids" class="form-label">Times</label>
+                            <select  class="select2 form-control select2-multiple" id="time_ids" data-toggle="select2" multiple="multiple" data-placeholder="Choose ..." name="time_ids[]" required>
                                 @foreach($time as $time_tour)
-                                    <option value="{{$time_tour->id}}"@if(isset($selctdTime)) @foreach($selctdTime as $Times) @if($Times == "$time_tour->id") selected @endif @endforeach @endif>{{$time_tour->time}}</option>
+                                    <option value="{{$time_tour->id}}" @if(isset($selctdTime) && in_array($time_tour->id,$selctdTime)) selected @endif >{{$time_tour->time}}</option>
                                 @endforeach    
                             </select>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <label for="location_id" class="form-label">Location</label>
-                            <select class="form-control select2" data-toggle="select2" name="location_id" required>
+                            <select class="form-control select2" data-toggle="select2" id="location_id" name="location_id" required>
                                 <option>Select</option>
                                 @foreach($locations as $location)
                                     <option value="{{$location->id}}" @if(isset($objData->location_id) && $objData->location_id == $location->id) selected @endif>{{$location->name}}</option>
@@ -75,20 +75,20 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="activities" class="form-label">Safety Gears</label>
-                            <select class="select2 form-control select2-multiple" data-toggle="select2" name="safety_gear_ids[]" multiple="multiple" data-placeholder="Choose ...">
+                            <label for="safety_gear_ids" class="form-label">Safety Gears</label>
+                            <select class="select2 form-control select2-multiple" id="safety_gear_ids" data-toggle="select2" name="safety_gear_ids[]" multiple="multiple" data-placeholder="Choose ...">
                                 @foreach($safetyGear as $safetyGears)
-                                <option value="{{$safetyGears->id}}" @if(isset($selctdSftyGear)) @foreach($selctdSftyGear as $selctdSftyGears) @if($selctdSftyGears == $safetyGears->id) selected @endif @endforeach @endif>{{$safetyGears->title}}</option>
+                                <option value="{{$safetyGears->id}}" @if(isset($selctdSftyGear) && in_array($safetyGears->id, $selctdSftyGear)) selected @endif>{{$safetyGears->title}}</option>
                                 @endforeach  
                             </select>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="activities" class="form-label">Refreshments</label>
-                            <select class="select2 form-control select2-multiple" data-toggle="select2" name="refreshments_ids[]" multiple="multiple" data-placeholder="Choose ...">
+                            <label for="refreshments_ids" class="form-label">Refreshments</label>
+                            <select class="select2 form-control select2-multiple" id="refreshments_ids" data-toggle="select2" name="refreshments_ids[]" multiple="multiple" data-placeholder="Choose ...">
                                 @foreach($refreshment as $refreshments)
-                                <option value="{{$refreshments->id}}" @if(isset($selctdRefreshment)) @foreach($selctdRefreshment as $selctdRefreshments) @if($selctdRefreshments == $refreshments->id) selected @endif @endforeach @endif>{{$refreshments->title}}</option>
+                                <option value="{{$refreshments->id}}" @if(isset($selctdRefreshment) && in_array($refreshments->id, $selctdRefreshment)) selected @endif>{{$refreshments->title}}</option>
                                 @endforeach  
                             </select>
                         </div>
@@ -104,7 +104,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="image" class="form-label">Banner Image</label>
+                            <label for="banner_img" class="form-label">Banner Image</label>
                             <input type="file" id="banner_img" accept=".png, .jpg, .jpeg" class="form-control" name="banner_img" @if(!isset($objData)) required @endif>
                             @if(isset($objData->banner_img))
                                 <img src="{{ asset('admin/uploads/tour/' . $objData->banner_img) }}" width="50" class="mt-3">
@@ -125,7 +125,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="sequence" class="form-label">Sequence</label>
-                            <input type="text" id="sequence" class="form-control" name="sequence" value="@if(isset($objData->sequence) && $objData->sequence){{ $objData->sequence }}@endif" required>
+                            <input type="number" min="0" id="sequence" class="form-control" name="sequence" value="@if(isset($objData->sequence) && $objData->sequence){{ $objData->sequence }}@endif" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -133,11 +133,11 @@
                             <label for="status" class="form-label">Status</label>
                             <div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="active" name="status" class="form-check-input" value="1" @if(isset($objData) && $objData->status ==1)) checked @endif checked>
+                                    <input type="radio" id="active" name="status" class="form-check-input" value="1" @if(isset($objData) && $objData->status == 1) checked @endif checked>
                                     <label class="form-check-label" for="active">Active</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="inactive" name="status" class="form-check-input" value="0" @if(isset($objData) && $objData->status ==0)) checked @endif>
+                                    <input type="radio" id="inactive" name="status" class="form-check-input" value="0" @if(isset($objData) && $objData->status == 0) checked @endif>
                                     <label class="form-check-label" for="inactive">InActive</label>
                                 </div>
                             </div>

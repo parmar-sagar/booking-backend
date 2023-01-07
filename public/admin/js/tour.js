@@ -20,11 +20,10 @@ $(document).ready(function() {
         columns: [
             {data: 'id', name:'id',
                     "render": function ( data, type, row, meta ) {
-                        return row+random_id;
+                        return row.random_id;
                     }
                 },
                 {data: 'name', name: 'name'},
-                // {data: 'description', name: 'description'},
                 {data: 'status', name:'status',
                     "render": function ( data, type, row, meta ) {
                         var status = {

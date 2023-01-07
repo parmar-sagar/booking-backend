@@ -302,7 +302,7 @@ Route::group([
 
 });
 
-/*Frontend Routes start */
+/*********************** Frontend Routes start *******************************/
 
     Route::get('/',[HomeController::class, 'index']);
     Route::get('/refund-policy',[HomeController::class, 'refundPolicy']);

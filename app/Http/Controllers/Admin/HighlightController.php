@@ -19,7 +19,7 @@ class HighlightController extends Controller
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Highlights',
+            'pageName' => 'Not Include',
             'dataTables' => url('admin/vehicles/highlights/datatable'),
             'delete' => url('admin/vehicles/highlights/delete'),
             'create' => url('admin/vehicles/highlights/create'),
@@ -59,10 +59,10 @@ class HighlightController extends Controller
                 
                 VehicleInfo::create($validated);
     
-                return response()->json(['success' => "Highlights Created successfully."]);
+                return response()->json(['success' => "Not Include Created successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'New Highlights',
+                'pageName' => 'New Not Include',
                 'action' => url('admin/vehicles/highlights/store'),
             ];
             return view('admin.pages.highlight.create',$this->outputData);
@@ -92,10 +92,10 @@ class HighlightController extends Controller
                 
                 VehicleInfo::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Highlights Updated successfully."]);
+                return response()->json(['success' => "Not Include Updated successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'Edit Highlights',
+                'pageName' => 'Edit Not Include',
                 'action' => url('admin/vehicles/highlights/update/'.$id),
                 'objData' => VehicleInfo::findOrFail($id),
             ];

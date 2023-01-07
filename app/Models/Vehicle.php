@@ -44,29 +44,32 @@ class Vehicle extends Model
 
     protected $dates = ['deleted_at'];
 
-
-    public function scopeType($query, $type)
-    {
-        return $query->where('type', $type);
-    }
-    
-    public function scopeDeal($query, $type)
-    {
-        return $query->where('is_deals', $type);
+    public function scopeDeals($query){
+        return $query->where('is_deals', 1);
     }
 
     public function ScopeOrder($query){
         return $query->orderBy('id','DESC');
     }
-    public function scopeStatus($query, $status)
-    {
-        return $query->where('status', $status);
-    }
-    public function tours(){
-        return $this->hasOne('App\Models\Tour','id','tour_id');
-    }
+
     public function ScopeSequence($query){
         return $query->orderBy('sequence','ASC');
     }
+
+    public function scopeActive($query){
+        return $query->where('status', 1);
+    }
+
+    public function scopeType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
+
+    
+    
+    public function tours(){
+        return $this->hasOne('App\Models\Tour','id','tour_id');
+    }
+    
     
 }

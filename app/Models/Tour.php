@@ -34,6 +34,10 @@ class Tour extends Model
         'created_at','updated_at',
     ];
 
+    public function scopeActive($query){
+        return $query->where('status', 1);
+    }
+
     public function scopeType($query, $type)
     {
         return $query->where('type', $type);
@@ -43,11 +47,7 @@ class Tour extends Model
     {
         return $query->where('on_home', $onHome);
     }
-    public function scopeStatus($query, $status)
-    {
-        return $query->where('status', $status);
-    }
-
+    
     public function ScopeOrder($query){
         return $query->orderBy('id','DESC');
     }
