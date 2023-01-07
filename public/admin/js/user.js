@@ -23,10 +23,9 @@ $(document).ready(function() {
                     return row.random_id;
                 }
             },
-            {data: 'first_name', name: 'first_name'},
-            {data: 'last_name', name: 'last_name'},
+            {data: 'name', name: 'name'},
             {data: 'email', name: 'email'},
-            {data: 'number', name: 'number'},
+            {data: 'mobile', name: 'mobile'},
             {data: 'created_at', name: 'created_at'},
             {data: 'status', name:'status',
                 "render": function ( data, type, row, meta ) {
