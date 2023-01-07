@@ -20,8 +20,8 @@
                     <!-- Email Address -->
                     <div class="form__row">
                         <div class="form__group">
-                            <x-text-input id="email"  class="form__input" type="email" name="email" :value="old('email')" required autofocus />
-                            <x-input-label class="form__label" for="email" :value="__('Email')" />
+                            <x-text-input id="email"  class="form__input" type="email" name="email" :value="old('email')" placeholder="Email" required autofocus />
+                            <!-- <x-input-label class="form__label" for="email" :value="__('Email')" /> -->
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
                     </div>
@@ -32,8 +32,9 @@
                             <x-text-input id="password"  class="form__input"
                                             type="password"
                                             name="password"
+                                            placeholder="Password"
                                             required autocomplete="current-password" />
-                            <x-input-label class="form__label" for="password" :value="__('Password')" />
+                            <!-- <x-input-label class="form__label" for="password" :value="__('Password')" /> -->
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                 
                         </div>

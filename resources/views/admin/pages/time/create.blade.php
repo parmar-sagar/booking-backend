@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="mb-3">
+                    <div class="mb-3">
                             <label for="type" class="form-label">Type</label>
                             <div>
                                 <div class="form-check form-check-inline">
@@ -38,6 +38,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-success mb-2">Submit</button>

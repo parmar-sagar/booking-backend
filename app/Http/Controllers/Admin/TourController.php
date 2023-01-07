@@ -101,7 +101,7 @@ class TourController extends Controller{
                             $gimages = Helper::uploadFile($glryImages, $path); 
                             $multipleImages = new TourGallary();
                             $multipleImages->fill(['tour_id'=>$tourId,
-                            'gallry_images' => $gimages,
+                                                   'gallry_images' => $gimages,
                             ])->save();
                         }
                     }
@@ -171,14 +171,18 @@ class TourController extends Controller{
 
                 if(!empty($request->gallry_images)){    
                     if ($request->hasfile('gallry_images')) {
+
                         TourGallary::where('tour_id',$validated['id'])->delete();
+
                         $images = $request->file('gallry_images');
+
                         foreach($images as $glryImages) {
                             $path = 'gallry_images';
                             $gimages = Helper::uploadFile($glryImages, $path); 
                             $multipleImages = new TourGallary();
+
                             $multipleImages->fill(['tour_id'=>$validated['id'],
-                            'gallry_images' => $gimages,
+                                                   'gallry_images' => $gimages,
                             ])->save();
                         }
                     }
@@ -194,7 +198,7 @@ class TourController extends Controller{
                 'locations' => Location::order()->get(),
                 'safetyGear' => VehicleInfo::type(5)->order()->get(),
                 'refreshment' => VehicleInfo::type(6)->order()->get(),
-                'gallaryImages' => TourGallary::where('tour_id',$id)
+                'gallaryImages' => TourGallary::where('tour_id',$id)->get()
             ];
             $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
             $this->outputData['selctdSftyGear'] = Helper::explode( $this->outputData['objData']->safety_gear_ids );

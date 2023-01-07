@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Validator;
 
 class RegisteredUserController extends Controller
 {
@@ -33,21 +34,30 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+    {        
+        if($request->method() == 'POST'){
+            $Input = $request->all();
+
+            $validator = Validator::make($Input, [
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            // 'mobile' => ['required|string|min:10|max:12']
+            'number' => ['required', 'string', 'min:10', 'max:12'],
+            'gender' => ['required', 'in:Male,Female'],
         ]);
+        if($validator->fails()){
+            throw new \Exception($validator->errors()->first());
+        }
+        $validated = $validator->validated();
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'mobile' => $request->mobile,
-            'random_id' => resolve('snowflake')->id()
-        ]);
+        $validated['password'] = Hash::make($validated['password']);
+
+        $snowflake = new \Godruoyi\Snowflake\Snowflake;
+        $validated['random_id'] = $snowflake->id();
+        User::create($validated);
+        return response()->json(['success' => "Register successfully."]);
+        }
 
         event(new Registered($user));
 

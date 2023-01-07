@@ -103,7 +103,7 @@ class SafariController extends Controller
                 'safetyGear' => VehicleInfo::type(5)->order()->get(),
                 'refreshment' => VehicleInfo::type(6)->order()->get(),
             ];
-            return view('admin.pages.Safari.create',$this->outputData);
+            return view('admin.pages.safari.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '02');

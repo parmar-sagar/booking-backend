@@ -33,9 +33,10 @@
                           name="email"
                           id="email"
                           class="form__input"
+                          placeholder="Email"
                           required
                         />
-                        <label class="form__label" for="email">Email</label>
+                        <!-- <label class="form__label" for="email">Email</label> -->
                       </div>
                     </div>
                     <div class="form__row">
@@ -45,11 +46,12 @@
                           name="password"
                           id="password"
                           class="form__input"
+                          placeholder="Email"
                           required
                         />
-                        <label class="form__label" for="password"
+                        <!-- <label class="form__label" for="password"
                           >Password</label
-                        >
+                        > -->
                       </div>
                     </div>
                     <div class="form__row form__row--flex">

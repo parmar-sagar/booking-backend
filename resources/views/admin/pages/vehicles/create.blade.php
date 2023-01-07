@@ -39,21 +39,41 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <table class="table table-bordered" id="dynamic_field">  
-                             <tr>  
+                        <table class="table table-bordered" id="dynamic_field"> 
+                        @if(isset($price))    
+                        @foreach($price as $key => $amount)
+                             <tr id="row">  
                                 <td><label for="amount" class="form-label">Amount</label>
-                                    <input type="text" name="amount[]" placeholder="Enter Amounte" class="form-control name_list" />
+                                    <input type="text" name="amount[]" placeholder="Enter Amounte" value="{{$amount->amount}}" class="form-control name_list" />
                                 </td>  
                                   <td><label for="no_of_persons" class="form-label">Time</label>
                                     <select class="form-control select2" data-toggle="select2" name="time[]">
                                         <option>Select</option>
                                         @foreach($time as $time_tour)
-                                        <option value="{{$time_tour->time}}"@if(isset($selctdTime)) @foreach($selctdTime as $Times) @if($Times == $time_tour->id) selected @endif @endforeach @endif>{{$time_tour->time}}</option>
+                                        <option value="{{$time_tour->time}}"@if($amount->time == $time_tour->time) selected @endif>{{$time_tour->time}}</option>
+                                        @endforeach        
+                                    </select>
+                                </td> 
+                                  <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td> 
+                                  <td><button type="button" name="remove"  class="btn btn-danger btn_remove">X</button></td> 
+                             </tr>
+                             @endforeach 
+                        @else
+                        <tr id="row">  
+                                <td><label for="amount" class="form-label">Amount</label>
+                                    <input type="text" name="amount[]" placeholder="Enter Amounte" value="" class="form-control name_list" />
+                                </td>  
+                                  <td><label for="no_of_persons" class="form-label">Time</label>
+                                    <select class="form-control select2" data-toggle="select2" name="time[]">
+                                        <option>Select</option>
+                                        @foreach($time as $time_tour)
+                                        <option value="{{$time_tour->time}}">{{$time_tour->time}}</option>
                                         @endforeach        
                                     </select>
                                 </td> 
                                   <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>  
-                             </tr>  
+                             </tr>
+                             @endif
                         </table>  
                     </div>
                     <div class="col-lg-6">
@@ -173,6 +193,12 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
+                            <label for="no_of_persons" class="form-label">Quantity Of Vehicles</label>
+                            <input type="text" id="no_of_persons" class="form-control" name="quantity" value="@if(isset($objData->quantity) && $objData->quantity){{ $objData->quantity }}@endif" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
                             <label for="status" class="form-label">Status</label>
                             <div>
                                 <div class="form-check form-check-inline">
@@ -201,13 +227,12 @@
       var i=1;  
       $('#add').click(function(){  
            i++;  
-           $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="amount[]" placeholder="Enter amount" class="form-control name_list" /></td><td><label for="no_of_persons" class="form-label">Time</label><select class="form-control select2" data-toggle="select2" name="time[]"><option>Select</option>@foreach($time as $time_tour)\
+           $('#dynamic_field').append('<tr id="row"><td><input type="text" name="amount[]" placeholder="Enter amount" class="form-control name_list" /></td><td><label for="no_of_persons" class="form-label">Time</label><select class="form-control select2" data-toggle="select2" name="time[]"><option>Select</option>@foreach($time as $time_tour)\
                                         <option value="{{$time_tour->time}}"@if(isset($selctdTime)) @foreach($selctdTime as $Times) @if($Times == $time_tour->id) selected @endif @endforeach @endif>{{$time_tour->time}}</option>@endforeach</select>\
-                                        </td> <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+                                        </td> <td><button type="button" name="remove" class="btn btn-danger btn_remove">X</button></td></tr>');  
       });  
       $(document).on('click', '.btn_remove', function(){  
-           var button_id = $(this).attr("id");   
-           $('#row'+button_id+'').remove();  
+        $(this).parents("#row").remove(); 
       });  
       $('#submit').click(function(){            
            $.ajax({  

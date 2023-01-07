@@ -28,7 +28,6 @@ class UserController extends Controller{
             'create' => url('admin/users/create'),
             'edit' => url('admin/users/edit')
         ];
-        
         return view('admin.pages.user.index',$this->outputData);
     }
 

@@ -117,7 +117,7 @@
                             <input type="file" id="gallry_images" accept=".png, .jpg, .jpeg" class="form-control" name="gallry_images[]"  @if(!isset($objData)) required @endif multiple />
                             @if(isset($gallaryImages))
                             @foreach($gallaryImages as $tourGallary)
-                                <img src="{{ asset('admin/uploads/gallry_images/' . $tourGallary->gallry_images) }}" width="50" class="mt-3">
+                                <img src="{{ asset('admin/uploads/gallry_images/'.$tourGallary->gallry_images) }}" width="80" class="mt-3">
                             @endforeach
                             @endif
                         </div>

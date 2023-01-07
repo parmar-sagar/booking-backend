@@ -27,16 +27,6 @@
                   </div>
                 </div>
               @endforeach
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
-                data-bs-slide="prev" style="visibility: hidden;">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
-                data-bs-slide="next" style="visibility: hidden;">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
             </div>
           </div>
         </header>
@@ -287,7 +277,7 @@
                               >
                                 <a
                                   class="btn btn--purple"
-                                  href="{{url('view-detail/'.$vehicle['id'])}}"
+                                  href="{{url('view-detail/'.$vehicle['random_id'])}}"
                                   title="View now"
                                 >
                                   View Detail
@@ -629,7 +619,7 @@
                          </div>
                      </div>
                      <div class="card__footer card__footer--center card__footer--block-mobile card__footer--to-bottom pt-20em">
-                      <a href="{{url('view-detail/'.$deals->id)}}"><span class="btn btn--small btn--purple">View Tour</span></a>
+                      <a href="{{url('view-detail/'.$deals->random_id)}}"><span class="btn btn--small btn--purple">View Tour</span></a>
                      </div>
                  </div>
              </div></div>
@@ -651,6 +641,7 @@
       </div>
     </div>
   </x-front.master-layout>
+  <script src="{{asset ('assets/front/scripts/vendor7369.js?v=m0Wgcip88r')}}"></script> 
   <script>
     $(document).ready(function(){
       var alterClass = function() {
@@ -663,7 +654,7 @@
                 loop: true,
                 loopFillGroupWithBlank: true,
                 autoplay: {
-              delay: 2500,
+              delay: 3500,
                 disableOnInteraction: false,
               },
                 pagination: {
@@ -683,7 +674,7 @@
                 loop: true,
                 loopFillGroupWithBlank: true,
                 autoplay: {
-              delay: 2500,
+              delay: 3500,
                 disableOnInteraction: false,
               },
                 pagination: {

@@ -12,6 +12,7 @@ use App\Models\Vehicle;
 use App\Models\Discount;
 use App\Models\Tour;
 use App\Models\User;
+use App\Models\TourGallary;
 
 class HomeController extends Controller
 {
@@ -48,30 +49,63 @@ class HomeController extends Controller
     public function refundPolicy(){
         return view('front.pages.refund_policy.index');
     }
+    
     public function privacyPolicy(){
         return view('front.pages.privacy_policy.index');
     }
+
     public function termsAndConditions(){
         return view('front.pages.terms_conditions.index');
     }
+
     public function aboutUs(){
         return view('front.pages.about_us.index');
     }
+
     public function deals(){
         $this->outputData = [
             'deal' => Vehicle::where('is_deals','1')->with('tours')->sequence()->status('1')->get()
         ];
         return view('front.pages.deals.index',$this->outputData);
     }
+
     public function myAccount(){
        return view('front.pages.my_account.index');
     }
+
     public function faqs(){
        return view('front.pages.faqs.index');
     }
+
     public function whyChooseus(){
         return view('front.pages.why_choose.index');
-     }
+    }
+
+    public function termsConditions(){
+        return view('front.pages.terms_conditions.index');
+    }
+
+    public function reviews(){
+        return view('front.pages.reviews.index');
+    }
+
+    public function checkout(){
+        return view('front.pages.checkout_page.index');
+    }
+
+    public function gallary($id){
+        $tourId = Vehicle::where('random_id',$id)->select('tour_id')->first()->toArray();
+        $gallaryImg = TourGallary::where('tour_id',$tourId)->select('gallry_images')->get()->toArray();
+        $this->outputData['singleImglry'] = TourGallary::where('tour_id',$tourId)->select('gallry_images')->take(1)->first();
+
+        $gallary = array();
+        foreach($gallaryImg as $key => $images){
+            $this->outputData['gallary'][] = $images['gallry_images'];
+        }
+        // dd($this->outputData['gallary']);
+        return view('front.pages.tour_gallary.index',$this->outputData);
+    }
+
     public function updateProfile(Request $request){
 
         try {
@@ -80,7 +114,8 @@ class HomeController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:users',
-                    'name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
+                    'first_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
+                    'last_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
                     'email' => 'required|max:100|email:rfc,dns|unique:users,email,'.$Input['id'],
                 ]);
     
@@ -127,4 +162,5 @@ class HomeController extends Controller
             return Error::Handle($e, self::ControllerCode, '03');
         }
     }
+
 }

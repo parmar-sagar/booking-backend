@@ -37,24 +37,24 @@
                   <div class="row mt-2">
                     <div class="col">
                       <div class="form__group">
-                        <input type="text" name="name" id="name" value="{{ Auth::user()->name }}" class="form__input-blank" required="">
-                        <label class="form__label-blank" for="name">Name*</label>
+                        <input type="text" name="first_name" id="first_name" value="{{ Auth::user()->first_name }}" class="form__input-blank" required="">
+                        <label class="form__label-blank" for="first_name">First Name*</label>
                       </div>
                     </div>
-                    {{-- <div class="col">
+                    <div class="col">
                       <div class="form__row__left">
                         <div class="form__group">
-                          <input type="text" name="surname" id="_name" class="form__input-blank" required="">
-                          <label class="form__label-blank" for="first_name">Last Name*</label>
+                          <input type="text" name="last_name" id="last_name" value="{{ Auth::user()->last_name }}" class="form__input-blank" required="">
+                          <label class="form__label-blank" for="last_name">Last Name*</label>
                         </div>
                       </div>
-                    </div> --}}
+                    </div>
                   </div>
                 </div>
                 <div class="form__row">
                   <div class="form__group">
-                    <input type="tel" name="mobile" id="mobile" value="{{ Auth::user()->mobile }}" class="form__input-blank" required="">
-                    <label class="form__label-blank" for="mobile">Mobile*</label>
+                    <input type="tel" name="number" id="number" value="{{ Auth::user()->number }}" class="form__input-blank" required="">
+                    <label class="form__label-blank" for="number">Mobile*</label>
                   </div>
                 </div>
                 <!-- <div class="form__row"><div class="form__group"><select name="gender" class="select select--blank" id="gender" required=""
@@ -62,15 +62,15 @@
                         aria-label="Expand options"></a><a id="sbSelector_8128078" href=""
                         class="sbSelector">Gender*</a><ul id="sbOptions_8128078" class="sbOptions" style="display: none;"><li><a href="" rel="" class="sbFocus">Gender*</a></li><li><a href="" rel="Male">Male</a></li><li><a href="" rel="Female">Female</a></li></ul></div></div></div> -->
                 <div class="form__row">
-                  {{-- <div class="form__row__left">
+                  <div class="form__row__left">
                     <div class="form__group">
                       <select name="gender" class="select select--blank" id="gender" required="" sb="8128078" style="display: none;">
                         <option value="">Gender*</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
+                        <option value="Male"  @if(Auth::user()->gender == 'Male') selected @endif>Male</option>
+                        <option value="Female" @if(Auth::user()->gender == 'Female') selected @endif>Female</option>
                       </select>
                     </div>
-                  </div> --}}
+                  </div>
                 </div>
                 {{-- <script src="/scripts/vendor.js?v=m0Wgcip88r"></script> --}}
                 <div class="form__row ">

@@ -208,3 +208,4 @@
       </div>
     </div>
   </x-front.master-layout>
+   <script src="{{asset ('assets/front/scripts/vendor7369.js?v=m0Wgcip88r')}}"></script> 

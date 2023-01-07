@@ -1,10 +1,28 @@
 <x-front.master-layout>
   <div id="barba-wrappers" aria-live="polite">
     <div class="barba-container">
+    <header class="l-header l-header--bottom-pad tours-banner" style="background-image: url('{{ asset('/uploads/static_banner/bannerimgstatic.jpg') }}')">
+        <div class="banner-image"> 
+          <nav class="l-submenu l-submenu--blurple border-img-bottom border-img-bottom--blurple">
+            <div class="l-submenu__scroll row row--10 align-items-center justify-content-start">
+                <div class="col-6 p-3">
+                </div>
+            </div>
+          </nav>
+        </div>
+        <div class="row row--full row--g-10 tours-banner-tex">
+          <div class="col-lg-6 text-center">
+            <div class="headline-wave headline-wave--center animated fadeInLeft active">
+              <h1 class="headline-2 tour-name">Deals</h1> 
+            </div>
+          </div>
+        </div>
+        <div class="overlay-effect"></div>
+      </header>
       <main class="l-main">
         <section class="section">
-          <div class="container">
-            <div class="row" id="listing"> @foreach($deal as $deals) <div class="col-lg-12  z-index-1">
+          <div class="container p-0">
+            <div class="row" id="listing"> @foreach($deal as $deals) <div class="col-lg-12 p-0  z-index-1">
                 <div class="mb-30em animated fadeInUp active">
                   <div class="card card--shadow-green">
                     <div class="card__content">
@@ -88,7 +106,7 @@
                           </div>
                           <div class="row">
                             <div class="col-12 col-lg-12 button_nd">
-                              <a class="btn btn--purple " href="{{url('view-detail/'.$deals['id'])}}" title="Book now"> Book Now </a>
+                              <a class="btn btn--purple " href="{{url('view-detail/'.$deals['random_id'])}}" title="Book now"> Book Now </a>
                             </div>
                           </div>
                         </div>

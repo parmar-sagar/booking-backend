@@ -24,8 +24,7 @@ class User extends Authenticatable
         'mobile',
         'photo',
         'status',
-        'password',
-        'random_id'
+        'password'
     ];
 
     /**

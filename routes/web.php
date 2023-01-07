@@ -30,6 +30,7 @@ use App\Http\Controllers\SingleProductController;
 use App\Http\Controllers\AlltoursController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,9 +43,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/all-other-tours', function () {
-//     return view('front.pages.all_other_tours.index');
-// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -317,9 +315,15 @@ Route::group([
     Route::get('/faqs',[HomeController::class, 'faqs']);
     Route::post('update-profile',[HomeController::class, 'updateProfile']);
     Route::post('update-password',[HomeController::class, 'updatePassword']);
-    
+    Route::get('checkout',[HomeController::class, 'checkout']);
+    Route::get('term-and-conditions',[HomeController::class, 'termsConditions']);
+    Route::get('reviews',[HomeController::class, 'reviews']);
+    Route::get('gallary/{id}',[HomeController::class, 'gallary']); 
 
-    Route::get('/view-detail/{id}',[SingleProductController::class, 'index']);
+    Route::prefix('view-detail')->group(function() {
+        Route::get('/{id}', [SingleProductController::class, 'index']);
+    });
+    
     
     // All tours
     Route::get('/all-other-tours',[AlltoursController::class, 'index']);
@@ -327,12 +331,16 @@ Route::group([
   
     // cart
     Route::get('/cart',[CartController::class, 'index']);
-    Route::get('view-detail/add-to-cart/{id}',[CartController::class, 'add']);
+    Route::post('add-to-cart',[CartController::class, 'add']);
     Route::get('/update-cart',[CartController::class, 'update']);
     Route::get('/delete-cart/{id}',[CartController::class, 'delete']);
+    Route::post('apply-coupon',[CartController::class, 'applyCoupon']);
 
     // contact us
-    Route::get('/delete-cart/{id}',[CartController::class, 'delete']);
+    // Route::get('/delete-cart/{id}',[CartController::class, 'delete']);
 
-    // payment page
+    // contact page
     Route::get('/contact-us',[ContactController::class, 'index']);
+
+    //payment 
+    Route::post('/payment',[PaymentController::class, 'payment']);

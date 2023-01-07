@@ -21,6 +21,8 @@
         <link href="{{ asset('assets/admin/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- Plugin css -->
         <link rel="stylesheet" href="{{ asset('assets/admin/vendor/jquery-toast-plugin/jquery.toast.min.css') }}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
+      
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
 
@@ -109,7 +111,7 @@
         <script src="{{ asset('assets/admin/vendor/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-        
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         <script src="{{ asset('admin/js/custom.js') }}"></script>
         <!-- Page Scripts -->
         @if (isset($scripts))
