@@ -31,6 +31,7 @@ use App\Http\Controllers\AlltoursController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -305,6 +306,11 @@ Route::group([
 /*********************** Frontend Routes start *******************************/
 
     Route::get('/',[HomeController::class, 'index']);
+    
+    Route::prefix('vehicles')->group(function() {
+        Route::get('details/{id}', [VehicleController::class, 'detail']);
+    });
+
     Route::get('/refund-policy',[HomeController::class, 'refundPolicy']);
     Route::get('/privacy-policy',[HomeController::class, 'privacyPolicy']);
     Route::get('/terma-and_conditions',[HomeController::class, 'termsAndConditions']);
@@ -320,9 +326,6 @@ Route::group([
     Route::get('reviews',[HomeController::class, 'reviews']);
     Route::get('gallary/{id}',[HomeController::class, 'gallary']); 
 
-    Route::prefix('view-detail')->group(function() {
-        Route::get('/{id}', [SingleProductController::class, 'index']);
-    });
     
     
     // All tours

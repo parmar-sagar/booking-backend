@@ -17,10 +17,7 @@ use DataTables;
 class PaymentController extends Controller
 {
     const ControllerCode = "PY_";
-
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function payment(Request $request){
         try {

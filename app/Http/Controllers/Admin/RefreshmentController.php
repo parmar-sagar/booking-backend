@@ -13,9 +13,7 @@ class RefreshmentController extends Controller
 {
     const ControllerCode = "RF_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [

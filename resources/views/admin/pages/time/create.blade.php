@@ -29,11 +29,11 @@
                             <label for="type" class="form-label">Type</label>
                             <div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="Minutes" name="time_type" class="form-check-input" value="Minutes" @if(isset($objData->time_type) && $objData->time_type == 'Minutes') checked @endif checked>
+                                    <input type="radio" id="Minutes" name="type" class="form-check-input" value="Minutes" @if(isset($objData->type) && $objData->type == 'Minutes') checked @endif checked>
                                     <label class="form-check-label" for="Minutes">Minutes</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="Hours" name="time_type" class="form-check-input" value="Hours" @if(isset($objData->time_type) && $objData->time_type == 'Hours') checked @endif>
+                                    <input type="radio" id="Hours" name="type" class="form-check-input" value="Hours" @if(isset($objData->type) && $objData->type == 'Hours') checked @endif>
                                     <label class="form-check-label" for="Hours">Hours</label>
                                 </div>
                             </div>

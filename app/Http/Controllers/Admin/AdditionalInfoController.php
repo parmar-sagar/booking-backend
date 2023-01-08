@@ -13,9 +13,7 @@ class AdditionalInfoController extends Controller
 {
     const ControllerCode = "AI_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [

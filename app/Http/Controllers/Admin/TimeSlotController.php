@@ -13,9 +13,7 @@ class TimeSlotController extends Controller
 {
     const ControllerCode = "TS_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [
@@ -59,10 +57,10 @@ class TimeSlotController extends Controller
                 
                 TimeSlote::create($validated);
     
-                return response()->json(['success' => "Time Slotes Created successfully."]);
+                return response()->json(['success' => "Time Slots Created successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'New time-slotes',
+                'pageName' => 'New Time Slots',
                 'action' => url('admin/time-slotes/store'),
             ];
             return view('admin.pages.time_slotes.create',$this->outputData);
@@ -91,10 +89,10 @@ class TimeSlotController extends Controller
                 
                 TimeSlote::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Time Slotes Updated successfully."]);
+                return response()->json(['success' => "Time Slots Updated successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'Edit time-slotes',
+                'pageName' => 'Edit Time Slots',
                 'action' => url('admin/time-slotes/update/'.$id),
                 'objData' => TimeSlote::findOrFail($id),
             ];
@@ -107,7 +105,7 @@ class TimeSlotController extends Controller
 
     public function destroy($id){
         try {
-            $res = TimeSlote::find($id)->delete();   
+            TimeSlote::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

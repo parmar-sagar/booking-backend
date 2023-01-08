@@ -15,9 +15,7 @@ class CouponController extends Controller
 {
     const ControllerCode = "C_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [

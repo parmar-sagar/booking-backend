@@ -13,9 +13,7 @@ class HighlightController extends Controller
 {
     const ControllerCode = "H_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [

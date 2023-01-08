@@ -14,9 +14,7 @@ class TimeController extends Controller
 {
     const ControllerCode = "T_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [
@@ -50,7 +48,7 @@ class TimeController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'time' => 'required|integer',
-                    'time_type' => 'required|in:Minutes,Hours'
+                    'type' => 'required|in:Minutes,Hours'
                 ]);
                   
                 if($validator->fails()){
@@ -83,7 +81,7 @@ class TimeController extends Controller
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:times',
                     'time' => 'required|integer',
-                    'time_type' => 'required|in:Minutes,Hours'
+                    'type' => 'required|in:Minutes,Hours'
                 ]);
     
                 if($validator->fails()){

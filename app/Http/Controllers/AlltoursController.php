@@ -11,11 +11,8 @@ use App\Models\Tour;
 class AlltoursController extends Controller
 {
     const ControllerCode = "AT_";
-
-    function __construct(){
-        $this->outputData = [];
-    }
-
+    public $outputData = [];
+    
     public function index(){
         $this->outputData = [
             'allTour' => Tour::status('1')->with('location')->get()

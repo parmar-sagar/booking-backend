@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\Location;
@@ -14,9 +13,7 @@ class LocationController extends Controller
 {
     const ControllerCode = "L_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [

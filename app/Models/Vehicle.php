@@ -44,10 +44,6 @@ class Vehicle extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function scopeDeals($query){
-        return $query->where('is_deals', 1);
-    }
-
     public function ScopeOrder($query){
         return $query->orderBy('id','DESC');
     }
@@ -59,17 +55,32 @@ class Vehicle extends Model
     public function scopeActive($query){
         return $query->where('status', 1);
     }
-
-    public function scopeType($query, $type)
-    {
-        return $query->where('type', $type);
+    
+    public function scopeDeals($query){
+        return $query->where('is_deals', 1);
     }
 
-    
-    
-    public function tours(){
-        return $this->hasOne('App\Models\Tour','id','tour_id');
+    public function scopeNotDeals($query){
+        return $query->where('is_deals', 0);
+    }
+
+    public function tour(){
+        return $this->hasOne(Tour::class,'id','tour_id');
+    }
+
+    public function avalableSlote(){
+        return $this->hasMany(AvalableSlote::class,'vehicle_id','id');
+    }
+
+    public function prices(){
+        return $this->hasMany(Price::class,'vehicle_id','id');
     }
     
-    
+    public function scopeSafari($query){
+        return $query->where('type', 'Safari');
+    }    
+
+    public function scopeTour($query){
+        return $query->where('type', 'Tour');
+    }    
 }

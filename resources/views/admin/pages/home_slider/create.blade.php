@@ -23,11 +23,11 @@
                             <label for="status" class="form-label">Type</label>
                             <div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="image" name="type" class="form-check-input" value="0" @if(isset($objData) && $objData->type == 0) checked @endif checked>
+                                    <input type="radio" id="image" name="type" class="form-check-input" value="1" @if(isset($objData) && $objData->type == 1) checked @endif checked>
                                     <label class="form-check-label" for="image">Image</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="video" name="type" class="form-check-input" value="1" @if(isset($objData) && $objData->type == 1) checked @endif>
+                                    <input type="radio" id="video" name="type" class="form-check-input" value="2" @if(isset($objData) && $objData->type == 2) checked @endif>
                                     <label class="form-check-label" for="video">Video</label>
                                 </div>
                             </div>
@@ -38,9 +38,9 @@
                             <label for="image_video" class="form-label">Upload (Image / Video)</label>
                             <input type="file" id="image_video" class="form-control imgVdo" name="image_video" @if(!isset($objData)) required @endif>
 
-                            @if(isset($objData->image_video) && $objData->type == 0)
+                            @if(isset($objData->image_video) && $objData->type == 1)
                                <img src="{{ asset('admin/uploads/slider/' . $objData->image_video) }}" width="100" class="mt-3">
-                            @elseIf(isset($objData->image_video) && $objData->type == 1)
+                            @elseIf(isset($objData->image_video) && $objData->type == 2)
                                 <video width="100" height="100" controls>
                                     <source src="{{ asset('admin/uploads/slider/' . $objData->image_video) }}" type="video/mp4">
                                 </video>

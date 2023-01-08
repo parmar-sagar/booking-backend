@@ -13,9 +13,7 @@ class GroupController extends Controller
 {
     const ControllerCode = "G_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [

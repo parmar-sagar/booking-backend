@@ -13,9 +13,7 @@ class DealsController extends Controller
 {
     const ControllerCode = "D_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [
@@ -32,7 +30,7 @@ class DealsController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Vehicle::deal('1')->order()->get();
+                $datas = Vehicle::deals()->order()->get();
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -56,7 +54,7 @@ class DealsController extends Controller
                     throw new \Exception($validator->errors()->first());
                 }
                 $validated = $validator->validated();
-                $validated['is_deals'] = '1'; 
+                $validated['is_deals'] = 1; 
 
                 Vehicle::find($validated['vehicleId'])->update($validated);
     
@@ -65,7 +63,7 @@ class DealsController extends Controller
             $this->outputData = [
                 'pageName' => 'New deals',
                 'action' => url('admin/deals/store'),
-                'vehicles' => Vehicle::deal('0')->select('name','id','type')->order()->get(),
+                'vehicles' => Vehicle::select('name','id','type')->notDeals()->order()->get(),
             ];
             return view('admin.pages.deals.create',$this->outputData);
 
@@ -92,15 +90,15 @@ class DealsController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                if($validated['id'] !== $validated['vehicleId']){
-                    $editDeals = [
-                        'sequence' => '0',
-                        'discount' => '0',
-                        'is_deals' => '0'
-                    ]; 
-                    Vehicle::find($validated['id'])->update($editDeals);
-                }
-                $validated['is_deals'] = '1'; 
+                // if($validated['id'] !== $validated['vehicleId']){
+                //     $editDeals = [
+                //         'sequence' => '0',
+                //         'discount' => '0',
+                //         'is_deals' => '0'
+                //     ]; 
+                //     Vehicle::find($validated['id'])->update($editDeals);
+                // }
+                // $validated['is_deals'] = 1; 
                 Vehicle::find($validated['vehicleId'])->update($validated);
     
                 return response()->json(['success' => "Deals Updated successfully."]);
@@ -109,7 +107,7 @@ class DealsController extends Controller
                 'pageName' => 'Edit deals',
                 'action' => url('admin/deals/update/'.$id),
                 'objData' => Vehicle::findOrFail($id),
-                'vehicles' => Vehicle::deal('0')->orWhere('id',$id)->select('name','id','type')->order()->get()
+                'vehicles' => Vehicle::select('name','id','type')->deals()->orWhere('id',$id)->order()->get()
             ];
             return view('admin.pages.deals.create',$this->outputData);
 
@@ -120,10 +118,12 @@ class DealsController extends Controller
 
     public function destroy($id){
         try {
-            $isDeals['is_deals'] = '0';
-            $isDeals['sequence'] = '0'; 
-            $isDeals['discount'] = '0'; 
-            $res = Vehicle::find($id)->update($isDeals);   
+            $datas = [
+                'is_deals' => 0,
+                'sequence' => 0,
+                'discount' => 0
+            ];
+            Vehicle::find($id)->update($datas);   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

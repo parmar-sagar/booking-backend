@@ -8,9 +8,7 @@ class ContactController extends Controller
 {
     const ControllerCode = "CC_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         return view('front.pages.contact_us.index');

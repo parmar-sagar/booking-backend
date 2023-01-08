@@ -14,16 +14,13 @@ use App\Models\Tour;
 use App\Models\SafariPrice;
 use App\Models\Time;
 use App\Models\timeSlote;
-use App\Models\avalableSlote;
 use DataTables;
 
 class SafariVehicleController extends Controller
 {
     const ControllerCode = "SV_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [
@@ -40,7 +37,7 @@ class SafariVehicleController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Vehicle::type('Safari')->order()->get();
+                $datas = Vehicle::safari()->order()->get();
                 return DataTables::of($datas)->toJson();;
             }
         } catch (\Throwable $e) {
@@ -79,12 +76,11 @@ class SafariVehicleController extends Controller
                 }
                 $validated = $validator->validated();
 
-                    // $validated['time_ids'] = Helper::implode( $request['time_ids'] );
-                    $validated['includes_ids'] = Helper::implode( $request['includes_ids'] );
-                    $validated['highlight_ids'] = Helper::implode( $request['highlight_ids'] );
-                    $validated['warning_ids'] = Helper::implode( $request['warning_ids'] );
-                    $validated['activities_ids'] = Helper::implode( $request['activities_ids'] );
-                    $validated['additional_info_ids'] = Helper::implode( $request['additional_info_ids'] );
+                $validated['includes_ids'] = Helper::implode( $request['includes_ids'] );
+                $validated['highlight_ids'] = Helper::implode( $request['highlight_ids'] );
+                $validated['warning_ids'] = Helper::implode( $request['warning_ids'] );
+                $validated['activities_ids'] = Helper::implode( $request['activities_ids'] );
+                $validated['additional_info_ids'] = Helper::implode( $request['additional_info_ids'] );
 
                 if ($request->file('image')) {
                     $path = 'vehicle';
@@ -94,28 +90,27 @@ class SafariVehicleController extends Controller
                     $path = 'vehicle';
                     $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
                 }
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-                $validated['random_id'] = $snowflake->id();
+                $validated['random_id'] = (new Snowflake())->id();
                 $validated['type'] = "Safari";
                 $lastInsertId = Vehicle::create($validated)->id;
                               
-                    SafariPrice::create([
-                        'amount' => $validated['amount'],
-                        'vehicle_id' => $lastInsertId,
-                        'tour_id' => $validated['tour_id'],
-                    ]);
+                SafariPrice::create([
+                    'amount' => $validated['amount'],
+                    'vehicle_id' => $lastInsertId,
+                    'tour_id' => $validated['tour_id'],
+                ]);
                 
                 return response()->json(['success' => "Safari Vehicle Created successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'New Vehicle',
                 'action' => url('admin/safari-vehicles/store'),
-                'tourName' => Tour::type('Safari')->select('name','id')->order()->get(),
-                'highlights' => VehicleInfo::type(1)->order()->get(),
-                'includes' => VehicleInfo::type(2)->order()->get(),
-                'warnings' => VehicleInfo::type(3)->order()->get(),
-                'activities' => VehicleInfo::type(4)->order()->get(),
-                'addiInfo' => VehicleInfo::type(7)->order()->get(),
+                'tourName' => Tour::safari()->select('name','id')->order()->get(),
+                'highlights' => VehicleInfo::highlight()->order()->get(),
+                'includes' => VehicleInfo::include()->order()->get(),
+                'warnings' => VehicleInfo::warning()->order()->get(),
+                'activities' => VehicleInfo::activity()->order()->get(),
+                'addiInfo' => VehicleInfo::additionalInfo()->order()->get(),
                 'time' => Time::order()->get(),
                 'timeSlotes' => timeSlote::get()
             ];
@@ -186,14 +181,14 @@ class SafariVehicleController extends Controller
                 'action' => url('admin/safari-vehicles/update/'.$id),
                 'objData' => Vehicle::findOrFail($id),
                 'tourName' => Tour::type('Safari')->select('name','id')->order()->get(),
-                'highlights' => VehicleInfo::type(1)->order()->get(),
-                'includes' => VehicleInfo::type(2)->order()->get(),
-                'warnings' => VehicleInfo::type(3)->order()->get(),
-                'activities' => VehicleInfo::type(4)->order()->get(),
-                'addiInfo' => VehicleInfo::type(7)->order()->get(),
+                'highlights' => VehicleInfo::highlight()->order()->get(),
+                'includes' => VehicleInfo::include()->order()->get(),
+                'warnings' => VehicleInfo::warning()->order()->get(),
+                'activities' => VehicleInfo::activity()->order()->get(),
+                'addiInfo' => VehicleInfo::additionalInfo()->order()->get(),
                 'safariPirce' => SafariPrice::where('vehicle_id',$id)->select('amount')->first(),
             ]; 
-            // dd($this->outputData['safariPirce']['amount']);
+
             $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
             $this->outputData['selctdTour'] = Helper::explode( $this->outputData['objData']->tour_id );
             $this->outputData['selctdIncludes'] = Helper::explode( $this->outputData['objData']->includes_ids );

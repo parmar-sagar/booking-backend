@@ -14,7 +14,7 @@ use App\Models\Tour;
 use App\Models\Price;
 use App\Models\Time;
 use App\Models\TimeSlote;
-use App\Models\AvalableSlote;
+use App\Models\AvailableSlot;
 use DataTables;
 
 
@@ -22,9 +22,7 @@ class VehiclesController extends Controller
 {
     const ControllerCode = "V_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [
@@ -109,9 +107,9 @@ class VehiclesController extends Controller
                     ]);
                 }
                 foreach( $validated['time_slots_ids'] as $time){
-                    AvalableSlote::create([
+                    AvailableSlot::create([
                         'vehicle_id' => $lastInsertId,
-                        'time_slots_ids' => $time    
+                        'time_slot_id' => $time    
                     ]);
                 }
                 return response()->json(['success' => "Vehicle Created successfully."]);
@@ -185,12 +183,12 @@ class VehiclesController extends Controller
                 $validated['available_quantity'] = $validated['quantity'];
                 Vehicle::find($validated['id'])->update($validated);
 
-                AvalableSlote::where('vehicle_id',$validated['id'])->delete();
+                AvailableSlot::where('vehicle_id',$validated['id'])->delete();
   
                 foreach( $validated['time_slots_ids'] as $time){
-                    AvalableSlote::create([
+                    AvailableSlot::create([
                         'vehicle_id' => $validated['id'],
-                        'time_slots_ids' => $time
+                        'time_slot_id' => $time
                     ]);
                 }
                 Price::where('vehicle_id',$id)->delete();
@@ -225,15 +223,15 @@ class VehiclesController extends Controller
 
             $this->outputData['price'] = Price::where('vehicle_id',$id)->get();
 
-            $timeSlotes = AvalableSlote::where('vehicle_id',$id)->get()->toArray();  
+            $timeSlotes = AvailableSlot::where('vehicle_id',$id)->get()->toArray();  
 
             foreach($timeSlotes as $key => $value){
-                $this->outputData['selctdTimeSlots'][] = $value['time_slots_ids'];
+                $this->outputData['selctdTimeSlots'][] = $value['time_slot_id'];
             }
             
             $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
             $this->outputData['selctdTour'] = Helper::explode( $this->outputData['objData']->tour_id );
-            $this->outputData['selctdIncludes'] = Helper::explode( $this->outputData['objData']->includes_ids );
+            $this->outputData['selctdInclude'] = Helper::explode( $this->outputData['objData']->includes_ids );
             $this->outputData['selctdWarning'] = Helper::explode( $this->outputData['objData']->warning_ids );
             $this->outputData['selctdHighlight'] = Helper::explode( $this->outputData['objData']->highlight_ids );
             $this->outputData['selctdActivitie'] = Helper::explode( $this->outputData['objData']->activities_ids );

@@ -16,9 +16,7 @@ class UserController extends Controller{
 
     const ControllerCode = "U_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [

@@ -38,10 +38,13 @@ class Tour extends Model
         return $query->where('status', 1);
     }
 
-    public function scopeType($query, $type)
-    {
-        return $query->where('type', $type);
-    }
+    public function scopeSafari($query){
+        return $query->where('type', 'Safari');
+    }    
+
+    public function scopeTour($query){
+        return $query->where('type', 'Tour');
+    }    
 
     public function scopeOnhome($query, $onHome)
     {
@@ -57,6 +60,10 @@ class Tour extends Model
     }
 
     public function location(){
-        return $this->hasOne('App\Models\Location','id','location_id');
+        return $this->hasOne(Location::class,'id','location_id');
+    }
+
+    public function vehicles(){
+        return $this->hasMany(Vehicle::class,'tour_id','id');
     }
 }

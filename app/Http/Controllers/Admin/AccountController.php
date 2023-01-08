@@ -14,9 +14,7 @@ class AccountController extends Controller{
 
     const ControllerCode = "AC_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [

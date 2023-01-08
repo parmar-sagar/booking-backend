@@ -13,9 +13,7 @@ class WarningController extends Controller
 {
     const ControllerCode = "W_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [

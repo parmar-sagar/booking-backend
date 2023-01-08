@@ -10,8 +10,8 @@ class Helper {
         return $data;
     }
 
-    public static function explode(String $string){
-        $data = explode(',',$string);
+    public static function explode($string){
+        $data = ($string) ? explode(',',$string) : [];
         return $data;
     }
 

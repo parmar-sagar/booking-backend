@@ -13,9 +13,7 @@ class IncludeController extends Controller
 {
     const ControllerCode = "I_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [
