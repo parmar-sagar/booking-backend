@@ -17,7 +17,7 @@ class RefreshmentController extends Controller
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Refreshment',
+            'pageName' => 'Refreshments',
             'dataTables' => url('admin/vehicles/refreshments/datatable'),
             'delete' => url('admin/vehicles/refreshments/delete'),
             'create' => url('admin/vehicles/refreshments/create'),
@@ -58,7 +58,7 @@ class RefreshmentController extends Controller
                 
                 VehicleInfo::create($validated);
     
-                return response()->json(['success' => "refreshments Created successfully."]);
+                return response()->json(['success' => "Refreshment Created successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'New Refreshment',
@@ -90,12 +90,15 @@ class RefreshmentController extends Controller
                 
                 VehicleInfo::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "refreshments Updated successfully."]);
+                return response()->json(['success' => "Refreshment Updated successfully."]);
             }
+            
+            $objData = VehicleInfo::findOrFail($id);
+
             $this->outputData = [
-                'pageName' => 'Edit refreshments',
+                'pageName' => 'Edit Refreshment',
                 'action' => url('admin/vehicles/refreshments/update/'.$id),
-                'objData' => VehicleInfo::findOrFail($id),
+                'objData' => $objData,
             ];
             return view('admin.pages.refreshment.create',$this->outputData);
 
