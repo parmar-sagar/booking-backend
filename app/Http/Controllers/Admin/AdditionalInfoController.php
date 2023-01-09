@@ -17,7 +17,7 @@ class AdditionalInfoController extends Controller
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Additional Info',
+            'pageName' => 'Additional Infos',
             'dataTables' => url('admin/vehicles/additional-info/datatable'),
             'delete' => url('admin/vehicles/additional-info/delete'),
             'create' => url('admin/vehicles/additional-info/create'),
@@ -91,10 +91,13 @@ class AdditionalInfoController extends Controller
     
                 return response()->json(['success' => "Additional Info Updated successfully."]);
             }
+
+            $objData = VehicleInfo::findOrFail($id);
+
             $this->outputData = [
                 'pageName' => 'Edit Additional Info',
                 'action' => url('admin/vehicles/additional-info/update/'.$id),
-                'objData' => VehicleInfo::findOrFail($id),
+                'objData' => $objData,
             ];
             return view('admin.pages.additional_info.create',$this->outputData);
 
