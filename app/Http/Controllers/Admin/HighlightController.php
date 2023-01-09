@@ -86,16 +86,18 @@ class HighlightController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $validated['type'] = 1;
                 
                 VehicleInfo::find($validated['id'])->update($validated);
     
                 return response()->json(['success' => "Not Include Updated successfully."]);
             }
+
+            $objData = VehicleInfo::findOrFail($id);
+            
             $this->outputData = [
                 'pageName' => 'Edit Not Include',
                 'action' => url('admin/vehicles/highlights/update/'.$id),
-                'objData' => VehicleInfo::findOrFail($id),
+                'objData' => $objData,
             ];
             return view('admin.pages.include.create',$this->outputData);
 
