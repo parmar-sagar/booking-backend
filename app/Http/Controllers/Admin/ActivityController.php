@@ -46,7 +46,7 @@ class ActivityController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'title' => 'required|string|unique:vehicle_infos',
-                    'price' => 'required|digits_between:1,99999999999999',
+                    'price' => 'required|numeric',
                 ]);
                   
                 if($validator->fails()){
@@ -58,7 +58,7 @@ class ActivityController extends Controller
                 
                 VehicleInfo::create($validated);
     
-                return response()->json(['success' => "Activities Created successfully."]);
+                return response()->json(['success' => "Activity Created successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'New Activities',
@@ -80,7 +80,7 @@ class ActivityController extends Controller
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:vehicle_infos',
                     'title' => 'required|string|unique:vehicle_infos,title,'.$id,
-                    'price' => 'required',
+                    'price' => 'required|numeric',
                 ]);
     
                 if($validator->fails()){
@@ -91,12 +91,15 @@ class ActivityController extends Controller
               
                 VehicleInfo::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Activities Updated successfully."]);
+                return response()->json(['success' => "Activity Updated successfully."]);
             }
+
+            $objData = VehicleInfo::findOrFail($id);
+
             $this->outputData = [
-                'pageName' => 'Edit Activities',
+                'pageName' => 'Edit Activity',
                 'action' => url('admin/vehicles/activities/update/'.$id),
-                'objData' => VehicleInfo::findOrFail($id),
+                'objData' => $objData,
             ];
             return view('admin.pages.activity.create',$this->outputData);
 
