@@ -58,7 +58,7 @@ class WarningController extends Controller
                 
                 VehicleInfo::create($validated);
     
-                return response()->json(['success' => "Warnings Created successfully."]);
+                return response()->json(['success' => "Warning Created successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'New Warnings',
@@ -90,12 +90,15 @@ class WarningController extends Controller
                 
                 VehicleInfo::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Warnings Updated successfully."]);
+                return response()->json(['success' => "Warning Updated successfully."]);
             }
+
+            $objData = VehicleInfo::findOrFail($id);
+            
             $this->outputData = [
-                'pageName' => 'Edit Warnings',
+                'pageName' => 'Edit Warning',
                 'action' => url('admin/vehicles/warnings/update/'.$id),
-                'objData' => VehicleInfo::findOrFail($id),
+                'objData' => $objData,
             ];
             return view('admin.pages.include.create',$this->outputData);
 
