@@ -92,10 +92,13 @@ class LocationController extends Controller
     
                 return response()->json(['success' => "Location Updated successfully."]);
             }
+
+            $objData = Location::findOrFail($id);
+
             $this->outputData = [
                 'pageName' => 'Edit Locations',
                 'action' => url('admin/locations/update/'.$id),
-                'objData' => Location::findOrFail($id),
+                'objData' => $objData,
             ];
             return view('admin.pages.location.create',$this->outputData);
 
@@ -106,7 +109,7 @@ class LocationController extends Controller
 
     public function destroy($id){
         try {
-            $res = Location::find($id)->delete();   
+            Location::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');
