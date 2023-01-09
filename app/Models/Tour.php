@@ -10,26 +10,26 @@ class Tour extends Model
     use HasFactory;
     
     protected $fillable = [
+        'random_id',
         'name',
         'description',
-        'time_ids',
-        'image',
-        'banner_img',
-        'link',
-        'status',
-        'on_home',
-        'on_home_sequence',
-        'type',
-        'sequence',
-        'location_id',
-        'random_id',
         'min_age',
-        'pickup_and_drop',
         'convoy_leader',
         'tour_guide',
+        'pickup_and_drop',
+        'time_ids',
+        'location_id',
+        'safety_gear_ids',
         'refreshments_ids',
-        'safety_gear_ids'
+        'sequence',
+        'status',
+        'image',
+        'banner_img',
+        'on_home',
+        'on_home_sequence',
+        'type'
     ];
+    
     protected $hidden = [
         'created_at','updated_at',
     ];
