@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-body">
                     <div>
-                        <p><span style="color:red">Note : </span> Features for your Vehicles</p>
+                        <p><span style="color:red">Note : </span> {{ $pageName }} for your Vehicles</p>
                     </div>
                     <div class="row mb-2">
                         <div class="col-sm-5">
