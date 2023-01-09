@@ -36,7 +36,7 @@ class TourController extends Controller{
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Tour::type('Tour')->order()->get();
+                $datas = Tour::tour()->order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -62,7 +62,7 @@ class TourController extends Controller{
                     'location_id' => 'required|integer',
                     'safety_gear_ids' => 'required|array',
                     'refreshments_ids' => 'required|array',
-                    'sequence' => 'required|integer',
+                    'sequence' => 'nullable|integer',
                     'status' => 'required|in:0,1',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
                     'banner_img' => 'required|mimes:jpeg,jpg,png,gif'
@@ -79,17 +79,16 @@ class TourController extends Controller{
                 $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
-                    $path = 'tour';
-                    $validated['image'] = Helper::uploadFile($request->image, $path);
+                    $validated['image'] = Helper::uploadFile($request->image, 'tour');
                 }
                 if ($request->file('banner_img')) {
-                    $path = 'tour';
-                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
+                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, 'tour');
                 }
                 
                 $validated['random_id'] = (new Snowflake())->id();
 
                 $lastId = Tour::create($validated);
+
                 $tourId = $lastId->id;
                 if(!empty($request->gallry_images)){    
                     if ($request->hasfile('gallry_images')) {
@@ -108,13 +107,19 @@ class TourController extends Controller{
     
                 return response()->json(['success' => "Tour Created successfully."]);
             }
+
+            $times = Time::order()->get();
+            $locations = Location::order()->get();
+            $safetyGears = VehicleInfo::safetyGear()->order()->get();
+            $refreshments = VehicleInfo::refreshment()->order()->get();
+            
             $this->outputData = [
                 'pageName' => 'New Tour',
                 'action' => url('admin/tours/store'),
-                'time' => Time::order()->get(),
-                'locations' => Location::order()->get(),
-                'safetyGear' => VehicleInfo::safetyGear()->order()->get(),
-                'refreshment' => VehicleInfo::refreshment()->order()->get(),
+                'times' => $times,
+                'locations' => $locations,
+                'safetyGears' => $safetyGears,
+                'refreshments' => $refreshments,
             ];
             return view('admin.pages.tour.create',$this->outputData);
 

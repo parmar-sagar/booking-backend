@@ -93,7 +93,7 @@
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/safari-vehicles') }}" class="side-nav-link">
+                            <a href="{{ url('admin/safaris/vehicles') }}" class="side-nav-link">
                                 <span> Vehicles </span>
                             </a>
                         </li>

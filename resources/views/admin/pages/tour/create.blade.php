@@ -58,8 +58,8 @@
                         <div class="mb-3">
                             <label for="time_ids" class="form-label">Times</label>
                             <select  class="select2 form-control select2-multiple" id="time_ids" data-toggle="select2" multiple="multiple" data-placeholder="Choose ..." name="time_ids[]" required>
-                                @foreach($time as $time_tour)
-                                    <option value="{{$time_tour->id}}" @if(isset($selctdTime) && in_array($time_tour->id,$selctdTime)) selected @endif >{{$time_tour->time}}</option>
+                                @foreach($times as $value)
+                                    <option value="{{$value->id}}" @if(isset($selctdTime) && in_array($value->id,$selctdTime)) selected @endif >{{$value->time}}</option>
                                 @endforeach    
                             </select>
                         </div>
@@ -68,8 +68,8 @@
                         <label for="location_id" class="form-label">Location</label>
                             <select class="form-control select2" data-toggle="select2" id="location_id" name="location_id" required>
                                 <option>Select</option>
-                                @foreach($locations as $location)
-                                    <option value="{{$location->id}}" @if(isset($objData->location_id) && $objData->location_id == $location->id) selected @endif>{{$location->name}}</option>
+                                @foreach($locations as $value)
+                                    <option value="{{$value->id}}" @if(isset($objData->location_id) && $objData->location_id == $value->id) selected @endif>{{$value->name}}</option>
                                 @endforeach    
                             </select>
                     </div>
@@ -77,8 +77,8 @@
                         <div class="mb-3">
                             <label for="safety_gear_ids" class="form-label">Safety Gears</label>
                             <select class="select2 form-control select2-multiple" id="safety_gear_ids" data-toggle="select2" name="safety_gear_ids[]" multiple="multiple" data-placeholder="Choose ...">
-                                @foreach($safetyGear as $safetyGears)
-                                <option value="{{$safetyGears->id}}" @if(isset($selctdSftyGear) && in_array($safetyGears->id, $selctdSftyGear)) selected @endif>{{$safetyGears->title}}</option>
+                                @foreach($safetyGears as $value)
+                                <option value="{{$value->id}}" @if(isset($selctdSftyGear) && in_array($value->id, $selctdSftyGear)) selected @endif>{{$value->title}}</option>
                                 @endforeach  
                             </select>
                         </div>
@@ -87,8 +87,8 @@
                         <div class="mb-3">
                             <label for="refreshments_ids" class="form-label">Refreshments</label>
                             <select class="select2 form-control select2-multiple" id="refreshments_ids" data-toggle="select2" name="refreshments_ids[]" multiple="multiple" data-placeholder="Choose ...">
-                                @foreach($refreshment as $refreshments)
-                                <option value="{{$refreshments->id}}" @if(isset($selctdRefreshment) && in_array($refreshments->id, $selctdRefreshment)) selected @endif>{{$refreshments->title}}</option>
+                                @foreach($refreshments as $value)
+                                <option value="{{$value->id}}" @if(isset($selctdRefreshment) && in_array($value->id, $selctdRefreshment)) selected @endif>{{$value->title}}</option>
                                 @endforeach  
                             </select>
                         </div>
@@ -116,16 +116,16 @@
                             <label for="gallry_images" class="form-label">Galllary Image</label>
                             <input type="file" id="gallry_images" accept=".png, .jpg, .jpeg" class="form-control" name="gallry_images[]"  @if(!isset($objData)) required @endif multiple />
                             @if(isset($gallaryImages))
-                            @foreach($gallaryImages as $tourGallary)
-                                <img src="{{ asset('admin/uploads/gallry_images/'.$tourGallary->gallry_images) }}" width="80" class="mt-3">
-                            @endforeach
+                                @foreach($gallaryImages as $tourGallary)
+                                    <img src="{{ asset('admin/uploads/gallry_images/'.$tourGallary->gallry_images) }}" width="80" class="mt-3">
+                                @endforeach
                             @endif
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="sequence" class="form-label">Sequence</label>
-                            <input type="number" min="0" id="sequence" class="form-control" name="sequence" value="@if(isset($objData->sequence) && $objData->sequence){{ $objData->sequence }}@endif" required>
+                            <input type="number" min="0" id="sequence" class="form-control" name="sequence" value="@if(isset($objData->sequence) && $objData->sequence){{ $objData->sequence }}@endif">
                         </div>
                     </div>
                     <div class="col-lg-6">
