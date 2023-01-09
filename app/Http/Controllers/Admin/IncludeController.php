@@ -92,10 +92,13 @@ class IncludeController extends Controller
     
                 return response()->json(['success' => "Includes Updated successfully."]);
             }
+
+            $objData = VehicleInfo::findOrFail($id);
+            
             $this->outputData = [
                 'pageName' => 'Edit Includes',
                 'action' => url('admin/vehicles/includes/update/'.$id),
-                'objData' => VehicleInfo::findOrFail($id),
+                'objData' => $objData,
             ];
             return view('admin.pages.include.create',$this->outputData);
 
