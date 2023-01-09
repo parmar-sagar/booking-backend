@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
-use App\Models\TimeSlote;
+use App\Models\TimeSlot;
 use DataTables;
 
 class TimeSlotController extends Controller
@@ -17,7 +17,7 @@ class TimeSlotController extends Controller
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Time Slote',
+            'pageName' => 'Time Slots',
             'dataTables' => url('admin/time-slotes/datatable'),
             'delete' => url('admin/time-slotes/delete'),
             'create' => url('admin/time-slotes/create'),
@@ -30,7 +30,7 @@ class TimeSlotController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = TimeSlote::get();
+                $datas = TimeSlot::get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -55,9 +55,9 @@ class TimeSlotController extends Controller
 
                 $validated = $validator->validated();
                 
-                TimeSlote::create($validated);
+                TimeSlot::create($validated);
     
-                return response()->json(['success' => "Time Slots Created successfully."]);
+                return response()->json(['success' => "Time Slot Created successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'New Time Slots',
@@ -87,14 +87,14 @@ class TimeSlotController extends Controller
 
                 $validated = $validator->validated();
                 
-                TimeSlote::find($validated['id'])->update($validated);
+                TimeSlot::find($validated['id'])->update($validated);
     
                 return response()->json(['success' => "Time Slots Updated successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'Edit Time Slots',
                 'action' => url('admin/time-slotes/update/'.$id),
-                'objData' => TimeSlote::findOrFail($id),
+                'objData' => TimeSlot::findOrFail($id),
             ];
             return view('admin.pages.time_slotes.create',$this->outputData);
 
@@ -105,7 +105,7 @@ class TimeSlotController extends Controller
 
     public function destroy($id){
         try {
-            TimeSlote::find($id)->delete();   
+            TimeSlot::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

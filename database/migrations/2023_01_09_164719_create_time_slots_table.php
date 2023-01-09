@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('time_slotes', function (Blueprint $table) {
+        Schema::create('time_slots', function (Blueprint $table) {
             $table->id();
             $table->string('text');
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('time_slotes');
+        Schema::dropIfExists('time_slots');
     }
 };
