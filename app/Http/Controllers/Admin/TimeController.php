@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\Time;
@@ -59,7 +58,7 @@ class TimeController extends Controller
                 
                 Time::create($validated);
     
-                return response()->json(['success' => "Times Created successfully."]);
+                return response()->json(['success' => "Time Created successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'New Times',
@@ -92,12 +91,15 @@ class TimeController extends Controller
                 
                 Time::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Times Updated successfully."]);
+                return response()->json(['success' => "Time Updated successfully."]);
             }
+
+            $objData = Time::findOrFail($id);
+            
             $this->outputData = [
                 'pageName' => 'Edit Times',
                 'action' => url('admin/times/update/'.$id),
-                'objData' => Time::findOrFail($id),
+                'objData' => $objData,
             ];
             return view('admin.pages.time.create',$this->outputData);
 
