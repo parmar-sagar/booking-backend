@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Models\Slider;
 use App\Handlers\Error;
@@ -14,7 +13,7 @@ use DataTables;
 
 class HomeSliderController extends Controller
 {
-    const ControllerCode = "H_";
+    const ControllerCode = "HS_";
 
     public $outputData = [];
 
@@ -47,18 +46,17 @@ class HomeSliderController extends Controller
                 $Input = $request->all();
 
                 $imageVdo = 'mimes:jpeg,jpg,png,gif';
-                if($Input['type']){
+                if($Input['type'] == 2){
                     $imageVdo = 'mimes:mp4,mov,ogg';
                 }
-
+                
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'sequence' => 'required|integer',
+                    'sequence' => 'nullable|integer',
                     'status' => 'required|in:1,0',
                     'image_video' => 'required|'.$imageVdo,
-                    'type' => 'required|in:0,1',
+                    'type' => 'required|in:1,2',
                     'link' => 'nullable'
-
                 ]);
                   
                 if($validator->fails()){
@@ -71,7 +69,7 @@ class HomeSliderController extends Controller
                     $path = 'slider';
                     $validated['image_video'] = Helper::uploadFile($request->image_video, $path);
                 }
-
+                $validated['sequence'] = (($validated['sequence'])) ?? 0;
                 Slider::create($validated);    
                 return response()->json(['success' => "Home slider Created successfully."]);
             }
@@ -92,17 +90,17 @@ class HomeSliderController extends Controller
                 $Input = $request->all();
 
                 $imageVdo = 'mimes:jpeg,jpg,png,gif';
-                if($Input['type']){
+                if($Input['type'] == 2){
                     $imageVdo = 'mimes:mp4,mov,ogg';
                 }
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'id' => 'required|exists:home_sliders',
-                    'sequence' => 'required|integer|unique:home_sliders,sequence,'.$id,
+                    'id' => 'required|exists:sliders',
+                    'sequence' => 'nullable|integer',
                     'status' => 'required|in:1,0',
                     'image_video' => 'nullable|'.$imageVdo,
-                    'type' => 'required|in:0,1',
+                    'type' => 'required|in:1,2',
                     'link' => 'nullable'
                 ]);
     
@@ -117,13 +115,17 @@ class HomeSliderController extends Controller
                     $validated['image_video'] = Helper::uploadFile($request->image_video, $path);
                 }
 
+                $validated['sequence'] = (($validated['sequence'])) ?? 0;
                 Slider::find($validated['id'])->update($validated);
                 return response()->json(['success' => "Home Slider Updated successfully."]);
             }
+
+            $objData = Slider::findOrFail($id);
+
             $this->outputData = [
                 'pageName' => 'Edit Home Sliders',
                 'action' => url('admin/home/sliders/update/'.$id),
-                'objData' => Slider::findOrFail($id),
+                'objData' => $objData,
             ];
             return view('admin.pages.home_slider.create',$this->outputData);
 

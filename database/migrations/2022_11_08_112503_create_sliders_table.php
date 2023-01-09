@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
-            $table->enum('type',['1','2'])->default(1)->comment('1 => Image , 2 => Video')->index('idx_type');
+            $table->tinyInteger('type')->default(1)->comment('1 => Image , 2 => Video')->index('idx_type');
             $table->string('image_video', 100);
             $table->text('link')->nullable();
             $table->tinyInteger('status')->default(1)->comment('0 => deactive , 1 => active')->index('idx_status');

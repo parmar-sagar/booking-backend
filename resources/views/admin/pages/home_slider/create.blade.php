@@ -1,9 +1,6 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
-            <div>
-                <p><span style="color:red">Note : </span> This is to manage the sequence in which you want to show tours in sliders present on home-page.</p>
-            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>
@@ -20,7 +17,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="status" class="form-label">Type</label>
+                            <label for="type" class="form-label">Type</label>
                             <div>
                                 <div class="form-check form-check-inline">
                                     <input type="radio" id="image" name="type" class="form-check-input" value="1" @if(isset($objData) && $objData->type == 1) checked @endif checked>
@@ -57,7 +54,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="sequence" class="form-label">Sequence</label>
-                            <input type="number" id="sequence" class="form-control" name="sequence" value="@if(isset($objData->sequence) && $objData->sequence){{ $objData->sequence }}@endif" min="0" required>
+                            <input type="number" id="sequence" class="form-control" name="sequence" value="@if(isset($objData->sequence) && $objData->sequence){{ $objData->sequence }}@endif" min="0">
                         </div>
                     </div>
                     <div class="col-lg-6">
