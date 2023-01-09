@@ -77,7 +77,7 @@ class TimeSlotController extends Controller
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'id' => 'required|exists:time_slotes',
+                    'id' => 'required|exists:time_slots',
                     'text' => 'required|string',
                 ]);
     

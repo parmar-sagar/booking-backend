@@ -53,7 +53,7 @@ class CouponController extends Controller
                 $Input = $request->all();
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'name' => 'required|string|max:50',
+                    'name' => 'required|string|max:100',
                     'description' => 'required|string',
                     'code' => 'required|min:5|max:50|unique:coupons',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
@@ -100,7 +100,7 @@ class CouponController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:coupons',
-                    'name' => 'required|string|max:50',
+                    'name' => 'required|string|max:100',
                     'description' => 'required|string',
                     'code' => 'required|min:5|max:50|unique:coupons,code,'.$id,
                     'image' => 'nullable|mimes:jpeg,jpg,png,gif',
@@ -126,10 +126,13 @@ class CouponController extends Controller
     
                 return response()->json(['success' => "Coupon Updated successfully."]);
             }
+
+            $objData = Coupon::findOrFail($id);
+
             $this->outputData = [
                 'pageName' => 'Edit Coupon',
                 'action' => url('admin/coupons/update/'.$id),
-                'objData' => Coupon::findOrFail($id)
+                'objData' => $objData
             ];
 
             return view('admin.pages.coupon.create',$this->outputData);
@@ -141,7 +144,7 @@ class CouponController extends Controller
 
     public function destroy($id){
         try {
-            $res = Coupon::find($id)->delete();   
+            Coupon::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');
