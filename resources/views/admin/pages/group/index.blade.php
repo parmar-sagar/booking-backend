@@ -9,6 +9,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <div>
+                        <p><span style="color:red">Note : </span>These can be added, removed or modified as desired. The discount percentage can be created according to the size of the 
+                            group.</p>
+                    </div>
                     <div class="row mb-2">
                         <div class="col-sm-5">
                             <a href="javascript:void(0);" class="btn btn-danger mb-2 open-form" data-create-href={{ $create }}><i class="mdi mdi-plus-circle me-2"></i> Add {{ $pageName }}</a>

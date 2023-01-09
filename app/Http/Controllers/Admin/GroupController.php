@@ -17,7 +17,7 @@ class GroupController extends Controller
 
     public function index(){
         $this->outputData = [
-            'pageName' => 'Group Discount',
+            'pageName' => 'Group Discounts',
             'dataTables' => url('admin/group-discount/datatable'),
             'delete' => url('admin/group-discount/delete'),
             'create' => url('admin/group-discount/create'),
@@ -47,7 +47,7 @@ class GroupController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'no_of_vehicle' => 'required|integer',
-                    'discount' => 'required|integer'
+                    'discount' => 'required|numeric'
                 ]);
                   
                 if($validator->fails()){
@@ -61,7 +61,7 @@ class GroupController extends Controller
                 return response()->json(['success' => "Group Discount Created successfully."]);
             }
             $this->outputData = [
-                'pageName' => 'New Group Discount',
+                'pageName' => 'New Group Discounts',
                 'action' => url('admin/group-discount/store'),
             ];
             return view('admin.pages.group.create',$this->outputData);
@@ -94,10 +94,13 @@ class GroupController extends Controller
     
                 return response()->json(['success' => "Group Discount Updated successfully."]);
             }
+
+            $objData = Discount::findOrFail($id);
+            
             $this->outputData = [
                 'pageName' => 'Edit Group Discount',
                 'action' => url('admin/group-discount/update/'.$id),
-                'objData' => Discount::findOrFail($id),
+                'objData' => $objData,
             ];
             return view('admin.pages.group.create',$this->outputData);
 
