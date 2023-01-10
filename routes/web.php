@@ -30,6 +30,7 @@ use App\Http\Controllers\SingleProductController;
 use App\Http\Controllers\AlltoursController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\OtherPageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
@@ -317,22 +318,21 @@ Route::group([
         Route::get('details/{id}', [VehicleController::class, 'detail']);
     });
 
-    Route::get('/refund-policy',[HomeController::class, 'refundPolicy']);
-    Route::get('/privacy-policy',[HomeController::class, 'privacyPolicy']);
-    Route::get('/terma-and_conditions',[HomeController::class, 'termsAndConditions']);
-    Route::get('/about-us',[HomeController::class, 'aboutUs']);
-    Route::get('why-choose-us',[HomeController::class, 'whyChooseus']);
+    Route::get('refund-policy',[OtherPageController::class, 'refundPolicy']);
+    Route::get('privacy-policy',[OtherPageController::class, 'privacyPolicy']);
+    Route::get('terms-and-conditions',[OtherPageController::class, 'termsAndConditions']);
+    Route::get('about-us',[OtherPageController::class, 'aboutUs']);
+    Route::get('why-choose-us',[OtherPageController::class, 'whyChooseUs']);
+    Route::get('contact-us',[OtherPageController::class, 'contactUs']);
+    Route::get('faqs',[OtherPageController::class, 'faqs']);
+    Route::get('reviews',[OtherPageController::class, 'reviews']);
+
     Route::get('/deals',[HomeController::class, 'deals']);
     Route::get('/my-account',[HomeController::class, 'myAccount']);
-    Route::get('/faqs',[HomeController::class, 'faqs']);
     Route::post('update-profile',[HomeController::class, 'updateProfile']);
     Route::post('update-password',[HomeController::class, 'updatePassword']);
     Route::get('checkout',[HomeController::class, 'checkout']);
-    Route::get('term-and-conditions',[HomeController::class, 'termsConditions']);
-    Route::get('reviews',[HomeController::class, 'reviews']);
     Route::get('gallary/{id}',[HomeController::class, 'gallary']); 
-
-    
     
     // All tours
     Route::get('/all-other-tours',[AlltoursController::class, 'index']);
@@ -349,7 +349,6 @@ Route::group([
     // Route::get('/delete-cart/{id}',[CartController::class, 'delete']);
 
     // contact page
-    Route::get('/contact-us',[ContactController::class, 'index']);
 
     //payment 
     Route::post('/payment',[PaymentController::class, 'payment']);
