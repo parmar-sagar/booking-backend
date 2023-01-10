@@ -24,7 +24,7 @@ class DealsController extends Controller
             'edit' => url('admin/deals/edit')
         ];
         
-        return view('admin.pages.deals.index',$this->outputData);
+        return view('admin.pages.tour.deal.index',$this->outputData);
     }
 
     public function datatable(Request $request){
@@ -69,7 +69,7 @@ class DealsController extends Controller
                 'action' => url('admin/deals/store'),
                 'vehicles' => $vehicles
             ];
-            return view('admin.pages.deals.create',$this->outputData);
+            return view('admin.pages.tour.deal.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '02');
@@ -110,7 +110,7 @@ class DealsController extends Controller
                 'objData' => $objData,
                 'vehicles' => $vehicles
             ];
-            return view('admin.pages.deals.create',$this->outputData);
+            return view('admin.pages.tour.deal.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '03');
