@@ -46,7 +46,7 @@ class DealsController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'vehicleId' => 'required|integer',
-                    'sequence' => 'required|integer',
+                    'sequence' => 'nullable|integer',
                     'discount' => 'required|integer',
                 ]);
     
@@ -55,15 +55,19 @@ class DealsController extends Controller
                 }
                 $validated = $validator->validated();
                 $validated['is_deals'] = 1; 
+                $validated['sequence'] = (($validated['sequence'])) ?? 0;
 
                 Vehicle::find($validated['vehicleId'])->update($validated);
     
                 return response()->json(['success' => "Deals Created successfully."]);
             }
+
+            $vehicles = Vehicle::select('name','id','type')->notDeals()->order()->get();
+
             $this->outputData = [
                 'pageName' => 'New deals',
                 'action' => url('admin/deals/store'),
-                'vehicles' => Vehicle::select('name','id','type')->notDeals()->order()->get(),
+                'vehicles' => $vehicles
             ];
             return view('admin.pages.deals.create',$this->outputData);
 
@@ -81,7 +85,7 @@ class DealsController extends Controller
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:vehicles',
                     'vehicleId' => 'required|integer',
-                    'sequence' => 'required|integer',
+                    'sequence' => 'nullable|integer',
                     'discount' => 'required|integer',
                 ]);
     
@@ -90,24 +94,21 @@ class DealsController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                // if($validated['id'] !== $validated['vehicleId']){
-                //     $editDeals = [
-                //         'sequence' => '0',
-                //         'discount' => '0',
-                //         'is_deals' => '0'
-                //     ]; 
-                //     Vehicle::find($validated['id'])->update($editDeals);
-                // }
-                // $validated['is_deals'] = 1; 
+                $validated['sequence'] = (($validated['sequence'])) ?? 0;
+                
                 Vehicle::find($validated['vehicleId'])->update($validated);
     
                 return response()->json(['success' => "Deals Updated successfully."]);
             }
+
+            $objData = Vehicle::findOrFail($id);
+            $vehicles = Vehicle::select('name','id','type')->deals()->orWhere('id',$id)->order()->get();
+
             $this->outputData = [
                 'pageName' => 'Edit deals',
                 'action' => url('admin/deals/update/'.$id),
-                'objData' => Vehicle::findOrFail($id),
-                'vehicles' => Vehicle::select('name','id','type')->deals()->orWhere('id',$id)->order()->get()
+                'objData' => $objData,
+                'vehicles' => $vehicles
             ];
             return view('admin.pages.deals.create',$this->outputData);
 
