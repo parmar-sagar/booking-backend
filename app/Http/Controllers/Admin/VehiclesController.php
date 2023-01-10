@@ -34,7 +34,7 @@ class VehiclesController extends Controller
             'edit' => url('admin/tours/vehicles/edit')
         ];
         
-        return view('admin.pages.vehicles.index',$this->outputData);
+        return view('admin.pages.tour.vehicle.index',$this->outputData);
     }
 
     public function datatable(Request $request){
@@ -136,7 +136,7 @@ class VehiclesController extends Controller
                 'times' => $times,
                 'timeSlotes' => TimeSlot::get()
             ];
-            return view('admin.pages.vehicles.create',$this->outputData);
+            return view('admin.pages.tour.vehicle.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '02');
@@ -247,7 +247,7 @@ class VehiclesController extends Controller
             $this->outputData['selctdActivitie'] = Helper::explode( $this->outputData['objData']->activities_ids );
             $this->outputData['selctdAddInfo'] = Helper::explode( $this->outputData['objData']->additional_info_ids );
 
-            return view('admin.pages.vehicles.create',$this->outputData);
+            return view('admin.pages.tour.vehicle.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '03');
