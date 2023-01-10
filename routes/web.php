@@ -79,18 +79,23 @@ Route::group([
         Route::get('/edit/{id}',[TourController::class, 'edit']);
 		Route::post('/update/{id}',[TourController::class, 'edit']);
 		Route::get('/delete/{id}',[TourController::class, 'destroy']);
+
+        Route::group([
+            'prefix' => 'vehicles'
+        ], function(){
+            Route::get('/',[VehiclesController::class, 'index']);
+            Route::get('/datatable',[VehiclesController::class, 'datatable']);
+            Route::get('/create',[VehiclesController::class, 'create']);
+            Route::post('/store',[VehiclesController::class, 'create']);
+            Route::get('/edit/{id}',[VehiclesController::class, 'edit']);
+            Route::post('/update/{id}',[VehiclesController::class, 'edit']);
+            Route::get('/delete/{id}',[VehiclesController::class, 'destroy']);
+        });
     });
 
     Route::group([
         'prefix' => 'vehicles'
     ], function(){
-        Route::get('/',[VehiclesController::class, 'index']);
-        Route::get('/datatable',[VehiclesController::class, 'datatable']);
-        Route::get('/create',[VehiclesController::class, 'create']);
-        Route::post('/store',[VehiclesController::class, 'create']);
-        Route::get('/edit/{id}',[VehiclesController::class, 'edit']);
-		Route::post('/update/{id}',[VehiclesController::class, 'edit']);
-		Route::get('/delete/{id}',[VehiclesController::class, 'destroy']);
 
         Route::group([
             'prefix' => 'includes'

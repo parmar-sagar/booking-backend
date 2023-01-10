@@ -2,10 +2,6 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
-            <div>
-                <p><span style="color:red">Note : </span>Tour name can be selected as added before in tour Module. Time can be selected as added in manage master. Other details will 
-                    be selected as added in manage vehicle module.</p>
-            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>
@@ -44,13 +40,13 @@
                         @foreach($price as $key => $amount)
                              <tr id="row">  
                                 <td><label for="amount" class="form-label">Amount</label>
-                                    <input type="text" name="amount[]" placeholder="Enter Amount" value="{{$amount->amount}}" class="form-control name_list" />
+                                    <input type="number" min="1" name="amount[]" placeholder="Enter Amount" value="{{$amount->amount}}" class="form-control name_list" />
                                 </td>  
-                                  <td><label for="no_of_persons" class="form-label">Time</label>
+                                  <td><label for="time" class="form-label">Time</label>
                                     <select class="form-control select2" data-toggle="select2" name="time[]">
                                         <option>Select</option>
-                                        @foreach($time as $time_tour)
-                                            <option value="{{$time_tour->time}}"@if($amount->time == $time_tour->time) selected @endif>{{$time_tour->time}}</option>
+                                        @foreach($times as $value)
+                                            <option value="{{$value->time}}"@if($amount->time == $value->time) selected @endif>{{$value->time."  ".$value->type}}</option>
                                         @endforeach        
                                     </select>
                                 </td> 
@@ -61,13 +57,13 @@
                         @else
                         <tr id="row">  
                                 <td><label for="amount" class="form-label">Amount</label>
-                                    <input type="text" name="amount[]" placeholder="Enter Amount" value="" class="form-control name_list" />
+                                    <input type="number" min="1" name="amount[]" placeholder="Enter Amount" value="" class="form-control name_list" />
                                 </td>  
-                                  <td><label for="no_of_persons" class="form-label">Time</label>
+                                  <td><label for="time" class="form-label">Time</label>
                                     <select class="form-control select2" data-toggle="select2" name="time[]">
                                         <option>Select</option>
-                                        @foreach($time as $time_tour)
-                                        <option value="{{$time_tour->time}}">{{$time_tour->time}}</option>
+                                        @foreach($times as $value)
+                                            <option value="{{$value->time}}">{{$value->time."  ".$value->type}}</option>
                                         @endforeach        
                                     </select>
                                 </td> 
@@ -81,8 +77,8 @@
                             <label for="tour_id" class="form-label">Tour Name</label>
                             <select class="form-control select2" id="tour_id" data-toggle="select2" name="tour_id">
                                 <option>Select</option>
-                                @foreach($tourName as $tours)
-                                    <option value="{{$tours->id}}" @if(isset($objData->tour_id) && $objData->tour_id == $tours->id) selected @endif>{{$tours->name}}</option>
+                                @foreach($tours as $value)
+                                    <option value="{{$value->id}}" @if(isset($objData->tour_id) && $objData->tour_id == $value->id) selected @endif>{{$value->name}}</option>
                                 @endforeach    
                             </select>
                         </div>
@@ -92,7 +88,7 @@
                             <label for="time_slots_ids" class="form-label">Time Slotes</label>
                             <select class="select2 form-control select2-multiple" data-toggle="select2" id="time_slots_ids" name="time_slots_ids[]" multiple="multiple" data-placeholder="Choose ...">
                                 @foreach($timeSlotes as $timeSlote)
-                                    <option value="{{$timeSlote->id}}" @if(isset($selctdTimeSlots) && in_array($timeSlote->id,$selctdTimeSlots)) selected @endif>{{$timeSlote->text}}</option>
+                                    <option value="{{$timeSlote->id}}" @if(isset($objData->time_slots_ids) && in_array($timeSlote->id,$objData->time_slots_ids)) selected @endif>{{$timeSlote->text}}</option>
                                 @endforeach  
                             </select>
                         </div>
@@ -108,7 +104,7 @@
                             <label for="includes_ids" class="form-label">Includes</label>
                             <select class="select2 form-control select2-multiple" data-toggle="select2" id="includes_ids" name="includes_ids[]" multiple="multiple" data-placeholder="Choose ...">
                                 @foreach($includes as $include)
-                                <option value="{{$include->id}}" @if(isset($selctdIncludes) && in_array($include->id, $selctdInclude)) selected @endif>{{$include->title}}</option>
+                                    <option value="{{$include->id}}" @if(isset($objData->includes_ids) && in_array($include->id, $objData->includes_ids)) selected @endif>{{$include->title}}</option>
                                 @endforeach  
                             </select>
                         </div>
@@ -118,7 +114,7 @@
                             <label for="highlight_ids" class="form-label">Not Includes</label>
                             <select class="select2 form-control select2-multiple" data-toggle="select2" id="highlight_ids" name="highlight_ids[]" multiple="multiple" data-placeholder="Choose ...">
                                 @foreach($highlights as $highlight)
-                                <option value="{{$highlight->id}}" @if(isset($selctdHighlight) && in_array($highlight->id, $selctdHighlight)) selected @endif>{{$highlight->title}}</option>
+                                    <option value="{{$highlight->id}}" @if(isset($objData->highlight_ids) && in_array($highlight->id, $objData->highlight_ids)) selected @endif>{{$highlight->title}}</option>
                                 @endforeach  
                             </select>
                         </div>
@@ -128,7 +124,7 @@
                             <label for="warning_ids" class="form-label">Must Know Befor You Book</label>
                             <select class="select2 form-control select2-multiple" data-toggle="select2" id="warning_ids" name="warning_ids[]" multiple="multiple" data-placeholder="Choose ...">
                                 @foreach($warnings as $warning)
-                                <option value="{{$warning->id}}" @if(isset($selctdWarning) && in_array($warning->id, $selctdWarning)) selected @endif>{{$warning->title}}</option>
+                                    <option value="{{$warning->id}}" @if(isset($objData->warning_ids) && in_array($warning->id, $objData->warning_ids)) selected @endif>{{$warning->title}}</option>
                                 @endforeach  
                             </select>
                         </div>
@@ -138,7 +134,7 @@
                             <label for="activities_ids" class="form-label">Extra Activities</label>
                             <select class="select2 form-control select2-multiple" data-toggle="select2" id="activities_ids" name="activities_ids[]" multiple="multiple" data-placeholder="Choose ...">
                                 @foreach($activities as $activitie)
-                                <option value="{{$activitie->id}}" @if(isset($selctdActivitie) && in_array($activitie->id, $selctdActivitie)) selected @endif>{{$activitie->title}}</option>
+                                    <option value="{{$activitie->id}}" @if(isset($objData->activities_ids) && in_array($activitie->id, $objData->activities_ids)) selected @endif>{{$activitie->title}}</option>
                                 @endforeach  
                             </select>
                         </div>
@@ -147,8 +143,8 @@
                         <div class="mb-3">
                             <label for="additional_info_ids" class="form-label">Additional Info</label>
                             <select class="select2 form-control select2-multiple" data-toggle="select2" id="additional_info_ids" name="additional_info_ids[]" multiple="multiple" data-placeholder="Choose ...">
-                                @foreach($addiInfo as $addiInfos)
-                                <option value="{{$addiInfos->id}}" @if(isset($selctdAddInfo) && in_array($addiInfos->id, $selctdAddInfo)) selected @endif>{{$addiInfos->title}}</option>
+                                @foreach($addInfos as $value)
+                                    <option value="{{$value->id}}" @if(isset($objData->additional_info_ids) && in_array($value->id, $objData->additional_info_ids)) selected @endif>{{$value->title}}</option>
                                 @endforeach  
                             </select>
                         </div>
@@ -166,7 +162,7 @@
                             <label for="image" class="form-label">Image</label>
                             <input type="file" id="image" class="form-control" name="image" @if(!isset($objData)) required @endif>
                             @if(isset($objData->image))
-                            <img src="{{ asset('admin/uploads/vehicle/' . $objData->image) }}" width="50" class="mt-3">
+                                <img src="{{ asset('admin/uploads/vehicle/' . $objData->image) }}" width="50" class="mt-3">
                             @endif
                         </div>
                     </div>
@@ -175,7 +171,7 @@
                             <label for="banner_img" class="form-label">Banner Image</label>
                             <input type="file" id="banner_img" class="form-control" name="banner_img" @if(!isset($objData)) required @endif>
                             @if(isset($objData->banner_img))
-                            <img src="{{ asset('admin/uploads/vehicle/' . $objData->banner_img) }}" width="50" class="mt-3">
+                                <img src="{{ asset('admin/uploads/vehicle/' . $objData->banner_img) }}" width="50" class="mt-3">
                             @endif
                         </div>
                     </div>
@@ -220,8 +216,8 @@
             <td>\
                 <select class="form-control select2" data-toggle="select2" name="time[]">\
                     <option>Select</option>\
-                    @foreach($time as $time_tour)\
-                        <option value="{{$time_tour->time}}">{{$time_tour->time}}</option>\
+                    @foreach($times as $value)\
+                        <option value="{{$value->time}}">{{$value->time}}</option>\
                     @endforeach\
                     </select>\
             </td><td>\

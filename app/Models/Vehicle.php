@@ -83,7 +83,7 @@ class Vehicle extends Model
         return $query->where('type', 'Safari');
     }    
 
-    public function scopeTour($query){
+    public function scopeTours($query){
         return $query->where('type', 'Tour');
     }    
 }
