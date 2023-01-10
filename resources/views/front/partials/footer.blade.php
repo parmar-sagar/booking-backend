@@ -237,7 +237,7 @@
                 FAQs
               </a>
             </li>
-            <!-- <li class="l-footer__menu-list-item">
+            <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
                 href=" @if (Auth::check()){{url('my-account')}}@else {{url('login')}}@endif"
@@ -245,7 +245,7 @@
               >
                 My Account
               </a>
-            </li> -->
+            </li>
             <li class="l-footer__menu-list-item">
               <a
                 class="l-footer__menu-list-link"
