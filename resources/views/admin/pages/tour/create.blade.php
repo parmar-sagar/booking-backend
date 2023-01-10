@@ -1,9 +1,6 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
-            <div>
-                <p><span style="color:red">Note:</span> Time and location can be selected from drop-down menu that are previously added in Manage Master Module</p>
-            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>
@@ -59,7 +56,7 @@
                             <label for="time_ids" class="form-label">Times</label>
                             <select  class="select2 form-control select2-multiple" id="time_ids" data-toggle="select2" multiple="multiple" data-placeholder="Choose ..." name="time_ids[]" required>
                                 @foreach($times as $value)
-                                    <option value="{{$value->id}}" @if(isset($selctdTime) && in_array($value->id,$selctdTime)) selected @endif >{{$value->time}}</option>
+                                    <option value="{{$value->id}}" @if(isset($objData->time_ids) && in_array($value->id,$objData->time_ids)) selected @endif >{{$value->time}}</option>
                                 @endforeach    
                             </select>
                         </div>
@@ -78,7 +75,7 @@
                             <label for="safety_gear_ids" class="form-label">Safety Gears</label>
                             <select class="select2 form-control select2-multiple" id="safety_gear_ids" data-toggle="select2" name="safety_gear_ids[]" multiple="multiple" data-placeholder="Choose ...">
                                 @foreach($safetyGears as $value)
-                                <option value="{{$value->id}}" @if(isset($selctdSftyGear) && in_array($value->id, $selctdSftyGear)) selected @endif>{{$value->title}}</option>
+                                <option value="{{$value->id}}" @if(isset($objData->safety_gear_ids) && in_array($value->id, $objData->safety_gear_ids)) selected @endif>{{$value->title}}</option>
                                 @endforeach  
                             </select>
                         </div>
@@ -88,7 +85,7 @@
                             <label for="refreshments_ids" class="form-label">Refreshments</label>
                             <select class="select2 form-control select2-multiple" id="refreshments_ids" data-toggle="select2" name="refreshments_ids[]" multiple="multiple" data-placeholder="Choose ...">
                                 @foreach($refreshments as $value)
-                                <option value="{{$value->id}}" @if(isset($selctdRefreshment) && in_array($value->id, $selctdRefreshment)) selected @endif>{{$value->title}}</option>
+                                <option value="{{$value->id}}" @if(isset($objData->refreshments_ids) && in_array($value->id, $objData->refreshments_ids)) selected @endif>{{$value->title}}</option>
                                 @endforeach  
                             </select>
                         </div>
