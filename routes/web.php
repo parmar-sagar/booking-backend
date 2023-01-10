@@ -262,18 +262,19 @@ Route::group([
         Route::get('/edit/{id}',[SafariController::class, 'edit']);
 		Route::post('/update/{id}',[SafariController::class, 'edit']);
 		Route::get('/delete/{id}',[SafariController::class, 'destroy']);
-    });
-
-    Route::group([
-        'prefix' => 'safari-vehicles'
-    ], function(){
-        Route::get('/',[SafariVehicleController::class, 'index']);
-        Route::get('/datatable',[SafariVehicleController::class, 'datatable']);
-        Route::get('/create',[SafariVehicleController::class, 'create']);
-        Route::post('/store',[SafariVehicleController::class, 'create']);
-        Route::get('/edit/{id}',[SafariVehicleController::class, 'edit']);
-		Route::post('/update/{id}',[SafariVehicleController::class, 'edit']);
-		Route::get('/delete/{id}',[SafariVehicleController::class, 'destroy']);
+        
+        Route::group([
+            'prefix' => 'vehicles'
+        ], function(){
+            Route::get('/',[SafariVehicleController::class, 'index']);
+            Route::get('/datatable',[SafariVehicleController::class, 'datatable']);
+            Route::get('/create',[SafariVehicleController::class, 'create']);
+            Route::post('/store',[SafariVehicleController::class, 'create']);
+            Route::get('/edit/{id}',[SafariVehicleController::class, 'edit']);
+            Route::post('/update/{id}',[SafariVehicleController::class, 'edit']);
+            Route::get('/delete/{id}',[SafariVehicleController::class, 'destroy']);
+        });
+    
     });
 
     Route::group([
