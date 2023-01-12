@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Models\Time;
+use App\Models\TimeSlot;
 use App\Models\Vehicle;
 use App\Models\VehicleInfo;
 use Illuminate\Http\Request;
@@ -38,8 +39,8 @@ class VehicleController extends Controller{
         $extraActivitys = VehicleInfo::select('title')->whereIn('id',$extraActivityIds)->get();
 
         $timeIds = Helper::explode($objVehicle->tour->time_ids);
-        $times = Time::select('time','time_type')->whereIn('id',$timeIds)->get();
-        
+        $times = Time::select('time','type')->whereIn('id',$timeIds)->get();
+
         $this->outputData = [
             'objVehicle' => $objVehicle,
             'includes' => $includes,

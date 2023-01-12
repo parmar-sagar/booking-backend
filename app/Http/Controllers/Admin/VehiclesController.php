@@ -13,7 +13,7 @@ use App\Helpers\Helper;
 use App\Models\Tour;
 use App\Models\Price;
 use App\Models\Time;
-use App\Models\TimeSlote;
+use App\Models\TimeSlot;
 use App\Models\AvailableSlot;
 use DataTables;
 
@@ -39,7 +39,7 @@ class VehiclesController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Vehicle::type('Tour')->order()->get();
+                $datas = Vehicle::tour('Tour')->order()->get();
                 return DataTables::of($datas)->toJson();
             }
         } catch (\Throwable $e) {
@@ -117,14 +117,14 @@ class VehiclesController extends Controller
             $this->outputData = [
                 'pageName' => 'New Vehicle',
                 'action' => url('admin/vehicles/store'),
-                'tourName' => Tour::type('Tour')->select('name','id')->order()->get(),
+                'tourName' => Tour::tour('Tour')->select('name','id')->order()->get(),
                 'highlights' => VehicleInfo::highlight()->order()->get(),
                 'includes' => VehicleInfo::include()->order()->get(),
                 'warnings' => VehicleInfo::warning()->order()->get(),
                 'activities' => VehicleInfo::activity()->order()->get(),
                 'addiInfo' => VehicleInfo::additionalInfo()->order()->get(),
                 'time' => Time::order()->get(),
-                'timeSlotes' => TimeSlote::get()
+                'timeSlotes' => TimeSlot::get()
             ];
             return view('admin.pages.vehicles.create',$this->outputData);
 

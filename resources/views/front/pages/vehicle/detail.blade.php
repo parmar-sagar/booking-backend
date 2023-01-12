@@ -85,7 +85,7 @@
                               <div class="list-tour-info__item-desc">
                                 <b>Ride Duration</b> 
                                 @foreach($times as $value)
-                                <span>{{$value->time}}@if($value->time_type == 'Minutes'){{ 'Mins'}} @else {{'Hours'}} @endif</span>
+                                <span>{{$value->time}}@if($value->type == 'Minutes'){{ 'Mins'}} @else {{'Hours'}} @endif</span>
                                 @endforeach
                               </div>
                             </li>
@@ -158,7 +158,7 @@
                     </div>
                     <ul class="list-icon list-icon--tick list-1-cols list-mobile-limit js-limit-list">
                         @foreach($objVehicle->prices as $value)
-                        <li>{{$value->time}} Mins Ride :@if(isset($objVehicle->discount))<del style="color:red">{{$value->amount}} AED</del> @endif @if(isset($objVehicle->discount)) {{$prices->amount - ($prices->amount * ($objVehicle->discount / 100))}}@endif AED</li>
+                        <li>{{$value->time}} Mins Ride :@if(isset($objVehicle->discount))<del style="color:red">{{$value->amount}} AED</del> @endif @if(isset($objVehicle->discount)) {{$value->amount - ($value->amount * ($objVehicle->discount / 100))}}@endif AED</li>
                         @endforeach
                         @if(isset($safariPrice))
                         <li>{{$safariPrice->amount}} AED</li>
@@ -289,11 +289,9 @@
                                 <table id="times">
                                   <tbody>
                                     <tr>
-                                    @if(isset($avTime))
-                                    @foreach($avTime as $times) 
-                                    <td value="{{$times['text']}}">{{$times['text']}}</th>
-                                    @endforeach
-                                    @endif
+
+                                    <td value="1">11 Am</th>
+
                                   </tr>
                                 </tbody>
                               </table>
