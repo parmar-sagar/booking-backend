@@ -22,12 +22,12 @@
       <ul class="l-navbar__menu-right">
         <li class="l-navbar__menu-item">
             <div class="dropdown">
-              <a href="{{url('all-other-tours')}}">
-              <span class="dropbtn l-navbar__menu-link ">Tours</span></a>
+             
+              <span class="dropbtn l-navbar__menu-link ">Tours</span>
               <div class="dropdown-Tour_content">
-                <a href="{{url('tours/3')}}">Dune Buggies</a>
-                <a href="{{url('tours/1')}}">Quad Bikes</a>
-                <a href="{{url('tours/4')}}">Desert Safari</a>
+                @foreach($tours as $names)
+                <a href="{{url('tours/'.$names->random_id)}}">{{$names->name}}</a>
+                @endforeach
                 <a href="{{url('/all-other-tours')}}">All Other Tours</a>
               </div>
             </div>

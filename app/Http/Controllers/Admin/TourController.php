@@ -196,15 +196,20 @@ class TourController extends Controller{
             }
 
             $objData = Tour::findOrFail($id);
+            $times = Time::order()->get();
+            $locations = Location::order()->get();
+            $safetyGears = VehicleInfo::safetyGear()->order()->get();
+            $refreshments = VehicleInfo::refreshment()->order()->get();
+            
 
             $this->outputData = [
                 'pageName' => 'Edit Tour',
                 'action' => url('admin/tours/update/'.$id),
                 'objData' => $objData,
-                'time' => Time::order()->get(),
-                'locations' => Location::order()->get(),
-                'safetyGear' => VehicleInfo::safetyGear()->order()->get(),
-                'refreshment' => VehicleInfo::refreshment()->order()->get(),
+                'times' => $times,
+                'locations' => $locations,
+                'safetyGears' => $safetyGears,
+                'refreshments' => $refreshments,
                 'gallaryImages' => TourGallary::where('tour_id',$id)->get()
             ];
             $this->outputData['selctdTime'] = Helper::explode( $objData->time_ids );

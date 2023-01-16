@@ -41,6 +41,8 @@ class VehicleController extends Controller{
         $timeIds = Helper::explode($objVehicle->tour->time_ids);
         $times = Time::select('time','type')->whereIn('id',$timeIds)->get();
 
+        $singleImglry = $objVehicle->gallery->first();
+    
         $this->outputData = [
             'objVehicle' => $objVehicle,
             'includes' => $includes,
@@ -50,7 +52,8 @@ class VehicleController extends Controller{
             'mustKnows' => $mustKnows,
             'addInfos' => $addInfos,
             'extraActivitys' => $extraActivitys,
-            'times' => $times
+            'times' => $times,
+            'singleImglry' => $singleImglry
         ];
 
         return view('front.pages.vehicle.detail',$this->outputData);

@@ -283,7 +283,7 @@ a {
 
 a:not([class]) {
     color: #ffc132;
-    text-decoration: underline;
+    /* text-decoration: underline; */
     transition: color .3s
 }
 
@@ -10777,7 +10777,7 @@ input:-webkit-autofill.filled~.form__label-blank {
 
 @media screen and (min-width:1900px) {
     .headline-3 {
-        font-size: 38px;
+        font-size: 28px;
     }
 }
 
@@ -19249,10 +19249,14 @@ screen and (-ms-high-contrast:active) {
 
 @media (max-width:991px) {
 
-    .swiper.swiper--trip .swiper-button,
+    .swiper.swiper--trip .swiper-button, .tour-slider__btn {
+        height: 37px;
+        margin-top: -337px;}
+
+    /* .swiper.swiper--trip .swiper-button,
     .tour-slider__btn {
         display: none
-    }
+    } */
 }
 
 .swiper.swiper--trip .swiper-button:hover,
@@ -25000,6 +25004,12 @@ img.h-70vh {
     padding: 8em
 }
 
+@media (max-width:768px) {
+    h1.headline-2.tour-name {
+        font-size: 43px !important;
+    }
+}
+
 @media screen and (min-width:200px)and (max-width:568px) {
     .hide-on-mobile {
         display: none
@@ -26974,7 +26984,11 @@ input#totaltourAmt {
     .dp_daypicker.dp_body tr td {
         padding:0px !important;
     }}
-
+@media(max-width:1500px){
+    .blockquote, .content blockquote {
+        padding: 6px !important;
+    }
+}
 @media(max-width:1024px){
     .tours-banner {
         height: 170px !important;

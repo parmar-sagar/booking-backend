@@ -264,7 +264,7 @@
                   </label>
                 </p></div>
                 <div class=" text-center">
-                  <button class="btn mt-10em chip--orange profile-button" type="button"> Pay </button>
+                  <button class="btn mt-10em chip--orange profile-button" type="button"> Place Order </button>
                 </div>
               </div>
               </form>

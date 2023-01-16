@@ -15,14 +15,15 @@ class AlltoursController extends Controller
     
     public function index(){
         $this->outputData = [
-            'allTour' => Tour::status('1')->with('location')->get()
+            'allTour' => Tour::status()->with('location')->get()
         ];
         return view('front.pages.all_other_tours.index',$this->outputData);
     }
 
     public function toursListing($id){
-        $this->outputData['listing'] = Vehicle::where('tour_id',$id)->with('tours')->get();
-        $this->outputData['tourName'] = Tour::select('name','banner_img','description')->findOrfail($id);
+        $tourId = Tour::where('random_id',$id)->select('id')->first();
+        $this->outputData['listing'] = Vehicle::where('tour_id',$tourId->id)->with('tour')->get();
+        $this->outputData['tourName'] = Tour::select('name','banner_img','description')->where('random_id',$id)->first();
       return view('front.pages.listing.index',$this->outputData);
     }
 }

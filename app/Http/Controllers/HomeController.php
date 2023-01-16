@@ -33,7 +33,6 @@ class HomeController extends Controller{
             'deals' => $deals,
             'tours' => $tours
         ];
-
         return view('front.pages.home',$this->outputData);
     }
 
@@ -55,8 +54,9 @@ class HomeController extends Controller{
 
     public function deals(){
         $this->outputData = [
-            'deal' => Vehicle::where('is_deals','1')->with('tours')->sequence()->status('1')->get()
+            'deal' => Vehicle::deals()->with('tour')->sequence()->status()->get()
         ];
+        // dd($this->outputData['deal']->tour);
         return view('front.pages.deals.index',$this->outputData);
     }
 
@@ -82,19 +82,6 @@ class HomeController extends Controller{
 
     public function checkout(){
         return view('front.pages.checkout_page.index');
-    }
-
-    public function gallary($id){
-        $tourId = Vehicle::where('random_id',$id)->select('tour_id')->first()->toArray();
-        $gallaryImg = TourGallary::where('tour_id',$tourId)->select('gallry_images')->get()->toArray();
-        $this->outputData['singleImglry'] = TourGallary::where('tour_id',$tourId)->select('gallry_images')->take(1)->first();
-
-        $gallary = array();
-        foreach($gallaryImg as $key => $images){
-            $this->outputData['gallary'][] = $images['gallry_images'];
-        }
-        // dd($this->outputData['gallary']);
-        return view('front.pages.tour_gallary.index',$this->outputData);
     }
 
     public function updateProfile(Request $request){

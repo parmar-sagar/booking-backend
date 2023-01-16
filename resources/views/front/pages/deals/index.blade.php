@@ -35,7 +35,7 @@
                           <div class="row">
                             <div class="col-12 col-lg-12">
                               <h2 class="headline-3">{{$deals->name}}</h2>
-                              {{-- <p>{{$deals->description}}</p> --}}
+                              <!-- <p>{{$deals->description}}</p>  -->
                             </div>
                           </div>
                           <div class="row mt-3">
@@ -48,7 +48,7 @@
                                   </svg>
                                   <div class="list-tour-info__item-desc">
                                     <b>Tour Guide</b>
-                                    <span>{{$deals['tours']->tour_guide}}</span>
+                                    <span>{{$deals->tour->tour_guide}}</span>
                                   </div>
                                 </li>
                                 <li class="list-tour-info__item">
@@ -58,7 +58,7 @@
                                   </svg>
                                   <div class="list-tour-info__item-desc">
                                     <b>Convey Leader</b>
-                                    <span>{{$deals['tours']->convoy_leader}}</span>
+                                    <span>{{$deals->tour->convoy_leader}}</span>
                                   </div>
                                 </li>
                                 <li class="list-tour-info__item">
@@ -78,7 +78,7 @@
                                   </svg>
                                   <div class="list-tour-info__item-desc">
                                     <b>Pickup & Drop off</b>
-                                    <span>{{$deals['tours']->pickup_and_drop}}</span>
+                                    <span>{{$deals->tour->pickup_and_drop}}</span>
                                   </div>
                                 </li>
                                 <li class="list-tour-info__item">
@@ -98,7 +98,7 @@
                                   </svg>
                                   <div class="list-tour-info__item-desc">
                                     <b>Min Age</b>
-                                    <span>{{$deals['tours']->min_age}}Yrs</span>
+                                    <span>{{$deals->tour->min_age}}Yrs</span>
                                   </div>
                                 </li>
                               </ul>
@@ -106,7 +106,7 @@
                           </div>
                           <div class="row">
                             <div class="col-12 col-lg-12 button_nd">
-                              <a class="btn btn--purple " href="{{url('view-detail/'.$deals['random_id'])}}" title="Book now"> Book Now </a>
+                              <a class="btn btn--purple " href="{{url('vehicles/details/'.$deals['random_id'])}}" title="Book now"> Book Now </a>
                             </div>
                           </div>
                         </div>

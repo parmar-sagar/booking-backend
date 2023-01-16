@@ -108,7 +108,7 @@
                             <label for="includes_ids" class="form-label">Includes</label>
                             <select class="select2 form-control select2-multiple" data-toggle="select2" id="includes_ids" name="includes_ids[]" multiple="multiple" data-placeholder="Choose ...">
                                 @foreach($includes as $include)
-                                <option value="{{$include->id}}" @if(isset($selctdIncludes) && in_array($include->id, $selctdInclude)) selected @endif>{{$include->title}}</option>
+                                <option value="{{$include->id}}" @if(isset($selctdIncludes) && in_array($include->id, $selctdIncludes)) selected @endif>{{$include->title}}</option>
                                 @endforeach  
                             </select>
                         </div>
@@ -234,6 +234,17 @@
       });  
       
       $('#summernote').summernote({
+        toolbar: [
+            ['style', ['style']],
+            ['fontsize', ['fontsize']],
+            ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['insert', ['picture', 'hr']],
+            ['table', ['table']]
+        ],
         tabsize: 2,
         height: 200
       });

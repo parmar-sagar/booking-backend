@@ -39,7 +39,7 @@
                 </div>
                 <div class="row">
                     
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <div class="list-icon-wrapper">
                             <ul class="list-icon list-icon--tick">
                                 @foreach($includes as $value)
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                   
-                    <div class="col-md-7">
+                    <div class="col-md-8">
                         <blockquote class="blockquote blockquote--margin-sm blockquote--blurple">
                             <ul
                             class="list-tour-info list-tour-info--two-cols"
@@ -254,16 +254,48 @@
                   </div>
                 </div>
               </div>
-               @if($objVehicle->type != 'Safari')
+              
               <!-- <a class="btn btn--purple mt-10em" href="#sect" title="View Tour Dates"> Next </a> -->
-              <a class="btn btn--purple mt-10em" href="{{url('gallary/'.$objVehicle->random_id)}}" title="View Tour Gallary">View Gallary </a>
-              @endif
+              <!-- <a class="btn btn--purple mt-10em" href="{{url('gallary/'.$objVehicle->random_id)}}" title="View Tour Gallary">View Gallary </a> -->
+            
             </div>
           </div>
         </div>
+        @if($objVehicle->type != 'Safari')
 <!--- Gallary slides -->
-
+        <div class=" tab-box-content tab-box-content--active bg-blue border-img-top border-img-top--blue border-img-bottom border-img-bottom--blue js-tabContent " data-content="tab-2">
+          <section class="border-img-top border-img-top--orange border-img-bottom border-img-bottom--orange border-img-top--hide-on-mobile ">
+            <div class="toggle-wrapper toggle-wrapper__tour-gallery"> <label class="toggle" for="gallery-toggle">
+                 <span><h2 class="headline-2"> Gallery </h2></span> </label> </div>
+            <div class="tour-gallery tour-gallery--orange pt-0em" data-gallery-active-category="activities">
+              <div class="tour-gallery__inner" data-gallery-content-category="activities">
+                <div class="tour-gallery__images js-gallery-images" data-gallery-day="1" data-gallery-category="activities">
+                  <figure class="tour-gallery__preview-wrapper"> 
+                    <a href="" class="js-popup" title="">
+                        <img class="tour-gallery__preview-ratio js-gallery-preview lazy loaded" data-src="" alt="" src="{{ asset('admin/uploads/gallry_images/'.$singleImglry->gallry_images) }}" data-was-processed="true"> 
+                    </a>
+                    <div>
+                      <figcaption class=" tour-gallery__preview-caption  tour-gallery__preview-caption--empty  js-gallery-description ">
+                      </figcaption>
+                    </div>
+                  </figure>
+                  <ul class="tour-gallery__image-list" data-id="galleryList">
+                    @foreach($objVehicle->gallery as $key => $images)
+                    <li class="tour-gallery__image-list-item"> 
+                        <button type="button" class="js-thumb-button tour-gallery__image-list-button {{ $loop->first ? 'active' : '' }}" onclick="App.updatePreview(this, 'activities', 1);" data-description="" data-popup-img-url="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}">
+                            <img class="tour-gallery__image-list-thumb rotate-left lazy loaded" data-src="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}" alt="" src="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}" data-was-processed="true"> 
+                        </button> 
+                    </li>
+                    @endforeach
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+           <!-- <p class="text-center"> <a class="btn btn--black" href="/book-a-Duen buggy tours-tour?country=Vietnam"> View More </a> </p>  -->
+        </div>
 <!--- End -->
+      @endif
      <div class="section" id="sect">
      <form method="POST" id="cartItems">
        @csrf
@@ -331,7 +363,7 @@
                       </div>
                     </div>
                     <div class="content mt-10em mb-10em">
-                      <p>{{$objVehicle->description}}</p>
+                      <!-- <p>{{$objVehicle->description}}</p> -->
                     </div>
                     @if($objVehicle->type == 'Safari')
                     <div>
@@ -415,6 +447,7 @@
         </div>
   </main> 
 </x-front.master-layout> 
+<!-- <script src="{{asset ('assets/front/scripts/vendor7369.js?v=m0Wgcip88r')}}"></script>  -->
  <script>
     $(document).ready(function() {
         $(document).on('submit','#cartItems',function(e){
@@ -495,18 +528,18 @@
 //end
 
 // checkbox quantity
-var i =0;
-$('.checkBoxId').on('click', function(){
-  var dd = $('.checkBoxId').attr('id'); 
-  alert(dd); 
-});
-$('.checkBox').on('click', function(){
-    if ( $(this).prop('checked') ) {
-        $('.checkboxQntity').show();
-    }else{
-      $('.checkboxQntity').hide();
-    }
-  });
+// var i =0;
+// $('.checkBoxId').on('click', function(){
+//   var dd = $('.checkBoxId').attr('id'); 
+//   // alert(dd); 
+// });
+// $('.checkBox').on('click', function(){
+//     if ( $(this).prop('checked') ) {
+//         $('.checkboxQntity').show();
+//     }else{
+//       $('.checkboxQntity').hide();
+//     }
+//   });
 });
 
       

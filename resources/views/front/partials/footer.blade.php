@@ -111,41 +111,13 @@
             Tours
           </span>
           <ul class="l-footer__menu-list">
+          @foreach($tours as $names)
             <li class="l-footer__menu-list-item">
-              <a
-                class="l-footer__menu-list-link"
-                href="#"
-                title="Tours"
-              >
-                Dune Buggies
-              </a>
+            <a class="l-footer__menu-list-link" href="{{url('tours/'.$names->random_id)}}">{{$names->name}}</a>
             </li>
+            @endforeach
             <li class="l-footer__menu-list-item">
-              <a
-                class="l-footer__menu-list-link"
-                href="#"
-                title="Tours"
-              >
-                Quad Bikes
-              </a>
-            </li>
-            <li class="l-footer__menu-list-item">
-              <a
-                class="l-footer__menu-list-link"
-                href="#"
-                title="Tours"
-              >
-              Desert Safari
-              </a>
-            </li>
-            <li class="l-footer__menu-list-item">
-              <a
-                class="l-footer__menu-list-link"
-                href="#"
-                title="Tours"
-              >
-                All Other Tours
-              </a>
+            <a class="l-footer__menu-list-link" href="{{url('/all-other-tours')}}">All Other Tours</a>
             </li>
           </ul>
         </li>
