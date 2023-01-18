@@ -1,9 +1,6 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
-            <div>
-                <p><span style="color:red">Note : </span> Time can be managed here that is to be shown in safari and tour module. These can be added, removed and modified</p>
-            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>
@@ -20,8 +17,8 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Time</label>
-                            <input type="text" id="time" class="form-control" name="time" value="@if(isset($objData->time) && $objData->time){{ $objData->time }}@endif" required>
+                            <label for="time" class="form-label">Time</label>
+                            <input type="number" min="1" id="time" class="form-control" name="time" value="@if(isset($objData->time) && $objData->time){{ $objData->time }}@endif" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -29,11 +26,11 @@
                             <label for="type" class="form-label">Type</label>
                             <div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="Minutes" name="time_type" class="form-check-input" value="Minutes" @if(isset($objData->time_type) && $objData->time_type == 'Minutes') checked @endif checked>
+                                    <input type="radio" id="Minutes" name="type" class="form-check-input" value="Minutes" @if(isset($objData->type) && $objData->type == 'Minutes') checked @endif checked>
                                     <label class="form-check-label" for="Minutes">Minutes</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="Hours" name="time_type" class="form-check-input" value="Hours" @if(isset($objData->time_type) && $objData->time_type == 'Hours') checked @endif>
+                                    <input type="radio" id="Hours" name="type" class="form-check-input" value="Hours" @if(isset($objData->type) && $objData->type == 'Hours') checked @endif>
                                     <label class="form-check-label" for="Hours">Hours</label>
                                 </div>
                             </div>

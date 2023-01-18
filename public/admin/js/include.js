@@ -24,7 +24,7 @@ $(document).ready(function() {
                     }
                 },
                 {data: 'title', name: 'title'},
-                // {data: 'price', name: 'price'},
+                {data: 'price', name: 'price'},
                 {data: 'id', name:'id',searchable: false,class:'table-action',
                     "render": function ( data, type, row, meta ) {
                         return '<a href="javascript:void(0);" class="action-icon open-form" data-id="'+row.id+'">\

@@ -9,6 +9,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <div>
+                        <p><span style="color:red">Note : </span>Here new users can be added, removed or modified. All data for all users will be available here.</p>
+                    </div>
                     <div class="row mb-2">
                         <div class="col-sm-5">
                             <a href="javascript:void(0);" class="btn btn-danger mb-2 open-form" data-create-href={{ $create }}><i class="mdi mdi-plus-circle me-2"></i> Add {{ $pageName }}</a>
@@ -20,8 +23,7 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>Id</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
+                                    <th>Name</th>
                                     <th>Email</th>
                                     <th>Mobile</th>
                                     <th>Date & Time</th>

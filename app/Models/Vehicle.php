@@ -12,30 +12,29 @@ class Vehicle extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'random_id',
+        'type',
         'tour_id',
         'name',
         'short_name',
         'description',
-        // 'time_ids',
+        'no_of_persons',
         'includes_ids',
         'highlight_ids',
         'warning_ids',
+        'activities_ids',
+        'additional_info_ids',
+        'tour_itenary',
+        'quantity',
+        'available_quantity',
+        'status',
         'banner_img',
         'image',
-        'status',
-        'type',
-        'activities_ids',
-        'no_of_persons',
-        'is_deals',
-        'discount',
         'sequence',
-        'random_id',
-        'tour_itenary',
-        'additional_info_ids',
         'pickup_time',
         'dropoff_time',
-        'quantity',
-        'available_quantity'
+        'discount',
+        'is_deals'
     ];
 
     protected $hidden = [
@@ -44,29 +43,47 @@ class Vehicle extends Model
 
     protected $dates = ['deleted_at'];
 
-
-    public function scopeType($query, $type)
-    {
-        return $query->where('type', $type);
-    }
-    
-    public function scopeDeal($query, $type)
-    {
-        return $query->where('is_deals', $type);
-    }
-
     public function ScopeOrder($query){
         return $query->orderBy('id','DESC');
     }
-    public function scopeStatus($query, $status)
-    {
-        return $query->where('status', $status);
-    }
-    public function tours(){
-        return $this->hasOne('App\Models\Tour','id','tour_id');
-    }
+
     public function ScopeSequence($query){
         return $query->orderBy('sequence','ASC');
     }
+
+    public function scopeActive($query){
+        return $query->where('status', 1);
+    }
     
+    public function scopeDeals($query){
+        return $query->where('is_deals', 1);
+    }
+
+    public function scopeNotDeals($query){
+        return $query->where('is_deals', 0);
+    }
+
+    public function tour(){
+        return $this->hasOne(Tour::class,'id','tour_id');
+    }
+
+    public function avalableSlote(){
+        return $this->hasMany(AvalableSlote::class,'vehicle_id','id');
+    }
+
+    public function prices(){
+        return $this->hasMany(Price::class,'vehicle_id','id');
+    }
+
+    public function price(){
+        return $this->hasOne(Price::class,'vehicle_id','id');
+    }
+    
+    public function scopeSafari($query){
+        return $query->where('type', 'Safari');
+    }    
+
+    public function scopeTours($query){
+        return $query->where('type', 'Tour');
+    }    
 }

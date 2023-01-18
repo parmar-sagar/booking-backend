@@ -13,9 +13,7 @@ class Price extends Model
         'tour_id',
         'vehicle_id',
         'time',
-        'amount',
-        'label'
-
+        'amount'
     ];
 
     protected $hidden = [

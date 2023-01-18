@@ -1,9 +1,6 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
-            <div>
-                <p><span style="color:red">Note : </span> Add the warnings for all your Vehicles.</p>
-            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>
@@ -20,7 +17,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="title" class="form-label">Name</label>
                             <input type="text" id="title" class="form-control" name="title" value="@if(isset($objData->title) && $objData->title){{ $objData->title }}@endif" required>
                         </div>
                     </div>

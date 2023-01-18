@@ -9,6 +9,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <div>
+                        <p><span style="color:red">Note : </span> This is to manage the sequence in which you want to show tours in sliders present on home-page.</p>
+                    </div>
                     <div class="row mb-2">
                         <div class="col-sm-5">
                             <a href="javascript:void(0);" class="btn btn-danger mb-2 open-form" data-create-href={{ $create }}><i class="mdi mdi-plus-circle me-2"></i> Add {{ $pageName }}</a>
@@ -20,7 +23,6 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>Id</th>
-                                    <th>Sequence</th>
                                     <th>Type</th>
                                     <th>Status</th>
                                     <th style="width: 85px;">Action</th>

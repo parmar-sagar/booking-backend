@@ -18,10 +18,7 @@ use App\Models\TimeSlote;
 class SingleProductController extends Controller
 {
     const ControllerCode = "S_";
-
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index($id){  
         $this->outputData = [

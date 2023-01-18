@@ -1,10 +1,6 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
-            <div>
-                <p><span style="color:red">Note : </span>These can be added, removed or modified as desired. The discount percentage can be created according to the size of the 
-                    group.</p>
-            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>
@@ -22,13 +18,13 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="no_of_vehicle" class="form-label">No Of Vehicles</label>
-                            <input type="text" id="no_of_vehicle" class="form-control" name="no_of_vehicle" value="@if(isset($objData->no_of_vehicle) && $objData->no_of_vehicle){{ $objData->no_of_vehicle }}@endif" required>
+                            <input type="number" id="no_of_vehicle" class="form-control" name="no_of_vehicle" value="@if(isset($objData->no_of_vehicle) && $objData->no_of_vehicle){{ $objData->no_of_vehicle }}@endif" min="1" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="discount" class="form-label">Discount (In Percentage)</label>
-                            <input type="text" id="discount" class="form-control" name="discount" value="@if(isset($objData->discount) && $objData->discount){{ $objData->discount }}@endif" required>
+                            <input type="number" id="discount" class="form-control" name="discount" value="@if(isset($objData->discount) && $objData->discount){{ $objData->discount }}@endif" min="1" required>
                         </div>
                     </div>
                     <div class="col-auto">

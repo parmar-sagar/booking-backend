@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\Time;
@@ -14,9 +13,7 @@ class TimeController extends Controller
 {
     const ControllerCode = "T_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [
@@ -50,7 +47,7 @@ class TimeController extends Controller
                 // Validation section
                 $validator = Validator::make($Input, [
                     'time' => 'required|integer',
-                    'time_type' => 'required|in:Minutes,Hours'
+                    'type' => 'required|in:Minutes,Hours'
                 ]);
                   
                 if($validator->fails()){
@@ -58,13 +55,10 @@ class TimeController extends Controller
                 }
                 
                 $validated = $validator->validated();
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-  
-                $validated['random_id'] = $snowflake->id();
                 
                 Time::create($validated);
     
-                return response()->json(['success' => "Times Created successfully."]);
+                return response()->json(['success' => "Time Created successfully."]);
             }
             $this->outputData = [
                 'pageName' => 'New Times',
@@ -86,7 +80,7 @@ class TimeController extends Controller
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:times',
                     'time' => 'required|integer',
-                    'time_type' => 'required|in:Minutes,Hours'
+                    'type' => 'required|in:Minutes,Hours'
                 ]);
     
                 if($validator->fails()){
@@ -94,17 +88,18 @@ class TimeController extends Controller
                 }
 
                 $validated = $validator->validated();
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-                $validated['random_id'] = $snowflake->id();
                 
                 Time::find($validated['id'])->update($validated);
     
-                return response()->json(['success' => "Times Updated successfully."]);
+                return response()->json(['success' => "Time Updated successfully."]);
             }
+
+            $objData = Time::findOrFail($id);
+            
             $this->outputData = [
                 'pageName' => 'Edit Times',
                 'action' => url('admin/times/update/'.$id),
-                'objData' => Time::findOrFail($id),
+                'objData' => $objData,
             ];
             return view('admin.pages.time.create',$this->outputData);
 
@@ -115,7 +110,7 @@ class TimeController extends Controller
 
     public function destroy($id){
         try {
-            $res = Time::find($id)->delete();   
+            Time::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

@@ -12,10 +12,7 @@ use App\Models\Coupon;
 class CartController extends Controller
 {
     const ControllerCode = "CT_";
-
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         return view('front.pages.cart.index');

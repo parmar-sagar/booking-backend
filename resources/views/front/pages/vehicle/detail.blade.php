@@ -5,34 +5,34 @@
             <div class="col-12 col-lg-7 col-xl-7 col-xxl-5 offset-xxl-1">
                 <header>
                     <div class="headline-wave">
-                        <h1 class="headline-2">{{$singlePrdct->name}}</h1> <svg width="100px" height="16px"
+                        <h1 class="headline-2">{{$objVehicle->name}}</h1> <svg width="100px" height="16px"
                             class="stroke-blurple">
                             <use xlink:href="images/icons.svg#icon-wave-squiggle"></use>
                         </svg>
                     </div>
                     <div class="content mt-10em">
-                        <p>{{$singlePrdct->description}}</p>
+                        <p>{{$objVehicle->description}}</p>
                     </div>
                 </header>
                 <div class="video-images">
                     <figure class="video-images__left-img">
                         <picture>
                                 <img class=" "
-                                src="{{ asset('admin/uploads/vehicle/' . $singlePrdct->image)}}"
+                                src="{{ asset('admin/uploads/vehicle/' . $objVehicle->image)}}"
                                 alt="">
                         </picture>
                     </figure>
                     <figure class="video-images__main-img">
                             <picture>
                                 <img class=" "
-                                    src="{{ asset('admin/uploads/vehicle/' . $singlePrdct->banner_img)}}"
+                                    src="{{ asset('admin/uploads/vehicle/' . $objVehicle->banner_img)}}"
                                     alt="">
                             </picture> 
                             </figure>
                     <figure class="video-images__right-img">
                         <picture>
                             <img class=" "
-                                src="{{ asset('admin/uploads/vehicle/' . $singlePrdct->image)}}"
+                                src="{{ asset('admin/uploads/vehicle/' . $objVehicle->image)}}"
                                 alt="">
                         </picture>
                     </figure>
@@ -42,13 +42,13 @@
                     <div class="col-md-5">
                         <div class="list-icon-wrapper">
                             <ul class="list-icon list-icon--tick">
-                                @foreach($include as $includes)
-                                <li>{{$includes->title}}</li>
+                                @foreach($includes as $value)
+                                <li>{{$value->title}}</li>
                                 @endforeach
                             </ul>
                             <ul class="list-icon list-icon--cross">
-                                @foreach($notInclude as $notInclude)
-                                <li>{{$notInclude->title}}</li>
+                                @foreach($notIncludes as $value)
+                                <li>{{$value->title}}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -65,7 +65,7 @@
                                     </use>
                                 </svg>
                               <div class="list-tour-info__item-desc">
-                                <b>Min Age</b> <span>{{$list->min_age}}Yrs</span>
+                                <b>Min Age</b> <span>{{$objVehicle->tour->min_age}}Yrs</span>
                               </div>
                             </li>
                             <li class="list-tour-info__item">
@@ -74,7 +74,7 @@
                                     </use>
                                 </svg>
                               <div class="list-tour-info__item-desc">
-                                <b>Pickup & Drop off</b> <span>{{$list->pickup_and_drop}}</span>
+                                <b>Pickup & Drop off</b> <span>{{$objVehicle->tour->pickup_and_drop}}</span>
                               </div>
                             </li>
                             <li class="list-tour-info__item">
@@ -84,8 +84,8 @@
                                 </svg>
                               <div class="list-tour-info__item-desc">
                                 <b>Ride Duration</b> 
-                                @foreach($time as $times)
-                                <span>{{$times->time}}@if($times->time_type == 'Minutes'){{ 'Mins'}} @else {{'Hours'}} @endif</span>
+                                @foreach($times as $value)
+                                <span>{{$value->time}}@if($value->time_type == 'Minutes'){{ 'Mins'}} @else {{'Hours'}} @endif</span>
                                 @endforeach
                               </div>
                             </li>
@@ -95,7 +95,7 @@
                                     </use>
                                 </svg>
                               <div class="list-tour-info__item-desc">
-                                <b>Convoy Leader</b> <span>{{$list->convoy_leader}}</span>
+                                <b>Convoy Leader</b> <span>{{$objVehicle->tour->convoy_leader}}</span>
                               </div>
                             </li>
                             <li class="list-tour-info__item">
@@ -104,7 +104,7 @@
                                     </use>
                                 </svg>
                               <div class="list-tour-info__item-desc">
-                                <b>Tour Guide</b> <span>{{$list->tour_guide}}</span>
+                                <b>Tour Guide</b> <span>{{$objVehicle->tour->tour_guide}}</span>
                               </div>
                             </li>
                             <li class="list-tour-info__item">
@@ -114,8 +114,8 @@
                                 </svg>
                               <div class="list-tour-info__item-desc">
                                 <b>Safety Gears</b>
-                                @foreach($refreshment as $refreshments)
-                                <span>{{$refreshments->title}}</span>
+                                @foreach($saftyGears as $value)
+                                <span>{{$value->title}}</span>
                                 @endforeach
                                 
                               </div>
@@ -127,8 +127,8 @@
                                 </svg>
                               <div class="list-tour-info__item-desc">
                                 <b>Refreshments</b>
-                                @foreach($saftyGear as $saftyGears)
-                                <span>{{$saftyGears->title}}</span>
+                                @foreach($refreshments as $value)
+                                <span>{{$value->title}}</span>
                                 @endforeach
                               </div>
                             </li>
@@ -154,11 +154,11 @@
                             height="16px" class="stroke-blurple">
                             <use xlink:href="images/icons.svg#icon-wave-squiggle" />
                         </svg>
-                        <h3 style="color:yellow">@if(isset($dealsDiscount)){{$dealsDiscount}}% Off @endif</h3>
+                        <h3 style="color:yellow">@if(isset($objVehicle->discount)){{$objVehicle->discount}}% Off @endif</h3>
                     </div>
                     <ul class="list-icon list-icon--tick list-1-cols list-mobile-limit js-limit-list">
-                        @foreach($price as $prices)
-                        <li>{{$prices->time}} Mins Ride :@if(isset($dealsDiscount))<del style="color:red">{{$prices->amount}} AED</del> @endif @if(isset($dealsDiscount)) {{$prices->amount - ($prices->amount * ($dealsDiscount / 100))}}@endif AED</li>
+                        @foreach($objVehicle->prices as $value)
+                        <li>{{$value->time}} Mins Ride :@if(isset($objVehicle->discount))<del style="color:red">{{$value->amount}} AED</del> @endif @if(isset($objVehicle->discount)) {{$prices->amount - ($prices->amount * ($objVehicle->discount / 100))}}@endif AED</li>
                         @endforeach
                         @if(isset($safariPrice))
                         <li>{{$safariPrice->amount}} AED</li>
@@ -187,8 +187,8 @@
                     </div>
                     <div class="list-icon-wrapper" id="cnt" style="display:none;">
                       <ul class="list-icon list-icon--tick">
-                        @foreach($mustKnow as $mustKnows)
-                        <li>{{$mustKnows->title}}</li>
+                        @foreach($mustKnows as $value)
+                        <li>{{$value->title}}</li>
                         @endforeach
                       </ul>
                     </div>
@@ -218,7 +218,7 @@
                     </div>
                     <div class="list-icon-wrapper" id="cnt3" style="display:none;">
                       <p class="content mt-10em mb-10em">
-                        <p>{!! $singlePrdct->tour_itenary !!}</p>
+                        <p>{!! $objVehicle->tour_itenary !!}</p>
                     </div>
                   </div>
                 </div>
@@ -245,8 +245,8 @@
                     <div class="cntnt" id="cnt2" style="display:none;">
                       <div class="list-icon-wrapper">
                         <ul class="list-icon list-icon--tick">
-                            @foreach($addInfo as $addInfos)
-                            <li>{{$addInfos->title}}</li>
+                            @foreach($addInfos as $value)
+                            <li>{{$value->title}}</li>
                             @endforeach
                         </ul>
                       </div>
@@ -254,9 +254,9 @@
                   </div>
                 </div>
               </div>
-               @if($tourType != 'Safari')
+               @if($objVehicle->type != 'Safari')
               <!-- <a class="btn btn--purple mt-10em" href="#sect" title="View Tour Dates"> Next </a> -->
-              <a class="btn btn--purple mt-10em" href="{{url('gallary/'.$singlePrdct->random_id)}}" title="View Tour Gallary">View Gallary </a>
+              <a class="btn btn--purple mt-10em" href="{{url('gallary/'.$objVehicle->random_id)}}" title="View Tour Gallary">View Gallary </a>
               @endif
             </div>
           </div>
@@ -267,7 +267,7 @@
      <div class="section" id="sect">
      <form method="POST" id="cartItems">
        @csrf
-       <input type="hidden" name="id" value="{{$singlePrdct->random_id}}">
+       <input type="hidden" name="id" value="{{$objVehicle->random_id}}">
           <div class="row row--g-10">
             <div class="col-12 col-lg-6 col-xxl-5 col-xl-5  col-sm-12" 
               data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769"
@@ -304,11 +304,11 @@
                             <input id="datepicker" type="text" name="bookingDate" class="form-control filled" data-zdp_readonly_element="false"></div>
                             <div class="col-sm-6">
                               <label>Time</label>
-                            @if($tourType != 'Safari')
+                            @if($objVehicle->type != 'Safari')
                             <input id="slctAvTime" type="text" name="time" class="form-control filled" value="" readonly>
                             @endif
-                            @if($tourType === 'Safari')
-                            <input id="slctAvTime" type="text" name="time" class="form-control filled" value="{{$singlePrdct->pickup_time}}" readonly>
+                            @if($objVehicle->type === 'Safari')
+                            <input id="slctAvTime" type="text" name="time" class="form-control filled" value="{{$objVehicle->pickup_time}}" readonly>
                             @endif
                             </div>
                           </div>
@@ -324,7 +324,7 @@
                   <div class="card__content">
                     <div class="card__headline card__headline--with-price">
                       <div class="card__headline-left headline-wave">
-                        <h2 class="headline-3">{{$singlePrdct->name}}</h2> <svg  height="16px"
+                        <h2 class="headline-3">{{$objVehicle->name}}</h2> <svg  height="16px"
                           class="stroke-orange">
                           <use xlink:href="#icon-wave-squiggle"></use>
                         </svg>
@@ -333,9 +333,9 @@
                       </div>
                     </div>
                     <div class="content mt-10em mb-10em">
-                      <p>{{$singlePrdct->description}}</p>
+                      <p>{{$objVehicle->description}}</p>
                     </div>
-                    @if($tourType == 'Safari')
+                    @if($objVehicle->type == 'Safari')
                     <div>
                       <h5>Amount</h5>
                       @if(isset($safariPrice))
@@ -347,7 +347,7 @@
                         <button type="button" id="add" class="add">+</button>
                     </div>
                     @endif
-                    @if($tourType != 'Safari')
+                    @if($objVehicle->type != 'Safari')
                     <table class="list-tour-info list-tour-info--two-cols">
                     <tr>
                         <th>Duration</th>
@@ -361,8 +361,8 @@
                             <div class="form__row__left">
                               <div class="form__group"> 
                                 <select class="" id="timeSelect">
-                                  @foreach($price as $prices)  
-                                  <option value="@if(isset($dealsDiscount)) {{$prices->amount - ($prices->amount * ($dealsDiscount / 100))}}@else{{$prices->amount}}@endif">{{$prices->time}} Min</option>
+                                  @foreach($objVehicle->prices as $value)  
+                                  <option value="@if(isset($dealsDiscount)) {{$value->amount - ($value->amount * ($dealsDiscount / 100))}}@else{{$value->amount}}@endif">{{$value->time}} Min</option>
                                   @endforeach
                                 </select>
                               </div>
@@ -385,17 +385,17 @@
                     
                     <h1 style="font-size: 1.75rem">  Extra Activities</h1>
                     <table>
-                        @foreach($extraActivity as $key => $extraActivitys)
+                        @foreach($extraActivitys as $key => $value)
                       <tr>
-                        <td><strong class="mb-20em" name="etraname">{{$extraActivitys->title}}</strong></td>
+                        <td><strong class="mb-20em" name="etraname">{{$value->title}}</strong></td>
                         <td><label class="switch">
-                          <input id ="checkBox{{$key+1}}" type="checkbox" name="extra_price[]" value="{{$extraActivitys->random_id}}" class="checkBoxId">
+                          <input id ="checkBox{{$key+1}}" type="checkbox" name="extra_price[]" value="{{$value->random_id}}" class="checkBoxId">
                           <span class="slider round"></span>
                       </label></td>
                       <td style="display: none;" class="checkboxQntity qntityBtn"><button type="button" id="sub" class="sub">-</button>
                         <input style="width:40px" name="qnty" class="qntyPrce"type="number" id="1" value="1" min="1" max="10" />
                         <button type="button" id="add" class="add">+</button></td>
-                      <td id="extraAcPrice"><strong class="mb-20em">{{$extraActivitys->price}} AED</strong></td>
+                      <td id="extraAcPrice"><strong class="mb-20em">{{$value->price}} AED</strong></td>
                        <!-- <td><button type="button" id="sub" class="sub">-</button>
                         <input style="width:40px" class="qntyPrce"type="number" id="1" value="1" min="1" max="10" />
                         <button type="button" id="add" class="add">+</button>
@@ -404,7 +404,7 @@
                       </tr>   
                       @endforeach                
                     </table>
-                    <!-- <a class="btn btn--purple add_cart" href="javascript:void(0);" data-id="{{$singlePrdct->random_id}}" title="add-to-cart"> Book Now </a> -->
+                    <!-- <a class="btn btn--purple add_cart" href="javascript:void(0);" data-id="{{$objVehicle->random_id}}" title="add-to-cart"> Book Now </a> -->
                     <x-primary-button class="ml-4 btn btn-primary profile-button btn--purple" >
                       {{ __('Book Now') }}
                     </x-primary-button>
@@ -465,7 +465,7 @@
 // end
 //add subtract qntity
   $('.add').click(function () {
-    var val ="{{$singlePrdct->available_quantity}}";
+    var val ="{{$objVehicle->available_quantity}}";
       if ($(this).prev().val() < val) {
         $(this).prev().val(+$(this).prev().val() + 1);
       }

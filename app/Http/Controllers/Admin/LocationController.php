@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Handlers\Error;
 use App\Models\Location;
@@ -14,9 +13,7 @@ class LocationController extends Controller
 {
     const ControllerCode = "L_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [
@@ -58,9 +55,6 @@ class LocationController extends Controller
                 }
                 $validated = $validator->validated();
                 
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-                $validated['random_id'] = $snowflake->id();
-
                 Location::create($validated);
     
                 return response()->json(['success' => "Location Created successfully."]);
@@ -98,10 +92,13 @@ class LocationController extends Controller
     
                 return response()->json(['success' => "Location Updated successfully."]);
             }
+
+            $objData = Location::findOrFail($id);
+
             $this->outputData = [
                 'pageName' => 'Edit Locations',
                 'action' => url('admin/locations/update/'.$id),
-                'objData' => Location::findOrFail($id),
+                'objData' => $objData,
             ];
             return view('admin.pages.location.create',$this->outputData);
 
@@ -112,7 +109,7 @@ class LocationController extends Controller
 
     public function destroy($id){
         try {
-            $res = Location::find($id)->delete();   
+            Location::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

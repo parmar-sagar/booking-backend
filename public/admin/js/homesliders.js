@@ -23,12 +23,11 @@ $(document).ready(function() {
                         return meta.row+1;
                     }
                 },
-                {data: 'sequence', name: 'sequence'},
                 {data: 'type', name:'type',
                     "render": function ( data, type, row, meta ) {
                         var status = {
-                            0: {'text': 'Image'},
-                            1: {'text': 'Video'},
+                            1: {'text': 'Image'},
+                            2: {'text': 'Video'},
                         };
                         return '<span>'+status[row.type].text+'</span>';
                     }

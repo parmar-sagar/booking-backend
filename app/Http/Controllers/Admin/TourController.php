@@ -18,10 +18,8 @@ use DataTables;
 class TourController extends Controller{
 
     const ControllerCode = "T_";
-
-    function __construct(){
-        $this->outputData = [];
-    }
+    
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [
@@ -38,7 +36,7 @@ class TourController extends Controller{
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Tour::type('Tour')->order()->get();
+                $datas = Tour::tour()->order()->get();
     
                 return DataTables::of($datas)->toJson();;
             }
@@ -51,22 +49,23 @@ class TourController extends Controller{
         try {
             if($request->method() == 'POST'){
                 $Input = $request->all();
+
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'name' => 'required|string|max:100',
+                    'name' => 'required|string|max:255',
                     'description' => 'required|string',
+                    'min_age' => 'required|integer|digits_between:1,100',
+                    'convoy_leader' => 'required|string|max:100',
+                    'tour_guide' => 'required|string|max:100',
+                    'pickup_and_drop' => 'required|string|max:100',
                     'time_ids' => 'required|array',
-                    'image' => 'required|mimes:jpeg,jpg,png,gif',
-                    'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
-                    'status' => 'required|in:0,1',
-                    'sequence' => 'required|integer',
                     'location_id' => 'required|integer',
-                    'min_age' => 'required|integer',
-                    'pickup_and_drop' => 'required|string',
-                    'tour_guide' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
-                    'convoy_leader' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
                     'safety_gear_ids' => 'required|array',
                     'refreshments_ids' => 'required|array',
+                    'sequence' => 'nullable|integer',
+                    'status' => 'required|in:0,1',
+                    'image' => 'required|mimes:jpeg,jpg,png,gif',
+                    'banner_img' => 'required|mimes:jpeg,jpg,png,gif'
                 ]);
     
                 if($validator->fails()){
@@ -80,18 +79,17 @@ class TourController extends Controller{
                 $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
-                    $path = 'tour';
-                    $validated['image'] = Helper::uploadFile($request->image, $path);
+                    $validated['image'] = Helper::uploadFile($request->image, 'tour');
                 }
                 if ($request->file('banner_img')) {
-                    $path = 'tour';
-                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
+                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, 'tour');
                 }
                 
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-                $validated['random_id'] = $snowflake->id();
+                $validated['random_id'] = (new Snowflake())->id();
+                $validated['sequence'] = (($validated['sequence'])) ?? 0;
 
                 $lastId = Tour::create($validated);
+
                 $tourId = $lastId->id;
                 if(!empty($request->gallry_images)){    
                     if ($request->hasfile('gallry_images')) {
@@ -100,8 +98,9 @@ class TourController extends Controller{
                             $path = 'gallry_images';
                             $gimages = Helper::uploadFile($glryImages, $path); 
                             $multipleImages = new TourGallary();
-                            $multipleImages->fill(['tour_id'=>$tourId,
-                                                   'gallry_images' => $gimages,
+                            $multipleImages->fill([
+                                'tour_id'=>$tourId,
+                                'gallry_images' => $gimages,
                             ])->save();
                         }
                     }
@@ -109,13 +108,19 @@ class TourController extends Controller{
     
                 return response()->json(['success' => "Tour Created successfully."]);
             }
+
+            $times = Time::order()->get();
+            $locations = Location::order()->get();
+            $safetyGears = VehicleInfo::safetyGear()->order()->get();
+            $refreshments = VehicleInfo::refreshment()->order()->get();
+            
             $this->outputData = [
                 'pageName' => 'New Tour',
                 'action' => url('admin/tours/store'),
-                'time' => Time::orderBy('id','DESC')->get(),
-                'locations' => Location::orderBy('id','DESC')->get(),
-                'safetyGear' => VehicleInfo::type(5)->order()->get(),
-                'refreshment' => VehicleInfo::type(6)->order()->get(),
+                'times' => $times,
+                'locations' => $locations,
+                'safetyGears' => $safetyGears,
+                'refreshments' => $refreshments,
             ];
             return view('admin.pages.tour.create',$this->outputData);
 
@@ -132,20 +137,20 @@ class TourController extends Controller{
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:tours',
-                    'sequence' => 'required|integer|unique:tours,sequence,'.$id,
-                    'name' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
+                    'name' => 'required|string|max:255',
                     'description' => 'required|string',
+                    'min_age' => 'required|integer|digits_between:1,100',
+                    'convoy_leader' => 'required|string|max:100',
+                    'tour_guide' => 'required|string|max:100',
+                    'pickup_and_drop' => 'required|string|max:100',
                     'time_ids' => 'required|array',
-                    'image' => 'mimes:jpeg,jpg,png,gif',
-                    'banner_img' => 'mimes:jpeg,jpg,png,gif',
-                    'status' => 'required|in:0,1',
                     'location_id' => 'required|integer',
-                    'min_age' => 'required|integer',
-                    'pickup_and_drop' => 'required|string',
-                    'tour_guide' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
-                    'convoy_leader' => 'required|regex:/^[a-zA-Z0-9_\- ]*$/|max:100',
                     'safety_gear_ids' => 'required|array',
                     'refreshments_ids' => 'required|array',
+                    'sequence' => 'nullable|integer',
+                    'status' => 'required|in:0,1',
+                    'image' => 'nullable|mimes:jpeg,jpg,png,gif',
+                    'banner_img' => 'nullable|mimes:jpeg,jpg,png,gif'
                 ]);
     
                 if($validator->fails()){
@@ -159,14 +164,13 @@ class TourController extends Controller{
                 $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
-                    $path = 'tour';
-                    $validated['image'] = Helper::uploadFile($request->image, $path);
+                    $validated['image'] = Helper::uploadFile($request->image, 'tour');
                 }
                 if ($request->file('banner_img')) {
-                    $path = 'tour';
-                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, $path);
+                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, 'tour');
                 }
                 
+                $validated['sequence'] = (($validated['sequence'])) ?? 0;
                 Tour::find($validated['id'])->update($validated);
 
                 if(!empty($request->gallry_images)){    
@@ -190,20 +194,30 @@ class TourController extends Controller{
     
                 return response()->json(['success' => "Tour Updated successfully."]);
             }
+
+            $times = Time::order()->get();
+            $locations = Location::order()->get();
+            $safetyGears = VehicleInfo::safetyGear()->order()->get();
+            $refreshments = VehicleInfo::refreshment()->order()->get();
+            $gallaryImages = TourGallary::where('tour_id',$id)->get();
+
+            $objData = Tour::findOrFail($id);
+
+            $objData->time_ids = Helper::explode( $objData->time_ids );
+            $objData->safety_gear_ids = Helper::explode( $objData->safety_gear_ids );
+            $objData->refreshments_ids = Helper::explode( $objData->refreshments_ids );
+
             $this->outputData = [
                 'pageName' => 'Edit Tour',
                 'action' => url('admin/tours/update/'.$id),
-                'objData' => Tour::findOrFail($id),
-                'time' => Time::order()->get(),
-                'locations' => Location::order()->get(),
-                'safetyGear' => VehicleInfo::type(5)->order()->get(),
-                'refreshment' => VehicleInfo::type(6)->order()->get(),
-                'gallaryImages' => TourGallary::where('tour_id',$id)->get()
+                'objData' => $objData,
+                'times' => $times,
+                'locations' => $locations,
+                'safetyGears' => $safetyGears,
+                'refreshments' => $refreshments,
+                'gallaryImages' => $gallaryImages
             ];
-            $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
-            $this->outputData['selctdSftyGear'] = Helper::explode( $this->outputData['objData']->safety_gear_ids );
-            $this->outputData['selctdRefreshment'] = Helper::explode( $this->outputData['objData']->refreshments_ids );
-
+            
             return view('admin.pages.tour.create',$this->outputData);
 
         } catch (\Throwable $e) {
@@ -213,7 +227,7 @@ class TourController extends Controller{
 
     public function destroy($id){
         try {
-            $res = Tour::find($id)->delete();   
+            Tour::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

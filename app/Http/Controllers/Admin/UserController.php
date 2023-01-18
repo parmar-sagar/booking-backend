@@ -16,9 +16,7 @@ class UserController extends Controller{
 
     const ControllerCode = "U_";
 
-    function __construct(){
-        $this->outputData = [];
-    }
+    public $outputData = [];
 
     public function index(){
         $this->outputData = [
@@ -41,7 +39,7 @@ class UserController extends Controller{
                                         return date('d M Y H:i:s',strtotime($data->created_at));
                                     })
                                     ->rawColumns(['created_at'])
-                                    ->toJson();;
+                                    ->toJson();
             }
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '01');
@@ -72,11 +70,9 @@ class UserController extends Controller{
                 $validated['password'] = Hash::make($validated['password']);
 
                 if ($request->file('photo')) {
-                    $path = 'users';
-                    $validated['photo'] = Helper::uploadFile($request->photo, $path);
+                    $validated['photo'] = Helper::uploadFile($request->photo, 'users');
                 }
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-                $validated['random_id'] = $snowflake->id();
+                $validated['random_id'] = (new Snowflake())->id();
                 
                 User::create($validated);
     
@@ -104,7 +100,7 @@ class UserController extends Controller{
                     'name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
                     'email' => 'required|max:100|email:rfc,dns|unique:users,email,'.$id,
                     'mobile' => 'required|string||min:10|max:12',
-                    'photo' => 'mimes:jpeg,jpg,png,gif',
+                    'photo' => 'nullable|mimes:jpeg,jpg,png,gif',
                     'status' => 'required|in:0,1',
                 ]);
     
@@ -115,18 +111,20 @@ class UserController extends Controller{
                 $validated = $validator->validated();
     
                 if ($request->file('photo')) {
-                    $path = 'users';
-                    $validated['photo'] = Helper::uploadFile($request->photo, $path);
+                    $validated['photo'] = Helper::uploadFile($request->photo, 'users');
                 }
                 
                 User::find($validated['id'])->update($validated);
     
                 return response()->json(['success' => "User Updated successfully."]);
             }
+
+            $objUser = User::findOrFail($id);
+
             $this->outputData = [
                 'pageName' => 'Edit User',
                 'action' => url('admin/users/update/'.$id),
-                'objData' => User::findOrFail($id)
+                'objData' => $objUser
             ];
             return view('admin.pages.user.create',$this->outputData);
 
@@ -137,7 +135,7 @@ class UserController extends Controller{
 
     public function destroy($id){
         try {
-            $res = User::find($id)->delete();   
+            User::find($id)->delete();   
             return response()->json(true);
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '04');

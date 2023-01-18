@@ -1,9 +1,6 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
-            <div>
-                <p><span style="color:red">Note : </span>Vehicles can be selected from drop-down menu as added in tours and safari. Discount can be provided as per the need and sequence will help in determining the position of the deal in deals menu.</p>
-            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>
@@ -20,8 +17,8 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="vehicle" class="form-label">Vehicle</label>
-                            <select class="form-control select2" data-toggle="select2" name="vehicleId">
+                            <label for="vehicleId" class="form-label">Vehicle</label>
+                            <select class="form-control select2" data-toggle="select2" id="vehicleId" name="vehicleId">
                                 <option>Select</option>
                                 @foreach($vehicles as $vehicle)
                                     <option value="{{$vehicle->id}}" @if(isset($objData->id) && $objData->id == $vehicle->id) selected @endif>{{$vehicle->name}},(@if($vehicle->type == 'Tour') Tour @else Safari @endif)</option >
@@ -32,13 +29,13 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="discount" class="form-label">Discount (%)</label>
-                            <input type="text" name="discount" class="form-control " id="discount" value="@if(isset($objData->discount) && $objData->discount){{ $objData->discount }}@endif" required>
+                            <input type="number" min="1" name="discount" class="form-control " id="discount" value="@if(isset($objData->discount) && $objData->discount){{ $objData->discount }}@endif" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="sequence" class="form-label">Sequence</label>
-                            <input type="text" name="sequence" class="form-control " id="sequence" value="@if(isset($objData->sequence) && $objData->sequence){{ $objData->sequence }}@endif" required>
+                            <input type="number" min="0" name="sequence" class="form-control " id="sequence" value="@if(isset($objData->sequence) && $objData->sequence){{ $objData->sequence }}@endif">
                         </div>
                     </div>
                 </div>
