@@ -161,7 +161,7 @@
                               <img class="fb-review__img rotate-right lazy animated rollInRight active loaded" src="{{ asset('admin/uploads/vehicle/' . $vehicle->banner_img) }}" media="(max-width: 420px)"/>
                             </picture>
                             <div class="fb-review__comment">
-                              <p>{{$vehicle->description}}</p>
+                              <p>{{ mb_strimwidth($vehicle->description, 0, 200, '...') }}</p>
                             </div>
                           </div>
                         </div>

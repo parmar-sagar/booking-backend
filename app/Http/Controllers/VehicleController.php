@@ -38,7 +38,7 @@ class VehicleController extends Controller{
         $extraActivitys = VehicleInfo::select('title')->whereIn('id',$extraActivityIds)->get();
 
         $timeIds = Helper::explode($objVehicle->tour->time_ids);
-        $times = Time::select('time','time_type')->whereIn('id',$timeIds)->get();
+        $times = Time::select('time','type')->whereIn('id',$timeIds)->get();
         
         $this->outputData = [
             'objVehicle' => $objVehicle,

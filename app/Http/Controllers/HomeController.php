@@ -21,7 +21,7 @@ class HomeController extends Controller{
     public $outputData = [];
 
     public function index(){
-        $sliders = Slider::select('image_video','type')->active()->order()->get();
+        $sliders = Slider::select('image_video','type')->active()->sequence()->get();
         $discounts = Discount::order()->get();
         $deals = Vehicle::deals()->sequence()->active()->get();
 
