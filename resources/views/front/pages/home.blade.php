@@ -49,7 +49,7 @@
                 </button>
               </li>
             @endforeach
-              <a class="l-navbar__login-links" href="{{url('/all-other-tours')}}" title="all other tour" aria-label="all-other-tours">
+              <a class="l-navbar__login-links" href="{{url('tours')}}" title="all other tour" aria-label="all-other-tours">
 
                 <button class="tab-box-btn tab-box-btn--blue5"data-name="tab" type="button">
                   <span class="tab-box-btn__icon tab-box-btn__icon--blue5">

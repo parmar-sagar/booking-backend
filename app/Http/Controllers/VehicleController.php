@@ -10,10 +10,9 @@ use Illuminate\Http\Request;
 
 class VehicleController extends Controller{
     
-    const ControllerCode = "V_";
     public $outputData = [];
 
-    public function detail($id){
+    public function details($id){
         $objVehicle = Vehicle::where('random_id',$id)->first();
 
         $includeIds = Helper::explode($objVehicle->includes_ids);
@@ -53,5 +52,13 @@ class VehicleController extends Controller{
         ];
 
         return view('front.pages.vehicle.detail',$this->outputData);
+    }
+
+    public function deals(){
+        $deals = Vehicle::deals()->active()->sequence()->get();
+
+        $this->outputData['deals'] = $deals;
+
+        return view('front.pages.vehicle.deals',$this->outputData);
     }
 }

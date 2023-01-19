@@ -37,13 +37,7 @@ class HomeController extends Controller{
         return view('front.pages.home',$this->outputData);
     }
 
-    public function deals(){
-        $this->outputData = [
-            'deal' => Vehicle::where('is_deals','1')->with('tours')->sequence()->status('1')->get()
-        ];
-        return view('front.pages.deals.index',$this->outputData);
-    }
-
+    
     public function myAccount(){
        return view('front.pages.my_account.index');
     }
