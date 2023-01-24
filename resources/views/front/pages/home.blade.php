@@ -262,7 +262,7 @@
               @foreach($deals as $key => $value)
               <div class="swiper-slide"><div class="card card--flex card--shadow-orange">
                 <div class="card__image lazy">
-                  <img src="{{ asset('admin/uploads/vehicle/' .$value->image) }}">
+                <a href="{{url('vehicles/details/'.$value->random_id)}}"><img src="{{ asset('admin/uploads/vehicle/' .$value->image) }}"></a>
                 </div>
               <div class="card__content card__content--stretch">
                 <div class="card__headline">
@@ -422,7 +422,7 @@
               loop: true,
               loopFillGroupWithBlank: true,
               autoplay: {
-            delay: 3500,
+            delay: 4500,
               disableOnInteraction: false,
             },
               pagination: {
@@ -442,7 +442,7 @@
               loop: true,
               loopFillGroupWithBlank: true,
               autoplay: {
-            delay: 3500,
+            delay: 4500,
               disableOnInteraction: false,
             },
               pagination: {

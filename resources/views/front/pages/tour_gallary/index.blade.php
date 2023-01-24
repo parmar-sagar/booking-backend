@@ -1,11 +1,8 @@
 <x-front.master-layout> 
-<div class=" tab-box-content tab-box-content--active bg-blue border-img-top border-img-top--blue border-img-bottom border-img-bottom--blue js-tabContent " data-content="tab-2">
+        <div class=" tab-box-content tab-box-content--active bg-blue border-img-top border-img-top--blue border-img-bottom border-img-bottom--blue js-tabContent " data-content="tab-2">
           <section class="border-img-top border-img-top--orange border-img-bottom border-img-bottom--orange border-img-top--hide-on-mobile ">
             <div class="toggle-wrapper toggle-wrapper__tour-gallery"> <label class="toggle" for="gallery-toggle">
-              
-
                  <span><h2 class="headline-2"> Gallery </h2></span> </label> </div>
-
             <div class="tour-gallery tour-gallery--orange pt-0em" data-gallery-active-category="activities">
               <div class="tour-gallery__inner" data-gallery-content-category="activities">
                 <div class="tour-gallery__images js-gallery-images" data-gallery-day="1" data-gallery-category="activities">

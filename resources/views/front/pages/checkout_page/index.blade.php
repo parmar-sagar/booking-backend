@@ -1,5 +1,12 @@
 <x-front.master-layout>
 <div class="container cart " style="margin-bottom:10px;padding-bottom:10px;">
+<nav class="l-submenu mb-4 l-submenu--blurple border-img-bottom border-img-bottom--blurple">
+            <div class="h2">
+                <div class="col-12 p-3  d  text-center">
+  <h1 class="h1"> Checkout </h1>
+                </div>
+            </div>
+          </nav>
       @php 
       $cartCollection = Cart::getContent();
       $total = Cart::getSubTotal();
@@ -106,7 +113,7 @@
         <br>
 
       </div>
-      <div class="col-lg-4 col-md-12 col-sm-12" style="padding: 0px;">
+      <div class="col-lg-4 col-md-12  aside_content col-sm-12 cartop" style="padding: 0px;">
       <aside>
         <div class="summary card--shadow-orangeBlood" style="margin-bottom:50px;padding-bottom:50px;">
           <div class="summary-total-items">
@@ -117,33 +124,6 @@
             <div class="subtotal-value final-value" id="basket-subtotal">{{$grandTotal}} AED</div>
             <br>
             <br>
-            <form id="submit-form" method="POST" autocomplete="off" enctype="multipart/form-data">
-                @csrf
-              <div class="form-group coupon"> 
-              <label>Have coupon?</label>
-                  <div class="input-group"> 
-                    <input type="text" class="form-control coupon" name="coupon" placeholder="Coupon code"> 
-                    <span class="input-group-append"> 
-                    <button class="btn btn-primary btn-apply coupon apBtn">Apply</button> 
-                    </span> 
-                  </div>
-              </div>
-          </form>
-          <div id="couponTable" style="display: none;">
-          <table class="responsive-large-tabU">
-                <tr>
-                  <th>Subtotal</th>
-                  <td>{{$grandTotal}} AED</td>
-                </tr>
-                <tr>
-                  <th>Coupon Discount</th>
-                  <td id="discount"></td>
-                <tr>
-                <tr>
-                  <th>Total</th>
-                  <td class="grandCoupon"></td>
-                <tr>
-          </table>
           </div>
             <div class="summary-total">
               <div class="total-title">Total</div>
@@ -161,7 +141,6 @@
 </div>
   <div class="basket  col-lg-12  col-md-12 col-sm-12 mb-20em card--shadow-blue payment_selection mt-5" style="margin-bottom:30px!important;">
           <div class="basket-product">
-            <button class="accordion bg-orange">My Profile</button>
             <div class="">
               <div class="p-0 py-0 mt-10em">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -172,48 +151,45 @@
                 <div class="row mt-2">
                   <div class="form__row__left">
                     <div class="form__group">
-                      <input type="text" name="first_name" id="first_name" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->first_name }}@endif" class="form__input-blank" required="">
-                      <label class="form__label-blank" for="first_name">First Name*</label>
+                      <label class="" for="first_name">First Name*</label>
+                      <input type="text" class="form-control" name="first_name" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->first_name }}@endif">
                     </div>
                   </div>
                   <div class="form__row__left">
                     <div class="form__group">
-                      <input type="text" name="last_name" id="last_name" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->last_name }}@endif" class="form__input-blank" required="">
-                      <label class="form__label-blank" for="last_name">Last Name*</label>
+                    <label for="last_name">Last Name*</label>
+                      <input type="text" name="last_name" id="last_name" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->last_name }}@endif" class="form-control" required="">
                     </div>
                   </div>
                 </div>
                 <div class="form__row">
                   <div class="form__group">
-                    <input type="tel" name="number" id="number" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->number }}@endif" class="form__input-blank" required="">
-                    <label class="form__label-blank" for="number">Phone*</label>
+                  <label for="number">Phone*</label>
+                    <input type="tel" name="number" id="number" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->number }}@endif" class="form-control" required="">
                   </div>
                 </div>
                 <div class="form__row">
-                {{-- <div class="form__group">
-                  <select name="gender" class="select select--blank" id="gender" required="" sb="23496588" style="display: none;">
-                    <option value="">Gender*</option>
-                    <option value="Male"  @if(isset(Auth::user()->first_name))@if(Auth::user()->gender == 'Male') selected @endif @endif>Male</option>
-                    <option value="Female" @if(isset(Auth::user()->first_name))@if(Auth::user()->gender == 'Female') selected @endif @endif>Female</option>
-                  </select>
-                </div> --}}
                 </div>
                 <div class="form__row ">
                   <div class="form__group">
-                    <input type="email" name="email" id="email" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->email }}@endif" class="form__input-blank" required="">
-                    <label class="form__label-blank" for="email">Email*</label>
+                  <label for="email">Email*</label>
+                    <input type="email" name="email" id="email" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->email }}@endif" class="form-control" required="">
                   </div>
                 </div>
                 <div class="form__row">
                   <div class="form__group">
-                    <input type="tel" name="number" id="number" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->number }}@endif" class="form__input-blank">
-                    <label class="form__label-blank" for="pickup_location*">Pickup Location*</label>
+                  <label for="pickup_location*">Pickup Location*</label>
+                    <input type="text" name="number" id="number" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->number }}@endif" placeholder="hotel or residence" class="form-control">
                   </div>
                 </div>
                 <div class="form__row">
                   <div class="form__group">
-                    <input type="tel" name="number" id="number" value="@if(isset(Auth::user()->first_name)){{ Auth::user()->number }}@endif" class="form__input-blank">
-                    <label class="form__label-blank" for="pickup_location*">Write Your Preferred Pickup Time*</label>
+                  <label for="pickup_location*">No of Travelers*</label>
+                  <select class="form-control" aria-label="Default select example">
+                        @for ($x = 1; $x <= 20; $x++)
+                            <option value="{{$x}}">{{$x}}</option>
+                        @endfor
+                  </select>
                   </div>
                 </div>
                 <!-- <div class="form__row">
@@ -274,7 +250,7 @@
 </div>
  
 </x-front.master-layout>
-
+<script src="{{asset ('assets/front/scripts/vendor7369.js?v=m0Wgcip88r')}}"></script> 
 <script>
     var acc = document.getElementsByClassName("accordion");
     var i;
@@ -313,44 +289,6 @@ $(document).ready(function(){
             }
         });
       });
-    //Apply Coupon
-    $(document).on('submit','#submit-form',function(e){
-        e.preventDefault();
-        $.ajax({
-            type: $(this).prop('method'),
-            url: "{{url('apply-coupon')}}",
-            data:new FormData(this),
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function (response) {
-                if((response.error)){
-                   toastr.error(response.error);
-                }else{
-
-                var grandtotal = "{{$grandTotal}}";
-                var coupondiscount = response.data.ammount;
-                var type = response.data.type;
-
-                if(type == 1){
-                var totalamt = "{{$grandTotal}}" - ("{{$grandTotal}}" * (coupondiscount / 100));
-                }
-                if(type == 0){
-                  var totalamt = "{{$grandTotal}}" - coupondiscount;
-                }
-                  var discount = totalamt - grandtotal;
-                $('.apBtn').text('Applied');
-                $('.apBtn').css('background','#0fba68');
-                $('.grandCoupon').text(totalamt +'  '+'AED');
-                $('#discount').text(discount +'  '+'AED');
-                $('#couponTable').show();
-                toastr.success(response.success);
-                }
-            },error: function (error){
-                 toastr.error('something is wrong');
-            }
-        });
-    });
     // select only one payment option
     $('.checkoption').click(function() {
          $('.checkoption').not(this).prop('checked', false);

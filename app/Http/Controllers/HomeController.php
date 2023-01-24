@@ -81,7 +81,7 @@ class HomeController extends Controller{
     }
 
     public function checkout(){
-        return view('front.pages.checkout_page.index');
+        return view('front.pages.checkout_page.index',$this->outputData);
     }
 
     public function updateProfile(Request $request){

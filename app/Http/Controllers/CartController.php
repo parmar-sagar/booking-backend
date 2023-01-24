@@ -37,7 +37,7 @@ class CartController extends Controller
         if(isset($input['extra_price'])){
         foreach($input['extra_price'] as $key=> $value){
             
-           $extraActivity[] = VehicleInfo::where('random_id',$value)->select('title','price')->first()->toArray();
+           $extraActivity[] = VehicleInfo::where('id',$value)->select('title','price')->first()->toArray();
            $name[] = $extraActivity[$key]['title'];
            $prices[] = $extraActivity[$key]['price'];
            
@@ -91,6 +91,7 @@ class CartController extends Controller
 
     public function applyCoupon(Request $request){
         $input = $request->all();
+
         if (Coupon::where('code', $input['coupon'])->exists()) {
             $couponData = Coupon::where('code', $input['coupon'])->first();
             return response()->json(['success' => "Coupon Appled Succesfully",'data' =>$couponData]);

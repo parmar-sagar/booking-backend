@@ -125,13 +125,41 @@
          <div class="subtotal-value final-value" id="basket-subtotal">{{$grandTotal}} AED</div>
          <br>
          <br>
+         <form id="submit-form" method="POST" autocomplete="off" enctype="multipart/form-data">
+                @csrf
+              <div class="form-group coupon"> 
+              <label>Have coupon?</label>
+                  <div class="input-group"> 
+                    <input type="text" class="form-control coupon" name="coupon" placeholder="Coupon code"> 
+                    <span class="input-group-append"> 
+                    <button class="btn btn-primary btn-apply coupon apBtn">Apply</button> 
+                    </span> 
+                  </div>
+              </div>
+          </form>
+          <div id="couponTable" style="display: none;">
+          <table class="responsive-large-tabU">
+                <tr>
+                  <th>Subtotal</th>
+                  <td>{{$grandTotal}} AED</td>
+                </tr>
+                <tr>
+                  <th>Coupon Discount</th>
+                  <td id="discount"></td>
+                <tr>
+                <tr>
+                  <th>Total</th>
+                  <td class="grandCoupon"></td>
+                <tr>
+          </table>
+           </div>
          <div class="summary-total">
            <div class="total-title">Total</div>
          <div class="subtotal-value final-value grandCoupon" id="basket-subtotal">{{$grandTotal}} AED</div>
          </div>
        </div>
      </div>
-     <a class="btn btn--purple mt-0" href="{{url('checkout')}}"> Proceed to Checkout </a>
+     <a class="btn btn--purple grandCoupon mt-0" href="{{url('checkout/?cart='.base64_encode($grandTotal))}}"> Proceed to Checkout </a>
      <br>
      <br>
    </aside>
@@ -172,5 +200,45 @@ $(document).ready(function() {
             }           
       });
     });
+
+    //Apply Coupon
+    $(document).on('submit','#submit-form',function(e){
+        e.preventDefault();
+        $.ajax({
+            type: $(this).prop('method'),
+            url: "{{url('apply-coupon')}}",
+            data:new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (response) {
+                if((response.error)){
+                   toastr.error(response.error);
+                }else{
+
+                var grandtotal = "{{$grandTotal}}";
+                var coupondiscount = response.data.amount;
+                var type = response.data.type;
+
+                if(type == 1){
+                var totalamt = "{{$grandTotal}}" - ("{{$grandTotal}}" * (coupondiscount / 100));
+                }
+                if(type == 0){
+                  var totalamt = "{{$grandTotal}}" - coupondiscount;
+                }
+                  var discount = totalamt - grandtotal;
+                $('.apBtn').text('Applied');
+                $('.apBtn').css('background','#0fba68');
+                $('.grandCoupon').text(totalamt +'  '+'AED');
+                $('#discount').text(discount +'  '+'AED');
+                $('#couponTable').show();
+                toastr.success(response.success);
+                }
+            },error: function (error){
+                 toastr.error('something is wrong');
+            }
+        });
+    });    
+
 });  
   </script>

@@ -308,7 +308,7 @@
                      
                     <div class="dates picker card--shadow-orange">
                     <div id="bookingHeading">
-                    <h1>Select Your Booking DateTime</h1>
+                    <h1>Select Pickup Date</h1>
                     </div>
                       <!-- calander -->
                       <div id="container" style="margin: 10px 0 15px 0; height: 255px; position: relative"></div>
@@ -316,14 +316,14 @@
                       <div class="well">
                             <div class="row">
                              <div class="col-sm-12 pt-2">
-                                <h3 style="text-align:center;"> Available Slots  </h3>
+                                <h1> Select Pickup Time </h1>
                                 <div style="overflow-x:auto;">
                                 <table id="times">
                                   <tbody>
                                     <tr>
-
-                                    <td value="1">11 Am</th>
-
+                                    <td value="1">11 Am</td>
+                                    <td value="1">11 Am</td>
+                                    <td value="1">11 Am</td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -407,7 +407,7 @@
                         </td>
                         <td style="width:25%"><input name="totalPrice" value="" id="totaltourAmt" readonly></td>
                       </tr>
-                    </table>
+                    </table>                 
                     @endif
                     </li>
                     </ul>
@@ -419,18 +419,18 @@
                       <tr>
                         <td><strong class="mb-20em" name="etraname">{{$value->title}}</strong></td>
                         <td><label class="switch">
-                          <input id ="checkBox{{$key+1}}" type="checkbox" name="extra_price[]" value="{{$value->random_id}}" class="checkBoxId">
+                          <input id ="checkBox{{$key+1}}" type="checkbox" name="extra_price[]" value="{{$value->id}}" class="checkBoxId">
                           <span class="slider round"></span>
                       </label></td>
-                      <td style="display: none;" class="checkboxQntity qntityBtn"><button type="button" id="sub" class="sub">-</button>
+                      <!-- <td style="display: none;" class="checkboxQntity qntityBtn"><button type="button" id="sub" class="sub">-</button>
                         <input style="width:40px" name="qnty" class="qntyPrce"type="number" id="1" value="1" min="1" max="10" />
-                        <button type="button" id="add" class="add">+</button></td>
+                        <button type="button" id="add" class="add">+</button></td> -->
                       <td id="extraAcPrice"><strong class="mb-20em">{{$value->price}} AED</strong></td>
                        <!-- <td><button type="button" id="sub" class="sub">-</button>
-                        <input style="width:40px" class="qntyPrce"type="number" id="1" value="1" min="1" max="10" />
+                        <input style="width:40px" type="number" value="1" min="1" max="10" />
                         <button type="button" id="add" class="add">+</button>
-                        </td>
-                        <td name="priceGet" value="" id="totaltourAmt">40</td> -->
+                        </td> -->
+                        <td name="priceGet" value="" id=""></td>
                       </tr>   
                       @endforeach                
                     </table>

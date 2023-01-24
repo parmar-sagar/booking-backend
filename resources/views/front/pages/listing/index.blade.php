@@ -32,13 +32,16 @@
                     <div class="card__content">
                       <div class="card__headline card__headline--with-price row">
                         <div class="card__headline-left headline-wave col-12  col-sm-12 col-md-12 col-lg-4 col-xxl-4">
+                        <a href="{{url('vehicles/details/'.$listings->random_id)}}">
                           <img src="{{ asset('admin/uploads/vehicle/' . $listings->image) }}" class="mt-10em list image_cnt" alt="">
+                        </a>
                         </div>
                         <div class="card__headline-price-wrapper  pt-3 pt-sm-4 pt-md-4  pt-lg-0 pt-xl-0 pt-xxl-0 col-12 col-sm-12 col-md-12 col-lg-8 col-xxl-8">
                           <div class="row">
                             <div class="col-12 col-lg-12">
-                              <h2 class="headline-sm-3   headline-3 all-other">{{$listings->name}}</h2>
-                              <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p> -->
+                            <a href="{{url('vehicles/details/'.$listings->random_id)}}">
+                              <h2 class="headline-sm-3  headline-3 all-other">{{$listings->name}}</h2>
+                            </a>
                             </div>
                           </div>
                           <div class="row mt-3">
