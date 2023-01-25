@@ -89,8 +89,8 @@
                                 </div>
                                 <div class="card__headline-price-wrapper card__headline-price-wrapper--flex-col mt-5em">
                                   <div class="card__headline-price-values">
-                                    <div class="card__headline-price-main bg-blue" >
-                                      {{$value->location->name}}
+                                    <div class="card__headline-price-main bg-blue minprice" >
+                                    Starting From <br>AED {{$vehicle->minprice->amount}}
                                     </div>
                                   </div>
                                 </div>

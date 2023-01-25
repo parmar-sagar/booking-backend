@@ -147,10 +147,10 @@
                 </div>
             </div>
             <div class="col-12 col-lg-5 col-xl-5 col-xxl-4 offset-xxl-1">
-              <div class="mb-30em  card card--shadow-purple bg-purple animated fadeInUp active">
+              <div class="mb-30em  card card--shadow-purple bg-purple animated fadeInUp active" style="background-color: #18899f !important;  box-shadow: -12px 12px 0 #feb100; border:none !important">
                 <div class="card__content">
                     <div class="headline-wave">
-                        <h3 class="headline-4">Price</h3> <svg width="100px"
+                        <h3 class="headline-3">Price</h3> <svg width="100px"
                             height="16px" class="stroke-blurple">
                             <use xlink:href="images/icons.svg#icon-wave-squiggle" />
                         </svg>
@@ -304,15 +304,12 @@
             <div class="col-12 col-lg-6 col-xxl-5 col-xl-5  col-sm-12" 
               data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769"
               data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1">
-
-                     
                     <div class="dates picker card--shadow-orange">
                     <div id="bookingHeading">
                     <h1>Select Pickup Date</h1>
                     </div>
                       <!-- calander -->
                       <div id="container" style="margin: 10px 0 15px 0; height: 255px; position: relative"></div>
-
                       <div class="well">
                             <div class="row">
                              <div class="col-sm-12 pt-2">
@@ -321,9 +318,9 @@
                                 <table id="times">
                                   <tbody>
                                     <tr>
-                                    <td value="1">11 Am</td>
-                                    <td value="1">11 Am</td>
-                                    <td value="1">11 Am</td>
+                                    @foreach($objVehicle->avalableSlote as $slotes)
+                                    <td value="{{$slotes->timeslot->text}}">{{$slotes->timeslot->text}}</td>
+                                    @endforeach
                                   </tr>
                                 </tbody>
                               </table>
@@ -348,7 +345,7 @@
                     </div>
             <div class="col-12 col-lg-6 col-xl-7 col-xxl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769"
               data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100"
-              data-gtm-vis-has-fired-30257650_40="1">
+              data-gtm-vis-has-fired-30257650_40="1" id="cartcol"style="display:none">
               <div class="mb-30em animated fadeInUp active " id="duration">
                 <div class="card card--shadow-orange">
                   <div class="card__content">
@@ -413,7 +410,7 @@
                     </ul>
                     </table>
                     
-                    <h1 style="font-size: 1.75rem">  Extra Activities</h1>
+                    <h1 style="font-size: 1.75rem"> Extra Activities</h1>
                     <table>
                         @foreach($extraActivitys as $key => $value)
                       <tr>
@@ -485,6 +482,7 @@
         $('#times').click(function(e) { 
           var time = $(e.target).text();
           $('#slctAvTime').val(time);
+          $('#cartcol').show();
         })
 
     $('#datepicker').Zebra_DatePicker({

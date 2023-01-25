@@ -14090,6 +14090,11 @@ screen and (-ms-high-contrast:active) {
     font-weight: 700;
     line-height: 1
 }
+.minprice{
+    text-align: center !important;
+    width: 100% !important;
+    font-size: 20px !important;
+}
 
 @media screen and (min-width:480px) {
 
@@ -21065,6 +21070,10 @@ screen and (-ms-high-contrast:active) {
 .social-media__item:not(:last-child) {
     margin-right: 12px
 }
+ul.list-icon.list-icon--tick.list-1-cols.list-mobile-limit.js-limit-list li {
+    font-size: 20px;
+    
+}
 
 @media screen and (max-width:360px) {
     .social-media__item:not(:last-child) {
@@ -25424,8 +25433,9 @@ button {
 
 button:hover,
 button:focus {
-  background-color: #555;
+  background-color: #ffc132;
 }
+
 
 .cart img,
 .basket-module,

@@ -79,6 +79,10 @@ class Vehicle extends Model
         return $this->hasMany(Price::class,'vehicle_id','id');
     }
 
+    public function minprice(){
+        return $this->hasOne(Price::class,'vehicle_id','id')->select('amount');
+    }
+
     public function gallery(){
         return $this->hasMany(TourGallary::class,'tour_id','tour_id')->select('gallry_images');
     }
