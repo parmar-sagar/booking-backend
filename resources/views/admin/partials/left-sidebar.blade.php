@@ -71,7 +71,7 @@
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{ url('admin/vehicles') }}" class="side-nav-link">
+                            <a href="{{ url('admin/tours/vehicles') }}" class="side-nav-link">
                                 <span> Vehicles </span>
                             </a>
                         </li>

@@ -18,6 +18,10 @@ class Slider extends Model
     ];
 
     public function ScopeOrder($query){
+        return $query->orderBy('id','DESC');
+    }
+
+    public function ScopeSequence($query){
         return $query->orderBy('sequence','ASC');
     }
 

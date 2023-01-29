@@ -56,7 +56,7 @@
                             <label for="time_ids" class="form-label">Times</label>
                             <select  class="select2 form-control select2-multiple" data-toggle="select2" id="time_ids" multiple="multiple" data-placeholder="Choose ..." name="time_ids[]" required>
                                 @foreach($times as $value)
-                                    <option value="{{$value->id}}"@if(isset($objData->time_ids) && in_array($value->id, $objData->time_ids)) selected @endif>{{$value->time}}</option>
+                                    <option value="{{$value->id}}"@if(isset($objData->time_ids) && in_array($value->id, $objData->time_ids)) selected @endif>{{$value->time."  ".$value->type}}</option>
                                 @endforeach    
                             </select>
                         </div>

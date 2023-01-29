@@ -27,19 +27,19 @@ class VehiclesController extends Controller
     public function index(){
         $this->outputData = [
             'pageName' => 'Vehicles',
-            'dataTables' => url('admin/vehicles/datatable'),
-            'delete' => url('admin/vehicles/delete'),
-            'create' => url('admin/vehicles/create'),
-            'edit' => url('admin/vehicles/edit')
+            'dataTables' => url('admin/tours/vehicles/datatable'),
+            'delete' => url('admin/tours/vehicles/delete'),
+            'create' => url('admin/tours/vehicles/create'),
+            'edit' => url('admin/tours/vehicles/edit')
         ];
         
-        return view('admin.pages.vehicles.index',$this->outputData);
+        return view('admin.pages.tour.vehicle.index',$this->outputData);
     }
 
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Vehicle::where('type','Tour')->order()->get();
+                $datas = Vehicle::tours()->order()->get();
                 return DataTables::of($datas)->toJson();
             }
         } catch (\Throwable $e) {
@@ -114,19 +114,28 @@ class VehiclesController extends Controller
                 }
                 return response()->json(['success' => "Vehicle Created successfully."]);
             }
+
+            $tours = Tour::tour()->select('name','id')->order()->get();
+            $highlights = VehicleInfo::highlight()->order()->get();
+            $includes = VehicleInfo::include()->order()->get();
+            $warnings = VehicleInfo::warning()->order()->get();
+            $activities = VehicleInfo::activity()->order()->get();
+            $addInfos = VehicleInfo::additionalInfo()->order()->get();
+            $times = Time::order()->get();
+
             $this->outputData = [
                 'pageName' => 'New Vehicle',
-                'action' => url('admin/vehicles/store'),
-                'tourName' => Tour::where('type','Tour')->select('name','id')->order()->get(),
-                'highlights' => VehicleInfo::highlight()->order()->get(),
-                'includes' => VehicleInfo::include()->order()->get(),
-                'warnings' => VehicleInfo::warning()->order()->get(),
-                'activities' => VehicleInfo::activity()->order()->get(),
-                'addiInfo' => VehicleInfo::additionalInfo()->order()->get(),
-                'time' => Time::order()->get(),
+                'action' => url('admin/tours/vehicles/store'),
+                'tours' => $tours,
+                'highlights' => $highlights,
+                'includes' => $includes,
+                'warnings' => $warnings,
+                'activities' => $activities,
+                'addInfos' => $addInfos,
+                'times' => $times,
                 'timeSlotes' => TimeSlot::get()
             ];
-            return view('admin.pages.vehicles.create',$this->outputData);
+            return view('admin.pages.tour.vehicle.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '02');
@@ -209,7 +218,7 @@ class VehiclesController extends Controller
             }
             $this->outputData = [
                 'pageName' => 'Edit Vehicle',
-                'action' => url('admin/vehicles/update/'.$id),
+                'action' => url('admin/tours/vehicles/update/'.$id),
                 'objData' => Vehicle::findOrFail($id),
                 'tourName' => Tour::where('type','Tour')->select('name','id')->order()->get(),
                 'highlights' => VehicleInfo::highlight()->order()->get(),
@@ -237,7 +246,7 @@ class VehiclesController extends Controller
             $this->outputData['selctdActivitie'] = Helper::explode( $this->outputData['objData']->activities_ids );
             $this->outputData['selctdAddInfo'] = Helper::explode( $this->outputData['objData']->additional_info_ids );
 
-            return view('admin.pages.vehicles.create',$this->outputData);
+            return view('admin.pages.tour.vehicle.create',$this->outputData);
 
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '03');

@@ -2,91 +2,93 @@
 
 namespace App\Http\Controllers;
 
+use App\Handlers\Error;
 use Illuminate\Support\Facades\Validator;
-use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Models\VehicleInfo;
 use App\Models\Vehicle;
 use App\Models\Coupon;
 
-class CartController extends Controller
-{
+class CartController extends Controller{
+
     const ControllerCode = "CT_";
+    
     public $outputData = [];
 
     public function index(){
-        return view('front.pages.cart.index');
+        $carts = \Cart::getContent();
+        $total = \Cart::getTotal();
+        $subTotal = \Cart::getSubTotal();
+        $this->outputData = [
+            'carts' => $carts,
+            'subTotal' => $subTotal,
+            'total' => $total
+        ];
+        return view('front.pages.cart.index',$this->outputData);
     }
 
     public function add(Request $request){
-        $input = $request->all();
-        $validator = Validator::make($input, [
-            'bookingDate' => 'required',
-            'time' => 'required'
-        ]);
-        if($validator->fails()){
-            throw new \Exception($validator->errors()->first());
-        }
-        $validated = $validator->validated();
+        try{
+            $validator = Validator::make($request->all(), [
+                'booking_date' => 'required',
+                'time' => 'required'
+            ]);
 
-        $extraActivity = array();
-        $name = array();
-        $prices = array();
-        $additional = array();
-        
-        if(isset($input['extra_price'])){
-        foreach($input['extra_price'] as $key=> $value){
+            if($validator->fails()){
+                throw new \Exception($validator->errors()->first());
+            }
+
+            $validated = $validator->validated();
+
+            $additional = [];
+            $extraAmount = 0;
+            if(isset($request->extra_price)){
+                foreach($request->extra_price as $key => $value){
+                    $extraActivity = VehicleInfo::select('title','price')->where('id',$value)->first();
+                    $additional[] = [
+                        'id' => $extraActivity->id,
+                        'title' => $extraActivity->title,
+                        'price' => $extraActivity->price
+                    ];
+                    
+                    $extraAmount += $extraActivity->price;
+                }
+            }
+              
+            $product = Vehicle::where('random_id',$request->id)->first();
             
-           $extraActivity[] = VehicleInfo::where('id',$value)->select('title','price')->first()->toArray();
-           $name[] = $extraActivity[$key]['title'];
-           $prices[] = $extraActivity[$key]['price'];
-           
-        }
-        $additional = array_combine($name,$prices);
-       }
-  
-        // dd($additional);   
-        $sum = 0;
-        foreach($additional as $key=>$value)
-        {
-           $sum+= $value;
-        }
-        $subtotal = $sum+$input['totalPrice'];
+            \Cart::remove($request->id);
 
-        if(isset($input['time'])){
-          $time = $input['time'];
-        }
-        $Product = Vehicle::where('random_id',$input['id'])->first();
-        \Cart::remove($input['id']);
-        // add the product to cart
+            // add the p to cart
             \Cart::add(array(
-                'id' => $input['id'],
-                'name' => $Product->name,
-                'price' => $input['totalPrice'],
-                'quantity' => $input['qnty'],
-                'attributes' => array( 
-                    'bookingdate' => $validated['bookingDate'],
-                    'subtotal' => $subtotal,
-                    'extra' => $additional,
-                    'total' => $subtotal,
-                    'time' =>$time
-                )
+                'id' => $request->id,
+                'name' => $product->name,
+                'price' => $request->total_price,
+                'quantity' => $request->quantity,
+                'attributes' => [
+                    'booking_date' => $request->booking_date,
+                    'time' => $request->time,
+                    'extra_amount' => $extraAmount,
+                    'extra_product' => $additional,
+                ]
             ));  
-            return response()->json(['success' => "Tour has been added to your cart"]); 
-            
-    }
-    // public function update($id){
-    //     // update the item on cart
-    //     \Cart::update($id,[
-    //         'quantity' => 1,
-    //     ]);
-        
-    // }
 
-    public function delete($id){
-        // delete an item on cart
-        \Cart::remove($id);
-        return response()->json(['success' => "Cart Item Remove"]);
+            return response()->json([
+                'success' => "Tour has been added to your cart"
+            ]); 
+
+        } catch (\Throwable $e) {
+            return Error::Handle($e, self::ControllerCode);
+        }      
+    }
+    
+    public function remove($id){
+        try{
+            \Cart::remove($id);
+            return response()->json(['success' => "Cart Item Removed"]);
+        } catch (\Throwable $e) {
+            return Error::Handle($e, self::ControllerCode);
+        }
     }
 
     public function applyCoupon(Request $request){

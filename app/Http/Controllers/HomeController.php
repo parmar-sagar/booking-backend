@@ -21,7 +21,7 @@ class HomeController extends Controller{
     public $outputData = [];
 
     public function index(){
-        $sliders = Slider::select('image_video','type')->active()->order()->get();
+        $sliders = Slider::select('image_video','type')->active()->sequence()->get();
         $discounts = Discount::order()->get();
         $deals = Vehicle::deals()->sequence()->active()->get();
 
@@ -36,53 +36,16 @@ class HomeController extends Controller{
         return view('front.pages.home',$this->outputData);
     }
 
-    public function refundPolicy(){
-        return view('front.pages.refund_policy.index');
-    }
     
-    public function privacyPolicy(){
-        return view('front.pages.privacy_policy.index');
-    }
-
-    public function termsAndConditions(){
-        return view('front.pages.terms_conditions.index');
-    }
-
-    public function aboutUs(){
-        return view('front.pages.about_us.index');
-    }
-
-    public function deals(){
-        $this->outputData = [
-            'deal' => Vehicle::deals()->with('tour')->sequence()->status()->get()
-        ];
-        // dd($this->outputData['deal']->tour);
-        return view('front.pages.deals.index',$this->outputData);
-    }
-
     public function myAccount(){
        return view('front.pages.my_account.index');
     }
 
-    public function faqs(){
-       return view('front.pages.faqs.index');
-    }
-
-    public function whyChooseus(){
-        return view('front.pages.why_choose.index');
-    }
-
-    public function termsConditions(){
-        return view('front.pages.terms_conditions.index');
-    }
-
-    public function reviews(){
-        return view('front.pages.reviews.index');
-    }
-
     public function checkout(){
-        return view('front.pages.checkout_page.index',$this->outputData);
+        return view('front.pages.checkout_page.index');
     }
+
+    
 
     public function updateProfile(Request $request){
 

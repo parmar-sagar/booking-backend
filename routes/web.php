@@ -29,8 +29,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SingleProductController;
 use App\Http\Controllers\AlltoursController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\OtherPageController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\TourController as ControllersTourController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
@@ -79,18 +82,23 @@ Route::group([
         Route::get('/edit/{id}',[TourController::class, 'edit']);
 		Route::post('/update/{id}',[TourController::class, 'edit']);
 		Route::get('/delete/{id}',[TourController::class, 'destroy']);
+
+        Route::group([
+            'prefix' => 'vehicles'
+        ], function(){
+            Route::get('/',[VehiclesController::class, 'index']);
+            Route::get('/datatable',[VehiclesController::class, 'datatable']);
+            Route::get('/create',[VehiclesController::class, 'create']);
+            Route::post('/store',[VehiclesController::class, 'create']);
+            Route::get('/edit/{id}',[VehiclesController::class, 'edit']);
+            Route::post('/update/{id}',[VehiclesController::class, 'edit']);
+            Route::get('/delete/{id}',[VehiclesController::class, 'destroy']);
+        });
     });
 
     Route::group([
         'prefix' => 'vehicles'
     ], function(){
-        Route::get('/',[VehiclesController::class, 'index']);
-        Route::get('/datatable',[VehiclesController::class, 'datatable']);
-        Route::get('/create',[VehiclesController::class, 'create']);
-        Route::post('/store',[VehiclesController::class, 'create']);
-        Route::get('/edit/{id}',[VehiclesController::class, 'edit']);
-		Route::post('/update/{id}',[VehiclesController::class, 'edit']);
-		Route::get('/delete/{id}',[VehiclesController::class, 'destroy']);
 
         Route::group([
             'prefix' => 'includes'
@@ -262,18 +270,19 @@ Route::group([
         Route::get('/edit/{id}',[SafariController::class, 'edit']);
 		Route::post('/update/{id}',[SafariController::class, 'edit']);
 		Route::get('/delete/{id}',[SafariController::class, 'destroy']);
-    });
-
-    Route::group([
-        'prefix' => 'safari-vehicles'
-    ], function(){
-        Route::get('/',[SafariVehicleController::class, 'index']);
-        Route::get('/datatable',[SafariVehicleController::class, 'datatable']);
-        Route::get('/create',[SafariVehicleController::class, 'create']);
-        Route::post('/store',[SafariVehicleController::class, 'create']);
-        Route::get('/edit/{id}',[SafariVehicleController::class, 'edit']);
-		Route::post('/update/{id}',[SafariVehicleController::class, 'edit']);
-		Route::get('/delete/{id}',[SafariVehicleController::class, 'destroy']);
+        
+        Route::group([
+            'prefix' => 'vehicles'
+        ], function(){
+            Route::get('/',[SafariVehicleController::class, 'index']);
+            Route::get('/datatable',[SafariVehicleController::class, 'datatable']);
+            Route::get('/create',[SafariVehicleController::class, 'create']);
+            Route::post('/store',[SafariVehicleController::class, 'create']);
+            Route::get('/edit/{id}',[SafariVehicleController::class, 'edit']);
+            Route::post('/update/{id}',[SafariVehicleController::class, 'edit']);
+            Route::get('/delete/{id}',[SafariVehicleController::class, 'destroy']);
+        });
+    
     });
 
     Route::group([
@@ -308,42 +317,46 @@ Route::group([
     Route::get('/',[HomeController::class, 'index']);
     
     Route::prefix('vehicles')->group(function() {
-        Route::get('details/{id}', [VehicleController::class, 'detail']);
+        Route::get('details/{id}', [VehicleController::class, 'details']);
+        Route::get('gallary/{id}',[VehicleController::class, 'gallary']); 
     });
 
-    Route::get('/refund-policy',[HomeController::class, 'refundPolicy']);
-    Route::get('/privacy-policy',[HomeController::class, 'privacyPolicy']);
-    Route::get('/terma-and_conditions',[HomeController::class, 'termsAndConditions']);
-    Route::get('/about-us',[HomeController::class, 'aboutUs']);
-    Route::get('why-choose-us',[HomeController::class, 'whyChooseus']);
-    Route::get('/deals',[HomeController::class, 'deals']);
+    Route::prefix('tours')->group(function() {
+        Route::get('/', [ControllersTourController::class, 'index']);
+        Route::get('{id}', [ControllersTourController::class, 'details']);
+    });
+
+    Route::get('/deals',[VehicleController::class, 'deals']);
+
+    Route::prefix('cart')->group(function() {
+        Route::get('/',[CartController::class, 'index']);
+        Route::post('add',[CartController::class, 'add']);
+        Route::get('remove/{id}',[CartController::class, 'remove']);
+    });
+    
+    Route::prefix('checkout')->group(function() {
+        Route::get('/',[CheckoutController::class, 'index']);
+    });
+
+    Route::get('refund-policy',[OtherPageController::class, 'refundPolicy']);
+    Route::get('privacy-policy',[OtherPageController::class, 'privacyPolicy']);
+    Route::get('terms-and-conditions',[OtherPageController::class, 'termsAndConditions']);
+    Route::get('about-us',[OtherPageController::class, 'aboutUs']);
+    Route::get('why-choose-us',[OtherPageController::class, 'whyChooseUs']);
+    Route::get('contact-us',[OtherPageController::class, 'contactUs']);
+    Route::get('faqs',[OtherPageController::class, 'faqs']);
+    Route::get('reviews',[OtherPageController::class, 'reviews']);
+
+
+
+
     Route::get('/my-account',[HomeController::class, 'myAccount']);
-    Route::get('/faqs',[HomeController::class, 'faqs']);
     Route::post('update-profile',[HomeController::class, 'updateProfile']);
     Route::post('update-password',[HomeController::class, 'updatePassword']);
-    Route::get('checkout',[HomeController::class, 'checkout']);
-    Route::get('term-and-conditions',[HomeController::class, 'termsConditions']);
-    Route::get('reviews',[HomeController::class, 'reviews']);
-    Route::get('gallary/{id}',[HomeController::class, 'gallary']); 
-
     
-    
-    // All tours
-    Route::get('/all-other-tours',[AlltoursController::class, 'index']);
-    Route::get('tours/{id}',[AlltoursController::class, 'toursListing']);
-  
     // cart
-    Route::get('/cart',[CartController::class, 'index']);
-    Route::post('add-to-cart',[CartController::class, 'add']);
     Route::get('/update-cart',[CartController::class, 'update']);
-    Route::get('/delete-cart/{id}',[CartController::class, 'delete']);
     Route::post('apply-coupon',[CartController::class, 'applyCoupon']);
-
-    // contact us
-    // Route::get('/delete-cart/{id}',[CartController::class, 'delete']);
-
-    // contact page
-    Route::get('/contact-us',[ContactController::class, 'index']);
 
     //payment 
     Route::post('/payment',[PaymentController::class, 'payment']);

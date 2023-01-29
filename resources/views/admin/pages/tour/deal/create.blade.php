@@ -1,9 +1,6 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
-            <div>
-                <p><span style="color:red">Note : </span>Vehicles can be selected from drop-down menu as added in tours and safari. Discount can be provided as per the need and sequence will help in determining the position of the deal in deals menu.</p>
-            </div>
             <div class="row mb-2">
                 <div class="col-sm-10">
                     <h4 class="header-title">{{ $pageName }}</h4>
@@ -38,7 +35,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="sequence" class="form-label">Sequence</label>
-                            <input type="number" min="0" name="sequence" class="form-control " id="sequence" value="@if(isset($objData->sequence) && $objData->sequence){{ $objData->sequence }}@endif" required>
+                            <input type="number" min="0" name="sequence" class="form-control " id="sequence" value="@if(isset($objData->sequence) && $objData->sequence){{ $objData->sequence }}@endif">
                         </div>
                     </div>
                 </div>

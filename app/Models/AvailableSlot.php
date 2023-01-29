@@ -14,7 +14,7 @@ class AvailableSlot extends Model{
         'time_slot_id'
     ];
 
-    public function timeslot(){
+    public function timeSlot(){
         return $this->hasOne(TimeSlot::class,'id','time_slot_id');
     }
 }

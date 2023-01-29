@@ -46,9 +46,12 @@ class Tour extends Model
         return $query->where('type', 'Tour');
     }    
 
-    public function scopeOnhome($query, $onHome)
-    {
-        return $query->where('on_home', $onHome);
+    public function scopeHomeTour($query){
+        return $query->where('on_home', 1);
+    }
+    
+    public function scopeNotOnHomeTour($query){
+        return $query->where('on_home', 0);
     }
     
     public function ScopeOrder($query){

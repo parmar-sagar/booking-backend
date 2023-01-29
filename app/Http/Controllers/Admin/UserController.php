@@ -70,8 +70,7 @@ class UserController extends Controller{
                 $validated['password'] = Hash::make($validated['password']);
 
                 if ($request->file('photo')) {
-                    $path = 'users';
-                    $validated['photo'] = Helper::uploadFile($request->photo, $path);
+                    $validated['photo'] = Helper::uploadFile($request->photo, 'users');
                 }
                 $validated['random_id'] = (new Snowflake())->id();
                 
@@ -112,8 +111,7 @@ class UserController extends Controller{
                 $validated = $validator->validated();
     
                 if ($request->file('photo')) {
-                    $path = 'users';
-                    $validated['photo'] = Helper::uploadFile($request->photo, $path);
+                    $validated['photo'] = Helper::uploadFile($request->photo, 'users');
                 }
                 
                 User::find($validated['id'])->update($validated);

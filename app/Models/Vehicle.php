@@ -12,30 +12,29 @@ class Vehicle extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'random_id',
+        'type',
         'tour_id',
         'name',
         'short_name',
         'description',
-        // 'time_ids',
+        'no_of_persons',
         'includes_ids',
         'highlight_ids',
         'warning_ids',
+        'activities_ids',
+        'additional_info_ids',
+        'tour_itenary',
+        'quantity',
+        'available_quantity',
+        'status',
         'banner_img',
         'image',
-        'status',
-        'type',
-        'activities_ids',
-        'no_of_persons',
-        'is_deals',
-        'discount',
         'sequence',
-        'random_id',
-        'tour_itenary',
-        'additional_info_ids',
         'pickup_time',
         'dropoff_time',
-        'quantity',
-        'available_quantity'
+        'discount',
+        'is_deals'
     ];
 
     protected $hidden = [
@@ -71,7 +70,7 @@ class Vehicle extends Model
         return $this->hasOne(Tour::class,'id','tour_id');
     }
 
-    public function avalableSlote(){
+    public function availableSlot(){
         return $this->hasMany(AvailableSlot::class,'vehicle_id','id');
     }
 
@@ -87,11 +86,15 @@ class Vehicle extends Model
         return $this->hasMany(TourGallary::class,'tour_id','tour_id')->select('gallry_images');
     }
     
+    public function price(){
+        return $this->hasOne(Price::class,'vehicle_id','id');
+    }
+    
     public function scopeSafari($query){
         return $query->where('type', 'Safari');
     }    
 
-    public function scopeTour($query){
+    public function scopeTours($query){
         return $query->where('type', 'Tour');
     }    
 }

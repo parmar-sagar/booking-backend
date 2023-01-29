@@ -4,17 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Models\Time;
-use App\Models\TimeSlot;
+use App\Models\TourGallary;
 use App\Models\Vehicle;
 use App\Models\VehicleInfo;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller{
     
-    const ControllerCode = "V_";
     public $outputData = [];
 
-    public function detail($id){
+    public function details($id){
         $objVehicle = Vehicle::where('random_id',$id)->first();
 
         $includeIds = Helper::explode($objVehicle->includes_ids);
@@ -56,5 +55,27 @@ class VehicleController extends Controller{
             'singleImglry' => $singleImglry
         ];
         return view('front.pages.vehicle.detail',$this->outputData);
+    }
+
+    public function deals(){
+        $deals = Vehicle::deals()->active()->sequence()->get();
+
+        $this->outputData['deals'] = $deals;
+
+        return view('front.pages.vehicle.deals',$this->outputData);
+    }
+
+    public function gallary($id){
+        $vehicles = Vehicle::where('random_id',$id)->select('tour_id')->first();
+
+        $gallaryImg = TourGallary::where('tour_id',$vehicles->tour_id)->select('gallry_images')->get();
+
+        $singleImage = TourGallary::where('tour_id',$vehicles->tour_id)->select('gallry_images')->first();
+
+        $this->outputData = [
+            'singleImage' => $singleImage,
+            'gallary' => $gallaryImg
+        ];
+        return view('front.pages.vehicle.gallary',$this->outputData);
     }
 }

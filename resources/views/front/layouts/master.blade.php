@@ -83,6 +83,11 @@
       media="none"
       onload="if(media!='all')media='all'"
     />
+    <script>
+      toastr.options = {
+        "positionClass": "toast-top-center",
+      };
+    </script>
   </body>
   <!-- Mirrored from www.backpackingtours.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 29 Nov 2022 10:54:56 GMT -->
 </html>

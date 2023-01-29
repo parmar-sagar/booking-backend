@@ -9,6 +9,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <div>
+                        <p><span style="color:red">Note : </span>Vehicles can be selected from drop-down menu as added in tours and safari. Discount can be provided as per the need and sequence will help in determining the position of the deal in deals menu.</p>
+                    </div>
                     <div class="row mb-2">
                         <div class="col-sm-5">
                             <a href="javascript:void(0);" class="btn btn-danger mb-2 open-form" data-create-href={{ $create }}><i class="mdi mdi-plus-circle me-2"></i> Add {{ $pageName }}</a>
@@ -21,7 +24,7 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
-                                    <th>Short Name</th>
+                                    <th>Discount (%)</th>
                                     <th>Status</th>
                                     <th style="width: 85px;">Action</th>
                                 </tr>
@@ -38,14 +41,9 @@
     <div class="row" id="content-form">
         
     </div>
-    <!-- end row -->
-    <x-slot name="styles">
-        <link href="{{ asset('assets/admin/vendor/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    </x-slot> 
-       
+    <!-- end row -->       
     <x-slot name="scripts">
         <!-- Custom App js -->
-        <script src="{{ asset('admin/js/vehicles.js') }}"></script>
-        <script src="{{ asset('assets/admin/vendor/select2/js/select2.min.js') }}"></script>
+        <script src="{{ asset('admin/js/deals.js') }}"></script>
     </x-slot>    
 </x-admin.master-layout>
