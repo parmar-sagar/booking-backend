@@ -67,8 +67,8 @@ class Vehicle extends Model
         return $this->hasOne(Tour::class,'id','tour_id');
     }
 
-    public function avalableSlote(){
-        return $this->hasMany(AvalableSlote::class,'vehicle_id','id');
+    public function availableSlot(){
+        return $this->hasMany(AvailableSlot::class,'vehicle_id','id');
     }
 
     public function prices(){

@@ -21,7 +21,7 @@ class HomeController extends Controller{
     public $outputData = [];
 
     public function index(){
-        $sliders = Slider::select('image_video','type')->active()->order()->get();
+        $sliders = Slider::select('image_video','type')->active()->sequence()->get();
         $discounts = Discount::order()->get();
         $deals = Vehicle::deals()->sequence()->active()->get();
 
@@ -37,13 +37,7 @@ class HomeController extends Controller{
         return view('front.pages.home',$this->outputData);
     }
 
-    public function deals(){
-        $this->outputData = [
-            'deal' => Vehicle::where('is_deals','1')->with('tours')->sequence()->status('1')->get()
-        ];
-        return view('front.pages.deals.index',$this->outputData);
-    }
-
+    
     public function myAccount(){
        return view('front.pages.my_account.index');
     }
@@ -52,18 +46,7 @@ class HomeController extends Controller{
         return view('front.pages.checkout_page.index');
     }
 
-    public function gallary($id){
-        $tourId = Vehicle::where('random_id',$id)->select('tour_id')->first()->toArray();
-        $gallaryImg = TourGallary::where('tour_id',$tourId)->select('gallry_images')->get()->toArray();
-        $this->outputData['singleImglry'] = TourGallary::where('tour_id',$tourId)->select('gallry_images')->take(1)->first();
-
-        $gallary = array();
-        foreach($gallaryImg as $key => $images){
-            $this->outputData['gallary'][] = $images['gallry_images'];
-        }
-        // dd($this->outputData['gallary']);
-        return view('front.pages.tour_gallary.index',$this->outputData);
-    }
+    
 
     public function updateProfile(Request $request){
 

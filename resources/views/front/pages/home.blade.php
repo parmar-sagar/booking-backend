@@ -49,7 +49,7 @@
                 </button>
               </li>
             @endforeach
-              <a class="l-navbar__login-links" href="{{url('/all-other-tours')}}" title="all other tour" aria-label="all-other-tours">
+              <a class="l-navbar__login-links" href="{{url('tours')}}" title="all other tour" aria-label="all-other-tours">
 
                 <button class="tab-box-btn tab-box-btn--blue5"data-name="tab" type="button">
                   <span class="tab-box-btn__icon tab-box-btn__icon--blue5">
@@ -161,7 +161,7 @@
                               <img class="fb-review__img rotate-right lazy animated rollInRight active loaded" src="{{ asset('admin/uploads/vehicle/' . $vehicle->banner_img) }}" media="(max-width: 420px)"/>
                             </picture>
                             <div class="fb-review__comment">
-                              <p>{{$vehicle->description}}</p>
+                              <p>{{ mb_strimwidth($vehicle->description, 0, 200, '...') }}</p>
                             </div>
                           </div>
                         </div>
