@@ -35,11 +35,13 @@ class VehicleController extends Controller{
         $addInfos = VehicleInfo::select('title')->whereIn('id',$addInfoIds)->get();
 
         $extraActivityIds = Helper::explode($objVehicle->activities_ids);
-        $extraActivitys = VehicleInfo::select('id','title')->whereIn('id',$extraActivityIds)->get();
+        $extraActivitys = VehicleInfo::select('title','price','id')->whereIn('id',$extraActivityIds)->get();
 
         $timeIds = Helper::explode($objVehicle->tour->time_ids);
         $times = Time::select('time','type')->whereIn('id',$timeIds)->get();
-        
+
+        $singleImglry = $objVehicle->gallery->first();
+    
         $this->outputData = [
             'objVehicle' => $objVehicle,
             'includes' => $includes,
@@ -49,9 +51,9 @@ class VehicleController extends Controller{
             'mustKnows' => $mustKnows,
             'addInfos' => $addInfos,
             'extraActivitys' => $extraActivitys,
-            'times' => $times
+            'times' => $times,
+            'singleImglry' => $singleImglry
         ];
-
         return view('front.pages.vehicle.detail',$this->outputData);
     }
 

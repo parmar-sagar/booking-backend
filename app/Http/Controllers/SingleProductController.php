@@ -12,7 +12,7 @@ use App\Models\Time;
 use App\Models\Price;
 use App\Models\SafariPrice;
 use App\Models\AvalableSlote;
-use App\Models\TimeSlote;
+use App\Models\TimeSlot;
 
 
 class SingleProductController extends Controller
@@ -32,7 +32,7 @@ class SingleProductController extends Controller
     $tsIds = array();
     foreach($timeslotIds as $key=>$val){
         $tsIds[$key]['sids'] = $val['time_slots_ids']; 
-        $this->outputData['avTime'][] = TimeSlote::where('id',$tsIds[$key]['sids'])->select('text')->first()->toArray();
+        $this->outputData['avTime'][] = TimeSlot::where('id',$tsIds[$key]['sids'])->select('text')->first()->toArray();
             
     }
        $iIds = Helper::explode($this->outputData['singlePrdct']->includes_ids);
@@ -56,7 +56,7 @@ class SingleProductController extends Controller
        $this->outputData['mustKnow'] = VehicleInfo::whereIn('id',$wIds)->select('title')->get();
        $this->outputData['addInfo'] = VehicleInfo::whereIn('id',$adIds)->select('title')->get();
        $this->outputData['extraActivity'] = VehicleInfo::whereIn('id',$exAIds)->select('title','price','random_id')->get();
-       $this->outputData['time'] = Time::whereIn('id',$tIds)->select('time','time_type')->get();
+       $this->outputData['time'] = Time::whereIn('id',$tIds)->select('time','type')->get();
     
         return view('front.pages.single_product.index',$this->outputData);
     }

@@ -93,6 +93,7 @@ class CartController extends Controller{
 
     public function applyCoupon(Request $request){
         $input = $request->all();
+
         if (Coupon::where('code', $input['coupon'])->exists()) {
             $couponData = Coupon::where('code', $input['coupon'])->first();
             return response()->json(['success' => "Coupon Appled Succesfully",'data' =>$couponData]);

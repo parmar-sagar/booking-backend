@@ -32,13 +32,16 @@
                     <div class="card__content">
                       <div class="card__headline card__headline--with-price row">
                         <div class="card__headline-left headline-wave col-12  col-sm-12 col-md-12 col-lg-4 col-xxl-4">
+                        <a href="{{url('vehicles/details/'.$listings->random_id)}}">
                           <img src="{{ asset('admin/uploads/vehicle/' . $listings->image) }}" class="mt-10em list image_cnt" alt="">
+                        </a>
                         </div>
-                        <div class="card__headline-price-wrapper   col-12 col-sm-12 col-md-12 col-lg-8 col-xxl-8">
+                        <div class="card__headline-price-wrapper  pt-3 pt-sm-4 pt-md-4  pt-lg-0 pt-xl-0 pt-xxl-0 col-12 col-sm-12 col-md-12 col-lg-8 col-xxl-8">
                           <div class="row">
                             <div class="col-12 col-lg-12">
-                              <h2 class="headline-3">{{$listings->name}}</h2>
-                              <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p> -->
+                            <a href="{{url('vehicles/details/'.$listings->random_id)}}">
+                              <h2 class="headline-sm-3  headline-3 all-other">{{$listings->name}}</h2>
+                            </a>
                             </div>
                           </div>
                           <div class="row mt-3">
@@ -51,7 +54,7 @@
                                   </svg>
                                   <div class="list-tour-info__item-desc">
                                     <b>Tour Guide</b>
-                                    <span>{{$listings['tours']->tour_guide}}</span>
+                                    <span>{{$listings['tour']->tour_guide}}</span>
                                   </div>
                                 </li>
                                 <li class="list-tour-info__item">
@@ -61,7 +64,7 @@
                                   </svg>
                                   <div class="list-tour-info__item-desc">
                                     <b>Convey Leader</b>
-                                    <span>{{$listings['tours']->convoy_leader}}</span>
+                                    <span>{{$listings['tour']->convoy_leader}}</span>
                                   </div>
                                 </li>
                                 <li class="list-tour-info__item">
@@ -81,7 +84,7 @@
                                   </svg>
                                   <div class="list-tour-info__item-desc">
                                     <b>Pickup & Drop off</b>
-                                    <span>{{$listings['tours']->pickup_and_drop}}</span>
+                                    <span>{{$listings['tour']->pickup_and_drop}}</span>
                                   </div>
                                 </li>
                                 <li class="list-tour-info__item">
@@ -101,7 +104,7 @@
                                   </svg>
                                   <div class="list-tour-info__item-desc">
                                     <b>Min Age</b>
-                                    <span>{{$listings['tours']->min_age}}Yrs</span>
+                                    <span>{{$listings['tour']->min_age}}Yrs</span>
                                   </div>
                                 </li>
                               </ul>
@@ -109,7 +112,7 @@
                           </div>
                           <div class="row">
                             <div class="col-12 col-lg-12 button_nd">
-                              <a class="btn btn--purple " href="{{url('view-detail/'.$listings['random_id'])}}" title="Book now"> Book Now </a>
+                              <a class="btn btn--purple " href="{{url('vehicles/details/'.$listings->random_id)}}" title="Book now"> Book Now </a>
                             </div>
                           </div>
                         </div>
@@ -126,3 +129,4 @@
     </div>
 </div>
 </x-front.master-layout>
+<script src="{{asset ('assets/front/scripts/vendor7369.js?v=m0Wgcip88r')}}"></script> 

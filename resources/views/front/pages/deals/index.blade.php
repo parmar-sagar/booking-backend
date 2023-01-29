@@ -28,14 +28,14 @@
                     <div class="card__content">
                       <div class="card__headline card__headline--with-price row">
                         <div class="card__headline-left headline-wave  col-lg-4 col-sm-12">
-                          <!-- <h2 class="headline-3">{{$deals->name}}</h2>-->
+                        <a href="{{url('vehicles/details/'.$deals['random_id'])}}">
                           <img src="{{ asset('admin/uploads/vehicle/' . $deals->image) }}" class="mt-10em list" alt="">
+                        </a>
                         </div>
-                        <div class="card__headline-price-wrapper  col-lg-8 col-sm-12">
+                        <div class="card__headline-price-wrapper  col-lg-8 col-sm-12 pt-3 pt-sm-4 pt-md-4">
                           <div class="row">
                             <div class="col-12 col-lg-12">
-                              <h2 class="headline-3">{{$deals->name}}</h2>
-                              {{-- <p>{{$deals->description}}</p> --}}
+                            <a href="{{url('vehicles/details/'.$deals['random_id'])}}"><h2 class="headline-3 all-other">{{$deals->name}}</h2></a>
                             </div>
                           </div>
                           <div class="row mt-3">
@@ -48,7 +48,7 @@
                                   </svg>
                                   <div class="list-tour-info__item-desc">
                                     <b>Tour Guide</b>
-                                    <span>{{$deals['tours']->tour_guide}}</span>
+                                    <span>{{$deals->tour->tour_guide}}</span>
                                   </div>
                                 </li>
                                 <li class="list-tour-info__item">
@@ -58,7 +58,7 @@
                                   </svg>
                                   <div class="list-tour-info__item-desc">
                                     <b>Convey Leader</b>
-                                    <span>{{$deals['tours']->convoy_leader}}</span>
+                                    <span>{{$deals->tour->convoy_leader}}</span>
                                   </div>
                                 </li>
                                 <li class="list-tour-info__item">
@@ -78,7 +78,7 @@
                                   </svg>
                                   <div class="list-tour-info__item-desc">
                                     <b>Pickup & Drop off</b>
-                                    <span>{{$deals['tours']->pickup_and_drop}}</span>
+                                    <span>{{$deals->tour->pickup_and_drop}}</span>
                                   </div>
                                 </li>
                                 <li class="list-tour-info__item">
@@ -98,7 +98,7 @@
                                   </svg>
                                   <div class="list-tour-info__item-desc">
                                     <b>Min Age</b>
-                                    <span>{{$deals['tours']->min_age}}Yrs</span>
+                                    <span>{{$deals->tour->min_age}}Yrs</span>
                                   </div>
                                 </li>
                               </ul>
@@ -106,7 +106,7 @@
                           </div>
                           <div class="row">
                             <div class="col-12 col-lg-12 button_nd">
-                              <a class="btn btn--purple " href="{{url('view-detail/'.$deals['random_id'])}}" title="Book now"> Book Now </a>
+                              <a class="btn btn--purple " href="{{url('vehicles/details/'.$deals['random_id'])}}" title="Book now"> Book Now </a>
                             </div>
                           </div>
                         </div>

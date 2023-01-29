@@ -61,6 +61,9 @@ class Tour extends Model
     public function ScopeSequence($query){
         return $query->orderBy('sequence','ASC');
     }
+    public function ScopeStatus($query){
+        return $query->where('status',1);
+    }
 
     public function location(){
         return $this->hasOne(Location::class,'id','location_id');

@@ -33,7 +33,6 @@ class HomeController extends Controller{
             'deals' => $deals,
             'tours' => $tours
         ];
-
         return view('front.pages.home',$this->outputData);
     }
 

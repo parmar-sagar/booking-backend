@@ -202,6 +202,11 @@ class TourController extends Controller{
             $gallaryImages = TourGallary::where('tour_id',$id)->get();
 
             $objData = Tour::findOrFail($id);
+            $times = Time::order()->get();
+            $locations = Location::order()->get();
+            $safetyGears = VehicleInfo::safetyGear()->order()->get();
+            $refreshments = VehicleInfo::refreshment()->order()->get();
+            
 
             $objData->time_ids = Helper::explode( $objData->time_ids );
             $objData->safety_gear_ids = Helper::explode( $objData->safety_gear_ids );

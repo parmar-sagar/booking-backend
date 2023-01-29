@@ -283,7 +283,7 @@ a {
 
 a:not([class]) {
     color: #ffc132;
-    text-decoration: underline;
+    /* text-decoration: underline; */
     transition: color .3s
 }
 
@@ -10777,7 +10777,7 @@ input:-webkit-autofill.filled~.form__label-blank {
 
 @media screen and (min-width:1900px) {
     .headline-3 {
-        font-size: 38px;
+        font-size: 28px;
     }
 }
 
@@ -14089,6 +14089,11 @@ screen and (-ms-high-contrast:active) {
     font-size: 20px;
     font-weight: 700;
     line-height: 1
+}
+.minprice{
+    text-align: center !important;
+    width: 100% !important;
+    font-size: 20px !important;
 }
 
 @media screen and (min-width:480px) {
@@ -19249,10 +19254,14 @@ screen and (-ms-high-contrast:active) {
 
 @media (max-width:991px) {
 
-    .swiper.swiper--trip .swiper-button,
+    .swiper.swiper--trip .swiper-button, .tour-slider__btn {
+        height: 37px;
+        margin-top: -337px;}
+
+    /* .swiper.swiper--trip .swiper-button,
     .tour-slider__btn {
         display: none
-    }
+    } */
 }
 
 .swiper.swiper--trip .swiper-button:hover,
@@ -21060,6 +21069,10 @@ screen and (-ms-high-contrast:active) {
 
 .social-media__item:not(:last-child) {
     margin-right: 12px
+}
+ul.list-icon.list-icon--tick.list-1-cols.list-mobile-limit.js-limit-list li {
+    font-size: 20px;
+    
 }
 
 @media screen and (max-width:360px) {
@@ -25000,6 +25013,12 @@ img.h-70vh {
     padding: 8em
 }
 
+@media (max-width:768px) {
+    h1.headline-2.tour-name {
+        font-size: 43px !important;
+    }
+}
+
 @media screen and (min-width:200px)and (max-width:568px) {
     .hide-on-mobile {
         display: none
@@ -25146,7 +25165,7 @@ div#auth-page-1669716376 .overlay {
     padding: 10px 30px;
     border-radius: 10px;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 18px;
     color: #fff;
     line-height: 1;
     border: 3px solid transparent;
@@ -25414,8 +25433,9 @@ button {
 
 button:hover,
 button:focus {
-  background-color: #555;
+  background-color: #ffc132;
 }
+
 
 .cart img,
 .basket-module,
@@ -26299,7 +26319,7 @@ background-color: #555;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #36E0DC;
+    background-color: #8f8f8f;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -26317,9 +26337,11 @@ background-color: #555;
 }
 
 input:checked+.slider {
-    background-color: #6D4AFF;
+    background-color: #bfbfbf;
 }
-
+input:checked+.slider {
+    background-color: #36e0dc;
+}
 input:focus+.slider {
     box-shadow: 0 0 1px #6D4AFF;
 }
@@ -26672,7 +26694,7 @@ input:checked+.slider:before {
     
         table {
           width: 100%;
-          border-collapse: collapse;
+          border-collapse: separate !important;
         }
     
     .date-picker {
@@ -26753,8 +26775,10 @@ input:checked+.slider:before {
         background-color: #00CA85;
     }
     .dates h1 {
-        font-size: 2em;
-        margin: .67em 0;
+        font-size: 1.5em;
+        margin: .67em 0.5em;
+        text-align: center;
+        font-weight: bold;
     }
     /* end calander */
     /* 29/12/2022 */
@@ -26861,7 +26885,7 @@ input:checked+.slider:before {
     color: #fff !important;
 }
 .Zebra_DatePicker .dp_body .dp_disabled {
-    background: #a7e7e5 !important;
+    background: #aaadad !important;
     color: #fff !important;
     cursor: text;
 }
@@ -26892,8 +26916,16 @@ input:checked+.slider:before {
 }
 /* end */
 
+.cartop{
+    margin-top:150px !important;
+}
+
 #times td {
     cursor: pointer;
+    border: 1px solid #000;
+    border-radius: 22px !important;
+    text-align: center;
+    
 }
 /* #times td:active {
     border: 2px solid #b5b5b5;
@@ -26974,7 +27006,11 @@ input#totaltourAmt {
     .dp_daypicker.dp_body tr td {
         padding:0px !important;
     }}
-
+@media(max-width:1500px){
+    .blockquote, .content blockquote {
+        padding: 6px !important;
+    }
+}
 @media(max-width:1024px){
     .tours-banner {
         height: 170px !important;
@@ -27095,10 +27131,10 @@ input#totaltourAmt {
       .product-tag-details-D {
         display: none;
     }
-    /* .dp_daypicker.dp_body tr td {
-        padding: 8px !important;
-        min-width: 0px !important;
-    } */
+    .swiper-slide .card.card--flex.card--shadow-orange {
+        margin: 25px;
+        margin-bottom: 50px;
+    }
     }
     @media(min-width:600px){
         .toggle-payment {
@@ -27170,4 +27206,11 @@ input#totaltourAmt {
     }
     }
    
-    
+    /* / Css for the hovr of the dates  / */
+    .Zebra_DatePicker .dp_body    tr td:not(.dp_disabled):hover {
+ background: #feb100 !important;
+ color: #000 !important;         }
+/* / Css for the  active state of the date  / */
+ .Zebra_DatePicker .dp_body .dp_selected {
+  background: #feb100  !important;
+  color: #fff !important;}

@@ -68,11 +68,11 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 
-  <!-- {{-- <script src="{{asset ('assets/front/js/vendor.js')}}"></script> --}} -->
+ 
   <script src="{{asset ('assets/front/js/app.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
-
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
  
   <script src="{{asset ('assets/dist/zebra_datepicker.min.js')}}"></script>
   <script src="{{asset ('assets/examples/examples.js')}}"></script>

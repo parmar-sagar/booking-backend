@@ -133,10 +133,10 @@
                </div>
             </div>
             <div class="col-12 col-lg-5 col-xl-5 col-xxl-4 offset-xxl-1">
-               <div class="mb-30em  card card--shadow-purple bg-purple animated fadeInUp active">
+               <div class="mb-30em  card card--shadow-purple bg-purple animated fadeInUp active" style="background-color: #18899f !important;  box-shadow: -12px 12px 0 #feb100; border:none !important">
                   <div class="card__content">
                      <div class="headline-wave">
-                        <h3 class="headline-4">Price</h3>
+                        <h3 class="headline-3">Price</h3>
                         <svg width="100px" height="16px" class="stroke-blurple">
                            <use xlink:href="images/icons.svg#icon-wave-squiggle" />
                         </svg>
@@ -157,6 +157,7 @@
                         </li>
                         @endforeach
                      </ul>
+
                   </div>
                </div>
                <div class="mb-30em   animated fadeInUp active">
@@ -221,13 +222,46 @@
                      </div>
                   </div>
                </div>
-               @if($objVehicle->type == 'Tour')
-                  <a class="btn btn--purple mt-10em" href="{{url('vehicles/gallary/'.$objVehicle->random_id)}}" title="View Tour Gallary">View Gallary </a>
-               @endif
             </div>
          </div>
       </div>
-      <!--- Gallary slides -->
+      @if($objVehicle->type == 'Tour')
+         <!--- Gallary slides -->
+         <div class=" tab-box-content tab-box-content--active bg-blue border-img-top border-img-top--blue border-img-bottom border-img-bottom--blue js-tabContent " data-content="tab-2">
+            <section class="border-img-top border-img-top--orange border-img-bottom border-img-bottom--orange border-img-top--hide-on-mobile ">
+               <div class="toggle-wrapper toggle-wrapper__tour-gallery"> 
+                  <label class="toggle" for="gallery-toggle">
+                     <span><h2 class="headline-2"> Gallery </h2></span> 
+                  </label> 
+               </div>
+               <div class="tour-gallery tour-gallery--orange pt-0em" data-gallery-active-category="activities">
+                  <div class="tour-gallery__inner" data-gallery-content-category="activities">
+                     <div class="tour-gallery__images js-gallery-images" data-gallery-day="1" data-gallery-category="activities">
+                     <figure class="tour-gallery__preview-wrapper"> 
+                        <a href="" class="js-popup" title="">
+                           <img class="tour-gallery__preview-ratio js-gallery-preview lazy loaded" data-src="" alt="" src="{{ asset('admin/uploads/gallry_images/'.$singleImglry->gallry_images) }}" data-was-processed="true"> 
+                        </a>
+                        <div>
+                           <figcaption class=" tour-gallery__preview-caption  tour-gallery__preview-caption--empty  js-gallery-description ">
+                           </figcaption>
+                        </div>
+                     </figure>
+                     <ul class="tour-gallery__image-list" data-id="galleryList">
+                        @foreach($objVehicle->gallery as $key => $images)
+                        <li class="tour-gallery__image-list-item"> 
+                           <button type="button" class="js-thumb-button tour-gallery__image-list-button {{ $loop->first ? 'active' : '' }}" onclick="App.updatePreview(this, 'activities', 1);" data-description="" data-popup-img-url="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}">
+                                 <img class="tour-gallery__image-list-thumb rotate-left lazy loaded" data-src="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}" alt="" src="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}" data-was-processed="true"> 
+                           </button> 
+                        </li>
+                        @endforeach
+                     </ul>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <!-- <p class="text-center"> <a class="btn btn--black" href="/book-a-Duen buggy tours-tour?country=Vietnam"> View More </a> </p>  -->
+         </div>
+      @endif
       <!--- End -->
       <div class="section" id="sect">
          <form method="POST" id="addToCart" action="{{ url('cart/add') }}">
@@ -237,14 +271,14 @@
                <div class="col-12 col-lg-6 col-xxl-5 col-xl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1">
                   <div class="dates picker card--shadow-orange">
                      <div id="bookingHeading">
-                        <h1>Select Your Booking DateTime</h1>
+                        <h1>Select Pickup Date</h1>
                      </div>
                      <!-- calander -->
                      <div id="container" style="margin: 10px 0 15px 0; height: 255px; position: relative"></div>
                      <div class="well">
                         <div class="row">
                            <div class="col-sm-12 pt-2">
-                              <h3 style="text-align:center;"> Available Slots  </h3>
+                              <h1> Select Pickup Time </h1>
                               <div style="overflow-x:auto;">
                                  <table id="times">
                                     <tbody>
@@ -272,7 +306,7 @@
                      <!-- end -->
                   </div>
                </div>
-               <div class="col-12 col-lg-6 col-xl-7 col-xxl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1">
+               <div class="col-12 col-lg-6 col-xl-7 col-xxl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1"  id="cartcol"style="display:none">
                   <div class="mb-30em animated fadeInUp active " id="duration">
                      <div class="card card--shadow-orange">
                         <div class="card__content">
@@ -384,6 +418,7 @@
 
       jQuery('body').on('click','.selectTime',function() { 
          $('#select-available-time').val($(this).attr('data-time'));
+         $('#cartcol').show();
       });
 
       jQuery('#datepicker').Zebra_DatePicker({

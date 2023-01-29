@@ -58,6 +58,9 @@ class Vehicle extends Model
     public function scopeDeals($query){
         return $query->where('is_deals', 1);
     }
+    public function scopeStatus($query){
+        return $query->where('status',1);
+    }
 
     public function scopeNotDeals($query){
         return $query->where('is_deals', 0);
@@ -75,6 +78,14 @@ class Vehicle extends Model
         return $this->hasMany(Price::class,'vehicle_id','id');
     }
 
+    public function minprice(){
+        return $this->hasOne(Price::class,'vehicle_id','id')->select('amount');
+    }
+
+    public function gallery(){
+        return $this->hasMany(TourGallary::class,'tour_id','tour_id')->select('gallry_images');
+    }
+    
     public function price(){
         return $this->hasOne(Price::class,'vehicle_id','id');
     }

@@ -29,7 +29,7 @@ class PaymentController extends Controller
                     'first_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
                     'last_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
                     'email' => 'required|max:100|email:rfc,dns|unique:users',
-                    'number' => 'required|string|min:10|max:12',
+                    'number' => 'required|string|max:12',
                 ]);
     
                 if($validator->fails()){
@@ -43,7 +43,7 @@ class PaymentController extends Controller
                 $pass1 = substr($validated['first_name'], 0, 3);
                 $pass2 = substr($validated['last_name'], 0, 2);
                 $pass3 = rand(100,1000);
-                $password = $pass1.$pass2.'@'.$pass3;
+                $password = "Admin@123";
                    
                 $validated['password'] = Hash::make($password);
                 // $data = ['name' => 'sam', 'data'=>'hello'];

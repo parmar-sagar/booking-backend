@@ -13,9 +13,8 @@ use App\Helpers\Helper;
 use App\Models\Tour;
 use App\Models\Price;
 use App\Models\Time;
-use App\Models\TimeSlote;
-use App\Models\AvailableSlot;
 use App\Models\TimeSlot;
+use App\Models\AvailableSlot;
 use DataTables;
 
 
@@ -164,8 +163,8 @@ class VehiclesController extends Controller
                     'tour_itenary' => 'required',
                     'quantity' => 'required|integer',
                     'status' => 'required|in:0,1',
-                    'image' => 'required|mimes:jpeg,jpg,png,gif',
-                    'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
+                    'image' => 'mimes:jpeg,jpg,png,gif',
+                    'banner_img' => 'mimes:jpeg,jpg,png,gif',
                     'time' => 'required|array',
                     'amount' => 'required|array'
                 ]);
@@ -221,14 +220,14 @@ class VehiclesController extends Controller
                 'pageName' => 'Edit Vehicle',
                 'action' => url('admin/tours/vehicles/update/'.$id),
                 'objData' => Vehicle::findOrFail($id),
-                'tourName' => Tour::type('Tour')->select('name','id')->order()->get(),
+                'tourName' => Tour::where('type','Tour')->select('name','id')->order()->get(),
                 'highlights' => VehicleInfo::highlight()->order()->get(),
                 'includes' => VehicleInfo::include()->order()->get(),
                 'warnings' => VehicleInfo::warning()->order()->get(),
                 'activities' => VehicleInfo::activity()->order()->get(),
                 'addiInfo' => VehicleInfo::additionalInfo()->order()->get(),
                 'time' => Time::order()->get(),
-                'timeSlotes' => TimeSlote::get()
+                'timeSlotes' => TimeSlot::get()
             ];
 
             $this->outputData['price'] = Price::where('vehicle_id',$id)->get();
@@ -241,7 +240,7 @@ class VehiclesController extends Controller
             
             $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
             $this->outputData['selctdTour'] = Helper::explode( $this->outputData['objData']->tour_id );
-            $this->outputData['selctdInclude'] = Helper::explode( $this->outputData['objData']->includes_ids );
+            $this->outputData['selctdIncludes'] = Helper::explode( $this->outputData['objData']->includes_ids );
             $this->outputData['selctdWarning'] = Helper::explode( $this->outputData['objData']->warning_ids );
             $this->outputData['selctdHighlight'] = Helper::explode( $this->outputData['objData']->highlight_ids );
             $this->outputData['selctdActivitie'] = Helper::explode( $this->outputData['objData']->activities_ids );
