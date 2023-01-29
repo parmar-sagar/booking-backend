@@ -156,9 +156,6 @@
                            AED
                         </li>
                         @endforeach
-                        @if(isset($safariPrice))
-                           <li>{{$safariPrice->amount}} AED</li>
-                        @endif
                      </ul>
                   </div>
                </div>
@@ -167,21 +164,13 @@
                      <div class="card__content">
                         <div class="card__headline card__headline--with-price">
                            <div class="headline-wave">
-                              <h2 class="headline-3" id="button_drpd" style="cursor: pointer;">Must know Befor You Book</h2>
+                              <h2 class="headline-3" id="must-know" style="cursor: pointer;">Must know Befor You Book</h2>
                               <svg  height="16px" class="stroke-orange">
                                  <use xlink:href="/images/icons.svg#icon-wave-squiggle"></use>
                               </svg>
-                              <script>
-                                 let btn= document.getElementById('button_drpd');
-                                 btn.onclick =  funtion = () =>   {
-                                 let demo_content = document.getElementById('cnt');
-                                 let cntn = demo_content.style.display;
-                                 cntn = "none";         
-                                 demo_content.style.display == "none" ? demo_content.style.display = "block" : demo_content.style.display = "none"}
-                              </script>
                            </div>
                         </div>
-                        <div class="list-icon-wrapper" id="cnt" style="display:none;">
+                        <div class="list-icon-wrapper" id="must-know-content" style="display:none;">
                            <ul class="list-icon list-icon--tick">
                               @foreach($mustKnows as $value)
                                  <li>{{$value->title}}</li>
@@ -196,22 +185,13 @@
                      <div class="card__content">
                         <div class="card__headline card__headline--with-price">
                            <div class="headline-wave">
-                              <h2 class="headline-3" id="button_drpd3" style="cursor: pointer;">Tour Itenary</h2>
+                              <h2 class="headline-3" id="tour-itenary" style="cursor: pointer;">Tour Itenary</h2>
                               <svg  height="16px" class="stroke-orange">
                                  <use xlink:href="/images/icons.svg#icon-wave-squiggle"></use>
                               </svg>
-                              <script>
-                                 let btn3= document.getElementById('button_drpd3');
-                                 btn3.onclick =  funtion = () =>   {
-                                 
-                                 let demo_content3 = document.getElementById('cnt3');
-                                 let cntn3 = demo_content3.style.display;
-                                 cntn3 = "none";         
-                                 demo_content3.style.display == "none" ? demo_content3.style.display = "block" : demo_content3.style.display = "none"    }
-                              </script>
                            </div>
                         </div>
-                        <div class="list-icon-wrapper" id="cnt3" style="display:none;">
+                        <div class="list-icon-wrapper" id="tour-itenary-content" style="display:none;">
                            <p class="content mt-10em mb-10em">
                            <p>{!! $objVehicle->tour_itenary !!}</p>
                         </div>
@@ -223,21 +203,13 @@
                      <div class="card__content">
                         <div class="card__headline card__headline--with-price">
                            <div class="headline-wave">
-                              <h2 class="headline-3" id="button_drpd2" style="cursor: pointer;">Additional Info</h2>
+                              <h2 class="headline-3" id="additional-info" style="cursor: pointer;">Additional Info</h2>
                               <svg  height="16px" class="stroke-orange">
                                  <use xlink:href="/images/icons.svg#icon-wave-squiggle"></use>
                               </svg>
-                              <script>
-                                 let btnn= document.getElementById('button_drpd2');
-                                 btnn.onclick =  funtion = () =>   {
-                                 let demo_content = document.getElementById('cnt2');
-                                 let cnt = demo_content.style.display;
-                                 cnt = "none";         
-                                 demo_content.style.display == "none" ? demo_content.style.display = "block" : demo_content.style.display = "none" }
-                              </script>
                            </div>
                         </div>
-                        <div class="cntnt" id="cnt2" style="display:none;">
+                        <div class="cntnt" id="additional-info-content" style="display:none;">
                            <div class="list-icon-wrapper">
                               <ul class="list-icon list-icon--tick">
                                  @foreach($addInfos as $value)
@@ -249,8 +221,8 @@
                      </div>
                   </div>
                </div>
-               @if($objVehicle->type != 'Safari')
-               <a class="btn btn--purple mt-10em" href="{{url('gallary/'.$objVehicle->random_id)}}" title="View Tour Gallary">View Gallary </a>
+               @if($objVehicle->type == 'Tour')
+                  <a class="btn btn--purple mt-10em" href="{{url('vehicles/gallary/'.$objVehicle->random_id)}}" title="View Tour Gallary">View Gallary </a>
                @endif
             </div>
          </div>
@@ -258,7 +230,7 @@
       <!--- Gallary slides -->
       <!--- End -->
       <div class="section" id="sect">
-         <form method="POST" id="cartItems">
+         <form method="POST" id="addToCart" action="{{ url('cart/add') }}">
             @csrf
             <input type="hidden" name="id" value="{{$objVehicle->random_id}}">
             <div class="row row--g-10">
@@ -279,7 +251,7 @@
                                        <tr>
                                           @if(isset($objVehicle->availableSlot))
                                              @foreach($objVehicle->availableSlot as $value) 
-                                                <td value="{{$value->timeSlot->text}}">{{$value->timeSlot->text}}</th>
+                                                <td class="selectTime" data-time="{{$value->timeSlot->text}}">{{$value->timeSlot->text}}</th>
                                              @endforeach
                                           @endif
                                        </tr>
@@ -289,16 +261,11 @@
                            </div>
                            <div class="col-sm-6">
                               <label>Date</label>
-                              <input id="datepicker" type="text" name="bookingDate" class="form-control filled" data-zdp_readonly_element="false">
+                              <input id="datepicker" type="text" name="booking_date" class="form-control filled" data-zdp_readonly_element="true">
                            </div>
                            <div class="col-sm-6">
                               <label>Time</label>
-                              @if($objVehicle->type != 'Safari')
-                                 <input id="slctAvTime" type="text" name="time" class="form-control filled" value="" readonly>
-                              @endif
-                              @if($objVehicle->type === 'Safari')
-                                 <input id="slctAvTime" type="text" name="time" class="form-control filled" value="{{$objVehicle->pickup_time}}" readonly>
-                              @endif
+                              <input id="select-available-time" type="text" name="time" class="form-control filled" value="@if($objVehicle->type === 'Safari'){{$objVehicle->pickup_time}}@endif" readonly>
                            </div>
                         </div>
                      </div>
@@ -330,11 +297,11 @@
                                     <input type="hidden"  name ="totalPrice" value="{{$safariPrice->amount}}">
                                  @endif
                                  <button type="button" id="sub" class="sub">-</button>
-                                 <input style="width:40px" name="qnty" class="qntyPrce"type="number" id="1" value="1" min="1" max="10" />
+                                 <input style="width:40px" class="quantity-class" type="number" value="1" min="1" max="10" />
                                  <button type="button" id="add" class="add">+</button>
                               </div>
                            @endif
-                           @if($objVehicle->type != 'Safari')
+                           @if($objVehicle->type == 'Tour')
                               <table class="list-tour-info list-tour-info--two-cols">
                                  <tr>
                                     <th>Duration</th>
@@ -347,7 +314,7 @@
                                        <div class="form__row">
                                           <div class="form__row__left">
                                              <div class="form__group">
-                                                <select class="" id="timeSelect">
+                                                <select id="select-time">
                                                    @foreach($objVehicle->prices as $value)  
                                                       <option value="@if(isset($dealsDiscount)) {{$value->amount - ($value->amount * ($dealsDiscount / 100))}}@else{{$value->amount}}@endif">{{$value->time}} Min</option>
                                                    @endforeach
@@ -356,19 +323,16 @@
                                           </div>
                                        </div>
                                     </td>
-                                    <td id="slctPrice" style="width:25%"></td>
+                                    <td id="selected-price" style="width:25%"></td>
                                     <td class="qntityBtn" style="width:25%">
                                        <button type="button" id="sub" class="sub">-</button>
-                                       <input style="width:40px" name="qnty" class="qntyPrce"type="number" id="1" value="1" min="1" max="10" />
+                                       <input style="width:40px" name="quantity" class="quantity-class" type="number" value="1" min="1" max="10" />
                                        <button type="button" id="add" class="add">+</button>
                                     </td>
-                                    <td style="width:25%"><input name="totalPrice" value="" id="totaltourAmt" readonly></td>
+                                    <td style="width:25%"><input name="total_price" value="" id="total-tour-amount" readonly></td>
                                  </tr>
                               </table>
                            @endif
-                           {{-- </li>
-                           </ul>
-                           </table> --}}
                            <h1 style="font-size: 1.75rem">  Extra Activities</h1>
                            <table>
                               @foreach($extraActivitys as $key => $value)
@@ -376,13 +340,13 @@
                                     <td><strong class="mb-20em" name="etraname">{{$value->title}}</strong></td>
                                     <td>
                                        <label class="switch">
-                                          <input id ="checkBox{{$key+1}}" type="checkbox" name="extra_price[]" value="{{$value->random_id}}" class="checkBoxId">
+                                          <input id ="checkBox{{$key+1}}" type="checkbox" name="extra_price[]" value="{{$value->id}}" class="checkBoxId">
                                           <span class="slider round"></span>
                                        </label>
                                     </td>
                                     <td style="display: none;" class="checkboxQntity qntityBtn">
                                        <button type="button" id="sub" class="sub">-</button>
-                                       <input style="width:40px" name="qnty" class="qntyPrce"type="number" id="1" value="1" min="1" max="10" />
+                                       <input style="width:40px" class="quantity-class" type="number" value="1" min="1" max="10" />
                                        <button type="button" id="add" class="add">+</button>
                                     </td>
                                     <td id="extraAcPrice">
@@ -402,94 +366,97 @@
          </form>
       </div>
    </main>
+   <input type="hidden" id="available-quantity" value="{{ $objVehicle->available_quantity }}">
    </x-front.master-layout>
    <script>
    $(document).ready(function() {
+      
+      // Select Time
+      let price = $('#select-time').val();
+      jQuery('#selected-price').html(price);
+      jQuery('#total-tour-amount').val(price);
+
+      jQuery('body').on('change','#select-time', function(){
+         let price = $(this).val();
+         $('#selected-price').text(price);
+         $('#total-tour-amount').val(price);
+      });
+
+      jQuery('body').on('click','.selectTime',function() { 
+         $('#select-available-time').val($(this).attr('data-time'));
+      });
+
+      jQuery('#datepicker').Zebra_DatePicker({
+         format: 'd-m-Y',
+         direction: true,
+         always_visible: $('#container') 
+      });
+
+      // Quantity Plus Minus
+      jQuery('.add').click(function () {
+         let val = jQuery("#available-quantity").val();
+         if (jQuery(this).prev().val() < val) {
+            jQuery(this).prev().val(+jQuery(this).prev().val() + 1);
+         }
+
+         let quantity = $(this).prev('input').val();
+         let curentPrice = $('#select-time').val();
+         let price = (curentPrice * quantity).toFixed(2);;
+         $('#total-tour-amount').val(price);  
+      });
+      jQuery('.sub').click(function () {
+         if (jQuery(this).next().val() > 1) {
+            if (jQuery(this).next().val() > 1) jQuery(this).next().val(+jQuery(this).next().val() - 1);
+         }
+
+         let quantity = $(this).next('input').val();
+         let curentPrice = $('#select-time').val();
+         let price = (curentPrice * quantity).toFixed(2);;
+         $('#total-tour-amount').val(price);  
+      });
+
+      document.getElementById('must-know').onclick =  funtion = () =>   {
+         let mustKnowContent = document.getElementById('must-know-content');
+         mustKnowContent.style.display == "none" ? mustKnowContent.style.display = "block" : mustKnowContent.style.display = "none"
+      };
+
+      document.getElementById('tour-itenary').onclick =  funtion = () =>   {
+         let mustKnowContent = document.getElementById('tour-itenary-content');
+         mustKnowContent.style.display == "none" ? mustKnowContent.style.display = "block" : mustKnowContent.style.display = "none"
+      };
+
+      document.getElementById('additional-info').onclick =  funtion = () =>   {
+         let mustKnowContent = document.getElementById('additional-info-content');
+         mustKnowContent.style.display == "none" ? mustKnowContent.style.display = "block" : mustKnowContent.style.display = "none"
+      };
+      
       // Add To Card 
-      $(document).on('submit','#cartItems',function(e){
+      jQuery('body').on('submit','#addToCart',function(e){
          e.preventDefault();
          $.ajax({
             type: $(this).prop('method'),
-            url: "{{ url('add-to-cart') }}",
+            url: $(this).prop('action'),
             data:new FormData(this),
             contentType: false,
             cache: false,
             processData: false,
             success: function (response) {
-            window.location.href = "{{URL::to('cart')}}"
-               toastr.success(response.success); 
+               if((response.error)){
+                  toastr.error(response.error);
+               }else{
+                  toastr.success(response.success);
+               
+                  setTimeout(function () {
+                     window.location.href = "{{ url('cart') }}";
+                  }, 2000);
+               }
             },
             error: function (response){
-               var text = JSON.parse(response.responseText)
-               toastr.error(text.message);
+               toastr.warning("Something went wrong! Please try again!");
             }
          });
       });
       
-      // time select
-      var prc = $('#timeSelect').val();
-      console.log('prc');
-      console.log(prc);
-      $('#slctPrice').html(prc);
-      $(document).on('change','#timeSelect', function(){
-         var price = $(this).val();
-         $('#slctPrice').text(price);
-         $('#totaltourAmt').val(price);
-      });
-      
-      $('#times').click(function(e) { 
-         var time = $(e.target).text();
-         $('#slctAvTime').val(time);
-      });
-      
-      $('#datepicker').Zebra_DatePicker({
-         format: 'd-m-Y',
-         direction: true,
-         always_visible: $('#container') 
-      });
-   
-      // end
-      //add subtract qntity
-      $('.add').click(function () {
-         var val ="{{$objVehicle->available_quantity}}";
-         if ($(this).prev().val() < val) {
-            $(this).prev().val(+$(this).prev().val() + 1);
-         }
-      });
-      $('.sub').click(function () {
-         if ($(this).next().val() > 1) {
-            if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
-         }
-      });
-      //end
-      
-      //amount with quntity
-      var prc = $('#timeSelect').val();
-      $('#totaltourAmt').val(prc);
-      $(document).on('click','.add',function(e){
-         e.preventDefault();
-         var qntity = $('.qntyPrce').val();
-         var curentPrice = $('#slctPrice').text();
-         var price = curentPrice * qntity;
-         $('#totaltourAmt').val(price);  
-      });
-   
-      $(document).on('click','.sub',function(e){
-         e.preventDefault();
-         var qntity = $('.qntyPrce').val();
-         var curentPrice = $('#slctPrice').text();
-         var price = curentPrice * qntity;
-         $('#totaltourAmt').val(price);  
-      });
-      //end
-      
-      // checkbox quantity
-      var i =0;
-      $('.checkBoxId').on('click', function(){
-         var dd = $('.checkBoxId').attr('id'); 
-         alert(dd); 
-      });
-   
       $('.checkBox').on('click', function(){
          if ( $(this).prop('checked') ) {
             $('.checkboxQntity').show();

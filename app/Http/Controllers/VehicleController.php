@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Models\Time;
+use App\Models\TourGallary;
 use App\Models\Vehicle;
 use App\Models\VehicleInfo;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class VehicleController extends Controller{
         $addInfos = VehicleInfo::select('title')->whereIn('id',$addInfoIds)->get();
 
         $extraActivityIds = Helper::explode($objVehicle->activities_ids);
-        $extraActivitys = VehicleInfo::select('title')->whereIn('id',$extraActivityIds)->get();
+        $extraActivitys = VehicleInfo::select('id','title')->whereIn('id',$extraActivityIds)->get();
 
         $timeIds = Helper::explode($objVehicle->tour->time_ids);
         $times = Time::select('time','type')->whereIn('id',$timeIds)->get();
@@ -60,5 +61,19 @@ class VehicleController extends Controller{
         $this->outputData['deals'] = $deals;
 
         return view('front.pages.vehicle.deals',$this->outputData);
+    }
+
+    public function gallary($id){
+        $vehicles = Vehicle::where('random_id',$id)->select('tour_id')->first();
+
+        $gallaryImg = TourGallary::where('tour_id',$vehicles->tour_id)->select('gallry_images')->get();
+
+        $singleImage = TourGallary::where('tour_id',$vehicles->tour_id)->select('gallry_images')->first();
+
+        $this->outputData = [
+            'singleImage' => $singleImage,
+            'gallary' => $gallaryImg
+        ];
+        return view('front.pages.vehicle.gallary',$this->outputData);
     }
 }

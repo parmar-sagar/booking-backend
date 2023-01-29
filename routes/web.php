@@ -29,6 +29,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SingleProductController;
 use App\Http\Controllers\AlltoursController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OtherPageController;
 use App\Http\Controllers\PaymentController;
@@ -317,6 +318,7 @@ Route::group([
     
     Route::prefix('vehicles')->group(function() {
         Route::get('details/{id}', [VehicleController::class, 'details']);
+        Route::get('gallary/{id}',[VehicleController::class, 'gallary']); 
     });
 
     Route::prefix('tours')->group(function() {
@@ -325,6 +327,16 @@ Route::group([
     });
 
     Route::get('/deals',[VehicleController::class, 'deals']);
+
+    Route::prefix('cart')->group(function() {
+        Route::get('/',[CartController::class, 'index']);
+        Route::post('add',[CartController::class, 'add']);
+        Route::get('remove/{id}',[CartController::class, 'remove']);
+    });
+    
+    Route::prefix('checkout')->group(function() {
+        Route::get('/',[CheckoutController::class, 'index']);
+    });
 
     Route::get('refund-policy',[OtherPageController::class, 'refundPolicy']);
     Route::get('privacy-policy',[OtherPageController::class, 'privacyPolicy']);
@@ -341,14 +353,9 @@ Route::group([
     Route::get('/my-account',[HomeController::class, 'myAccount']);
     Route::post('update-profile',[HomeController::class, 'updateProfile']);
     Route::post('update-password',[HomeController::class, 'updatePassword']);
-    Route::get('checkout',[HomeController::class, 'checkout']);
-    Route::get('gallary/{id}',[HomeController::class, 'gallary']); 
     
     // cart
-    Route::get('/cart',[CartController::class, 'index']);
-    Route::post('add-to-cart',[CartController::class, 'add']);
     Route::get('/update-cart',[CartController::class, 'update']);
-    Route::get('/delete-cart/{id}',[CartController::class, 'delete']);
     Route::post('apply-coupon',[CartController::class, 'applyCoupon']);
 
     //payment 
