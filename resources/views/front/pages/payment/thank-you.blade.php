@@ -14,19 +14,25 @@
                         <div class="row mt-10em">
                             <div class="col-lg-12 col-md-12 col-sm-12 orderD-thanks">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-12 col-sm-12">
+                                    <div class="col-lg-3 col-md-12 col-sm-12">
                                         <div class="Thanks-order">
                                             <b>Date</b>-
                                             <span>{{ date('d M Y',strtotime($booking->created_at)) }}</span>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-12 col-sm-12">
+                                    <div class="col-lg-3 col-md-12 col-sm-12">
+                                        <div class="Thanks-order">
+                                            <b>Payment Status</b>-
+                                            <span>{{ $booking->payment_status }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-12 col-sm-12">
                                         <div class="Thanks-order">
                                             <b>Status</b>-
                                             <span>{{ $booking->status }}</span>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-12 col-sm-12">
+                                    <div class="col-lg-3 col-md-12 col-sm-12">
                                         <div class="Thanks-order">
                                             <b>Amount</b>-
                                             <span>AED {{ $booking->total }}</span>

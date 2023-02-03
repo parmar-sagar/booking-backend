@@ -18,8 +18,8 @@ use Mail;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
 use Srmklive\PayPal\Services\ExpressCheckout;
-use Srmklive\PayPal\Services\PayPal as PayPalClient;
-
+use Stripe\Exception\CardException;
+use Stripe\StripeClient;
 
 class PaymentController extends Controller
 {
@@ -27,7 +27,6 @@ class PaymentController extends Controller
     public $outputData = [];
 
     public function index(Request $request){
-
         $carts = \Cart::getContent();
         $total = \Cart::getTotal();
         $subTotal = \Cart::getSubTotal();
@@ -41,7 +40,8 @@ class PaymentController extends Controller
             'mobile' => $request->mobile,
             'email' => $request->email,
             'pickup_location' => $request->pickup_location,
-            'pickup_time' => $request->pickup_time
+            'pickup_time' => $request->pickup_time,
+            'payment_method' => $request->payment_method
         ];
 
         $booking = Booking::create($bookingData);
@@ -67,20 +67,26 @@ class PaymentController extends Controller
             'total' => $total + $extraAmount
         ]);
 
-        $product = [];
-        $product['items'] = [];
-        $product['invoice_id'] = $booking->random_id;
-        $product['invoice_description'] = "Booking #{$booking->random_id} booked";
-        $product['return_url'] = url('payment/success');
-        $product['cancel_url'] = url('payment/failure');
-        $product['total'] = $booking->total;
-  
-        $paypalModule = new ExpressCheckout;
-  
-        $res = $paypalModule->setExpressCheckout($product);
-        $res = $paypalModule->setExpressCheckout($product, true);
-  
-        return redirect($res['paypal_link']);
+        if($request->payment_method == 'Paypal'){
+            $product = [];
+            $product['items'] = [];
+            $product['invoice_id'] = $booking->random_id;
+            $product['invoice_description'] = "Booking #{$booking->random_id} booked";
+            $product['return_url'] = url('payment/success');
+            $product['cancel_url'] = url('payment/failure');
+            $product['total'] = $booking->total;
+    
+            $paypalModule = new ExpressCheckout;
+    
+            $res = $paypalModule->setExpressCheckout($product);
+            $res = $paypalModule->setExpressCheckout($product, true);
+    
+            return redirect($res['paypal_link']);
+        }elseif($request->payment_method == 'Stripe'){
+            return redirect('payment/stripe/'.$booking->random_id);
+        }else{
+            return redirect('payment/thank-you/'.$booking->random_id);
+        }
     }
 
     public function success(Request $request){
@@ -99,6 +105,11 @@ class PaymentController extends Controller
         $transaction->status = (isset($response['ACK'])) ? $response['ACK'] : 'Failure';
         $transaction->save();
         
+        $booking->update([
+            'status' => 'In Progress',
+            'payment_status' => 'Paid'
+        ]);
+
         return redirect('payment/thank-you/'.$booking->random_id);
     }
 
@@ -106,12 +117,23 @@ class PaymentController extends Controller
         $provider = new ExpressCheckout;
 
         $response = $provider->getExpressCheckoutDetails($request->token);
-        dd($response);
-        if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
-            dd('Your payment was successfully. You can create success page here.');
-        }
-  
-        dd('Something is wrong.');
+
+        $booking = Booking::where('random_id',$response['INVNUM'])->first();
+
+        $transaction = new BookingTransaction();
+        $transaction->booking_id = $booking->id;
+        $transaction->user_id = Auth::user()->id;
+        $transaction->token = $request->token;
+        $transaction->payerid = $response['PAYERID'];
+        $transaction->amount = $response['AMT'];
+        $transaction->status = 'Failure';
+        $transaction->save();
+
+        $booking->update([
+            'payment_status' => 'Unpaid'
+        ]);
+        
+        return redirect('payment/thank-you/'.$booking->random_id);
     }
 
     public function thankYou($randomId){
@@ -119,50 +141,69 @@ class PaymentController extends Controller
 
         return view('front.pages.payment.thank-you',$this->outputData);
     }
-    public function payment(Request $request){
-        try {
-            if($request->method() == 'POST'){
-                $Input = $request->all();
-                
-                // Validation section
-                $validator = Validator::make($Input, [
-                    'first_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
-                    'last_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
-                    'email' => 'required|max:100|email:rfc,dns|unique:users',
-                    'number' => 'required|string|max:12',
-                ]);
-    
-                if($validator->fails()){
-                    throw new \Exception($validator->errors()->first());
-                }
-                $validated = $validator->validated();
 
-                $snowflake = new \Godruoyi\Snowflake\Snowflake;
-                $validated['random_id'] = $snowflake->id();
+    public function stripe($randomId){
+        $this->outputData['booking'] = Booking::where('random_id',$randomId)->first();
 
-                $pass1 = substr($validated['first_name'], 0, 3);
-                $pass2 = substr($validated['last_name'], 0, 2);
-                $pass3 = rand(100,1000);
-                $password = "Admin@123";
-                   
-                $validated['password'] = Hash::make($password);
-                // $data = ['name' => 'sam', 'data'=>'hello'];
-                // $user['to'] = 'sandyjamwal292@gmail.com';
-                // $mail =Mail::send('mail',$data,function($messages) use($user){
-                //     $messages->to($user['to']);
-                //     $messages->subject('Hello');
+        return view('front.pages.payment.stripe',$this->outputData);
+    }
 
-                // });
-                // if($mail){
-                //     return response()->json(['success' => "Mail send successfully."]);
-                // }
-                User::create($validated);
-    
-                // return response()->json(['success' => "User Created successfully."]);
-            }
+    public function stripePayment(Request $request){
+        
+        $stripe = new StripeClient(config('stripe.api_keys.secret_key'));
+        
+        $token = $stripe->tokens->create([
+            'card' => [
+                'number' => $request['cardNumber'],
+                'exp_month' => $request['month'],
+                'exp_year' => $request['year'],
+                'cvc' => $request['cvv']
+            ]
+        ]);
 
-        } catch (\Throwable $e) {
-            return Error::Handle($e, self::ControllerCode, '02');
+        $booking = Booking::where('random_id',$request['random_id'])->first();
+
+        $transaction = new BookingTransaction();
+        $transaction->booking_id = $booking->id;
+        $transaction->user_id = Auth::user()->id;
+        $transaction->amount = $request['amount'];
+        $transaction->token = $token['id'];
+        
+        if (!empty($token['error'])) {
+            $transaction->status = 'Failure';
         }
+        if (empty($token['id'])) {
+            $transaction->status = 'Failure';
+        }
+        
+        $charge = '';
+
+        if($transaction->status != "Failure"){
+            $charge = $stripe->charges->create([
+                'amount' => round($request['amount']),
+                'currency' => 'USD',
+                'source' => $token['id'],
+                'description' => 'My first payment'
+            ]);
+
+            $transaction->payerid = $charge['id'];
+        }
+
+        if (!empty($charge) && $charge['status'] == 'succeeded') {
+            $transaction->status = $charge['status'];
+            $paymentStatus = 'Paid';
+        } else {
+            $transaction->status = 'Failure';
+            $paymentStatus = 'Unpaid';
+        }
+
+        $transaction->save();
+
+        $booking->update([
+            'status' => 'In Progress',
+            'payment_status' => $paymentStatus
+        ]);
+        
+        return redirect('payment/thank-you/'.$booking->random_id);
     }
 }

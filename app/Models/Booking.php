@@ -26,7 +26,7 @@ class Booking extends Model
         'pickup_time',
         'status',
         'payment_status',
-        'method_type'
+        'payment_method'
     ];
 
     protected $hidden = [

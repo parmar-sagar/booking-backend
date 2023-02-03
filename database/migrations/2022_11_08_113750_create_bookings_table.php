@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('pickup_time',20);
             $table->string('status',50)->default('Order Placed')->comment('1 => Order Placed , 2 => In Progress, 3 => Canceled, 4 => Completed')->index('idx_status');
             $table->string('payment_status',50)->default('Unpaid')->comment('0 => Unpaid , 1 => Paid')->index('idx_payment_status');
+            $table->string('payment_method',50)->default('Payment on Arrival')->comment('Paypal,Stripe,Payment on Arrival');
             $table->softDeletes();
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');

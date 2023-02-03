@@ -345,6 +345,8 @@ Route::group([
         Route::get('/success',[PaymentController::class, 'success']);
         Route::get('/failure',[PaymentController::class, 'failure']);
         Route::get('/thank-you/{id}',[PaymentController::class, 'thankYou']);
+        Route::get('/stripe/{id}',[PaymentController::class, 'stripe']);
+        Route::post('/stripe-payment',[PaymentController::class, 'stripePayment']);
     });
 
     Route::get('refund-policy',[OtherPageController::class, 'refundPolicy']);
