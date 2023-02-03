@@ -13,6 +13,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/telescope": "^4.9",
         "laravel/tinker": "^2.7",
+        "srmklive/paypal": "~1.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

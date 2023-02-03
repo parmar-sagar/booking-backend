@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BookingDetail extends Model
-{
+class EmailOtp extends Model{
+
     use HasFactory;
 
     protected $fillable = [
-        'booking_id','vehicle_id','name','price','booking_date','booking_time','quantity','extra_product'
+        'email',
+        'otp',
+        'status'
     ];
 
     protected $hidden = [

@@ -336,6 +336,14 @@ Route::group([
     
     Route::prefix('checkout')->group(function() {
         Route::get('/',[CheckoutController::class, 'index']);
+        Route::post('check-user',[CheckoutController::class, 'checkUser']);
+        Route::post('verify',[CheckoutController::class, 'verify']);
+    });
+
+    Route::prefix('payment')->group(function() {
+        Route::post('/',[PaymentController::class, 'index']);
+        Route::get('/success',[PaymentController::class, 'success']);
+        Route::get('/cancel',[PaymentController::class, 'cancel']);
     });
 
     Route::get('refund-policy',[OtherPageController::class, 'refundPolicy']);
@@ -357,6 +365,3 @@ Route::group([
     // cart
     Route::get('/update-cart',[CartController::class, 'update']);
     Route::post('apply-coupon',[CartController::class, 'applyCoupon']);
-
-    //payment 
-    Route::post('/payment',[PaymentController::class, 'payment']);

@@ -66,6 +66,7 @@ class CartController extends Controller{
                 'price' => $request->total_price,
                 'quantity' => $request->quantity,
                 'attributes' => [
+                    'vehicle_id' => $product->id,
                     'booking_date' => $request->booking_date,
                     'time' => $request->time,
                     'extra_amount' => $extraAmount,

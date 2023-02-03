@@ -13,16 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('booking_details', function (Blueprint $table) {
+        Schema::create('email_otps', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('booking_id')->index('idx_booking_id');
-            $table->unsignedBigInteger('vehicle_id')->index('idx_vehicle_id');
-            $table->string('name', 50);
-            $table->decimal('price');
-            $table->date('booking_date');
-            $table->string('booking_time');
-            $table->tinyInteger('quantity')->default(1);
-            $table->longText('extra_product')->nullable();
+            $table->string('email',100);
+            $table->integer('otp');
+            $table->tinyInteger('status')->default(0);
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
         });
@@ -35,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('booking_details');
+        Schema::dropIfExists('email_otps');
     }
 };
