@@ -98,7 +98,7 @@
                   <div class="d-flex justify-content-between align-items-center mb-3">
                      <h4 class="text-right">Contact Details</h4>
                   </div>
-                  <form id="submit-check-user" action="{{ url('payment') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
+                  <form @if(isset(Auth::user()->id)) id="submit-payment" @else id="submit-check-user" @endif action="{{ url('payment') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
                      @csrf
                      <div class="row mt-2">
                         <div class="form__row__left">

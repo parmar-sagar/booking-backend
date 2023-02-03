@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Mail\RegisterUser;
 use App\Models\Booking;
 use App\Models\BookingDetail;
+use App\Models\BookingTransaction;
 use Mail;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
@@ -67,19 +68,11 @@ class PaymentController extends Controller
         ]);
 
         $product = [];
-        // $product['items'] = [
-        //     [
-        //         'name' => 'Nike Joyride 2',
-        //         'price' => 5,
-        //         'desc'  => 'Running shoes for Men',
-        //         'qty' => 2
-        //     ]
-        // ];
         $product['items'] = [];
         $product['invoice_id'] = $booking->random_id;
         $product['invoice_description'] = "Booking #{$booking->random_id} booked";
         $product['return_url'] = url('payment/success');
-        $product['cancel_url'] = url('payment/cancel');
+        $product['cancel_url'] = url('payment/failure');
         $product['total'] = $booking->total;
   
         $paypalModule = new ExpressCheckout;
@@ -90,6 +83,42 @@ class PaymentController extends Controller
         return redirect($res['paypal_link']);
     }
 
+    public function success(Request $request){
+        $provider = new ExpressCheckout;
+
+        $response = $provider->getExpressCheckoutDetails($request->token);
+
+        $booking = Booking::where('random_id',$response['INVNUM'])->first();
+
+        $transaction = new BookingTransaction();
+        $transaction->booking_id = $booking->id;
+        $transaction->user_id = Auth::user()->id;
+        $transaction->token = $request->token;
+        $transaction->payerid = $response['PAYERID'];
+        $transaction->amount = $response['AMT'];
+        $transaction->status = (isset($response['ACK'])) ? $response['ACK'] : 'Failure';
+        $transaction->save();
+        
+        return redirect('payment/thank-you/'.$booking->random_id);
+    }
+
+    public function failure(Request $request){
+        $provider = new ExpressCheckout;
+
+        $response = $provider->getExpressCheckoutDetails($request->token);
+        dd($response);
+        if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
+            dd('Your payment was successfully. You can create success page here.');
+        }
+  
+        dd('Something is wrong.');
+    }
+
+    public function thankYou($randomId){
+        $this->outputData['booking'] = Booking::where('random_id',$randomId)->first();
+
+        return view('front.pages.payment.thank-you',$this->outputData);
+    }
     public function payment(Request $request){
         try {
             if($request->method() == 'POST'){
@@ -135,29 +164,5 @@ class PaymentController extends Controller
         } catch (\Throwable $e) {
             return Error::Handle($e, self::ControllerCode, '02');
         }
-    }
-
-    public function success(Request $request){
-        $provider = new ExpressCheckout;
-
-        $response = $provider->getExpressCheckoutDetails($request->token);
-        dd($response);
-        if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
-            dd('Your payment was successfully. You can create success page here.');
-        }
-  
-        dd('Something is wrong.');
-    }
-
-    public function cancel(Request $request){
-        $provider = new ExpressCheckout;
-
-        $response = $provider->getExpressCheckoutDetails($request->token);
-        dd($response);
-        if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
-            dd('Your payment was successfully. You can create success page here.');
-        }
-  
-        dd('Something is wrong.');
     }
 }

@@ -343,7 +343,8 @@ Route::group([
     Route::prefix('payment')->group(function() {
         Route::post('/',[PaymentController::class, 'index']);
         Route::get('/success',[PaymentController::class, 'success']);
-        Route::get('/cancel',[PaymentController::class, 'cancel']);
+        Route::get('/failure',[PaymentController::class, 'failure']);
+        Route::get('/thank-you/{id}',[PaymentController::class, 'thankYou']);
     });
 
     Route::get('refund-policy',[OtherPageController::class, 'refundPolicy']);

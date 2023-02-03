@@ -27,8 +27,8 @@ return new class extends Migration
             $table->string('email',100);
             $table->string('pickup_location',100);
             $table->string('pickup_time',20);
-            $table->tinyInteger('status')->default(1)->comment('1 => Order Placed , 2 => In Progress, 3 => Canceled, 4 => Completed')->index('idx_status');
-            $table->tinyInteger('payment_status')->default(0)->comment('0 => unpaid , 1 => paid')->index('idx_payment_status');
+            $table->string('status',50)->default('Order Placed')->comment('1 => Order Placed , 2 => In Progress, 3 => Canceled, 4 => Completed')->index('idx_status');
+            $table->string('payment_status',50)->default('Unpaid')->comment('0 => Unpaid , 1 => Paid')->index('idx_payment_status');
             $table->softDeletes();
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
