@@ -54,7 +54,7 @@ class CartController extends Controller{
                     
                     $extraAmount += $extraActivity->price;
                 }
-                dd($additional);
+
             }
               
             $product = Vehicle::where('random_id',$request->id)->first();

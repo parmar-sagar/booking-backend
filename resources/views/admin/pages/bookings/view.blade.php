@@ -8,77 +8,108 @@
       <!--end::Button-->
    </div>
 </div>
-<div class="card-body">
+<div class="row">
+   <div class="col-lg-6">
+       <div class="card">
+           <div class="card-body">
+               <h4 class="header-title mb-3">Booking Information</h4>
+               <ul class="list-unstyled mb-0">
+                  <li>
+                      <p class="mb-2"><span class="fw-bold me-2">Booking Id:</span>{{$bookings->random_id}}</p>
+                      <p class="mb-2"><span class="fw-bold me-2">Booking Date:</span>{{$bookings->created_at}}</p>
+                      <p class="mb-2"><span class="fw-bold me-2">Status:</span> {{$bookings->status}}</p>
+                      <p class="mb-0"><span class="fw-bold me-2">Payment Status:</span> {{$bookings->payment_status}}</p>
+                  </li>
+              </ul>
+
+           </div>
+       </div>
+   </div> <!-- end col -->
+
+   <div class="col-lg-6">
+       <div class="card">
+           <div class="card-body">
+               <h4 class="header-title mb-3">Order Summery</h4>
+
+               <ul class="list-unstyled mb-0">
+                   <li>
+                       <p class="mb-2"><span class="fw-bold me-2">Subtotal:</span>{{$bookings->sub_total}}d</p>
+                       <p class="mb-2"><span class="fw-bold me-2">Discount:</span>{{$bookings->discount}}</p>
+                       <p class="mb-2"><span class="fw-bold me-2">Extra Amount:</span>{{$bookings->extra_amount}}</p>
+                       <p class="mb-0"><span class="fw-bold me-2">Grand Total:</span>{{$bookings->total}}</p>
+                   </li>
+               </ul>
+           </div>
+       </div>
+   </div> <!-- end col -->
    <div class="row">
       <div class="col-lg-12">
-         <div class="card card-custom" data-card="true">
-            <div class="card-body">
-               <table class="table table-borderless" style="font-size: 18px;">
-                  <tbody>
-                     <tr>
-                        <th>Booking Id</th>
-                        <td>:</td>
-                        <td>{{$bookings->random_id}}</td>
-                    </tr>
-                    <tr>
-                        <th>Amount</th>
-                        <td>:</td>
-                        <td>{{$bookings->total}}</td>
-                        <th>Booking Status</th>
-                        <td>:</td>
-                        <td>{{$bookings->status}}</td>
-                    </tr>
-                    <tr>
-                        <th>Payment Status</th>
-                        <td>:</td>
-                        <td>{{$bookings->payment_status}}</td>
-                     </tr>                     
-                     <tr>
-                        <th>First Name</th>
-                        <td>:</td>
-                        <td>{{$bookings->userInfo->first_name}}</td>
-                        <th>Last Name</th>
-                        <td>:</td>
-                        <td>{{$bookings->userInfo->last_name}}</td>
-                    </tr>
-                    <tr>
-                        <th>Pickup Location</th>
-                        <td>:</td>
-                        <td>{{$bookings->pickup_location}}</td>
-                        <th>Mobile</th>
-                        <td>:</td>
-                        <td>{{$bookings->userInfo->mobile}}</td>
-                    </tr>
-                    <tr>
-                        <th>email</th>
-                        <td>:</td>
-                        <td>{{$bookings->userInfo->email}}</td>
-                     </tr>
-                     <tr>
-                        <th>vehicle</th>
-                        <td>:</td>
-                        <td>{{$bookings->vehicleInfo->name}}</td>
-                        <th>Vehicle Price</th>
-                        <td>:</td>
-                        <td>{{$bookings->vehicleInfo->price}}</td>
-                    </tr>
-                    <tr>
-                        <th>Booking Date</th>
-                        <td>:</td>
-                        <td>{{$bookings->vehicleInfo->booking_date}}</td>
-                        <th>Booking Time</th>
-                        <td>:</td>
-                        <td>{{$bookings->vehicleInfo->booking_time}}</td>
-                    </tr>
-                    <tr>
-                        <th>quantity</th>
-                        <td>:</td>
-                        <td>{{$bookings->vehicleInfo->quantity}}</td>
-                    </tr>
-                  </tbody>
-               </table>
-            </div>
+          <div class="card">
+              <div class="card-body">
+                  <h4 class="header-title mb-3">Vehicle Information</h4>
+                  <div class="table-responsive">
+                      <table class="table mb-0">
+                          <thead class="table-light">
+                          <tr>
+                              <th>Name</th>
+                              <th>Price</th>
+                              <th>Date</th>
+                              <th>Time</th>
+                              <th>Quantity</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                           @foreach($bookings->vehicleInfo as $vehicles)
+                          <tr>
+                              <td>{{$vehicles->name}}</td>
+                              <td>{{$vehicles->price}}</td>
+                              <td>{{$vehicles->booking_date}}</td>
+                              <td>{{$vehicles->booking_time}}</td>
+                              <td>{{$vehicles->quantity}}</td>
+                          </tr>
+                          @endforeach
+                          </tbody>
+                      </table>
+                  </div>
+                  <!-- end table-responsive -->
+
+              </div>
+          </div>
+      </div> <!-- end col -->
+  </div>
+  <!-- end row -->
+  <!-- end row -->
+  <div class="row">
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-body">
+            <h4 class="header-title mb-3">Customer Information</h4>
+            <ul class="list-unstyled mb-0">
+               <li>
+                     <p class="mb-2"><span class="fw-bold me-2">First Name:</span>{{$bookings->userInfo->first_name}}</p>
+                     <p class="mb-2"><span class="fw-bold me-2">Last Name:</span>{{$bookings->userInfo->last_name}}</p>
+                     <p class="mb-2"><span class="fw-bold me-2">Mobile:</span> {{$bookings->userInfo->mobile}}</p>
+                     <p class="mb-0"><span class="fw-bold me-2">Email:</span> {{$bookings->userInfo->email}}</p>
+               </li>
+            </ul>
          </div>
       </div>
-   </div>
+   </div> <!-- end col -->
+
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-body">
+            <h4 class="header-title mb-3">Transaction</h4>
+            <ul class="list-unstyled mb-0">
+               <li>
+                     <p class="mb-2"><span class="fw-bold me-2">Token:</span>@if(isset($bookings->transaction->token)){{$bookings->transaction->token}}@endif</p>
+                     <p class="mb-2"><span class="fw-bold me-2">PayerId:</span>@if(isset($bookings->transaction->token)){{$bookings->transaction->payerid}}@endif</p>
+                     <p class="mb-2"><span class="fw-bold me-2">Status:</span>@if(isset($bookings->transaction->token)){{$bookings->transaction->status}}@endif</p>
+                     <p class="mb-0"><span class="fw-bold me-2">Amount:</span>@if(isset($bookings->transaction->token)){{$bookings->transaction->amount}}@endif</p>
+               </li>
+            </ul>
+         </div>
+      </div>
+</div> <!-- end col -->
 </div>
+<!-- end row -->
