@@ -28,18 +28,19 @@ class CartController extends Controller{
     }
 
     public function add(Request $request){
+       
         try{
             $validator = Validator::make($request->all(), [
                 'booking_date' => 'required',
                 'time' => 'required'
             ]);
-
+             
             if($validator->fails()){
                 throw new \Exception($validator->errors()->first());
             }
-
+          
             $validated = $validator->validated();
-
+   
             $additional = [];
             $extraAmount = 0;
             if(isset($request->extra_price)){
@@ -53,26 +54,28 @@ class CartController extends Controller{
                     
                     $extraAmount += $extraActivity->price;
                 }
+                dd($additional);
             }
               
             $product = Vehicle::where('random_id',$request->id)->first();
             
             \Cart::remove($request->id);
-
+               
             // add the p to cart
-            \Cart::add(array(
+           \Cart::add(array(
                 'id' => $request->id,
                 'name' => $product->name,
                 'price' => $request->total_price,
                 'quantity' => $request->quantity,
                 'attributes' => [
-                    'booking_date' => $request->booking_date,
-                    'time' => $request->time,
+                    'vehicle_id' => $product->id,
+                    'booking_date' => $validated['booking_date'],
+                    'time' => $validated['time'],
                     'extra_amount' => $extraAmount,
                     'extra_product' => $additional,
                 ]
             ));  
-
+          
             return response()->json([
                 'success' => "Tour has been added to your cart"
             ]); 

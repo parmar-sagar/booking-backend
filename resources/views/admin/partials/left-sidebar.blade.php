@@ -49,7 +49,12 @@
             </li>
 
             <li class="side-nav-title side-nav-item">Apps</li>
-
+            <li class="side-nav-item">
+                <a href="{{ url('admin/bookings') }}" class="side-nav-link">
+                    <i class="ri-notification-badge-fill"></i>
+                    <span> Bookings </span>
+                </a>
+            </li>
             <li class="side-nav-item">
                 <a href="{{ url('admin/users') }}" class="side-nav-link">
                     <i class="uil-users-alt"></i>

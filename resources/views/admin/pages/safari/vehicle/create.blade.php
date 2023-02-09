@@ -118,7 +118,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="amount" class="form-label">Price</label>
-                            <input type="number" id="amount" class="form-control" name="amount" value="@if(isset($objData->price->amount)){{ $objData->price->amount }}@endif" required>
+                            <input type="text" id="amount" class="form-control" name="amount" value="@if(isset($safariPirce)){{ $safariPirce['amount'] }}@endif" required>
                         </div>
                     </div>
                     <hr>

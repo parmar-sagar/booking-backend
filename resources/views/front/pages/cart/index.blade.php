@@ -75,11 +75,11 @@
                     </div>
                 </div>
               </div>
-              @if(!empty($value->attributes->extra_product))
+              @if(!empty($value->attributes->additional))
                 <div class="product-details">
                   <p>Extra Activities :- </p>
                   <div class="row">
-                      @foreach($value->attributes->extra_product as $key => $value)
+                      @foreach($value->attributes->additional as $key => $value)
                         <div class="col-6">
                           <h6>{{ $value['title'] }}</h6>
                         </div>

@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\SafetyGearController;
 use App\Http\Controllers\Admin\RefreshmentController;
 use App\Http\Controllers\Admin\TimeSlotController;
 use App\Http\Controllers\Admin\AdditionalInfoController;
+use App\Http\Controllers\Admin\BookingsController;
 
 /* Frontend Controller start*/
 
@@ -35,6 +36,7 @@ use App\Http\Controllers\OtherPageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TourController as ControllersTourController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\MyorderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -310,6 +312,14 @@ Route::group([
 		Route::get('/delete/{id}',[GroupController::class, 'destroy']);
     });
 
+    Route::group([ 
+        'prefix' => 'bookings'
+    ], function(){
+        Route::get('/',[BookingsController::class, 'index']);
+        Route::get('/datatable',[BookingsController::class, 'datatable']);
+        Route::get('/view/{id}',[BookingsController::class, 'view']);
+    });
+
 });
 
 /*********************** Frontend Routes start *******************************/
@@ -336,6 +346,17 @@ Route::group([
     
     Route::prefix('checkout')->group(function() {
         Route::get('/',[CheckoutController::class, 'index']);
+        Route::post('check-user',[CheckoutController::class, 'checkUser']);
+        Route::post('verify',[CheckoutController::class, 'verify']);
+    });
+
+    Route::prefix('payment')->group(function() {
+        Route::post('/',[PaymentController::class, 'index']);
+        Route::get('/success',[PaymentController::class, 'success']);
+        Route::get('/failure',[PaymentController::class, 'failure']);
+        Route::get('/thank-you/{id}',[PaymentController::class, 'thankYou']);
+        Route::get('/stripe/{id}',[PaymentController::class, 'stripe']);
+        Route::post('/stripe-payment',[PaymentController::class, 'stripePayment']);
     });
 
     Route::get('refund-policy',[OtherPageController::class, 'refundPolicy']);
@@ -358,5 +379,6 @@ Route::group([
     Route::get('/update-cart',[CartController::class, 'update']);
     Route::post('apply-coupon',[CartController::class, 'applyCoupon']);
 
-    //payment 
-    Route::post('/payment',[PaymentController::class, 'payment']);
+    //myorder
+    Route::get('/my-bookings',[MyorderController::class, 'index']);
+    Route::get('pdf-download/{id}',[MyorderController::class, 'pdf']);

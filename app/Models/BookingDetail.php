@@ -10,7 +10,7 @@ class BookingDetail extends Model
     use HasFactory;
 
     protected $fillable = [
-        'booking_id','name','image','price','qty'
+        'booking_id','vehicle_id','name','price','booking_date','booking_time','quantity','extra_product'
     ];
 
     protected $hidden = [

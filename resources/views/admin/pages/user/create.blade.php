@@ -15,10 +15,16 @@
                     <input type="hidden" value="{{ $objData->id }}" name="id">
                 @endif
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-3">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" id="name" class="form-control" name="name" value="@if(isset($objData->name) && $objData->name){{ $objData->name }}@endif" required>
+                            <label for="first_name" class="form-label">First Name</label>
+                            <input type="text" id="first_name" class="form-control" name="first_name" value="@if(isset($objData->first_name) && $objData->first_name){{ $objData->first_name }}@endif" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label">Last Name</label>
+                            <input type="text" id="last_name" class="form-control" name="last_name" value="@if(isset($objData->last_name) && $objData->last_name){{ $objData->last_name }}@endif" required>
                         </div>
                     </div>
                     <div class="col-lg-6">

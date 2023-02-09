@@ -87,6 +87,11 @@
           <li class="l-footer__menu-list-item"> 
             <a class="l-footer__menu-list-link" href="{{url('deals')}}" title="Deals" > Deals </a> 
           </li>
+          <li class="l-footer__menu-list-item">
+            <a class="l-footer__menu-list-link" href=" @if (Auth::check()){{url('my-account')}}@else {{url('login')}}@endif" title="My Account">
+                My Account
+            </a>
+          </li>
           <li class="l-footer__menu-list-item"> 
             <a class="l-footer__menu-list-link" href="{{url('reviews')}}" title="Reviews" > Reviews </a> 
           </li>

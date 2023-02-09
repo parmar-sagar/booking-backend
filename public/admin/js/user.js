@@ -23,11 +23,12 @@ $(document).ready(function() {
                     return row.random_id;
                 }
             },
-            {data: 'name', name: 'name'},
+            {data: 'first_name', name: 'first_name'},
+            {data: 'last_name', name: 'last_name'},
             {data: 'email', name: 'email'},
             {data: 'mobile', name: 'mobile'},
             {data: 'created_at', name: 'created_at'},
-            {data: 'status', name:'status',
+            {data: 'status', name:'status', 
                 "render": function ( data, type, row, meta ) {
                     let status = {
                         0: {'text': 'InActive', 'color': 'danger'},

@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "barryvdh/laravel-dompdf": "^2.0",
         "darryldecode/cart": "^4.2",
         "godruoyi/php-snowflake": "^2.1",
         "guzzlehttp/guzzle": "^7.2",
@@ -13,6 +14,8 @@
         "laravel/sanctum": "^3.0",
         "laravel/telescope": "^4.9",
         "laravel/tinker": "^2.7",
+        "srmklive/paypal": "~1.0",
+        "stripe/stripe-php": "^10.5",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

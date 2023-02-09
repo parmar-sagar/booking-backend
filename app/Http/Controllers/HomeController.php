@@ -57,6 +57,7 @@ class HomeController extends Controller{
                     'id' => 'required|exists:users',
                     'first_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
                     'last_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
+                    'mobile' => 'required|integer|min:10|',
                     'email' => 'required|max:100|email:rfc,dns|unique:users,email,'.$Input['id'],
                 ]);
     

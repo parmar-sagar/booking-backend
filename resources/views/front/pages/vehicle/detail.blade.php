@@ -306,7 +306,7 @@
                      <!-- end -->
                   </div>
                </div>
-               <div class="col-12 col-lg-6 col-xl-7 col-xxl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1"  id="cartcol"style="display:none">
+               <div class="col-12 col-lg-6 col-xl-7 col-xxl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1"  id="cartcol" style="display:none">
                   <div class="mb-30em animated fadeInUp active " id="duration">
                      <div class="card card--shadow-orange">
                         <div class="card__content">
@@ -321,7 +321,7 @@
                               </div>
                            </div>
                            <div class="content mt-10em mb-10em">
-                              <p>{{$objVehicle->description}}</p>
+                              <!-- <p>{{$objVehicle->description}}</p> -->
                            </div>
                            @if($objVehicle->type == 'Safari')
                               <div>
@@ -331,7 +331,7 @@
                                     <input type="hidden"  name ="totalPrice" value="{{$safariPrice->amount}}">
                                  @endif
                                  <button type="button" id="sub" class="sub">-</button>
-                                 <input style="width:40px" class="quantity-class" type="number" value="1" min="1" max="10" />
+                                 <input style="width:40px" name="quantity" class="quantity-class" type="number" value="1" min="1" max="10" />
                                  <button type="button" id="add" class="add">+</button>
                               </div>
                            @endif
@@ -420,11 +420,16 @@
          $('#select-available-time').val($(this).attr('data-time'));
          $('#cartcol').show();
       });
+      
 
       jQuery('#datepicker').Zebra_DatePicker({
          format: 'd-m-Y',
          direction: true,
          always_visible: $('#container') 
+      });
+
+      jQuery('body').on('click','.Zebra_DatePicker',function(){
+         $('#cartcol').show();
       });
 
       // Quantity Plus Minus

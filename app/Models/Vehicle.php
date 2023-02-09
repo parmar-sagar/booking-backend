@@ -89,6 +89,8 @@ class Vehicle extends Model
     public function price(){
         return $this->hasOne(Price::class,'vehicle_id','id');
     }
+
+    
     
     public function scopeSafari($query){
         return $query->where('type', 'Safari');

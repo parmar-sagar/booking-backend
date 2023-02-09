@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
 use App\Models\VehicleInfo;
+use App\Models\SafariPrice;
 use App\Models\Vehicle;
 use App\Handlers\Error;
 use App\Helpers\Helper;
@@ -91,13 +92,13 @@ class SafariVehicleController extends Controller
                 $validated['type'] = "Safari";
 
                 $lastInsertId = Vehicle::create($validated)->id;
-                              
-                Price::create([
-                    'tour_id' => $validated['tour_id'],
+
+                SafariPrice::create([
+                    'amount' => $validated['amount'],
                     'vehicle_id' => $lastInsertId,
-                    'amount' => $validated['amount']
+                    'tour_id' => $validated['tour_id'],
                 ]);
-                
+                              
                 return response()->json(['success' => "Safari Vehicle Created successfully."]);
             }
 
@@ -170,8 +171,7 @@ class SafariVehicleController extends Controller
                 }
 
                 Vehicle::find($validated['id'])->update($validated);
-
-                Price::where('vehicle_id',$validated['id'])->update([
+                SafariPrice::where('vehicle_id',$validated['id'])->update([
                     'amount' => $validated['amount'],
                     'vehicle_id' => $validated['id'],
                     'tour_id' => $validated['tour_id'],
@@ -186,6 +186,7 @@ class SafariVehicleController extends Controller
             $warnings = VehicleInfo::warning()->order()->get();
             $activities = VehicleInfo::activity()->order()->get();
             $addInfos = VehicleInfo::additionalInfo()->order()->get();
+            $safariPirce = SafariPrice::where('vehicle_id',$id)->select('amount')->first();
             
             $objData = Vehicle::findOrFail($id);
 
@@ -205,7 +206,8 @@ class SafariVehicleController extends Controller
                 'includes' => $includes,
                 'warnings' => $warnings,
                 'activities' => $activities,
-                'addInfos' => $addInfos
+                'addInfos' => $addInfos,
+                'safariPirce' => $safariPirce
             ]; 
 
             return view('admin.pages.safari.vehicle.create',$this->outputData);

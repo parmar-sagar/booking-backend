@@ -53,7 +53,8 @@ class UserController extends Controller{
                 
                 // Validation section
                 $validator = Validator::make($Input, [
-                    'name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
+                    'first_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
+                    'last_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
                     'email' => 'required|max:100|email:rfc,dns|unique:users',
                     'mobile' => 'required|string|min:10|max:12',
                     'photo' => 'required|mimes:jpeg,jpg,png,gif',
@@ -97,7 +98,8 @@ class UserController extends Controller{
                 // Validation section
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:users',
-                    'name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
+                    'first_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
+                    'last_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
                     'email' => 'required|max:100|email:rfc,dns|unique:users,email,'.$id,
                     'mobile' => 'required|string||min:10|max:12',
                     'photo' => 'nullable|mimes:jpeg,jpg,png,gif',

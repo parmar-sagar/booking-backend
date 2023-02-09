@@ -15,24 +15,21 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('booking_id')->index('idx_booking_id');
+            $table->string('random_id',50)->index('idx_random_id');
             $table->unsignedBigInteger('user_id')->index('idx_user_id');
-            $table->enum('status',['0','1'])->default(1)->comment('0 => deactive , 1 => active')->index('idx_status');
-            $table->enum('payment_status',['0','1'])->default(0)->comment('0 => unpaid , 1 => paid')->index('idx_payment_status');
-            $table->decimal('discount');
-            $table->decimal('sub_total');
-            $table->decimal('total');
-            $table->string('name', 50);
-            $table->string('mobile', 10);
-            $table->mediumInteger('pincode');
-            $table->string('locality', 10);
-            $table->text('address');
-            $table->string('state', 50);
-            $table->string('city', 50);
-            $table->string('landmark', 50)->nullable();
-            $table->string('house_no', 50);
-            $table->date('date');
-            $table->time('time');
+            $table->decimal('discount')->default(0);
+            $table->decimal('sub_total')->default(0);
+            $table->decimal('extra_amount')->default(0);
+            $table->decimal('total')->default(0);
+            $table->string('first_name',50);
+            $table->string('last_name',50);
+            $table->string('mobile',20);
+            $table->string('email',100);
+            $table->string('pickup_location',100);
+            $table->string('no_of_travelers',20);
+            $table->string('status',50)->default('Order Placed')->comment('1 => Order Placed , 2 => In Progress, 3 => Canceled, 4 => Completed')->index('idx_status');
+            $table->string('payment_status',50)->default('Unpaid')->comment('0 => Unpaid , 1 => Paid')->index('idx_payment_status');
+            $table->string('payment_method',50)->default('Payment on Arrival')->comment('Paypal,Stripe,Payment on Arrival');
             $table->softDeletes();
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');

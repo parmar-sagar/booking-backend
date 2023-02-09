@@ -7,6 +7,7 @@ $(document).ready(function() {
 
     jQuery('body').on('click','.open-form',function(){
         let link = $(this).data('create-href');
+      
         if(($(this).data('id'))){
             link = table.data('edit-href')+'/'+$(this).data('id');
         }
@@ -24,6 +25,25 @@ $(document).ready(function() {
             },
             error: function (error) {
                 warningFun();
+            }
+        });
+    });
+
+    jQuery('body').on('click', '.open-view', function() {
+        let link = table.data('view-href') + '/' + $(this).data('id');
+
+        $.ajax({
+            url: link,
+            success: function(response) {
+                if ((response.error)) {
+                    toastr.error(response.error);
+                } else {
+                    $('#content-form, #content-table').toggle();
+                    $('#content-form').html(response);
+                }
+            },
+            error: function(error) {
+                toastr.error("Something is wrong please try again");
             }
         });
     });

@@ -15,8 +15,8 @@
               <i class="fa fa-home text-center mr-1"></i> Account </a>
             <a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">
               <i class="fa fa-key text-center mr-1"></i> Password </a>
-            <a class="nav-link" id="security-tab" data-toggle="pill" href="#security" role="tab" aria-controls="security" aria-selected="false">
-              <i class="fa fa-user text-center mr-1"></i> Security </a>
+            <a class="nav-link" id="orders-tab" data-toggle="pill" href="#Orderdetails" role="tab" aria-controls="security" aria-selected="false">
+              <i class="fa fa-user text-center mr-1"></i>Order Details</a>
             <a class="nav-link" id="application-tab" data-toggle="pill" href="#application" role="tab" aria-controls="application" aria-selected="false">
               <i class="fa fa-car text-center mr-1"></i> My Rides </a>
             <a class="nav-link" id="notification-tab" data-toggle="pill" href="#notification" role="tab" aria-controls="notification" aria-selected="false">
@@ -53,7 +53,7 @@
                 </div>
                 <div class="form__row">
                   <div class="form__group">
-                    <input type="tel" name="number" id="number" value="{{ Auth::user()->number }}" placeholder="Mobile" class="form__input-blank" required="">
+                    <input type="tel" name="mobile" id="number" value="{{ Auth::user()->mobile }}" placeholder="Mobile" class="form__input-blank" required="">
                     <!-- <label class="form__label-blank" for="number">Mobile*</label> -->
                   </div>
                 </div>
@@ -133,34 +133,351 @@
             </div>
           </form>
           </div>
-          <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
-            <h3 class="mb-4">Security Settings</h3>
-            <div class="row mt-2">
-              <div class="col">
-                <div class="form__group">
-                  <input type="text" name="first_name" id="first_name" class="form__input-blank" required="">
-                  <label class="form__label-blank" for="first_name"> login*</label>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form__row__left">
-                  <div class="form__group">
-                    <input type="text" name="surname" id="_name" class="form__input-blank" required="">
-                    <label class="form__label-blank" for="first_name">Two-factor auth *</label>
+          <div class="tab-pane fade" id="Orderdetails" role="tabpanel" aria-labelledby="orders-tab">
+            <div id="orderList">
+              <h3 class="mb-4 text-center">Order Listing</h3>
+              <article class="card">
+                <header class="card-header"> Order ID: OD45345345435 </header>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Booking ID</b><br> <span>458184482525022719</span>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="col-12 mt-3">
-                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                <label for="vehicle1"> Recovery</label>
-                <br>
-              </div>
-            </div>
-            <div>
-              <button class="button">Update</button>
-              <button class="button">Cancel</button>
-            </div>
-          </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Booking Date</b><br> <span>15/06/1999</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Amount</b><br> <span>220 AED</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Status</b><br> <span> Order Placed</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Payment Status</b><br> <span>Unpaid</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Action</b><br> <span></span>
+                    </div>
+                  </div>   
+                </div> 
+              </div>  
+              </article>
+              <article class="card">
+                <header class="card-header"> Order ID: OD45345345435 </header>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Booking ID</b><br> <span>458184482525022719</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Booking Date</b><br> <span>15/06/1999</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Amount</b><br> <span>220 AED</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Status</b><br> <span> Order Placed</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Payment Status</b><br> <span>Unpaid</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Action</b><br> <span></span>
+                    </div>
+                  </div>   
+                </div> 
+              </div>  
+              </article>
+              <article class="card">
+                <header class="card-header"> Order ID: OD45345345435 </header>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Booking ID</b><br> <span>458184482525022719</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Booking Date</b><br> <span>15/06/1999</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Amount</b><br> <span>220 AED</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Status</b><br> <span> Order Placed</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Payment Status</b><br> <span>Unpaid</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Action</b><br> <span></span>
+                    </div>
+                  </div>   
+                </div> 
+              </div>  
+              </article>
+              <article class="card">
+                <header class="card-header"> Order ID: OD45345345435 </header>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Booking ID</b><br> <span>458184482525022719</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Booking Date</b><br> <span>15/06/1999</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Amount</b><br> <span>220 AED</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Status</b><br> <span> Order Placed</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Payment Status</b><br> <span>Unpaid</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Action</b><br> <span></span>
+                    </div>
+                  </div>   
+                </div> 
+              </div>  
+              </article>
+              <article class="card">
+                <header class="card-header"> Order ID: OD45345345435 </header>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Booking ID</b><br> <span>458184482525022719</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Booking Date</b><br> <span>15/06/1999</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Amount</b><br> <span>220 AED</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Status</b><br> <span> Order Placed</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Payment Status</b><br> <span>Unpaid</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Action</b><br> <span></span>
+                    </div>
+                  </div>   
+                </div> 
+              </div>  
+              </article>
+              <article class="card">
+                <header class="card-header"> Order ID: OD45345345435 </header>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Booking ID</b><br> <span>458184482525022719</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Booking Date</b><br> <span>15/06/1999</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Amount</b><br> <span>220 AED</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Status</b><br> <span> Order Placed</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Payment Status</b><br> <span>Unpaid</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="order-space">
+                      <b>Action</b><br> <span></span>
+                    </div>
+                  </div>   
+                </div> 
+              </div>  
+              </article>
+                      </div>
+            
+                    <div style="display:none" id="details" >
+                      <h6 class="mb-4 text-right" id="backBtn">Back</h6>
+                      <div class="accordion" id="accordionExample">
+                       <div class="accordion-item">
+                         <h2 class="accordion-header" id="headingOne">
+                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                             Order details
+                           </button>
+                         </h2>
+                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                           <div class="accordion-body">
+                             <div class="row">
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                 <div class="order-space">
+                                   <b>Order no.</b><br> <span>1</span>
+                                 </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                 <div class="order-space">
+                                   <b>Order Status.</b><br> <span>pending</span>
+                                 </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                 <div class="order-space">
+                                   <b>Order Date</b><br> <span>01-02-2023</span>
+                                 </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                 <div class="order-space">
+                                   <b>Payment status</b><br> <span>success</span>
+                                 </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                 <div class="order-space">
+                                   <b>Amount</b><br> <span>AED 300</span>
+                                 </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                 <div class="order-space">
+                                   <b>Coupon code</b><br> <span>AEI05G2</span>
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                       <div class="accordion-item">
+                         <h2 class="accordion-header" id="headingTwo">
+                           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                             Product Details
+                           </button>
+                         </h2>
+                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                           <div class="accordion-body">
+                             <div class="row">
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                 <div class="order-space">
+                                   <b>Order no.</b><br> <span>1</span>
+                                 </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                 <div class="order-space">
+                                   <b>Order Status.</b><br> <span>pending</span>
+                                 </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                 <div class="order-space">
+                                   <b>Order Date</b><br> <span>01-02-2023</span>
+                                 </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                 <div class="order-space">
+                                   <b>Payment status</b><br> <span>success</span>
+                                 </div>
+                               </div>
+                               </div>
+                           </div>
+                         </div>
+                       </div>
+                       <div class="accordion-item">
+                         <h2 class="accordion-header" id="headingThree">
+                           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                             Custom & information
+                           </button>
+                         </h2>
+                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                           <div class="accordion-body">
+                             <div class="row">
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                 <div class="order-space">
+                                   <b>Name</b><br> <span>john</span>
+                                 </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                 <div class="order-space">
+                                   <b>Email</b><br> <span>dubaiquads@gmail.com</span>
+                                 </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                 <div class="order-space">
+                                   <b>Phone no.</b><br> <span>8888888888</span>
+                                 </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                 <div class="order-space">
+                                   <b>Address</b><br> <span>dubai</span>
+                                 </div>
+                               </div>
+                               </div>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                     <div>
+                       <button class="button">Pay Now</button>
+                     </div>
+                    </div>        
+                  </div>
           <div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="application-tab">
             <h3 class="mb-4">My Tours</h3>
             <div class="row">
@@ -222,6 +539,20 @@
   </x-front.master-layout>
 
 <script>
+
+$('#example').DataTable( {
+  responsive: true
+  } );
+  $(document).ready(function(){
+    $('#detailsBtn').on('click',function(){
+      $('#orderList').hide();
+      $('#details').show();
+    })
+    $('#backBtn').on('click',function(){
+    $('#orderList').show();
+      $('#details').hide();
+    })
+  })
     /* update profile Using Ajax */
     $(document).on('submit','#submit-password',function(e){
         e.preventDefault();

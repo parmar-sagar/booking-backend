@@ -7,6 +7,7 @@ use App\Models\Time;
 use App\Models\TourGallary;
 use App\Models\Vehicle;
 use App\Models\VehicleInfo;
+use App\Models\SafariPrice;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller{
@@ -14,6 +15,7 @@ class VehicleController extends Controller{
     public $outputData = [];
 
     public function details($id){
+
         $objVehicle = Vehicle::where('random_id',$id)->first();
 
         $includeIds = Helper::explode($objVehicle->includes_ids);
@@ -40,6 +42,7 @@ class VehicleController extends Controller{
         $timeIds = Helper::explode($objVehicle->tour->time_ids);
         $times = Time::select('time','type')->whereIn('id',$timeIds)->get();
 
+        $safariPrice = SafariPrice::where('vehicle_id',$objVehicle->id)->select('amount')->first();
         $singleImglry = $objVehicle->gallery->first();
     
         $this->outputData = [
@@ -52,7 +55,8 @@ class VehicleController extends Controller{
             'addInfos' => $addInfos,
             'extraActivitys' => $extraActivitys,
             'times' => $times,
-            'singleImglry' => $singleImglry
+            'singleImglry' => $singleImglry,
+            'safariPrice' => $safariPrice
         ];
         return view('front.pages.vehicle.detail',$this->outputData);
     }

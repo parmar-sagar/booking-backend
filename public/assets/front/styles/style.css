@@ -25157,22 +25157,6 @@ div#auth-page-1669716376 .overlay {
     transition: border .3s;
 }
 
-.btn {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
-    padding: 10px 30px;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 18px;
-    color: #fff;
-    line-height: 1;
-    border: 3px solid transparent;
-    cursor: pointer;
-    transition: color .3s, border 0s;
-}
-
 .btn:after {
     content: " ";
     position: absolute;
@@ -27214,3 +27198,30 @@ input#totaltourAmt {
  .Zebra_DatePicker .dp_body .dp_selected {
   background: #feb100  !important;
   color: #fff !important;}
+  .card.dsa-order {
+    border: 1px solid;
+    margin-top: 20px;
+    padding: 20px 0px;
+    line-height: 3;
+}
+
+.Thanks-order {
+    text-align: center;
+    font-size: 28px;
+}
+
+.orderD-thanks {
+    display: flex;
+    align-items: center;
+}
+
+@media(max-width:600px) {
+    .Thanks-order {
+        text-align: center;
+        font-size: 22px;
+    }
+}
+
+.form__group ::placeholder{
+    color: rgba(49, 49, 49, .5);
+}
