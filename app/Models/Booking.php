@@ -24,6 +24,7 @@ class Booking extends Model
         'email',
         'pickup_location',
         'no_of_travelers',
+        'coupon',
         'status',
         'payment_status',
         'payment_method'

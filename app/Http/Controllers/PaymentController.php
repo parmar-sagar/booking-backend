@@ -31,6 +31,8 @@ class PaymentController extends Controller
         $total = \Cart::getTotal();
         $subTotal = \Cart::getSubTotal();
 
+        $coupon = session()->get('coupon');
+
         $bookingData = [
             'random_id' => (new Snowflake())->id(),
             'user_id' => Auth::user()->id,
@@ -41,7 +43,8 @@ class PaymentController extends Controller
             'email' => $request->email,
             'pickup_location' => $request->pickup_location,
             'no_of_travelers' => $request->no_of_travelers,
-            'payment_method' => $request->payment_method
+            'payment_method' => $request->payment_method,
+            'coupon' => (($coupon['code'])) ?? ''
         ];
 
         $booking = Booking::create($bookingData);
@@ -62,9 +65,12 @@ class PaymentController extends Controller
             ]);
         }
 
+        $discount = (($coupon['discount'])) ?? 0.00;
+
         $booking->update([
+            'discount' => $discount,
             'extra_amount' => $extraAmount,
-            'total' => $total + $extraAmount
+            'total' => $total + $extraAmount - $discount
         ]);
 
         if($request->payment_method == 'Paypal'){

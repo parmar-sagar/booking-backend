@@ -43,7 +43,7 @@
                                        </div>
                                        <div class="col-lg-6 col-md-6 col-sm-12">
                                           <div class="order-space">
-                                             <b>Coupon code</b><br> <span>NA</span>
+                                             <b>Coupon code</b><br> <span>{{ $booking->coupon }}</span>
                                           </div>
                                        </div>
                                     </div>

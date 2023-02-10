@@ -104,26 +104,36 @@
             <div class="summary-subtotal">
               <form id="apply-coupon" method="POST" autocomplete="off" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" id="total" value="{{ $total + $extraAmount }}" name="total">
                 <div class="form-group coupon"> 
                   <label>Have coupon?</label>
                     <div class="input-group"> 
-                      <input type="text" class="form-control coupon" name="coupon" placeholder="Coupon code"> 
+                      <input type="text" class="form-control coupon" value="{{ $code }}" name="coupon" placeholder="Coupon code"> 
                       <span class="input-group-append"> 
-                        <button class="btn btn-primary btn-apply coupon apBtn">Apply</button> 
+                        @if($code)
+                          <button class="btn btn-primary btn-apply coupon apBtn" style="background: #0fba68" disabled>Applied</button> 
+                        @else
+                          <button class="btn btn-primary btn-apply coupon apBtn">Apply</button> 
+                        @endif
                       </span> 
                     </div>
                   </div>
                 </form>
                 <div class="subtotal-title">Subtotal</div>
-                <div class="subtotal-value final-value" id="basket-subtotal">{{ $subTotal }} AED</div>
+                <div class="subtotal-value final-value" id="basket-subtotal">{{ number_format($subTotal, 2) }} AED</div>
                 <br>
                 <br>
                 <div class="subtotal-title">Extra Amount</div>
-                <div class="subtotal-value final-value" id="basket-subtotal">{{ $extraAmount }} AED</div>
+                <div class="subtotal-value final-value" id="basket-subtotal">{{ number_format($extraAmount, 2) }} AED</div>
+                <br>
+                <br>
+                <div class="subtotal-title">Discount</div>
+                <div class="subtotal-value final-value" id="discount">{{ $discount }} AED</div>
                 <br>
                 <div class="summary-total">
                   <div class="total-title">Total</div>
-                  <div class="subtotal-value final-value grandCoupon" id="basket-subtotal">{{ $total + $extraAmount }} AED</div>
+                  <div class="subtotal-value final-value grandCoupon grandTotal" id="grand-total">{{ number_format($total + $extraAmount - $discount, 2) }} AED</div>
+                  <input type="hidden" id="grandTotal" value="{{ $total + $extraAmount - $discount }}">
                 </div>
             </div>
           </div>
@@ -155,7 +165,7 @@
 
   //Apply Coupon
   $(document).on('submit','#apply-coupon',function(e){
-
+    $("#total").val($("#grandTotal").val());
     e.preventDefault();
     $.ajax({
         type: $(this).prop('method'),
@@ -166,8 +176,16 @@
         processData: false,
         success: function (response) {
           if((response.error)){
+            $('.apBtn').text('Apply');
+            $('.apBtn').css('background','#00bcd4');
+            $('.apBtn').prop("disabled", false);
             toastr.error(response.error);
           }else{
+            $("#grand-total").html(response.data.total+' AED');
+            $("#discount").html(response.data.discount+' AED');
+            $('.apBtn').text('Applied');
+            $('.apBtn').css('background','#0fba68');
+            $('.apBtn').prop("disabled", true);
             toastr.success(response.success);
           }
         },error: function (error){

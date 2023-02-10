@@ -19,10 +19,13 @@ class CartController extends Controller{
         $carts = \Cart::getContent();
         $total = \Cart::getTotal();
         $subTotal = \Cart::getSubTotal();
+        $coupon = session()->get('coupon');
         $this->outputData = [
             'carts' => $carts,
             'subTotal' => $subTotal,
-            'total' => $total
+            'total' => $total,
+            'code' => (($coupon['code'])) ?? '',
+            'discount' => (($coupon['discount'])) ?? 0.00
         ];
         return view('front.pages.cart.index',$this->outputData);
     }
@@ -95,14 +98,45 @@ class CartController extends Controller{
     }
 
     public function applyCoupon(Request $request){
-        $input = $request->all();
+        try{
+            $couponData = Coupon::where('code', $request->coupon)->first();
+            $discount = 0.00;
+            $total = 0.00;
 
-        if (Coupon::where('code', $input['coupon'])->exists()) {
-            $couponData = Coupon::where('code', $input['coupon'])->first();
-            return response()->json(['success' => "Coupon Appled Succesfully",'data' =>$couponData]);
-         }else{
-            return response()->json(['error' => "Please Enter Valid Coupon"]);
-         }
+            if ($couponData) {
+                
+                if($couponData->type == 1){
+                    if($couponData->amount < $request->total){
+                        $discount = $couponData->amount;
+                    }else{
+                        $response['error'] = "You need to book greater than {$couponData->amount} AED";
+                    }
+                }else{
+                    $discount = ($request->total * $couponData->amount) / 100;
+                }
+
+                if($discount > 0){
+                    session()->put('coupon',[
+                        'code' => $request->coupon,
+                        'discount' => $discount
+                    ]);
+                }else{
+                    session()->forget('coupon');
+                }
+                $total = $request->total - $discount;
+                
+                $response['success'] = "Coupon Appled Succesfully";
+            }else{
+                $response['error'] = "Please Enter Valid Coupon";
+            }
+            $response['data'] = [
+                'total' => $total,
+                'discount' => $discount
+            ];
+            return response()->json($response);
+        } catch (\Throwable $e) {
+            return Error::Handle($e, self::ControllerCode);
+        }
     }
 
 }

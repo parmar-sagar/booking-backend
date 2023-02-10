@@ -23,10 +23,13 @@ class CheckoutController extends Controller{
         $carts = \Cart::getContent();
         $total = \Cart::getTotal();
         $subTotal = \Cart::getSubTotal();
+        $coupon = session()->get('coupon');
         $this->outputData = [
             'carts' => $carts,
             'subTotal' => $subTotal,
-            'total' => $total
+            'total' => $total,
+            'code' => (($coupon['code'])) ?? '',
+            'discount' => (($coupon['discount'])) ?? 0.00
         ];
         return view('front.pages.checkout.index',$this->outputData);
     }

@@ -1,48 +1,48 @@
 <x-front.master-layout>
    <div class="container cart " style="margin-bottom:10px;padding-bottom:10px;">
       <div class="col-lg-8 col-md-12 col-sm-12 content cart-item mb-20 pb-20">
-            <div class="basket card--shadow-blurple">
-               <div class="basket-labels basket-U">
-                  <table class="responsive-large-tabU">
+         <div class="basket card--shadow-blurple">
+            <div class="basket-labels basket-U">
+               <table class="responsive-large-tabU">
+                  <tr>
+                     <th>Item</th>
+                     <th>Price</th>
+                     <th>Date</th>
+                     <th>Time</th>
+                     <th>Quantity</th>
+                     <th>Subtotal</th>
+                  </tr>
+                  @php 
+                     $extraAmount = 0; 
+                  @endphp
+                  
+                  @foreach($carts as $key => $value)
+                     @php 
+                        $extraAmount += $value->attributes->extra_amount; 
+                     @endphp
+                     <tr>
+                        <td>{{ $value->name }}</td>
+                        <td>{{ $value->price }} AED</td>
+                        <td>{{ $value->attributes->booking_date }}</td>
+                        <td>{{ $value->attributes->time }}</td>
+                        <td>{{ $value->quantity }}</td>
+                        <td>{{ ($value->price * $value->quantity) + $value->attributes->extra_amount }} AED</td>
+                     </tr>
+                     @if(!empty($value->attributes->extra_product))
                         <tr>
-                           <th>Item</th>
-                           <th>Price</th>
-                           <th>Date</th>
-                           <th>Time</th>
-                           <th>Qnty</th>
-                           <th>Subtotal</th>
+                           <th>Extra Activities :-</th>
                         </tr>
-                        @php 
-                        $carts = Cart::getContent();
-                        $total = Cart::getSubTotal();
-                        @endphp
-                        @php $grandTotal=0; @endphp
-                        @foreach($carts as $key => $value)
-                        @php $grandTotal += $value->attributes->total;
-                        @endphp
-                           <tr>
-                              <td>{{$value->name}}</td>
-                              <td>{{$value->price}} AED</td>
-                              <td>{{$value->attributes->booking_date}}</td>
-                              <td>{{$value->attributes->time}}</td>
-                              <td>{{$value->quantity}}</td>
-                              <td>{{ ($value->price * $value->quantity) + $value->attributes->extra_amount }} AED</td>
+                        @foreach($value->attributes->extra_product as $key => $value)
+                           <tr style="border-bottom: 1px solid;">
+                              <td>{{ $value['title'] }}</td>
+                              <td>{{ $value['price'] }}AED</td>
                            </tr>
-                           @if(!empty($value->attributes->extra_product))
-                              <tr>
-                                    <th>Extra Activities :-</th>
-                              </tr>
-                              @foreach($value->attributes->extra_product as $key => $value)
-                                    <tr style="border-bottom: 1px solid;">
-                                       <td>{{ $value['title'] }}</td>
-                                       <td>{{ $value['price'] }}AED</td>
-                                    </tr>
-                              @endforeach 
-                           @endif
-                        @endforeach
-                  </table>
-               </div>
-            </div><br><br>
+                        @endforeach 
+                     @endif
+                  @endforeach
+               </table>
+            </div>
+         </div><br><br>
       </div>
       <div class="col-lg-4 col-md-12 col-sm-12" style="padding: 0px;">
          <aside>
@@ -55,25 +55,16 @@
                   <div class="subtotal-value final-value" id="basket-subtotal">{{ $subTotal }} AED</div>
                   <br>
                   <br>
-                  <div id="couponTable" style="display: none;">
-                     <table class="responsive-large-tabU">
-                        <tr>
-                           <th>Subtotal</th>
-                           <td>{{$grandTotal}} AED</td>
-                        </tr>
-                        <tr>
-                           <th>Coupon Discount</th>
-                           <td id="discount"></td>
-                        <tr>
-                        <tr>
-                           <th>Total</th>
-                           <td class="grandCoupon"></td>
-                        <tr>
-                     </table>
-                  </div>
+                  <div class="subtotal-title">Extra Amount</div>
+                  <div class="subtotal-value final-value" id="basket-subtotal">{{ number_format($extraAmount, 2) }} AED</div>
+                  <br>
+                  <br>
+                  <div class="subtotal-title">Discount</div>
+                  <div class="subtotal-value final-value" id="discount">{{ $discount }} AED</div>
+                  <br>
                   <div class="summary-total">
                      <div class="total-title">Total</div>
-                     <div class="total-value final-value grandCoupon" id="basket-total">{{$grandTotal}} AED</div>
+                     <div class="total-value final-value grandCoupon" id="basket-total">{{ number_format($total + $extraAmount - $discount, 2) }} AED</div>
                   </div>
                </div>
             </div>

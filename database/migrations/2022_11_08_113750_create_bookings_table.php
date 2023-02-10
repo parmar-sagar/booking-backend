@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('email',100);
             $table->string('pickup_location',100);
             $table->string('no_of_travelers',20);
+            $table->string('coupon',50)->nullable();
             $table->string('status',50)->default('Order Placed')->comment('1 => Order Placed , 2 => In Progress, 3 => Canceled, 4 => Completed')->index('idx_status');
             $table->string('payment_status',50)->default('Unpaid')->comment('0 => Unpaid , 1 => Paid')->index('idx_payment_status');
             $table->string('payment_method',50)->default('Payment on Arrival')->comment('Paypal,Stripe,Payment on Arrival');
