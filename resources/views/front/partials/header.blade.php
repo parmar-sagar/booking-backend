@@ -56,12 +56,26 @@
       </a>
     @endif
   @else
-    <form method="POST" action="{{ route('logout') }}">
+    {{-- <form method="POST" action="{{ route('logout') }}">
       @csrf
       <a class="l-navbar__login-link" title="Logout" aria-label="Logout" onclick="event.preventDefault(); this.closest('form').submit();">
         <i class="fa-solid fa-user"></i>
         <span>Logout</span>
       </a>
-    </form>
+    </form> --}}
+    <ul class="l-navbar__menu">
+    <li class="l-navbar__menu-item">
+      <div class="dropdown">
+        <a href="javascript:void(0)">
+          <span class="dropbtn l-navbar__menu-link ">Account</span>
+        </a>
+        <div class="dropdown-Tour_content">
+            <a href="{{url('account/profile')}}">My Profile</a>
+            <a href="{{url('tours')}}">Change Password</a>
+            <a href="{{url('tours')}}">Logout</a>
+        </div>
+      </div>
+  </li>
+    </ul>
   @endguest
 </nav>
