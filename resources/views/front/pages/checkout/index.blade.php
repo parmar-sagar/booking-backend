@@ -55,18 +55,6 @@
                   <div class="subtotal-value final-value" id="basket-subtotal">{{ $subTotal }} AED</div>
                   <br>
                   <br>
-                  <form id="submit-form" method="POST" autocomplete="off" enctype="multipart/form-data">
-                        @csrf
-                     <div class="form-group coupon"> 
-                     <label>Have coupon?</label>
-                           <div class="input-group"> 
-                           <input type="text" class="form-control coupon" name="coupon" placeholder="Coupon code"> 
-                           <span class="input-group-append"> 
-                           <button class="btn btn-primary btn-apply coupon apBtn">Apply</button> 
-                           </span> 
-                           </div>
-                     </div>
-                  </form>
                   <div id="couponTable" style="display: none;">
                      <table class="responsive-large-tabU">
                         <tr>
@@ -264,45 +252,6 @@
    //  }
     $(document).ready(function(){
          
-    //Apply Coupon
-    $(document).on('submit','#submit-form',function(e){
-
-        e.preventDefault();
-        $.ajax({
-            type: $(this).prop('method'),
-            url: "{{url('apply-coupon')}}",
-            data:new FormData(this),
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function (response) {
-                if((response.error)){
-                   toastr.error(response.error);
-                }else{
-    
-                var grandtotal = "{{$grandTotal}}";
-                var coupondiscount = response.data.ammount;
-                var type = response.data.type;
-    
-                if(type == 1){
-                var totalamt = "{{$grandTotal}}" - ("{{$grandTotal}}" * (coupondiscount / 100));
-                }
-                if(type == 0){
-                  var totalamt = "{{$grandTotal}}" - coupondiscount;
-                }
-                  var discount = totalamt - grandtotal;
-                $('.apBtn').text('Applied');
-                $('.apBtn').css('background','#0fba68');
-                $('.grandCoupon').text(totalamt +'  '+'AED');
-                $('#discount').text(discount +'  '+'AED');
-                $('#couponTable').show();
-                toastr.success(response.success);
-                }
-            },error: function (error){
-                 toastr.error('something is wrong');
-            }
-        });
-    });
     // select only one payment option
     $('.checkoption').click(function() {
          $('.checkoption').not(this).prop('checked', false);

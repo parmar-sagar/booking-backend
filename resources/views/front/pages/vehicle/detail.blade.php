@@ -335,38 +335,47 @@
                                  <button type="button" id="add" class="add">+</button>
                               </div>
                            @endif
-                           @if($objVehicle->type == 'Tour')
-                              <table class="list-tour-info list-tour-info--two-cols">
-                                 <tr>
-                                    <th>Duration</th>
-                                    <th>Amount</th>
-                                    <th>Quantity</th>
-                                    <th>Total Amount</th>
-                                 </tr>
-                                 <tr>
-                                    <td style="width:25%;">
-                                       <div class="form__row">
-                                          <div class="form__row__left">
-                                             <div class="form__group">
-                                                <select id="select-time">
-                                                   @foreach($objVehicle->prices as $value)  
-                                                      <option value="@if(isset($dealsDiscount)) {{$value->amount - ($value->amount * ($dealsDiscount / 100))}}@else{{$value->amount}}@endif">{{$value->time}} Min</option>
-                                                   @endforeach
-                                                </select>
-                                             </div>
+                           <table class="list-tour-info list-tour-info--two-cols">
+                              <tr>
+                                 @if($objVehicle->type == 'Tour')
+                                 <th>Duration</th>
+                                 @endif
+                                 <th>Amount</th>
+                                 <th>Quantity</th>
+                                 <th>Total Amount</th>
+                              </tr>
+                              <tr>
+                                 @if($objVehicle->type == 'Tour')
+                                 <td style="width:25%;">
+                                    <div class="form__row">
+                                       <div class="form__row__left">
+                                          <div class="form__group">
+                                             <select id="select-time">
+                                                @foreach($objVehicle->prices as $value)  
+                                                   <option value="@if(isset($dealsDiscount)) {{$value->amount - ($value->amount * ($dealsDiscount / 100))}}@else{{$value->amount}}@endif">{{$value->time}} Min</option>
+                                                @endforeach
+                                             </select>
                                           </div>
                                        </div>
-                                    </td>
-                                    <td id="selected-price" style="width:25%"></td>
-                                    <td class="qntityBtn" style="width:25%">
-                                       <button type="button" id="sub" class="sub">-</button>
-                                       <input style="width:40px" name="quantity" class="quantity-class" type="number" value="1" min="1" max="10" />
-                                       <button type="button" id="add" class="add">+</button>
-                                    </td>
-                                    <td style="width:25%"><input name="total_price" value="" id="total-tour-amount" readonly></td>
-                                 </tr>
-                              </table>
-                           @endif
+                                    </div>
+                                 </td>
+                                 @endif
+                                 <td id="selected-price" style="width:25%">@if($objVehicle->type == 'Safari'){{ $safariPrice->amount }}@endif</td>
+                                 <td class="qntityBtn" style="width:25%">
+                                    <button type="button" id="sub" class="sub">-</button>
+                                    <input style="width:40px" name="quantity" class="quantity-class" type="number" value="1" min="1" max="10" />
+                                    <button type="button" id="add" class="add">+</button>
+                                 </td>
+                                 <td style="width:25%">
+                                    @if($objVehicle->type == 'Safari')
+                                       <input type="text" name="total_price" value="{{ $safariPrice->amount }}" readonly>
+                                    @else
+                                       <input type="text" name="total_price" value="" id="total-tour-amount" readonly>
+                                    @endif
+                                    
+                                 </td>
+                              </tr>
+                           </table>
                            <h1 style="font-size: 1.75rem">  Extra Activities</h1>
                            <table>
                               @foreach($extraActivitys as $key => $value)

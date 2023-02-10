@@ -71,8 +71,10 @@
         </a>
         <div class="dropdown-Tour_content">
             <a href="{{url('account/profile')}}">My Profile</a>
-            <a href="{{url('tours')}}">Change Password</a>
-            <a href="{{url('tours')}}">Logout</a>
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+              <a href="javascript:void(0)" onclick="event.preventDefault(); this.closest('form').submit();">Logout</a>
+            </form>
         </div>
       </div>
   </li>
