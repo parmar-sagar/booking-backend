@@ -44,7 +44,11 @@ class Booking extends Model
     }
 
     public function vehicleInfo(){
-        return $this->hasOne(BookingDetail::class,'booking_id','id');
+        return $this->hasMany(BookingDetail::class,'booking_id','id');
+    }
+
+    public function transaction(){
+        return $this->hasMany(BookingTransaction::class,'booking_id','id');
     }
 
 }
