@@ -40,7 +40,7 @@ class CartController extends Controller{
             }
           
             $validated = $validator->validated();
-   
+
             $additional = [];
             $extraAmount = 0;
             if(isset($request->extra_price)){

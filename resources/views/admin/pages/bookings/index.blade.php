@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                    <table class="table table-centered w-100 dt-responsive nowrap" id="dataTable" data-table-ajax="true" data-table-href="{{ $dataTables }}" data-view-href="{{ $view }}">
+                    <table class="table table-centered w-100 dt-responsive nowrap" id="dataTable" data-table-ajax="true" data-table-href="{{ $dataTables }}" data-edit-href="{{ $view }}">
                             <thead class="table-light">
                                 <tr>
                                     <th>Booking Id</th>

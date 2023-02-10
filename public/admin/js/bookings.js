@@ -61,7 +61,7 @@ $(document).ready(function() {
                 searchable: false,
                 class: 'table-action',
                 "render": function(data, type, row, meta) {
-                    return '<a href="javascript:void(0);" class="action-icon open-view" title="view" data-id="' + row.id + '">\
+                    return '<a href="javascript:void(0);" class="action-icon open-form" title="view" data-id="' + row.id + '">\
                                 <i class="ri-eye-line"></i></a>';
                 }
             },

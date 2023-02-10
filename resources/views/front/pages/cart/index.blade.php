@@ -102,6 +102,18 @@
                 <span class="total-items"></span> Items in your Bag
             </div>
             <div class="summary-subtotal">
+              <form id="apply-coupon" method="POST" autocomplete="off" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group coupon"> 
+                  <label>Have coupon?</label>
+                    <div class="input-group"> 
+                      <input type="text" class="form-control coupon" name="coupon" placeholder="Coupon code"> 
+                      <span class="input-group-append"> 
+                        <button class="btn btn-primary btn-apply coupon apBtn">Apply</button> 
+                      </span> 
+                    </div>
+                  </div>
+                </form>
                 <div class="subtotal-title">Subtotal</div>
                 <div class="subtotal-value final-value" id="basket-subtotal">{{ $subTotal }} AED</div>
                 <br>
@@ -138,6 +150,29 @@
               }, 1000);             
             }
         }           
+    });
+  });
+
+  //Apply Coupon
+  $(document).on('submit','#apply-coupon',function(e){
+
+    e.preventDefault();
+    $.ajax({
+        type: $(this).prop('method'),
+        url: "{{url('apply-coupon')}}",
+        data:new FormData(this),
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (response) {
+          if((response.error)){
+            toastr.error(response.error);
+          }else{
+            toastr.success(response.success);
+          }
+        },error: function (error){
+            toastr.error('something is wrong');
+        }
     });
   });
 </script>

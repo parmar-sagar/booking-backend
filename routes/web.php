@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\TourController;
@@ -28,7 +29,6 @@ use App\Http\Controllers\Admin\BookingsController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SingleProductController;
-use App\Http\Controllers\AlltoursController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
@@ -37,6 +37,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TourController as ControllersTourController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\MyorderController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -368,9 +369,6 @@ Route::group([
     Route::get('faqs',[OtherPageController::class, 'faqs']);
     Route::get('reviews',[OtherPageController::class, 'reviews']);
 
-
-
-
     Route::get('/my-account',[HomeController::class, 'myAccount']);
     Route::post('update-profile',[HomeController::class, 'updateProfile']);
     Route::post('update-password',[HomeController::class, 'updatePassword']);
@@ -382,3 +380,16 @@ Route::group([
     //myorder
     Route::get('/my-bookings',[MyorderController::class, 'index']);
     Route::get('pdf-download/{id}',[MyorderController::class, 'pdf']);
+
+    Route::group([
+        'middleware' => 'auth'
+    ], function(){
+        Route::prefix('account')->group(function(){
+            Route::get('/profile',[AccountController::class, 'account']);
+            Route::get('/password',[AccountController::class, 'password']);
+        });
+        Route::prefix('bookings')->group(function(){
+            Route::get('/',[OrderController::class, 'index']);
+            Route::get('/{id}',[OrderController::class, 'details']);
+        });
+    });
