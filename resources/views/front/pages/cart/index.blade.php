@@ -65,7 +65,7 @@
                     <div class="price"><span class="tag-detail1"></span>{{ ($value->price * $value->quantity) + $value->attributes->extra_amount }} AED</div>
                     <div class="price" style="display: flex;">
                       <span class="tag-detail1">
-                        <a href="{{ url('view-detail/'.$value->id) }}">
+                        <a href="{{ url('vehicles/details/'.$value->id) }}">
                           <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                         </a>
                         <a class="remove" href="javascript:void(0);" data-id="{{ $value->id }}">
@@ -75,11 +75,11 @@
                     </div>
                 </div>
               </div>
-              @if(!empty($value->attributes->additional))
+              @if($value->attributes->extra_product)
                 <div class="product-details">
                   <p>Extra Activities :- </p>
                   <div class="row">
-                      @foreach($value->attributes->additional as $key => $value)
+                      @foreach($value->attributes->extra_product as $key => $value)
                         <div class="col-6">
                           <h6>{{ $value['title'] }}</h6>
                         </div>
