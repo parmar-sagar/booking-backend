@@ -76,7 +76,7 @@ class CheckoutController extends Controller{
             ]);
             $data = [
                 'otp' =>  $otp,
-                'password' => $password
+                'password' => (($password)) ?? null
             ];
             Mail::to($validated['email'])->send(new otpMail($data));
 
