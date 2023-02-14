@@ -350,7 +350,12 @@
                               <div class="col-lg-3 col-md-3 col-sm-6">
                                  <table>
                                  <h5>Amount</h5>
-                                 <td id="selected-price">@if($objVehicle->type == 'Safari'){{ $safariPrice->amount }}@endif</td>
+                                 <td id="selected-price">
+                                    @if($objVehicle->type == 'Safari')
+                                       @foreach($objVehicle->prices as $value)  
+                                         {{$value->amount}}
+                                       @endforeach
+                                    @endif</td>
                                  </table>
                               </div>
                               <div class="col-lg-3 col-md-3 col-sm-6">
@@ -365,7 +370,7 @@
                                  <h5>Total</h5>
                                  <td>
                                     @if($objVehicle->type == 'Safari')
-                                       <input type="text" name="total_price" value="{{ $safariPrice->amount }}" readonly>
+                                       <input type="text" name="total_price" value="@foreach($objVehicle->prices as $value){{$value->amount}}@endforeach" readonly>
                                     @else
                                        <input type="text" name="total_price" value="" id="total-tour-amount" readonly>
                                     @endif

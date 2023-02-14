@@ -93,7 +93,7 @@ class SafariVehicleController extends Controller
 
                 $lastInsertId = Vehicle::create($validated)->id;
 
-                SafariPrice::create([
+                Price::create([
                     'amount' => $validated['amount'],
                     'vehicle_id' => $lastInsertId,
                     'tour_id' => $validated['tour_id'],
@@ -171,7 +171,7 @@ class SafariVehicleController extends Controller
                 }
 
                 Vehicle::find($validated['id'])->update($validated);
-                SafariPrice::where('vehicle_id',$validated['id'])->update([
+                Price::where('vehicle_id',$validated['id'])->update([
                     'amount' => $validated['amount'],
                     'vehicle_id' => $validated['id'],
                     'tour_id' => $validated['tour_id'],
@@ -186,7 +186,6 @@ class SafariVehicleController extends Controller
             $warnings = VehicleInfo::warning()->order()->get();
             $activities = VehicleInfo::activity()->order()->get();
             $addInfos = VehicleInfo::additionalInfo()->order()->get();
-            $safariPirce = SafariPrice::where('vehicle_id',$id)->select('amount')->first();
             
             $objData = Vehicle::findOrFail($id);
 
@@ -196,6 +195,7 @@ class SafariVehicleController extends Controller
             $objData->highlight_ids = Helper::explode( $objData->highlight_ids );
             $objData->activities_ids = Helper::explode( $objData->activities_ids );
             $objData->additional_info_ids = Helper::explode( $objData->additional_info_ids );
+            $price = Price::where('vehicle_id',$id)->first();
 
             $this->outputData = [
                 'pageName' => 'Edit Vehicle',
@@ -207,7 +207,7 @@ class SafariVehicleController extends Controller
                 'warnings' => $warnings,
                 'activities' => $activities,
                 'addInfos' => $addInfos,
-                'safariPirce' => $safariPirce
+                'price' => $price
             ]; 
 
             return view('admin.pages.safari.vehicle.create',$this->outputData);
