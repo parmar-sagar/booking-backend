@@ -64,6 +64,8 @@ class PaymentController extends Controller
             'total' => $total + $extraAmount - $discount
         ]);
 
+        \Cart::clear();
+
         if($request->payment_method == 'Paypal'){
             $product = [];
             $product['items'] = [];

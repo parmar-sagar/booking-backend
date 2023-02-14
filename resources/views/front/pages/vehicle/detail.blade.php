@@ -233,30 +233,23 @@
                   <label class="toggle" for="gallery-toggle">
                      <span><h2 class="headline-2"> Gallery </h2></span> 
                   </label> 
-               </div>
-               <div class="tour-gallery tour-gallery--orange pt-0em" data-gallery-active-category="activities">
-                  <div class="tour-gallery__inner" data-gallery-content-category="activities">
-                     <div class="tour-gallery__images js-gallery-images" data-gallery-day="1" data-gallery-category="activities">
-                     <figure class="tour-gallery__preview-wrapper"> 
-                        <a href="" class="js-popup" title="">
-                           <img class="tour-gallery__preview-ratio js-gallery-preview lazy loaded" data-src="" alt="" src="{{ asset('admin/uploads/gallry_images/'.$singleImglry->gallry_images) }}" data-was-processed="true"> 
-                        </a>
-                        <div>
-                           <figcaption class=" tour-gallery__preview-caption  tour-gallery__preview-caption--empty  js-gallery-description ">
-                           </figcaption>
-                        </div>
-                     </figure>
-                     <ul class="tour-gallery__image-list" data-id="galleryList">
-                        @foreach($objVehicle->gallery as $key => $images)
-                        <li class="tour-gallery__image-list-item"> 
-                           <button type="button" class="js-thumb-button tour-gallery__image-list-button {{ $loop->first ? 'active' : '' }}" onclick="App.updatePreview(this, 'activities', 1);" data-description="" data-popup-img-url="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}">
-                                 <img class="tour-gallery__image-list-thumb rotate-left lazy loaded" data-src="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}" alt="" src="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}" data-was-processed="true"> 
-                           </button> 
-                        </li>
-                        @endforeach
-                     </ul>
+                  <div class="row">
+                     <div class="col-8 fixed-img">
+                         <div class="container tour-gallery__image-list-item">
+                             <img id="expandedImg" class="tour-gallery__preview-ratio" style="width: 100%" src="{{ asset('admin/uploads/gallry_images/'.$singleImglry->gallry_images) }}" />
+                             <div id="imgtext"></div>
+                         </div>
                      </div>
-                  </div>
+                     <div class="col-4 scroll-img">
+                         <div class="row">
+                           @foreach($objVehicle->gallery as $key => $images)
+                             <div class="column">
+                                 <img src="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}" style="width: 100%" onclick="myFunction(this);" />
+                             </div>
+                             @endforeach
+                         </div>
+                     </div>
+                 </div>
                </div>
             </section>
             <!-- <p class="text-center"> <a class="btn btn--black" href="/book-a-Duen buggy tours-tour?country=Vietnam"> View More </a> </p>  -->
@@ -411,6 +404,14 @@
    </main>
    <input type="hidden" id="available-quantity" value="{{ $objVehicle->available_quantity }}">
    </x-front.master-layout>
+   <script>
+      function myFunction(imgs) {
+          var expandImg = document.getElementById("expandedImg");
+          var imgText = document.getElementById("imgtext");
+          expandImg.src = imgs.src;
+          imgText.innerHTML = imgs.alt;
+      }
+  </script>
    <script>
    $(document).ready(function() {
       
