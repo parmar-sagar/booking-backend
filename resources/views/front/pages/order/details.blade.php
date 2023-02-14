@@ -5,7 +5,7 @@
                 @include('front.pages.account.sidebar')
                 <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
                     <div id="details" >
-                        <h6 class="mb-4 text-right" id="backBtn">Back</h6>
+                        <h6 class="mb-4 text-right"><a href="{{ url('bookings') }}">Back To Bookings</a></h6>
                         <div class="accordion" id="accordionExample">
                            <div class="accordion-item">
                               <h2 class="accordion-header" id="headingOne">
@@ -28,12 +28,12 @@
                                        </div>
                                        <div class="col-lg-6 col-md-6 col-sm-12">
                                           <div class="order-space">
-                                             <b>Booking Status</b><br> <span>{{ $booking->status }}</span>
+                                             <b>Booking Status</b><br> <span class="badge badge-primary">{{ $booking->status }}</span>
                                           </div>
                                        </div>
                                        <div class="col-lg-6 col-md-6 col-sm-12">
                                           <div class="order-space">
-                                             <b>Payment status</b><br> <span>{{ $booking->payment_status }}</span>
+                                             <b>Payment status</b><br> <span class="badge @if($booking->payment_status == 'Paid') badge-success @else badge-danger @endif ">{{ $booking->payment_status }}</span>
                                           </div>
                                        </div>
                                        <div class="col-lg-6 col-md-6 col-sm-12">
@@ -41,11 +41,13 @@
                                              <b>Amount</b><br> <span>AED {{ $booking->total }}</span>
                                           </div>
                                        </div>
+                                       @if($booking->coupon)
                                        <div class="col-lg-6 col-md-6 col-sm-12">
                                           <div class="order-space">
                                              <b>Coupon code</b><br> <span>{{ $booking->coupon }}</span>
                                           </div>
                                        </div>
+                                       @endif
                                     </div>
                                  </div>
                               </div>
@@ -98,6 +100,7 @@
                                     @foreach ($booking->vehicleInfo as $value)
                                         <article class="card">
                                             <div class="card-body row">
+                                                <div class="col"> {{ $value->name }} </div>
                                                 <div class="col"> {{ $value->price }} </div>
                                                 <div class="col"> {{ date('d M Y',strtotime($value->booking_date)) }} </div>
                                                 <div class="col"> {{ $value->booking_time }} </div>
@@ -109,9 +112,6 @@
                               </div>
                            </div>
                         </div>
-                        {{-- <div>
-                           <button class="button">Pay Now</button>
-                        </div> --}}
                     </div>
                 </div>
             </div>

@@ -2,23 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Http\Request;
-use App\Handlers\Error;
-use App\Helpers\Helper;
-use App\Models\User;
-use App\Mail\RegisterUser;
 use App\Models\Booking;
 use App\Models\BookingDetail;
 use App\Models\BookingTransaction;
-use Mail;
-use DataTables;
 use Illuminate\Support\Facades\Auth;
 use Srmklive\PayPal\Services\ExpressCheckout;
-use Stripe\Exception\CardException;
 use Stripe\StripeClient;
 
 class PaymentController extends Controller

@@ -24,8 +24,8 @@
                                                 <div class="col"> {{ $value->random_id }} </div>
                                                 <div class="col"> {{ date('d M Y',strtotime($value->created_at)) }} </div>
                                                 <div class="col"> {{ $value->total }} </div>
-                                                <div class="col"> {{ $value->status }} </div>
-                                                <div class="col"> {{ $value->payment_status }} </div>
+                                                <div class="col"> <span class="badge badge-primary">{{ $value->status }}</span> </div>
+                                                <div class="col"> <span class="badge @if($value->payment_status == 'Paid') badge-success @else badge-danger @endif ">{{ $value->payment_status }}</span> </div>
                                             </div>
                                         </a>
                                     </article><br>
