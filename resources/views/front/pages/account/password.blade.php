@@ -12,15 +12,13 @@
                           <div class="row mt-2">
                              <div class="col">
                                 <div class="form__group">
-                                   <input type="password" name="password" id="password" class="form__input-blank" required="">
-                                   <label class="form__label-blank" for="password"> New password*</label>
+                                   <input type="password" name="password" id="password" placeholder="New password*" class="form__input-blank" required="">
                                 </div>
                              </div>
                              <div class="col">
                                 <div class="form__row__left">
                                    <div class="form__group">
-                                      <input type="password" name="confrim_password" id="confrim_password" class="form__input-blank" required="">
-                                      <label class="form__label-blank" for="confrim_password">Confirm Password *</label>
+                                      <input type="password" name="confrim_password" placeholder="Confirm password*" id="confrim_password" class="form__input-blank" required="">
                                    </div>
                                 </div>
                              </div>

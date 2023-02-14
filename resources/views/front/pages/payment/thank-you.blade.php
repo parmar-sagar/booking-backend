@@ -57,8 +57,8 @@
                         <table class="card__table">
                             <tbody style="text-align: center">
                                 <tr class="font-lg">
-                                    <td class="text-center">Booking ID</td>
-                                    <td class="text-left">
+                                    <td class="text-center bookingtext">Booking ID</td>
+                                    <td class="text-left bookingtext">
                                         <time>{{ $booking->random_id }}</time>
                                     </td>
                                 </tr>

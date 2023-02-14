@@ -233,33 +233,37 @@
                   <label class="toggle" for="gallery-toggle">
                      <span><h2 class="headline-2"> Gallery </h2></span> 
                   </label> 
-               </div>
-               <div class="tour-gallery tour-gallery--orange pt-0em" data-gallery-active-category="activities">
-                  <div class="tour-gallery__inner" data-gallery-content-category="activities">
-                     <div class="tour-gallery__images js-gallery-images" data-gallery-day="1" data-gallery-category="activities">
-                     <figure class="tour-gallery__preview-wrapper"> 
-                        <a href="" class="js-popup" title="">
-                           <img class="tour-gallery__preview-ratio js-gallery-preview lazy loaded" data-src="" alt="" src="{{ asset('admin/uploads/gallry_images/'.$singleImglry->gallry_images) }}" data-was-processed="true"> 
-                        </a>
-                        <div>
-                           <figcaption class=" tour-gallery__preview-caption  tour-gallery__preview-caption--empty  js-gallery-description ">
-                           </figcaption>
-                        </div>
-                     </figure>
-                     <ul class="tour-gallery__image-list" data-id="galleryList">
-                        @foreach($objVehicle->gallery as $key => $images)
-                        <li class="tour-gallery__image-list-item"> 
-                           <button type="button" class="js-thumb-button tour-gallery__image-list-button {{ $loop->first ? 'active' : '' }}" onclick="App.updatePreview(this, 'activities', 1);" data-description="" data-popup-img-url="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}">
-                                 <img class="tour-gallery__image-list-thumb rotate-left lazy loaded" data-src="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}" alt="" src="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}" data-was-processed="true"> 
-                           </button> 
-                        </li>
-                        @endforeach
-                     </ul>
+                  <div class="row">
+                     <div class="col-8 fixed-img">
+                         <div class="container tour-gallery__image-list-item">
+                             <img id="expandedImg" class="tour-gallery__preview-ratio" style="width: 100%" src="{{ asset('admin/uploads/gallry_images/'.$singleImglry->gallry_images) }}" />
+                             <div id="imgtext"></div>
+                         </div>
                      </div>
-                  </div>
+                     <div class="col-lg-4 col-md-12 col-sm-12 scroll-img">
+                        <ul class="Gallery-image-scroll">
+                           @foreach($objVehicle->gallery as $key => $images)
+                              <li class="image-list-all">
+                                 <img
+                                    id="myImg"
+                                    src="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}"
+                                    style="width: 100%"
+                                    onclick="myFunction(this);"
+                                 />
+                                 <div id="myModal" class="modal">
+                                    <span class="close">&times;</span>
+                                    <img class="modal-content" id="img01" />
+                                 </div>
+                              </li>
+                             <!-- <div class="column">
+                                 <img src="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}" style="width: 100%" onclick="myFunction(this);" />
+                             </div> -->
+                             @endforeach
+                           </ul>
+                     </div>
+                 </div>
                </div>
             </section>
-            <!-- <p class="text-center"> <a class="btn btn--black" href="/book-a-Duen buggy tours-tour?country=Vietnam"> View More </a> </p>  -->
          </div>
       @endif
       <!--- End -->
@@ -322,38 +326,44 @@
                            </div>
                            <div class="content mt-10em mb-10em">
                            </div>
-                           <table class="list-tour-info list-tour-info--two-cols">
-                              <tr>
+                           <div class="row amount-show">
+                              <div class="col-lg-3 col-md-3 col-sm-6">
                                  @if($objVehicle->type == 'Tour')
-                                 <th>Duration</th>
+                                 <h5>Duration</h5>
                                  @endif
-                                 <th>Amount</th>
-                                 <th>Quantity</th>
-                                 <th>Total Amount</th>
-                              </tr>
-                              <tr>
                                  @if($objVehicle->type == 'Tour')
-                                 <td style="width:25%;">
-                                    <div class="form__row">
-                                       <div class="form__row__left">
-                                          <div class="form__group">
-                                             <select id="select-time">
-                                                @foreach($objVehicle->prices as $value)  
-                                                   <option value="@if(isset($dealsDiscount)) {{$value->amount - ($value->amount * ($dealsDiscount / 100))}}@else{{$value->amount}}@endif">{{$value->time}} Min</option>
-                                                @endforeach
-                                             </select>
-                                          </div>
+                                 <td>
+                                 <div class="form__row">
+                                    <div class="form__row__left">
+                                       <div class="form__group">
+                                       <select id="select-time">
+                                             @foreach($objVehicle->prices as $value)  
+                                                <option value="@if(isset($dealsDiscount)) {{$value->amount - ($value->amount * ($dealsDiscount / 100))}}@else{{$value->amount}}@endif">{{$value->time}} Min</option>
+                                             @endforeach
+                                          </select>
                                        </div>
                                     </div>
+                                 </div>
                                  </td>
                                  @endif
-                                 <td id="selected-price" style="width:25%">@if($objVehicle->type == 'Safari'){{ $safariPrice->amount }}@endif</td>
-                                 <td class="qntityBtn" style="width:25%">
+                              </div>
+                              <div class="col-lg-3 col-md-3 col-sm-6">
+                                 <table>
+                                 <h5>Amount</h5>
+                                 <td id="selected-price">@if($objVehicle->type == 'Safari'){{ $safariPrice->amount }}@endif</td>
+                                 </table>
+                              </div>
+                              <div class="col-lg-3 col-md-3 col-sm-6">
+                                 <h5>Quantity</h5>
+                                 <td class="qntityBtn">
                                     <button type="button" id="sub" class="sub">-</button>
                                     <input style="width:40px" name="quantity" class="quantity-class" type="number" value="1" min="1" max="10" />
                                     <button type="button" id="add" class="add">+</button>
                                  </td>
-                                 <td style="width:25%">
+                              </div>
+                              <div class="col-lg-3 col-md-3 col-sm-6">
+                                 <h5>Total</h5>
+                                 <td>
                                     @if($objVehicle->type == 'Safari')
                                        <input type="text" name="total_price" value="{{ $safariPrice->amount }}" readonly>
                                     @else
@@ -361,8 +371,8 @@
                                     @endif
                                     
                                  </td>
-                              </tr>
-                           </table>
+                              </div>
+                           </div>
                            <h1 style="font-size: 1.75rem">  Extra Activities</h1>
                            <table>
                               @foreach($extraActivitys as $key => $value)
@@ -385,9 +395,14 @@
                                  </tr>
                               @endforeach                
                            </table>
-                           <x-primary-button class="ml-4 btn btn-primary profile-button btn--purple" >
+                           @if($objVehicle->available_quantity < 1) 
+                           <p class="headline-3 vehicleName">Not Available</p>
+                           @else
+                           <x-primary-button class="ml-4 btn btn-primary profile-button btn--purple">
                               {{ __('Book Now') }}
                            </x-primary-button>
+                           @endif
+                           
                         </div>
                      </div>
                   </div>
@@ -398,6 +413,25 @@
    </main>
    <input type="hidden" id="available-quantity" value="{{ $objVehicle->available_quantity }}">
    </x-front.master-layout>
+   <script>
+      function myFunction(imgs) {
+          var expandImg = document.getElementById("expandedImg");
+          var imgText = document.getElementById("imgtext");
+          expandImg.src = imgs.src;
+          imgText.innerHTML = imgs.alt;
+      }
+      var modal = document.getElementById("myModal");
+      // var img = document.getElementById("myImg");
+      var modalImg = document.getElementById("img01");
+      img.onclick = function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+      };
+      var span = document.getElementsByClassName("close")[0];
+      span.onclick = function () {
+        modal.style.display = "none";
+      };
+  </script>
    <script>
    $(document).ready(function() {
       

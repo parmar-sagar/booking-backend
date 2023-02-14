@@ -4,8 +4,8 @@
          <div class="basket card--shadow-blurple">
             <div class="basket-labels basket-U">
                <table class="responsive-large-tabU">
-                  <tr>
-                     <th>Item</th>
+                  <tr class="tablerow">
+                     <th class="tableitem">Item</th>
                      <th>Price</th>
                      <th>Date</th>
                      <th>Time</th>
@@ -20,7 +20,7 @@
                      @php 
                         $extraAmount += $value->attributes->extra_amount; 
                      @endphp
-                     <tr>
+                     <tr  class="tablerow1">
                         <td>{{ $value->name }}</td>
                         <td>{{ $value->price }} AED</td>
                         <td>{{ $value->attributes->booking_date }}</td>
@@ -41,6 +41,61 @@
                      @endif
                   @endforeach
                </table>
+               <table class="responsive-mobileU">
+          <tbody>
+            @php 
+               $extraAmount = 0; 
+            @endphp
+            @foreach($carts as $key => $value)
+               @php 
+                  $extraAmount += $value->attributes->extra_amount; 
+               @endphp
+              <tr style="border-bottom: 4px solid #f7104c;padding-bottom: 20px;">
+                <tr>
+                  <th>Item</th>
+                  <td>{{ $value->name }}</td>
+                  </tr>
+                  <tr>
+                  <th>Price</th>
+                  <td>{{ $value->price }} AED</td>
+                  </tr>
+                  <tr>
+                  <th>Date</th>
+                  <td>{{ $value->attributes->booking_date }}</td>
+                  </tr>
+                  <tr>
+                  <th>Time</th>
+                  <td>{{ $value->attributes->time }}</td>
+                  </tr>
+                  <tr>
+                  <th>Quantity</th>
+                  <td>{{ $value->quantity }}</td>
+                  </tr>
+                  <tr>
+                  <th>Subtotal</th>
+                  <td>{{ ($value->price * $value->quantity) + $value->attributes->extra_amount }} AED</td>
+                  </tr>
+                  <tr>
+               @if(!empty($value->attributes->extra_product))
+                <th>Extra Activities :-</th>
+                </tr>
+                @foreach($value->attributes->extra_product as $key => $value)
+                <tr>
+                <tr>
+                  <th >Item</th>
+                  <td>{{ $value['title'] }}</td>
+                  </tr>
+                  <tr>
+                  <th>Price</th>
+                  <td>{{ $value['price'] }}AED</td>
+                  </tr>
+                </tr>
+                </tr >
+                @endforeach 
+                     @endif
+                  @endforeach
+                 </tbody>
+          </table>
             </div>
          </div><br><br>
       </div>
@@ -159,8 +214,7 @@
                      </div>
                      <div class="form__row otpInput" style="display: none">
                         <div class="form__group">
-                           <input type="number" name="otp" id="otp" class="form__input-blank">
-                           <label class="form__label-blank" for="otp">Enter OTP</label>
+                           <input type="number" name="otp" id="otp" placeholder="Enter OTP" class="form__input-blank">
                         </div>
                      </div>
                      <div class="form__row">
