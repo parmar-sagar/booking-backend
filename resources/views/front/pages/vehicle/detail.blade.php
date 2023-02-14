@@ -321,20 +321,7 @@
                               </div>
                            </div>
                            <div class="content mt-10em mb-10em">
-                              <!-- <p>{{$objVehicle->description}}</p> -->
                            </div>
-                           @if($objVehicle->type == 'Safari')
-                              <div>
-                                 <h5>Amount</h5>
-                                 @if(isset($safariPrice))
-                                    <p>{{$safariPrice->amount}} AED</p>
-                                    <input type="hidden"  name ="totalPrice" value="{{$safariPrice->amount}}">
-                                 @endif
-                                 <button type="button" id="sub" class="sub">-</button>
-                                 <input style="width:40px" name="quantity" class="quantity-class" type="number" value="1" min="1" max="10" />
-                                 <button type="button" id="add" class="add">+</button>
-                              </div>
-                           @endif
                            <table class="list-tour-info list-tour-info--two-cols">
                               <tr>
                                  @if($objVehicle->type == 'Tour')

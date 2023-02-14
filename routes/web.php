@@ -38,6 +38,7 @@ use App\Http\Controllers\TourController as ControllersTourController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\MyorderController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactUsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -380,6 +381,9 @@ Route::group([
     //myorder
     Route::get('/my-bookings',[MyorderController::class, 'index']);
     Route::get('pdf-download/{id}',[MyorderController::class, 'pdf']);
+
+    //contact us  
+    Route::post('contact-us',[ContactUsController::class, 'contactUs']);
 
     Route::group([
         'middleware' => 'auth'

@@ -43,31 +43,26 @@
             <figure class="bg-media--glasses">
               <img src="fonts/wm-glasses.svg" alt="Background">
             </figure>
-            <form id="form-id" class="form form--contact animated fadeInUp active" onsubmit="return App.submitForm({form: this, url: '/ajax/sendForm'});" novalidate="novalidate">
+            <form id="submit-form" class="form form--contact animated fadeInUp active" method="POST"  autocomplete="off" enctype="multipart/form-data">
+              @csrf
               <h2 class="headline-3 color-white mb-5em">Contact Form</h2>
               <div class="form__row">
                 <div class="form__group">
-                  <input type="text" name="name" id="name" class="form__input" required="">
-                  <label class="form__label">Name</label>
+                  <input type="text" name="name" id="name" placeholder="Name" class="form__input" required="">
                 </div>
               </div>
               <div class="form__row">
                 <div class="form__group">
-                  <input type="text" name="email" id="email" class="form__input" required="">
-                  <label class="form__label">Email Address</label>
+                  <input type="text" name="email" id="email" placeholder="Email" class="form__input" required="">
                 </div>
               </div>
               <div class="form__row">
                 <div class="form__group">
-                  <textarea name="message" class="form__textarea"></textarea>
-                  <label class="form__label">Message</label>
+                  <textarea name="message" class="form__textarea" placeholder="message" required></textarea>
                 </div>
               </div>
-              <input type="hidden" name="type" value="contact" class="filled">
-              <input type="hidden" name="page_id" value="8" class="filled">
-              <input type="hidden" name="page_slug" value="contact" class="filled">
-              <div class="form__row text-align-right">
-                <button class="btn btn--white btn--full" type="submit">Send</button>
+              <div>
+                  <button class="btn btn--white btn--full">Send</button>
               </div>
               <div class="loading"></div>
             </form>
@@ -77,3 +72,28 @@
   </div>
 </div>
 </x-front.master-layout>
+<script>
+$(document).ready(function(){
+  $(document).on('submit','#submit-form',function(e){
+    e.preventDefault();
+      $.ajax({
+          type: $(this).prop('method'),
+          url: 'contact-us',
+          data:new FormData(this),
+          contentType: false,
+          cache: false,
+          processData: false,
+          success: function (response) {
+              if((response.error)){
+                toastr.error(response.error);
+              }else{
+                $("#section").load(window.location + " #section");
+                toastr.success(response.success); 
+              }
+          },error: function (error){
+            toastr.warning(error);
+          }
+      });
+  });
+});
+</script>

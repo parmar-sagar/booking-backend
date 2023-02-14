@@ -25176,7 +25176,7 @@ div#auth-page-1669716376 .overlay {
 
 /*---home----*/
 ul.l-navbar__menu-right {
-    width: 64%;
+    width: 70%;
     float: right;
     display: flex;
     justify-content: flex-end;
@@ -27277,3 +27277,85 @@ input#totaltourAmt {
     color: #fff;
     background-color: #343a40;
 }
+
+/* home page */
+.loginUser svg {
+    fill: #595ef9;
+}
+.loginUser .dropdown-Tour_content a {
+    padding: 8px 12px;
+}
+.loginUser .dropdown:hover .dropdown-Tour_content {
+    display: block;
+    right: -26px;
+    text-align: left;
+    min-width: 120px;
+}
+.barba-container header.l-header.l-header--full-height.l-header--curtain {
+    padding-top: 70px;
+    height: calc(92vh - 90px);
+}
+@media (max-width: 1250px)
+{
+.tab-box-nav:before {
+    right: 20px;
+}
+}
+
+@media(max-width:1024px){
+    .barba-container header.l-header.l-header--full-height.l-header--curtain {
+        padding-top: 70px;
+        height: calc(74vh - 80px);
+    }
+    .loginUser {
+        display: block;
+        height: auto;
+        text-align: right;
+        position: absolute;
+        vertical-align: middle;
+        right: 25px;
+    }
+    
+}
+@media(max-width:800px){
+    .box-photo-img__item:first-child {
+        width: 65%;
+        left: 0;
+        margin: auto;
+    }
+    .barba-container header.l-header.l-header--full-height.l-header--curtain {
+        padding-top: 70px;
+        height: calc(58vh - 80px);
+    }
+    section.section.section--p-none-bottom {
+        padding-top: 0px;
+    }
+}
+@media(max-width:600px)
+{.barba-container header.l-header.l-header--full-height.l-header--curtain {
+    height: calc(36vh - 80px);
+}
+.box-photo-img__item:first-child {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    margin: auto;
+}
+}
+@media(max-width:380px)
+{.barba-container header.l-header.l-header--full-height.l-header--curtain { 
+    height: calc(33vh - 80px);
+}
+}
+@media(max-width:320px){
+.barba-container header.l-header.l-header--full-height.l-header--curtain {
+    padding-top: 70px;
+    height: calc(29vh - 80px);
+}
+}
+@media(min-width:1025px){
+    .loginUser {
+        margin-right: 60px;
+    }
+}
+/* End */

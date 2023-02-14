@@ -63,13 +63,15 @@
         <span>Logout</span>
       </a>
     </form> --}}
-    <ul class="l-navbar__menu">
+    <ul class="l-navbar__menu loginUser">
     <li class="l-navbar__menu-item">
       <div class="dropdown">
         <a href="javascript:void(0)">
-          <span class="dropbtn l-navbar__menu-link ">Account</span>
+        <svg width="36px" height="36px" aria-hidden="true" focusable="false">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account')}}"></use>
+        </svg>
         </a>
-        <div class="dropdown-Tour_content">
+        <div class="dropdown-Tour_content profile">
             <a href="{{url('account/profile')}}">My Profile</a>
             <form method="POST" action="{{ route('logout') }}">
               @csrf
@@ -81,3 +83,11 @@
     </ul>
   @endguest
 </nav>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.dropdown').on('click',function(){
+      $('.profile').toggle();
+    })
+  })
+</script>
