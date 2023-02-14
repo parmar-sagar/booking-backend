@@ -351,15 +351,6 @@ Route::group([
         Route::post('verify',[CheckoutController::class, 'verify']);
     });
 
-    Route::prefix('payment')->group(function() {
-        Route::post('/',[PaymentController::class, 'index']);
-        Route::get('/success',[PaymentController::class, 'success']);
-        Route::get('/failure',[PaymentController::class, 'failure']);
-        Route::get('/thank-you/{id}',[PaymentController::class, 'thankYou']);
-        Route::get('/stripe/{id}',[PaymentController::class, 'stripe']);
-        Route::post('/stripe-payment',[PaymentController::class, 'stripePayment']);
-    });
-
     Route::get('refund-policy',[OtherPageController::class, 'refundPolicy']);
     Route::get('privacy-policy',[OtherPageController::class, 'privacyPolicy']);
     Route::get('terms-and-conditions',[OtherPageController::class, 'termsAndConditions']);
@@ -369,27 +360,29 @@ Route::group([
     Route::get('faqs',[OtherPageController::class, 'faqs']);
     Route::get('reviews',[OtherPageController::class, 'reviews']);
 
-    Route::get('/my-account',[HomeController::class, 'myAccount']);
-    Route::post('update-profile',[HomeController::class, 'updateProfile']);
-    Route::post('update-password',[HomeController::class, 'updatePassword']);
-    
-    // cart
-    Route::get('/update-cart',[CartController::class, 'update']);
-    Route::post('apply-coupon',[CartController::class, 'applyCoupon']);
-
-    //myorder
-    Route::get('/my-bookings',[MyorderController::class, 'index']);
     Route::get('pdf-download/{id}',[MyorderController::class, 'pdf']);
 
     Route::group([
         'middleware' => 'auth'
     ], function(){
+        Route::prefix('payment')->group(function() {
+            Route::post('/',[PaymentController::class, 'index']);
+            Route::get('/success',[PaymentController::class, 'success']);
+            Route::get('/failure',[PaymentController::class, 'failure']);
+            Route::get('/thank-you/{id}',[PaymentController::class, 'thankYou']);
+            Route::get('/stripe/{id}',[PaymentController::class, 'stripe']);
+            Route::post('/stripe-payment',[PaymentController::class, 'stripePayment']);
+        });
+        
         Route::prefix('account')->group(function(){
             Route::get('/profile',[AccountController::class, 'account']);
+            Route::post('/profile',[AccountController::class, 'account']);
             Route::get('/password',[AccountController::class, 'password']);
+            Route::post('/password',[AccountController::class, 'password']);
         });
         Route::prefix('bookings')->group(function(){
             Route::get('/',[OrderController::class, 'index']);
             Route::get('/{id}',[OrderController::class, 'details']);
+            Route::get('pdf/{id}',[OrderController::class, 'downloadPdf']);
         });
     });

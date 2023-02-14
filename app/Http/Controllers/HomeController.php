@@ -2,18 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
-use App\Models\HomeSlider;
-use App\Handlers\Error;
 use App\Models\Vehicle;
 use App\Models\Discount;
 use App\Models\Slider;
 use App\Models\Tour;
-use App\Models\User;
-use App\Models\TourGallary;
 
 class HomeController extends Controller{
 
@@ -35,74 +28,4 @@ class HomeController extends Controller{
         ];
         return view('front.pages.home',$this->outputData);
     }
-
-    
-    public function myAccount(){
-       return view('front.pages.my_account.index');
-    }
-
-    public function checkout(){
-        return view('front.pages.checkout_page.index');
-    }
-
-    
-
-    public function updateProfile(Request $request){
-
-        try {
-            if($request->method() == 'POST'){
-                $Input = $request->all();
-                // Validation section
-                $validator = Validator::make($Input, [
-                    'id' => 'required|exists:users',
-                    'first_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
-                    'last_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
-                    'mobile' => 'required|integer|min:10|',
-                    'email' => 'required|max:100|email:rfc,dns|unique:users,email,'.$Input['id'],
-                ]);
-    
-                if($validator->fails()){
-                    throw new \Exception($validator->errors()->first());
-                }
-                
-                $validated = $validator->validated();
-
-                User::find($validated['id'])->update($validated);
-    
-                return response()->json(['success' => "Profile Updated successfully."]);
-            }
-        } catch (\Throwable $e) {
-            return Error::Handle($e, self::ControllerCode, '03');
-        }
-      
-    }
-
-    public function updatePassword(Request $request){
-        try {
-            if($request->method() == 'POST'){
-                $Input = $request->all();
-                // Validation section
-                $validator = Validator::make($Input, [
-                    'id' => 'required|exists:users',
-                    'password' => 'required|string|max:20|min:6',
-                    'confrim_password' => 'required_with:password|same:password|min:6'
-                ]);
-    
-                if($validator->fails()){
-                    throw new \Exception($validator->errors()->first());
-                }
-                
-                $validated = $validator->validated();
-                $validated['password'] = Hash::make($validated['password']);
-
-                User::find($validated['id'])->update($validated);
-    
-                return response()->json(['success' => "Profile Password Updated successfully."]);
-            }
-
-        } catch (\Throwable $e) {
-            return Error::Handle($e, self::ControllerCode, '03');
-        }
-    }
-
 }

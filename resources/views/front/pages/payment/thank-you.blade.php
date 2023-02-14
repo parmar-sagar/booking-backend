@@ -47,7 +47,7 @@
                         <a class="btn btn--purple" href="{{ url('bookings/'.$booking->random_id) }}" title="View Booking">View Booking</a>
                     </div>
                     <div class="col-lg-4 text-center">
-                        <a class="btn btn--black" href="{{url('pdf-download/'.$booking->random_id)}}" target="blank" title="Download PDF">Download PDF</a>
+                        <a class="btn btn--black" href="{{url('bookings/pdf/'.$booking->random_id)}}" target="blank" title="Download PDF">Download PDF</a>
                     </div>
                 </div>
                 <div class="row row--full row--g-10">

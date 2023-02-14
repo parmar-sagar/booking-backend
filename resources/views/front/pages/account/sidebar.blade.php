@@ -10,7 +10,7 @@
 
        <a class="nav-link @if(Request::segment(2) == 'password') active @endif" id="password-tab" href="{{ url('account/password') }}" role="tab" aria-controls="password" aria-selected="false"><i class="fa fa-key text-center mr-1"></i> Password </a>
 
-       <a class="nav-link @if(Request::segment(1) == 'bookings') active @endif" id="orders-tab" href="{{ url('bookings') }}" role="tab" aria-controls="security" aria-selected="false"><i class="fa fa-user text-center mr-1"></i>Bookings</a>
+       <a class="nav-link @if(Request::segment(1) == 'bookings') active @endif" id="orders-tab" href="{{ url('bookings') }}" role="tab" aria-controls="security" aria-selected="false"><i class="fa-solid fa-book text-center mr-1"></i> Bookings</a>
     </div>
 </div>
 <style>
