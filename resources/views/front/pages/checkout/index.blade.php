@@ -219,7 +219,7 @@
                      </div>
                      <div class="form__row">
                         <div class=" text-center">
-                           <button class="btn mt-10em chip--orange profile-button" type="submit"> Pay </button>
+                           <button class="btn mt-10em chip--orange profile-button" type="submit"> PLACE ORDER </button>
                         </div>
                      </div>
                   </form>
