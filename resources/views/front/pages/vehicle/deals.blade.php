@@ -30,13 +30,15 @@
                                         <div class="card__content">
                                             <div class="card__headline card__headline--with-price row">
                                                 <div class="card__headline-left headline-wave  col-lg-4 col-sm-12">
-                                                    <img src="{{ asset('admin/uploads/vehicle/' . $value->image) }}" class="mt-10em list" alt="">
-                                                </div>
+                                                <a href="{{url('vehicles/details/'.$value['random_id'])}}" title="Book now"><img src="{{ asset('admin/uploads/vehicle/' . $value->image) }}" class="mt-10em list" alt="">
+                                                </a></div>
                                                 <div class="card__headline-price-wrapper  col-lg-8 col-sm-12">
                                                     <div class="row">
+                                                    <a href="{{url('vehicles/details/'.$value['random_id'])}}" title="Book now">
                                                         <div class="col-12 col-lg-12">
-                                                            <h2 class="headline-3">{{$value->name}}</h2>
+                                                            <h2 class="headline-3 vehicleName">{{$value->name}}</h2>
                                                         </div>
+                                                    </a>
                                                     </div>
                                                     <div class="row mt-3">
                                                         <div class="col-12">
@@ -99,13 +101,22 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
+                                                    @if($value->available_quantity < 1)
+                                                        <div class="col-12 col-lg-12 button_nd">
+                                                            <a class="btn btn--purple " href="{{url('vehicles/details/'.$value['random_id'])}}" title="View">View </a>
+                                                        </div>
+                                                        @else
                                                         <div class="col-12 col-lg-12 button_nd">
                                                             <a class="btn btn--purple " href="{{url('vehicles/details/'.$value['random_id'])}}" title="Book now"> Book Now </a>
                                                         </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        @if($value->available_quantity < 1)
+                                    <div class="heading-nonavailability">Not Available</div>
+                                    @endif
                                     </div>
                                 </div>
                             </div>
@@ -117,3 +128,4 @@
     </div>
 </div>
  </x-front.master-layout>
+ <script src="{{asset ('assets/front/scripts/vendor7369.js?v=m0Wgcip88r')}}"></script> 

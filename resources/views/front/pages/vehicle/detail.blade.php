@@ -240,19 +240,30 @@
                              <div id="imgtext"></div>
                          </div>
                      </div>
-                     <div class="col-4 scroll-img">
-                         <div class="row">
+                     <div class="col-lg-4 col-md-12 col-sm-12 scroll-img">
+                        <ul class="Gallery-image-scroll">
                            @foreach($objVehicle->gallery as $key => $images)
-                             <div class="column">
+                              <li class="image-list-all">
+                                 <img
+                                    id="myImg"
+                                    src="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}"
+                                    style="width: 100%"
+                                    onclick="myFunction(this);"
+                                 />
+                                 <div id="myModal" class="modal">
+                                    <span class="close">&times;</span>
+                                    <img class="modal-content" id="img01" />
+                                 </div>
+                              </li>
+                             <!-- <div class="column">
                                  <img src="{{ asset('admin/uploads/gallry_images/'.$images['gallry_images']) }}" style="width: 100%" onclick="myFunction(this);" />
-                             </div>
+                             </div> -->
                              @endforeach
-                         </div>
+                           </ul>
                      </div>
                  </div>
                </div>
             </section>
-            <!-- <p class="text-center"> <a class="btn btn--black" href="/book-a-Duen buggy tours-tour?country=Vietnam"> View More </a> </p>  -->
          </div>
       @endif
       <!--- End -->
@@ -314,52 +325,45 @@
                               </div>
                            </div>
                            <div class="content mt-10em mb-10em">
-                              <!-- <p>{{$objVehicle->description}}</p> -->
                            </div>
-                           @if($objVehicle->type == 'Safari')
-                              <div>
-                                 <h5>Amount</h5>
-                                 @if(isset($safariPrice))
-                                    <p>{{$safariPrice->amount}} AED</p>
-                                    <input type="hidden"  name ="totalPrice" value="{{$safariPrice->amount}}">
-                                 @endif
-                                 <button type="button" id="sub" class="sub">-</button>
-                                 <input style="width:40px" name="quantity" class="quantity-class" type="number" value="1" min="1" max="10" />
-                                 <button type="button" id="add" class="add">+</button>
-                              </div>
-                           @endif
-                           <table class="list-tour-info list-tour-info--two-cols">
-                              <tr>
+                           <div class="row amount-show">
+                              <div class="col-lg-3 col-md-3 col-sm-6">
                                  @if($objVehicle->type == 'Tour')
-                                 <th>Duration</th>
+                                 <h5>Duration</h5>
                                  @endif
-                                 <th>Amount</th>
-                                 <th>Quantity</th>
-                                 <th>Total Amount</th>
-                              </tr>
-                              <tr>
                                  @if($objVehicle->type == 'Tour')
-                                 <td style="width:25%;">
-                                    <div class="form__row">
-                                       <div class="form__row__left">
-                                          <div class="form__group">
-                                             <select id="select-time">
-                                                @foreach($objVehicle->prices as $value)  
-                                                   <option value="@if(isset($dealsDiscount)) {{$value->amount - ($value->amount * ($dealsDiscount / 100))}}@else{{$value->amount}}@endif">{{$value->time}} Min</option>
-                                                @endforeach
-                                             </select>
-                                          </div>
+                                 <td>
+                                 <div class="form__row">
+                                    <div class="form__row__left">
+                                       <div class="form__group">
+                                       <select id="select-time">
+                                             @foreach($objVehicle->prices as $value)  
+                                                <option value="@if(isset($dealsDiscount)) {{$value->amount - ($value->amount * ($dealsDiscount / 100))}}@else{{$value->amount}}@endif">{{$value->time}} Min</option>
+                                             @endforeach
+                                          </select>
                                        </div>
                                     </div>
+                                 </div>
                                  </td>
                                  @endif
-                                 <td id="selected-price" style="width:25%">@if($objVehicle->type == 'Safari'){{ $safariPrice->amount }}@endif</td>
-                                 <td class="qntityBtn" style="width:25%">
+                              </div>
+                              <div class="col-lg-3 col-md-3 col-sm-6">
+                                 <table>
+                                 <h5>Amount</h5>
+                                 <td id="selected-price">@if($objVehicle->type == 'Safari'){{ $safariPrice->amount }}@endif</td>
+                                 </table>
+                              </div>
+                              <div class="col-lg-3 col-md-3 col-sm-6">
+                                 <h5>Quantity</h5>
+                                 <td class="qntityBtn">
                                     <button type="button" id="sub" class="sub">-</button>
                                     <input style="width:40px" name="quantity" class="quantity-class" type="number" value="1" min="1" max="10" />
                                     <button type="button" id="add" class="add">+</button>
                                  </td>
-                                 <td style="width:25%">
+                              </div>
+                              <div class="col-lg-3 col-md-3 col-sm-6">
+                                 <h5>Total</h5>
+                                 <td>
                                     @if($objVehicle->type == 'Safari')
                                        <input type="text" name="total_price" value="{{ $safariPrice->amount }}" readonly>
                                     @else
@@ -367,8 +371,8 @@
                                     @endif
                                     
                                  </td>
-                              </tr>
-                           </table>
+                              </div>
+                           </div>
                            <h1 style="font-size: 1.75rem">  Extra Activities</h1>
                            <table>
                               @foreach($extraActivitys as $key => $value)
@@ -391,9 +395,14 @@
                                  </tr>
                               @endforeach                
                            </table>
-                           <x-primary-button class="ml-4 btn btn-primary profile-button btn--purple" >
+                           @if($objVehicle->available_quantity < 1) 
+                           <p class="headline-3 vehicleName">Not Available</p>
+                           @else
+                           <x-primary-button class="ml-4 btn btn-primary profile-button btn--purple">
                               {{ __('Book Now') }}
                            </x-primary-button>
+                           @endif
+                           
                         </div>
                      </div>
                   </div>
@@ -411,6 +420,17 @@
           expandImg.src = imgs.src;
           imgText.innerHTML = imgs.alt;
       }
+      var modal = document.getElementById("myModal");
+      // var img = document.getElementById("myImg");
+      var modalImg = document.getElementById("img01");
+      img.onclick = function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+      };
+      var span = document.getElementsByClassName("close")[0];
+      span.onclick = function () {
+        modal.style.display = "none";
+      };
   </script>
    <script>
    $(document).ready(function() {

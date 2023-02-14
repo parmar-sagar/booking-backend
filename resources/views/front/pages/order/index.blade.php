@@ -28,7 +28,9 @@
                                                 <div class="col"> <span class="badge @if($value->payment_status == 'Paid') badge-success @else badge-danger @endif ">{{ $value->payment_status }}</span> </div>
                                             </div>
                                         </a>
+                                        <a class="downlodPdf" href="{{url('bookings/pdf/'.$value->random_id)}}" target="blank" title="Download PDF">Download PDF</a>
                                     </article><br>
+                                    
                                 @endforeach
                             </div>
                         </article>

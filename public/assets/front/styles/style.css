@@ -10344,7 +10344,11 @@ input:-webkit-autofill.filled~.form__label-blank {
 @media screen and (min-width:1900px) {
     .headline-3 {
         font-size: 28px;
+
     }
+}
+.vehicleName{
+    color: #00bcd4 !important;
 }
 
 .headline-4 {
@@ -10452,7 +10456,8 @@ input:-webkit-autofill.filled~.form__label-blank {
 }
 
 .headline-wave {
-    position: relative
+    position: relative;
+    padding-bottom: 20px;
 }
 
 .headline-wave [class*=headline-] {
@@ -17377,7 +17382,7 @@ a.card .headline-wave svg {
 
 @media (max-width:991px) {
     .toggle-wrapper__tour-gallery {
-        display: none
+        /* display: none */
     }
 }
 
@@ -24640,7 +24645,7 @@ div#auth-page-1669716376 .overlay {
 /*---home----*/
 
 ul.l-navbar__menu-right {
-    width: 64%;
+    width: 70%;
     float: right;
     display: flex;
     justify-content: flex-end;
@@ -26694,9 +26699,9 @@ input#totaltourAmt {
     .cart .quantity {
         text-align: left;
         width: 100%;
-    }
-    .product-tag-details-D {
-        display: none;
+      }
+      .product-tag-details-D {
+        /* display: none; */
     }
     .swiper-slide .card.card--flex.card--shadow-orange {
         margin: 25px;
@@ -26874,91 +26879,288 @@ input#totaltourAmt {
     background-color: #343a40;
 }
 
-
-/* gallery */
-
-* {
-    box-sizing: border-box;
+/* home page */
+.loginUser svg {
+    fill: #595ef9;
+}
+.loginUser .dropdown-Tour_content a {
+    padding: 8px 12px;
+}
+.loginUser .dropdown:hover .dropdown-Tour_content {
+    display: block;
+    right: -26px;
+    text-align: left;
+    min-width: 120px;
+}
+.barba-container header.l-header.l-header--full-height.l-header--curtain {
+    padding-top: 70px;
+    height: calc(92vh - 90px);
+}
+@media (max-width: 1250px)
+{
+.tab-box-nav:before {
+    right: 20px;
+}
 }
 
-body {
-    margin: 0;
-    font-family: Arial;
+@media(max-width:1024px){
+    .barba-container header.l-header.l-header--full-height.l-header--curtain {
+        padding-top: 70px;
+        height: calc(74vh - 80px);
+    }
+    .loginUser {
+        display: block;
+        height: auto;
+        text-align: right;
+        position: absolute;
+        vertical-align: middle;
+        right: 25px;
+    }
+    
 }
+@media(max-width:800px){
+    .box-photo-img__item:first-child {
+        width: 65%;
+        left: 0;
+        margin: auto;
+    }
+    .barba-container header.l-header.l-header--full-height.l-header--curtain {
+        padding-top: 70px;
+        height: calc(58vh - 80px);
+    }
+    section.section.section--p-none-bottom {
+        padding-top: 0px;
+    }
+}
+@media(max-width:600px)
+{.barba-container header.l-header.l-header--full-height.l-header--curtain {
+    height: calc(36vh - 80px);
+}
+.box-photo-img__item:first-child {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    margin: auto;
+}
+}
+@media(max-width:380px)
+{.barba-container header.l-header.l-header--full-height.l-header--curtain { 
+    height: calc(33vh - 80px);
+}
+}
+@media(max-width:320px){
+.barba-container header.l-header.l-header--full-height.l-header--curtain {
+    padding-top: 70px;
+    height: calc(29vh - 80px);
+}
+}
+@media(min-width:1025px){
+    .loginUser {
+        margin-right: 60px;
+    }
+}
+/* End */
 
+/* Detail page */
+table.dp_daypicker.dp_body {
+    padding: 0px !important;
+}
+.Zebra_DatePicker {
+    display: table !important;
+}
+/* end */
+/* Tours page */
+.heading-nonavailability {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px;
+    background-color: #4417ff;
+    border-radius: 0px 0px 0px 10px;
+    color: #fff;
+}
+/* End */
+
+/* Gallery */
+.container.tour-gallery__image-list-item {
+    width: 62%;
+}
 .column {
     float: left;
     width: 100%;
     padding: 10px;
-}
+  }
 
-
-/* Style the images inside the grid */
-
-.column img {
+  .column img {
     opacity: 0.8;
     cursor: pointer;
-}
+  }
 
-.column img:hover {
+  .column img:hover {
     opacity: 1;
-}
+  }
 
-
-/* Clear floats after the columns */
-
-.row:after {
+  .row:after {
     content: "";
     display: table;
     clear: both;
-}
+  }
 
-
-/* The expanding image container */
-
-.container {
+  .container {
     position: relative;
-    display: block;
-}
+    /* display: none; */
+  }
 
-
-/* Expanding image text */
-
-#imgtext {
+  #imgtext {
     position: absolute;
     bottom: 15px;
     left: 15px;
     color: white;
     font-size: 20px;
-}
+  }
 
-
-/* Closable button inside the expanded image */
-
-.closebtn {
+  .closebtn {
     position: absolute;
     top: 10px;
     right: 15px;
     color: white;
     font-size: 35px;
     cursor: pointer;
-}
-
-.scroll-img {
+  }
+  .scroll-img {
     height: 600px !important;
     overflow: scroll;
     scroll-behavior: smooth;
-}
-
-.gallery-sec {
+    overflow-x: hidden;
+  }
+  .gallery-sec {
     background-color: #2196f3;
     padding: 100px 40px;
-}
-
-.fixed-img {
+  }
+  .fixed-img {
     display: flex;
     align-items: center;
+  }
+  .gallery-sec h2 {
+    padding-bottom: 40px;
+  }
+  .scroll-img img {
+    width: 65% !important;
+    align-items: center;
+    display: flex;
+    margin: auto;
+  }
+  li.image-list-all {
+    list-style: none;
+    padding: 10px 0px;
+  }
+  .scroll-img {
+    height: auto !important;
+}
+  @media (max-width: 800px) {
+    .col-8.fixed-img {
+      display: none;
+    }
+    .scroll-img {
+        height: auto !important;
+      overflow: scroll;
+      scroll-behavior: smooth;
+    }
+    ul.Gallery-image-scroll {
+      padding: 0px;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: scroll;
+      width: 100%;
+    }
+    li.image-list-all {
+      width: 100%;
+      height: auto;
+      flex: 0 0 auto;
+      cursor: pointer;
+      scroll-behavior: smooth;
+      padding: 20px;
+    }
+    .scroll-img img {
+      width: 100% !important;
+    }
+  }
+
+  .modal-content {
+    margin: auto;
+
+    width: 80%;
+    max-width: 700px;
+  }
+  .modal-content {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+
+  @-webkit-keyframes zoom {
+    from {
+      -webkit-transform: scale(0);
+    }
+    to {
+      -webkit-transform: scale(1);
+    }
+  }
+
+  @keyframes zoom {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  /* The Close Button */
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    z-index: 10;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .modal {
+    top: 20%;
+  }
+/* End */
+/* amount-show */
+.amount-show .col-lg-3.col-md-3.col-sm-6 {
+    width: 50%;
+}
+.amount-show button#sub ,.amount-show button#add {
+    padding: 12px 9px;
+}
+/* end */
+/* Thanku Page */
+.bookingtext{
+    font-size: 16px;
+}
+/* end */
+
+/* my Account */
+#collapseThree .accordion-body {
+    padding: 0px;
+}
+a.downlodPdf {
+    display: flex;
+    justify-content: end;
+    padding-right: 12px;
 }
 
-
-/* End */
+/* end */
