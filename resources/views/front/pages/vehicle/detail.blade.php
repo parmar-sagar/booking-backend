@@ -272,7 +272,7 @@
             @csrf
             <input type="hidden" name="id" value="{{$objVehicle->random_id}}">
             <div class="row row--g-10">
-               <div class="col-12 col-lg-6 col-xxl-5 col-xl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1">
+               <div class="col-12 col-lg-12 col-xxl-5 col-xl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1">
                   <div class="dates picker card--shadow-orange">
                      <div id="bookingHeading">
                         <h1>Select Pickup Date</h1>
@@ -310,7 +310,7 @@
                      <!-- end -->
                   </div>
                </div>
-               <div class="col-12 col-lg-6 col-xl-7 col-xxl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1"  id="cartcol" style="display:none">
+               <div class="col-12 col-lg-12 col-xl-7 col-xxl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1"  id="cartcol" style="display:none">
                   <div class="mb-30em animated fadeInUp active " id="duration">
                      <div class="card card--shadow-orange">
                         <div class="card__content">
@@ -362,7 +362,7 @@
                                  <h5>Quantity</h5>
                                  <td class="qntityBtn">
                                     <button type="button" id="sub" class="sub">-</button>
-                                    <input style="width:40px" name="quantity" class="quantity-class" type="number" value="1" min="1" max="10" />
+                                    <input style="width:30px" name="quantity" class="quantity-class" type="number" value="1" min="1" max="10" />
                                     <button type="button" id="add" class="add">+</button>
                                  </td>
                               </div>
@@ -378,8 +378,32 @@
                                  </td>
                               </div>
                            </div>
-                           <h1 style="font-size: 1.75rem">  Extra Activities</h1>
-                           <table>
+
+                           <h1 style="font-size: 1.75rem; padding-top:10px;">Extra Activities</h1>
+                           @foreach($extraActivitys as $key => $value)
+                           <div class="row pt-3">
+                              <div class="col-lg-8 col-md-8 col-sm-12 item-pricechange">
+                                 <td><strong class="mb-20em" name="etraname">{{$value->title}}</strong></td>
+                              </div>
+                              <div class="col-lg-4 col-md-4 col-sm-12 toggle-btnprice">
+                              <td>
+                                 <label class="switch" style="margin-right: 25px;">
+                                 <input id ="checkBox{{$key+1}}" type="checkbox" name="extra_price[]" value="{{$value->id}}" class="checkBoxId">
+                                    <span class="slider round"></span>
+                                 </label>
+                              </td>
+                              <!-- <td style="display: none;" class="checkboxQntity qntityBtn">
+                                 <button type="button" id="sub" class="sub">-</button>
+                                 <input style="width:40px" class="quantity-class" type="number" value="1" min="1" max="10">
+                                 <button type="button" id="add" class="add">+</button>
+                              </td> -->
+                              <td id="extraAcPrice">
+                                 <strong class="mb-20em">{{$value->price}} AED</strong>
+                              </td>
+                              </div>
+                           </div>
+                           @endforeach 
+                           <!-- <table>
                               @foreach($extraActivitys as $key => $value)
                                  <tr>
                                     <td><strong class="mb-20em" name="etraname">{{$value->title}}</strong></td>
@@ -399,7 +423,7 @@
                                     </td>
                                  </tr>
                               @endforeach                
-                           </table>
+                           </table> -->
                            @if($objVehicle->available_quantity < 1) 
                            <p class="headline-3 vehicleName">Not Available</p>
                            @else

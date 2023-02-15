@@ -1,5 +1,5 @@
 <x-front.master-layout>
-   <div class="container cart " style="margin-bottom:10px;padding-bottom:10px;">
+   <div class="container cart" style="margin-bottom:10px;padding-bottom:10px;margin-top:135px;">
       <div class="col-lg-8 col-md-12 col-sm-12 content cart-item mb-20 pb-20">
          <div class="basket card--shadow-blurple">
             <div class="basket-labels basket-U">
@@ -148,7 +148,7 @@
                         </div>
                         <div class="form__row__left">
                            <div class="form__group">
-                              <input type="text" name="last_name" id="last_name" placeholder="Last Name" value="@if(isset(Auth::user()->last_name)){{ Auth::user()->last_name }}@endif" class="form__input-blank" required="">
+                              <input type="text" name="last_name" id="last_name" placeholder="Last Name(Optinal)" value="@if(isset(Auth::user()->last_name)){{ Auth::user()->last_name }}@endif" class="form__input-blank">
                            </div>
                         </div>
                      </div>
@@ -177,13 +177,27 @@
                            </select>
                         </div>
                      </div>
-                     <div class="form__row">
+                     <!-- <div class="form__row">
                         <h3 class="headline-6 mt-20em mb-10em"><a href="{{url('term-and-conditions')}}" target="blank"> I agree to the Terms & Conditions</a></h3>
                         <label class="switch">
                         <input type="checkbox">
                         <span class="slider round"></span>
                         </label>
-                     </div>   
+                     </div>  -->
+                     <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="terms" value="" id="flexCheckDefault" required>
+                        <label class="form-check-label" for="flexCheckDefault">
+                        I agree to the Terms & Conditions
+                        </label>
+                     </div>
+                     @if(!Auth::user())
+                     <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="Register" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                        Register On Website
+                        </label>
+                     </div>
+                     @endif  
                      <button class="accordion mt-15em" style="color:grey;">Payment Method</button>
                      <div>
                         <div class="product-details mt-10em ">
@@ -212,11 +226,11 @@
                            </div>
                         </div>
                      </div>
-                     <div class="form__row otpInput" style="display: none">
+                     <!-- <div class="form__row otpInput" style="display: none">
                         <div class="form__group">
                            <input type="number" name="otp" id="otp" placeholder="Enter OTP" class="form__input-blank">
                         </div>
-                     </div>
+                     </div> -->
                      <div class="form__row">
                         <div class=" text-center">
                            <button class="btn mt-10em chip--orange profile-button" type="submit"> PLACE ORDER </button>
@@ -248,10 +262,12 @@
             if((response.error)){
                toastr.error(response.error);
             }else{
-               $('.otpInput').show();
-               $('#email').attr('readonly');
-               $('#submit-check-user').attr('id','submit-verify');
-               toastr.success(response.success); 
+               //$('.otpInput').show();
+               // $('#email').attr('readonly');
+               // $('#submit-check-user').attr('id','submit-verify');
+               // toastr.success(response.success);
+               $('#submit-check-user').attr('id','submit-payment');
+               document.getElementById('submit-payment').submit(); 
             }
          },error: function (error){
             toastr.warning(error);
