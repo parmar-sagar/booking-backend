@@ -38,6 +38,7 @@ class CheckoutController extends Controller{
         try{
             $validator = Validator::make($request->all(), [
                 'first_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
+                'last_name' => 'nullable|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
                 'email' => 'required|max:100|email:rfc,dns',
                 'mobile' => 'required|string|min:10|max:12'
             ]);
@@ -60,7 +61,7 @@ class CheckoutController extends Controller{
                 $data = [
                     'random_id' => (new Snowflake())->id(),
                     'first_name' => $validated['first_name'],
-                    'last_name' => $request['last_name'],
+                    'last_name' => $validated['last_name'],
                     'email' => $validated['email'],
                     'mobile' =>  $validated['mobile'],
                     'password' => $validated['password'],
