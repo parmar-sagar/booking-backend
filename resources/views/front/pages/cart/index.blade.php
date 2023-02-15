@@ -1,6 +1,8 @@
 <x-front.master-layout>
-  <div class="container cart mb-3 " id="carts">
-    @if($carts->isEmpty())
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container pb-5 mb-2 cart-checkoutpage">
+    <div class="cart-checkoutpage">
+@if($carts->isEmpty())
       <div class="row row--g-10 pb-2em mt-5">
         <div class="col-12 col-lg-10 offset-xxl-1">
             <div class="card card--shadow-purple mb-80em">
@@ -26,124 +28,116 @@
         </div>
       </div>
     @else
-      <div class="content  mb-20 pb-20">
-        <div class="basket card--shadow-blurple">
-            <div class="basket-labels">
-              <ul>
-                  <li class="item item-heading">Item</li>
-                  <li class="price">Price</li>
-                  <li class="price">Date</li>
-                  <li class="price">Time</li>
-                  <li class="price">Quantity</li>
-                  <li class="price">Subtotal</li>
-                  <li class="price">Action</li>
-              </ul>
+    @php 
+    $extraAmount = 0; 
+    @endphp
+    @foreach($carts as $key => $value)
+    @php 
+    $extraAmount += $value->attributes->extra_amount; 
+    @endphp
+    <!-- Cart Item-->
+    <div class="cart-item-extra">
+    <div class="cart-item d-md-flex justify-content-between pb-0 mb-0"><span class="remove-item"><a class="remove" href="javascript:void(0);" data-id="{{ $value->id }}">
+                <i class="fa fa-times"></i>
+            </a></span>
+        <div class="px-3 my-3">
+            <a class="cart-item-product" href="#">
+                <div class="cart-item-product-thumb">  <img src="https://img.veenaworld.com/wp-content/uploads/2022/02/Dubai-800x530.jpg?imwidth=1080" alt="Placholder Image 2" class="product-frame"></div>
+                <div class="cart-item-product-info">
+                    <h4 class="cart-item-product-title">{{ $value->name }}</h4><span><strong>Time:</strong>{{ $value->attributes->time }}</span><span><strong>Booking Date:</strong>{{ $value->attributes->booking_date }}</span>
+                </div>
+            </a>
+        </div>
+        <div class="px-3 my-3 text-center">
+            <div class="cart-item-label">Price</div><span class="text-xl font-weight-medium">{{ ($value->price * $value->quantity)}} AED</span>
+        </div>
+        <div class="px-3 my-3 text-center">
+            <div class="cart-item-label">Quantity</div>
+            <div class="count-input">
+                    <option>{{ $value->quantity }}</option>
             </div>
-            @php 
-              $extraAmount = 0; 
-            @endphp
-            @foreach($carts as $key => $value)
-              @php 
-                $extraAmount += $value->attributes->extra_amount; 
-              @endphp
-              <div class="basket-product" style="border-top:2px solid black; ">
-                <div class="item" >
-                    <div class="product-image">
-                      <img src="https://img.veenaworld.com/wp-content/uploads/2022/02/Dubai-800x530.jpg?imwidth=1080" alt="Placholder Image 2" class="product-frame">
-                    </div>
-                    <div class="productName">
-                      <h1>
-                          <strong>{{ $value->name }}</strong>
-                      </h1>
-                    </div>
-                </div>
-                <div class="product-tag-details-D">
-                    <div class="price"><span class="tag-detail1"></span>{{ $value->price }} AED</div>
-                    <div class="price"><span class="tag-detail1"></span>{{ $value->attributes->booking_date }}</div>
-                    <div class="price"><span class="tag-detail1"></span>{{ $value->attributes->time }}</div>
-                    <div class="quantity"><span class="tag-detail1"></span>{{ $value->quantity }}</div>
-                    <div class="price"><span class="tag-detail1"></span>{{ ($value->price * $value->quantity) + $value->attributes->extra_amount }} AED</div>
-                    <div class="price" style="display: flex;">
-                      <span class="tag-detail1">
-                        <a href="{{ url('vehicles/details/'.$value->id) }}">
-                          <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-                        </a>
-                        <a class="remove" href="javascript:void(0);" data-id="{{ $value->id }}">
-                          <i class="fa-solid fa-trash"></i>
-                        </a>
-                      </span>
-                    </div>
-                </div>
-              </div>
-              @if($value->attributes->extra_product)
+        </div>
+        
+        <div class="px-3 my-3 text-center">
+            <div class="cart-item-label">Action</div><span class="text-xl font-weight-medium"> <a href="{{ url('vehicles/details/'.$value->id) }}">
+                <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+            </a>
+            </span>
+        </div>
+        
+    </div>
+    @if($value->attributes->extra_product)
                 <div class="product-details">
-                  <p>Extra Activities :- </p>
+                  <p><b>Extra Activities :-</b> </p>
                   <div class="row">
                       @foreach($value->attributes->extra_product as $key => $value)
-                        <div class="col-6">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
                           <h6>{{ $value['title'] }}</h6>
                         </div>
-                        <div class="col-6">
-                          <h6>{{ $value['price'] }}AED</h6>
+                        <div class="col-lg-12 col-md-12 col-sm-12 ">
+                          <h6><b>{{ $value['price'] }}AED </b></h6>
                         </div>
                       @endforeach
                   </div>
                 </div>
               @endif
-            @endforeach
-        </div>
-        <br>
-        <br>
-      </div>
-      <div class="col-lg-4 col-sm-12 col-md-6 cart-payment">
-        <aside>
-          <div class="summary card--shadow-orangeBlood" style="margin-bottom:50px;padding-bottom:50px;">
-            <div class="summary-total-items">
-                <span class="total-items"></span> Items in your Bag
-            </div>
-            <div class="summary-subtotal">
-              <form id="apply-coupon" method="POST" autocomplete="off" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" id="total" value="{{ $total + $extraAmount }}" name="total">
-                <div class="form-group coupon"> 
-                  <label>Have coupon?</label>
-                    <div class="input-group"> 
-                      <input type="text" class="form-control coupon" value="{{ $code }}" name="coupon" placeholder="Coupon code"> 
-                      <span class="input-group-append"> 
-                        @if($code)
-                          <button class="btn btn-primary btn-apply coupon apBtn" style="background: #0fba68" disabled>Applied</button> 
-                        @else
-                          <button class="btn btn-primary btn-apply coupon apBtn">Apply</button> 
-                        @endif
-                      </span> 
+</div>
+    @endforeach
+    
+
+    <!-- Cart Item-->
+    <!-- Coupon + Subtotal-->
+    <div class="d-sm-flex justify-content-between align-items-center text-center text-sm-left">
+                <form id="apply-coupon" method="POST" autocomplete="off" enctype="multipart/form-data">
+                    @csrf
+                    @php   $extraAmount = 0; @endphp
+                    <input type="hidden" id="total" value="{{ $total + $extraAmount }}" name="total">
+                    <div class="form-group coupon"> 
+                    <label>Have coupon?</label>
+                        <div class="input-group"> 
+                        <input type="text" class="form-control coupon" value="{{ $code }}" name="coupon" placeholder="Coupon code"> 
+                        <span class="input-group-append"> 
+                            @if($code)
+                            <button class="btn btn-primary btn-apply coupon apBtn" style="background: #0fba68" disabled>Applied</button> 
+                            @else
+                            <button class="btn btn-primary btn-apply coupon apBtn">Apply</button> 
+                            @endif
+                        </span> 
+                        </div>
                     </div>
-                  </div>
                 </form>
-                <div class="subtotal-title">Subtotal</div>
-                <div class="subtotal-value final-value" id="basket-subtotal">{{ number_format($subTotal, 2) }} AED</div>
-                <br>
-                <br>
-                <div class="subtotal-title">Extra Amount</div>
-                <div class="subtotal-value final-value" id="basket-subtotal">{{ number_format($extraAmount, 2) }} AED</div>
-                <br>
-                <br>
-                <div class="subtotal-title">Discount</div>
-                <div class="subtotal-value final-value" id="discount">{{ $discount }} AED</div>
-                <br>
-                <div class="summary-total">
-                  <div class="total-title">Total</div>
-                  <div class="subtotal-value final-value grandCoupon grandTotal" id="grand-total">{{ number_format($total + $extraAmount - $discount, 2) }} AED</div>
-                  <input type="hidden" id="grandTotal" value="{{ $total + $extraAmount - $discount }}">
-                </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12"></div>
+        <div class="col-lg-4 col-md-4 col-sm-12 p-0">
+    <div class="subt-disct-extra">
+            <div class="py-2 alltotal">
+                <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Subtotal:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="basket-subtotal">{{ number_format($subTotal, 2) }} AED</span>
             </div>
-          </div>
-          <a class="btn btn--purple mt-0" href="{{url('checkout')}}"> Proceed to Checkout </a>
-          <br>
-          <br>
-        </aside>
-      </div>
+            <div class="py-2 alltotal">
+                <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Extra Amount:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="basket-subtotal">{{ number_format($extraAmount, 2) }} AED</span>
+            </div>
+            <div class="py-2 alltotal">
+                <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Discount:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="discount">{{ $discount }} AED</span>
+            </div>
+            <div class="py-2 alltotal">
+                <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Total:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value grandCoupon grandTotal" id="grand-total">{{ number_format($total + $extraAmount - $discount, 2) }} AED</span>
+                <input type="hidden" id="grandTotal" value="{{ $total + $extraAmount - $discount }}">
+            </div>
+        </div>
+        </div>
+</div>
+    <!-- Buttons-->
+    <hr class="my-2">
+    <div class="row pt-3 pb-5 mb-2 checkot-btnn">
+        <div class="col-sm-6 mb-3"><a class="btn btn-style-1 btn-primary btn-block" href="{{url('checkout')}}"><i class="fe-icon-credit-card"></i>&nbsp;Checkout</a></div>
+    </div>
+    </div>
     @endif
-  </div>
+</div>
+
+</div>
 </x-front.master-layout>
 <script>
   jQuery('body').on('click', '.remove', function() {
