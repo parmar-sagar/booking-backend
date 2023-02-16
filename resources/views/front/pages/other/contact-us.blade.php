@@ -40,9 +40,9 @@
           </header>
         </div>
         <div class="col-12 col-lg-4 col-xxl-4 offset-xxl-1">
-            <figure class="bg-media--glasses">
+            <!-- <figure class="bg-media--glasses">
               <img src="fonts/wm-glasses.svg" alt="Background">
-            </figure>
+            </figure> -->
             <form id="submit-form" class="form form--contact animated fadeInUp active" method="POST"  autocomplete="off" enctype="multipart/form-data">
               @csrf
               <h2 class="headline-3 color-white mb-5em">Contact Form</h2>

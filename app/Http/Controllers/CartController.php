@@ -27,6 +27,7 @@ class CartController extends Controller{
             'code' => (($coupon['code'])) ?? '',
             'discount' => (($coupon['discount'])) ?? 0.00
         ];
+        // dd($this->outputData['subTotal']);
         return view('front.pages.cart.index',$this->outputData);
     }
 

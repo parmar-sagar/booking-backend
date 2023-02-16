@@ -209,6 +209,28 @@
     font-size: 1em;
     text-align: center;
   }
+  td.logodetails {
+  text-align: left;
+}
+span.logoname {
+  /* text-align: center; */
+  font-size: 1.5em;
+  font-weight: bold;
+  color: black;
+  padding-bottom: 0px;
+}
+span.logosubheading {
+  /* text-align: center; */
+  font-size: 1em;
+  font-weight: bold;
+  color: #1ebbd7;
+  padding-top: 0px;
+}
+td.companyaddress {
+  text-align: left;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
   
   footer {
     color: #777777;
@@ -228,6 +250,8 @@
       <header class="clearfix">
         <div id="logo">
           <!-- <img src="{{asset ('assets/front/images/logo1.png')}}"> -->
+          
+          <!-- <img src="{{asset ('assets/front/css/logo/logoquads.png')}}" style="width: 200px; height: 200px"> -->
         </div>
         <div id="company">
           <h1>INVOICE</h1>
@@ -277,12 +301,12 @@
               <td>{{ $bookingInfo->sub_total }}</td>
             </tr>
             <tr>
-              <td colspan="2"></td>
+              <td colspan="2" class="logodetails"><span class="logoname">QUADS DUBAI</span> <br> <span class="logosubheading">ADVENTURE STARTS HERE</span> </td>
               <td colspan="2">EXTRA AMOUNT(%)</td>
               <td>@if(isset($bookingInfo->extra_amount)){{ $bookingInfo->extra_amount }}@endif</td>
             </tr>
             <tr>
-              <td colspan="2"></td>
+              <td colspan="2" class="companyaddress">xyz, street1, dubai 145006 , UAE <br>quadsdubai@gmail.com<br> +971 52 132 9715</td>
               <td colspan="2">DISCOUNT</td>
               <td>@if(isset($bookingInfo->discount)){{ $bookingInfo->discount }}@endif</td>
             </tr>
@@ -297,7 +321,10 @@
           <div class="large-sign">SIGNATURE</div>
           <div class="notice">Quads Dubai</div>
         </div>
-      </main>
+        </main>
+      <footer>
+        Invoice was created on a computer and is valid without the signature and seal.
+      </footer>
     </div>
   </body>
 </html>

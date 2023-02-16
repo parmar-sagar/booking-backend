@@ -35,6 +35,7 @@ class CheckoutController extends Controller{
     }
 
     public function checkUser(Request $request){
+
         try{
             $validator = Validator::make($request->all(), [
                 'first_name' => 'required|string|regex:/^[a-zA-Z_\- ]*$/|min:3|max:50',
