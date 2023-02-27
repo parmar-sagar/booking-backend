@@ -90,21 +90,21 @@
                                  <div class="accordion-body">
                                     <article class="card">
                                         <div class="card-body row">
-                                            <div class="col"> <strong>Name</strong> </div>
-                                            <div class="col"> <strong>Price</strong> </div>
-                                            <div class="col"> <strong>Booking Date</strong> </div>
-                                            <div class="col"> <strong>Booking Time</strong> </div>
-                                            <div class="col"> <strong>Quantity</strong> </div>
+                                            <div class="col-lg-4 col-md-12 col-sm-12"> <strong>Name</strong> </div>
+                                            <div class="col-lg-2 col-md-12 col-sm-12"> <strong>Price</strong> </div>
+                                            <div class="col-lg-2 col-md-12 col-sm-12"> <strong> Date</strong> </div>
+                                            <div class="col-lg-2 col-md-12 col-sm-12"> <strong>Time</strong> </div>
+                                            <div class="col-lg-2 col-md-12 col-sm-12"> <strong>Quantity</strong> </div>
                                         </div>
                                     </article><br>
                                     @foreach ($booking->vehicleInfo as $value)
                                         <article class="card">
                                             <div class="card-body row">
-                                                <div class="col"> {{ $value->name }} </div>
-                                                <div class="col"> {{ $value->price }} </div>
-                                                <div class="col"> {{ date('d M Y',strtotime($value->booking_date)) }} </div>
-                                                <div class="col"> {{ $value->booking_time }} </div>
-                                                <div class="col"> {{ $value->quantity }} </div>
+                                                <div class="col-lg-4 col-md-12 col-sm-12"> {{ $value->name }} </div>
+                                                <div class="col-lg-2 col-md-12 col-sm-12"> {{ $value->price }} </div>
+                                                <div class="col-lg-2 col-md-12 col-sm-12"> {{ date('d M Y',strtotime($value->booking_date)) }} </div>
+                                                <div class="col-lg-2 col-md-12 col-sm-12"> {{ $value->booking_time }} </div>
+                                                <div class="col-lg-2 col-md-12 col-sm-12"> {{ $value->quantity }} </div>
                                             </div>
                                         </article><br>
                                     @endforeach

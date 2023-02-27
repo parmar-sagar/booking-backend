@@ -1,131 +1,88 @@
 <x-front.master-layout>
-   <div class="container cart" style="margin-bottom:10px;padding-bottom:10px;margin-top:135px;">
-      <div class="col-lg-8 col-md-12 col-sm-12 content cart-item mb-20 pb-20">
-         <div class="basket card--shadow-blurple">
-            <div class="basket-labels basket-U">
-               <table class="responsive-large-tabU">
-                  <tr class="tablerow">
-                     <th class="tableitem">Item</th>
-                     <th>Price</th>
-                     <th>Date</th>
-                     <th>Time</th>
-                     <th>Quantity</th>
-                     <th>Subtotal</th>
-                  </tr>
-                  @php 
-                     $extraAmount = 0; 
-                  @endphp
-                  
-                  @foreach($carts as $key => $value)
-                     @php 
-                        $extraAmount += $value->attributes->extra_amount; 
-                     @endphp
-                     <tr  class="tablerow1">
-                        <td>{{ $value->name }}</td>
-                        <td>{{ $value->price }} AED</td>
-                        <td>{{ $value->attributes->booking_date }}</td>
-                        <td>{{ $value->attributes->time }}</td>
-                        <td>{{ $value->quantity }}</td>
-                        <td>{{ ($value->price * $value->quantity) + $value->attributes->extra_amount }} AED</td>
-                     </tr>
-                     @if(!empty($value->attributes->extra_product))
-                        <tr>
-                           <th>Extra Activities :-</th>
-                        </tr>
-                        @foreach($value->attributes->extra_product as $key => $value)
-                           <tr style="border-bottom: 1px solid;">
-                              <td>{{ $value['title'] }}</td>
-                              <td>{{ $value['price'] }}AED</td>
-                           </tr>
-                        @endforeach 
-                     @endif
-                  @endforeach
-               </table>
-               <table class="responsive-mobileU">
-          <tbody>
+    <div class="container cart" style="margin-bottom:10px;padding-bottom:10px;margin-top:135px;">
+        <div class="row cart-row-scroll">
             @php 
-               $extraAmount = 0; 
-            @endphp
+            $extraAmount = 0; 
+            @endphp 
             @foreach($carts as $key => $value)
-               @php 
-                  $extraAmount += $value->attributes->extra_amount; 
-               @endphp
-              <tr style="border-bottom: 4px solid #f7104c;padding-bottom: 20px;">
-                <tr>
-                  <th>Item</th>
-                  <td>{{ $value->name }}</td>
-                  </tr>
-                  <tr>
-                  <th>Price</th>
-                  <td>{{ $value->price }} AED</td>
-                  </tr>
-                  <tr>
-                  <th>Date</th>
-                  <td>{{ $value->attributes->booking_date }}</td>
-                  </tr>
-                  <tr>
-                  <th>Time</th>
-                  <td>{{ $value->attributes->time }}</td>
-                  </tr>
-                  <tr>
-                  <th>Quantity</th>
-                  <td>{{ $value->quantity }}</td>
-                  </tr>
-                  <tr>
-                  <th>Subtotal</th>
-                  <td>{{ ($value->price * $value->quantity) + $value->attributes->extra_amount }} AED</td>
-                  </tr>
-                  <tr>
-               @if(!empty($value->attributes->extra_product))
-                <th>Extra Activities :-</th>
-                </tr>
-                @foreach($value->attributes->extra_product as $key => $value)
-                <tr>
-                <tr>
-                  <th >Item</th>
-                  <td>{{ $value['title'] }}</td>
-                  </tr>
-                  <tr>
-                  <th>Price</th>
-                  <td>{{ $value['price'] }}AED</td>
-                  </tr>
-                </tr>
-                </tr >
-                @endforeach 
-                     @endif
-                  @endforeach
-                 </tbody>
-          </table>
+            @php 
+            $extraAmount += $value->attributes->extra_amount; 
+            @endphp
+                <div class="col-lg-12 col-md-12 col-sm-12 content cart-item mb-20 pb-20 checkout-final" style="width:100%">
+                    <div class="cart-item-extra">
+                        <div class="cart-item d-md-flex justify-content-between pb-0 mb-0">
+                            <div class="px-3 my-3 text-center">
+                                <div class="cart-item-label">Item</div>
+                                <span class="text-xl font-weight-medium">{{ $value->name }}</span>
+                            </div>
+                        <div class="px-3 my-3 text-center">
+                            <div class="cart-item-label">Price</div>
+                            <span class="text-xl font-weight-medium">{{ ($value->price)}} AED</span>
+                        </div>
+                        <div class="px-3 my-3 text-center">
+                            <div class="cart-item-label">Quantity</div>
+                            <div class="count-input">
+                                <option>{{ $value->quantity }}</option>
+                            </div>
+                        </div>
+                        <div class="px-3 my-3 text-center">
+                            <div class="cart-item-label">Total</div>
+                            <span class="text-xl font-weight-medium">{{ ($value->price * $value->quantity)}} AED</span>
+                        </div>
+                        <div class="px-3 my-3 text-center">
+                            <div class="cart-item-label">Booking Date</div>
+                            <span>28-02-2023</span>
+                        </div>
+                        <div class="px-3 my-3 text-center">
+                            <div class="cart-item-label">Time</div>
+                            <span>12:00 AM</span>
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <p><b>Extra Activities :-</b> </p>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <h6>Polaris 1000CC TWO SEAT for 60 MINS - open desert ride</h6>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 ">
+                                <h6><b>700.00AED </b></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
             </div>
-         </div><br><br>
-      </div>
-      <div class="col-lg-4 col-md-12 col-sm-12" style="padding: 0px;">
-         <aside>
-            <div class="summary card--shadow-orangeBlood">
-               <div class="summary-total-items">
-                  <span class="total-items"></span> Items in your Bag
-               </div>
-               <div class="summary-subtotal">
-                  <div class="subtotal-title">Subtotal</div>
-                  <div class="subtotal-value final-value" id="basket-subtotal">{{ $subTotal }} AED</div>
-                  <br>
-                  <br>
-                  <div class="subtotal-title">Extra Amount</div>
-                  <div class="subtotal-value final-value" id="basket-subtotal">{{ number_format($extraAmount, 2) }} AED</div>
-                  <br>
-                  <br>
-                  <div class="subtotal-title">Discount</div>
-                  <div class="subtotal-value final-value" id="discount">{{ $discount }} AED</div>
-                  <br>
-                  <div class="summary-total">
-                     <div class="total-title">Total</div>
-                     <div class="total-value final-value grandCoupon" id="basket-total">{{ number_format($total + $extraAmount - $discount, 2) }} AED</div>
-                  </div>
-               </div>
+            @endforeach
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="padding: 0px;">
+                <aside>
+                    <div class="summary card--shadow-orangeBlood">
+                        <div class="summary-total-items">
+                            <span class="total-items"></span> Items in your Bag
+                        </div>
+                        <div class="summary-subtotal">
+                            <div class="subtotal-title">Subtotal</div>
+                            <div class="subtotal-value final-value" id="basket-subtotal">{{ $subTotal }} AED</div>
+                            <br>
+                            <br>
+                            <div class="subtotal-title">Extra Amount</div>
+                            <div class="subtotal-value final-value" id="basket-subtotal">{{ number_format($extraAmount, 2) }} AED</div>
+                            <br>
+                            <br>
+                            <div class="subtotal-title">Discount</div>
+                            <div class="subtotal-value final-value" id="discount">{{ $discount }} AED</div>
+                            <br>
+                            <div class="summary-total">
+                                <div class="total-title">Total</div>
+                                <div class="total-value final-value grandCoupon" id="basket-total">{{ number_format($total + $extraAmount - $discount, 2) }} AED</div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
             </div>
-         </aside>
-      </div>
-   </div>
+        </div>
+    </div>
+ 
    <div class="container payment-profile">
       <div class="row">
          <h1>Fill the primary contact details</h1>

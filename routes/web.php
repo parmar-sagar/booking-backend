@@ -345,6 +345,7 @@ Route::group([
         Route::post('add',[CartController::class, 'add']);
         Route::get('remove/{id}',[CartController::class, 'remove']);
     });
+    Route::post('apply-coupon',[CartController::class, 'applyCoupon']);
     
     Route::prefix('checkout')->group(function() {
         Route::get('/',[CheckoutController::class, 'index']);

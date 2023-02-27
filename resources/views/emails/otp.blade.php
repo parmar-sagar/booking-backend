@@ -157,8 +157,7 @@
                       font-weight: bold;
                       background-color: #fff;
                     ">
-                  <!-- <label for="client name">1. Customer Name</label><br /><label for="Date">2. Date</label><br /><label for="Slot Timing">3. Slot Timing</label><br /><label for="Pickup Timing">3. Pickup Timing</label><br /><label for="Place">4. Place</label><br /><label for="Phone No.">5. Phone No.</label><br /><label for="Address">7. Address</label><br /><label for="Payment Amount">8. Payment Amount</label> -->
-                  <p> Thank you for signing up with Quads Dubai! Your account is currently being reviewed by a member of our team. Please allow us some time to process your request. <br /> If you have any problems, please contact us at default@gmail.com <br /> Thanks, <br /> Quads Dubai <br /> Your OTP is {{$info['otp']}} <br/>@if($info['password'])
+                  <p> Thank you for signing up with Quads Dubai! Your account is currently being reviewed by a member of our team. Please allow us some time to process your request. <br /> If you have any problems, please contact us at default@gmail.com <br /> Thanks, <br /> Quads Dubai <br />@if($info['password'])
                     Your Password is {{$info['password']}}
                     @endif</p>
                 </td>

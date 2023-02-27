@@ -32,7 +32,7 @@
                   </figure>
                </div>
                <div class="row">
-                  <div class="col-md-5">
+                  <div class="col-md-4">
                      <div class="list-icon-wrapper">
                         <ul class="list-icon list-icon--tick">
                            @foreach($includes as $value)
@@ -46,7 +46,7 @@
                         </ul>
                      </div>
                   </div>
-                  <div class="col-md-7">
+                  <div class="col-md-8">
                      <blockquote class="blockquote blockquote--margin-sm blockquote--blurple">
                         <ul class="list-tour-info list-tour-info--two-cols">
                            <li class="list-tour-info__item">
@@ -357,6 +357,7 @@
                                        @endforeach
                                     @endif</td>
                                  </table>
+                                 <input type="hidden" name="total_price" id="postAmount"  value="">
                               </div>
                               <div class="col-lg-3 col-md-3 col-sm-6">
                                  <h5>Quantity</h5>
@@ -372,7 +373,7 @@
                                     @if($objVehicle->type == 'Safari')
                                        <input type="text" name="total_price" value="@foreach($objVehicle->prices as $value){{$value->amount}}@endforeach" readonly>
                                     @else
-                                       <input type="text" name="total_price" value="" id="total-tour-amount" readonly>
+                                       <input type="text" value="total_price" id="total-tour-amount" readonly>
                                     @endif
                                     
                                  </td>
@@ -466,12 +467,14 @@
       
       // Select Time
       let price = $('#select-time').val();
+      jQuery('#postAmount').val(price);
       jQuery('#selected-price').html(price);
       jQuery('#total-tour-amount').val(price);
 
       jQuery('body').on('change','#select-time', function(){
          let price = $(this).val();
          $('#selected-price').text(price);
+         jQuery('#postAmount').val(price);
          $('#total-tour-amount').val(price);
       });
 
