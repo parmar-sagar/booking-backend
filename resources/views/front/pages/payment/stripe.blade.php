@@ -12,14 +12,14 @@
                         <input type="hidden" name="amount" value="{{ $booking->total }}">
                         <div class="form__row">
                             <div class="form__group"> 
-                                <input type="text" name="fullName" id="fullName" class="form__input" required="">
-                                <label class="form__label">Full name (on the card)</label> 
+                                <input type="text" name="fullName" id="fullName" placeholder="Full name (on the card)" class="form__input" required="">
+                                <!--<label class="form__label">Full name (on the card)</label> -->
                             </div>
                         </div>
                         <div class="form__row">
                             <div class="form__group"> 
-                                <input type="text" name="cardNumber" id="cardNumber" class="form__input" required="">
-                                <label class="form__label" for="cardNumber">Card number</label> 
+                                <input type="text" name="cardNumber" id="cardNumber" placeholder="Card number" class="form__input" required="">
+                                <!--<label class="form__label" for="cardNumber">Card number</label> -->
                             </div>
                         </div>
                         <div class="form__row">

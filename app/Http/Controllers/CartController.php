@@ -32,7 +32,6 @@ class CartController extends Controller{
     }
 
     public function add(Request $request){
-       
         try{
             $validator = Validator::make($request->all(), [
                 'booking_date' => 'required',
@@ -47,18 +46,23 @@ class CartController extends Controller{
 
             $additional = [];
             $extraAmount = 0;
-            if(isset($request->extra_price)){
+           if(isset($request->extra_price)){
                 foreach($request->extra_price as $key => $value){
+                    $extraActivity=array();
                     $extraActivity = VehicleInfo::select('title','price')->where('id',$value)->first();
-                    $additional[] = [
-                        'id' => $extraActivity->id,
-                        'title' => $extraActivity->title,
-                        'price' => $extraActivity->price
-                    ];
-                    
-                    $extraAmount += $extraActivity->price;
+                        $Id = $extraActivity->id;
+                        $title = $extraActivity->title;
+                        $price = $extraActivity->price;
                 }
-
+                foreach($request->extraQuntity as $key => $extras){
+                    $additional[] = [
+                        'id' => $Id,
+                        'title' => $title,
+                        'price' => $price,
+                        'extra_quntity' => $extras
+                   ];
+                   $extraAmount += $price*$extras;
+                }
             }
               
             $product = Vehicle::where('random_id',$request->id)->first();

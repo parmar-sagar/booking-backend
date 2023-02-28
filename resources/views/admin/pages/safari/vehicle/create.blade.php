@@ -149,6 +149,12 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
+                            <label for="quantity" class="form-label">Quantity Of Safari</label>
+                            <input type="number" id="quantity" min="1" class="form-control" name="quantity" value="@if(isset($objData->quantity) && $objData->quantity){{ $objData->quantity }}@endif" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
                             <label for="status" class="form-label">Status</label>
                             <div>
                                 <div class="form-check form-check-inline">

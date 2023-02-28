@@ -237,13 +237,13 @@ class VehiclesController extends Controller
             $this->outputData['price'] = Price::where('vehicle_id',$id)->get();
 
             $timeSlotes = AvailableSlot::where('vehicle_id',$id)->get()->toArray();  
-
-            foreach($timeSlotes as $key => $value){
-                $this->outputData['selctdTimeSlots'][] = $value['time_slot_id'];
-            }
+            $time_slots_ids = [];
             
+            foreach($timeSlotes as $key => $value){
+                $time_slots_ids[] = $value['time_slot_id'];
+            }
+            $this->outputData['objData']->time_slots_ids = $time_slots_ids;
             $this->outputData['objData']->time_ids = Helper::explode( $this->outputData['objData']->time_ids );
-            $this->outputData['objData']->tour_id = Helper::explode( $this->outputData['objData']->tour_id );
             $this->outputData['objData']->includes_ids = Helper::explode( $this->outputData['objData']->includes_ids );
             $this->outputData['objData']->warning_ids = Helper::explode( $this->outputData['objData']->warning_ids );
             $this->outputData['objData']->highlight_ids = Helper::explode( $this->outputData['objData']->highlight_ids );

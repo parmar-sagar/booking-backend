@@ -272,7 +272,7 @@
             @csrf
             <input type="hidden" name="id" value="{{$objVehicle->random_id}}">
             <div class="row row--g-10">
-               <div class="col-12 col-lg-12 col-xxl-5 col-xl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1">
+               <div class="col-12 col-lg-12 col-xxl-4 col-xl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1">
                   <div class="dates picker card--shadow-orange">
                      <div id="bookingHeading">
                         <h1>Select Pickup Date</h1>
@@ -310,7 +310,7 @@
                      <!-- end -->
                   </div>
                </div>
-               <div class="col-12 col-lg-12 col-xl-7 col-xxl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1"  id="cartcol" style="display:none">
+               <div class="col-12 col-lg-12 col-xl-7 col-xxl-6  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1"  id="cartcol" style="display:none">
                   <div class="mb-30em animated fadeInUp active " id="duration">
                      <div class="card card--shadow-orange">
                         <div class="card__content">
@@ -354,10 +354,14 @@
                                     @if($objVehicle->type == 'Safari')
                                        @foreach($objVehicle->prices as $value)  
                                          {{$value->amount}}
+                                         <input type="hidden" name="total_price" id="safariPrice"  value="{{$value->amount}}">
                                        @endforeach
-                                    @endif</td>
+                                       @endif
+                                    </td>
                                  </table>
+                                 @if($objVehicle->type == 'Tour')
                                  <input type="hidden" name="total_price" id="postAmount"  value="">
+                                 @endif
                               </div>
                               <div class="col-lg-3 col-md-3 col-sm-6">
                                  <h5>Quantity</h5>
@@ -371,33 +375,37 @@
                                  <h5>Total</h5>
                                  <td>
                                     @if($objVehicle->type == 'Safari')
-                                       <input type="text" name="total_price" value="@foreach($objVehicle->prices as $value){{$value->amount}}@endforeach" readonly>
+                                       <input type="text" id="total-amount-safari" value="@foreach($objVehicle->prices as $value){{$value->amount}}@endforeach" readonly>
                                     @else
-                                       <input type="text" value="total_price" id="total-tour-amount" readonly>
+                                       <input type="text" id="total-tour-amount" readonly>
                                     @endif
-                                    
                                  </td>
                               </div>
                            </div>
 
                            <h1 style="font-size: 1.75rem; padding-top:10px;">Extra Activities</h1>
-                           @foreach($extraActivitys as $key => $value)
+                            @foreach($extraActivitys as $key => $value)
                            <div class="row pt-3">
-                              <div class="col-lg-8 col-md-8 col-sm-12 item-pricechange">
+                              <div class="col-lg-5 col-md-5 col-sm-12 item-pricechange">
                                  <td><strong class="mb-20em" name="etraname">{{$value->title}}</strong></td>
                               </div>
-                              <div class="col-lg-4 col-md-4 col-sm-12 toggle-btnprice">
+                              <div class="col-lg-7 col-md-7 col-sm-12 toggle-btnprice">
                               <td>
                                  <label class="switch" style="margin-right: 25px;">
-                                 <input id ="checkBox{{$key+1}}" type="checkbox" name="extra_price[]" value="{{$value->id}}" class="checkBoxId">
+                                 <input data-id ="extraa{{$key}}" id="{{$value->id}}" type="checkbox" name="extra_price[]" value="{{$value->id}}" class="checkBoxId">
                                     <span class="slider round"></span>
                                  </label>
+                                    <!--<input type="hidden" id="eqnty{{$value->id}}" value="" name="extraQuntity[]">-->
                               </td>
-                              <!-- <td style="display: none;" class="checkboxQntity qntityBtn">
-                                 <button type="button" id="sub" class="sub">-</button>
-                                 <input style="width:40px" class="quantity-class" type="number" value="1" min="1" max="10">
-                                 <button type="button" id="add" class="add">+</button>
-                              </td> -->
+                                 <td class="qntityBtn">
+                                     <div class="{{$value->id}}" data-id ="extraa{{$key}}" style="display:none">
+                                    <div class="Toggle-qntitybtn">
+                                    <button type="button" id="sub1" class="sub1">-</button>
+                                   <input style="width:30px" id="qnt{{$value->id}}" name="extraQuntity[]" class="extraAvailable" id="eQuantity" type="number" value="" min="1" max="10" />
+                                    <button type="button" id="add1" class="add1">+</button>
+                                    </div>
+                                    </div>
+                                 </td>
                               <td id="extraAcPrice">
                                  <strong class="mb-20em">{{$value->price}} AED</strong>
                               </td>
@@ -464,7 +472,7 @@
   </script>
    <script>
    $(document).ready(function() {
-      
+     
       // Select Time
       let price = $('#select-time').val();
       jQuery('#postAmount').val(price);
@@ -501,9 +509,14 @@
             jQuery(this).prev().val(+jQuery(this).prev().val() + 1);
          }
 
-         let quantity = $(this).prev('input').val();
-         let curentPrice = $('#select-time').val();
-         let price = (curentPrice * quantity).toFixed(2);;
+         var quantity = $(this).prev('input').val();
+         var curentPrice = $('#select-time').val();
+         var price = (curentPrice * quantity).toFixed(2);
+
+            var safariprice = $('#safariPrice').val();
+            var safari = (safariprice * quantity).toFixed(2);
+
+         $('#total-amount-safari').val(safari);  
          $('#total-tour-amount').val(price);  
       });
       jQuery('.sub').click(function () {
@@ -513,7 +526,11 @@
 
          let quantity = $(this).next('input').val();
          let curentPrice = $('#select-time').val();
-         let price = (curentPrice * quantity).toFixed(2);;
+         let price = (curentPrice * quantity).toFixed(2);
+         var safariprice = $('#safariPrice').val();
+         var safari = (safariprice * quantity).toFixed(2);
+
+         $('#total-amount-safari').val(safari);  
          $('#total-tour-amount').val(price);  
       });
 
@@ -566,5 +583,37 @@
          $('.checkboxQntity').hide();
          }
       });
+            // extra quentity
+         // Quantity Plus Minus
+         jQuery('.add1').click(function () {
+         let val = jQuery("#extraAvailable").val(1);
+         if (jQuery(this).prev().val() < 9) {
+            jQuery(this).prev().val(+jQuery(this).prev().val() + 1);
+         }
+
+      });
+      jQuery('.sub1').click(function () {
+         if (jQuery(this).next().val() > 1) {
+            if (jQuery(this).next().val() > 1) jQuery(this).next().val(+jQuery(this).next().val() - 1);
+         }
+      });
+      
+       var array = jQuery.parseJSON('{!! $extraActivitys !!}');
+         $.each(array, function(index, val) {
+            var id = val.id;
+            jQuery('#'+id).click(function() {
+
+               if($(this).is(":checked")) {
+                  $('.'+id).css("display","block");
+               }
+               else{
+                  $('.'+id).css("display","none");
+                  qnt = "";
+                  $('#qnt'+id).val(qnt);
+               }
+            });
+         });
+      // end
+      
    });
    </script>

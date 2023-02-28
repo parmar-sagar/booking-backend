@@ -38,17 +38,27 @@
                             <span>12:00 AM</span>
                         </div>
                     </div>
+                    @if($value->attributes->extra_product)
                     <div class="product-details">
                         <p><b>Extra Activities :-</b> </p>
                         <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <h6>Polaris 1000CC TWO SEAT for 60 MINS - open desert ride</h6>
+                         @foreach($value->attributes->extra_product as $key => $value)
+                            <div class="col-lg-12 col-md-12 col-sm-12 heading-item-title">
+                                <h6>{{ $value['title'] }}</h6>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 ">
-                                <h6><b>700.00AED </b></h6>
+                                <h6>Price: <b>{{ $value['price'] }}AED </b></h6>
                             </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 ">
+                              <h6>Quantity: <b>{{ $value['extra_quntity'] }} </b></h6>
+                           </div>
+                           <div class="col-lg-12 col-md-12 col-sm-12 totalFinlVal">
+                              <h6>Total: <b>{{ $value['price']*$value['extra_quntity'] }} AED</b></h6>
+                           </div>
+                        @endforeach
                         </div>
                     </div>
+                    @endif
                 </div>  
             </div>
             @endforeach
@@ -65,7 +75,7 @@
                             <div class="subtotal-value final-value" id="basket-subtotal">{{ $subTotal }} AED</div>
                             <br>
                             <br>
-                            <div class="subtotal-title">Extra Amount</div>
+                            <div class="subtotal-title">Extra Activities</div>
                             <div class="subtotal-value final-value" id="basket-subtotal">{{ number_format($extraAmount, 2) }} AED</div>
                             <br>
                             <br>
@@ -105,7 +115,7 @@
                         </div>
                         <div class="form__row__left">
                            <div class="form__group">
-                              <input type="text" name="last_name" id="last_name" placeholder="Last Name(Optinal)" value="@if(isset(Auth::user()->last_name)){{ Auth::user()->last_name }}@endif" class="form__input-blank">
+                              <input type="text" name="last_name" id="last_name" placeholder="Last Name(Optional)" value="@if(isset(Auth::user()->last_name)){{ Auth::user()->last_name }}@endif" class="form__input-blank">
                            </div>
                         </div>
                      </div>
@@ -149,8 +159,8 @@
                      </div>
                      @if(!Auth::user())
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="Register" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" name="Register" value="" id="flexCheckDefault1">
+                        <label class="form-check-label" for="flexCheckDefault1">
                         Register On Website
                         </label>
                      </div>

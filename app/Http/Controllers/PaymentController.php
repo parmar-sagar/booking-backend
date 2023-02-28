@@ -43,7 +43,7 @@ class PaymentController extends Controller
         $extraAmount = 0;
         foreach($carts as $key => $value){
             $extraAmount += $value->attributes->extra_amount; 
-
+           
             BookingDetail::create([
                 'booking_id' => $booking->id,
                 'vehicle_id' => $value->attributes->vehicle_id,
@@ -52,7 +52,7 @@ class PaymentController extends Controller
                 'booking_date' => date('Y-m-d',strtotime($value->attributes->booking_date)),
                 'booking_time' => $value->attributes->time,
                 'quantity' => $value->quantity,
-                'extra_product' => json_encode($value->extra_product)
+                'extra_product' => json_encode($value->attributes->extra_product)
             ]);
         }
 

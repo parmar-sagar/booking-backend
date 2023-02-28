@@ -83,7 +83,7 @@
                            <div class="accordion-item">
                               <h2 class="accordion-header" id="headingTwo">
                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Vehicle Information
+                                  Package Information
                                  </button>
                               </h2>
                               <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
@@ -106,8 +106,34 @@
                                                 <div class="col-lg-2 col-md-12 col-sm-12"> {{ $value->booking_time }} </div>
                                                 <div class="col-lg-2 col-md-12 col-sm-12"> {{ $value->quantity }} </div>
                                             </div>
+
+                                            <div class="product-details" style="padding: 0px 20px;">
+                                            
+                                            @php $extraProducts = json_decode($value->extra_product) @endphp
+                                            @if(isset($extraProducts))
+                                                @foreach($extraProducts as $product)
+                                                <div class="row">
+                                                <p><b>Extra Activities :-</b></p>
+                                                   <div class="col-lg-4 col-md-4 col-sm-12">
+                                                      <h6>{{$product->title}}</h6>
+                                                   </div>
+                                                   <div class="col-lg-2 col-md-2 col-sm-12 ">
+                                                      <h6>{{$product->price}}</h6>
+                                                   </div>
+                                                   <div class="col-lg-2 col-md-2 col-sm-12 ">
+                                                   </div>
+                                                   <div class="col-lg-2 col-md-2 col-sm-12 ">
+                                                   </div>
+                                                   <div class="col-lg-2 col-md-2 col-sm-12 ">
+                                                      <h6>{{$product->extra_quntity}}</h6>
+                                                   </div>
+                                                </div>
+                                                @endforeach
+                                                @endif
+                                             </div>
                                         </article><br>
                                     @endforeach
+                                   
                                  </div>
                               </div>
                            </div>
