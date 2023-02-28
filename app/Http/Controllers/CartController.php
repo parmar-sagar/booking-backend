@@ -46,25 +46,26 @@ class CartController extends Controller{
 
             $additional = [];
             $extraAmount = 0;
-           if(isset($request->extra_price)){
+            if(isset($request->extra_price)){
+                foreach($request->extraQuntity as $key => $extras){
+
+                    $extra_quntity[$key] = $extras;
+              
+                }
                 foreach($request->extra_price as $key => $value){
                     $extraActivity=array();
                     $extraActivity = VehicleInfo::select('title','price')->where('id',$value)->first();
-                        $Id = $extraActivity->id;
-                        $title = $extraActivity->title;
-                        $price = $extraActivity->price;
-                }
-                foreach($request->extraQuntity as $key => $extras){
                     $additional[] = [
-                        'id' => $Id,
-                        'title' => $title,
-                        'price' => $price,
-                        'extra_quntity' => $extras
+                        'id' => $extraActivity->id,
+                        'title' => $extraActivity->title,
+                        'price' => $extraActivity->price,
+                        'extra_quntity' => $extra_quntity[$key]
                    ];
-                   $extraAmount += $price*$extras;
+                   $extraAmount += $extraActivity->price*$extra_quntity[$key];
                 }
+                
             }
-              
+
             $product = Vehicle::where('random_id',$request->id)->first();
             
             \Cart::remove($request->id);
