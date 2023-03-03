@@ -108,12 +108,11 @@
                                             </div>
 
                                             <div class="product-details" style="padding: 0px 20px;">
-                                            
-                                            @php $extraProducts = json_decode($value->extra_product) @endphp
+                                           @php $extraProducts = json_decode($value->extra_product) @endphp
                                             @if(isset($extraProducts))
+                                              <p><b>Extra Activities :-</b></p>
                                                 @foreach($extraProducts as $product)
                                                 <div class="row">
-                                                <p><b>Extra Activities :-</b></p>
                                                    <div class="col-lg-4 col-md-4 col-sm-12">
                                                       <h6>{{$product->title}}</h6>
                                                    </div>
@@ -133,7 +132,6 @@
                                              </div>
                                         </article><br>
                                     @endforeach
-                                   
                                  </div>
                               </div>
                            </div>

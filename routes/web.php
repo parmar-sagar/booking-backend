@@ -86,6 +86,7 @@ Route::group([
         Route::get('/edit/{id}',[TourController::class, 'edit']);
 		Route::post('/update/{id}',[TourController::class, 'edit']);
 		Route::get('/delete/{id}',[TourController::class, 'destroy']);
+        Route::post('/genrate-voucher',[TourController::class, 'genrateVoucher']);
 
         Route::group([
             'prefix' => 'vehicles'

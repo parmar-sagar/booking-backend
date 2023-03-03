@@ -286,16 +286,17 @@ td.companyaddress {
           <tbody>
             @foreach($bookingInfo->vehicleInfo as $key => $vehicle)
             <tr>
-              <td class="no"></td>
-              <td class="desc"><h3>{{ $vehicle->name }}</h3>
-              @php $extraProducts = json_decode($vehicle->extra_product) @endphp
-              @if(isset($extraProducts))
-              @foreach($extraProducts as $product)
-              EXTRA :&nbsp; {{$product->title}}<br>
-              PRICE :&nbsp; {{$product->price}}<br>
-              @endforeach
-              @endif
-            </td>
+                  <td class="no"></td>
+                  <td class="desc"><h3>{{ $vehicle->name }}</h3>
+                  @php $extraProducts = json_decode($vehicle->extra_product) @endphp
+                  @if(isset($extraProducts))
+                  @foreach($extraProducts as $product)
+                  EXTRA :&nbsp; {{$product->title}}<br>
+                  PRICE :&nbsp; {{$product->price}}<br>
+                  <br>
+                  @endforeach
+                  @endif
+                </td>
               <td class="qty">{{ $vehicle->booking_time }}</td>
               <td class="qty">{{ $vehicle->quantity }}</td>
               <td class="unit">{{ $vehicle->price }}</td>
@@ -310,7 +311,7 @@ td.companyaddress {
             </tr>
             <tr>
               <td colspan="2" class="logodetails"><span class="logoname">QUADS DUBAI</span> <br> <span class="logosubheading">ADVENTURE STARTS HERE</span> </td>
-              <td colspan="2">EXTRA ACTIVITIES(%)</td>
+              <td colspan="2">EXTRA AMOUNT(%)</td>
               <td>@if(isset($bookingInfo->extra_amount)){{ $bookingInfo->extra_amount }}@endif</td>
             </tr>
             <tr>

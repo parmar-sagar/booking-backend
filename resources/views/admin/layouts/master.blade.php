@@ -35,6 +35,13 @@
                 color:red;
                 font-weight: bold;
             }
+            .genrate {
+                align-items: center;
+                display: grid;
+            }
+            .genrate .mb-3{
+                margin-bottom : 0px !important;
+            }
         </style>
     </head>
 

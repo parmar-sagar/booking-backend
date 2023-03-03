@@ -45,7 +45,13 @@ class TourController extends Controller{
         }
     }
 
+    public function genrateVoucher(){
+        $voucherCode = uniqid();
+        return response()->json($voucherCode);
+    }
+    
     public function create(Request $request){
+
         try {
             if($request->method() == 'POST'){
                 $Input = $request->all();
@@ -87,6 +93,9 @@ class TourController extends Controller{
                 
                 $validated['random_id'] = (new Snowflake())->id();
                 $validated['sequence'] = (($validated['sequence'])) ?? 0;
+                $validated['voucher_status'] = $request['voucher_status'];
+                $validated['voucher_expiry_date'] = $request['voucher_expiry_date'];
+                $validated['voucher'] = $request['voucher'];
 
                 $lastId = Tour::create($validated);
 
@@ -171,6 +180,10 @@ class TourController extends Controller{
                 }
                 
                 $validated['sequence'] = (($validated['sequence'])) ?? 0;
+                $validated['voucher_status'] = $request['voucher_status'];
+                $validated['voucher_expiry_date'] = $request['voucher_expiry_date'];
+                $validated['voucher'] = $request['voucher'];
+
                 Tour::find($validated['id'])->update($validated);
 
                 if(!empty($request->gallry_images)){    

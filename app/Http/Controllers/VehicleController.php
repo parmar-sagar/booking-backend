@@ -17,6 +17,7 @@ class VehicleController extends Controller{
     public function details($id){
 
         $objVehicle = Vehicle::where('random_id',$id)->first();
+        $dealsDiscount =  $objVehicle->discount;
 
         $includeIds = Helper::explode($objVehicle->includes_ids);
         $includes = VehicleInfo::select('title')->whereIn('id',$includeIds)->get();
@@ -47,6 +48,7 @@ class VehicleController extends Controller{
     
         $this->outputData = [
             'objVehicle' => $objVehicle,
+            'dealsDiscount' => $dealsDiscount,
             'includes' => $includes,
             'notIncludes' => $notIncludes,
             'saftyGears' => $saftyGears,
