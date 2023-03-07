@@ -26,7 +26,7 @@ class BookingsController extends Controller
     public function datatable(Request $request){
         try {
             if ($request->ajax()) {
-                $datas = Booking::order()->get();
+                $datas = Booking::where('is_voucher',0)->order()->get();
                 return DataTables::of($datas)
                                     ->addColumn('created_at',function(Booking $data){
                                         return date('d M Y H:i:s',strtotime($data->created_at));

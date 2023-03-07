@@ -3,8 +3,14 @@
         <div class="row cart-row-scroll">
             @php 
             $extraAmount = 0; 
+            $showPickup = 0;
             @endphp 
             @foreach($carts as $key => $value)
+            @if(in_array($value->attributes->tour_name,['Dune Buggies','Quad Bikes']) && $value->attributes->voucher_status == 1)
+            @php
+            $showPickup++;
+            @endphp
+            @endif
             @php 
             $extraAmount += $value->attributes->extra_amount; 
             @endphp
@@ -129,11 +135,28 @@
                            <input type="email" name="email" id="email" placeholder="Email" value="@if(isset(Auth::user()->email)){{ Auth::user()->email }}@endif" class="form__input-blank" required="">
                         </div>
                      </div>
-                     <div class="form__row">
+                     <!-- if(in_array($showPickup)&& status == 1) -->
+                      @if($showPickup != 0)
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="pickup"checked>
+                        <label class="form-check-label" for="pickup">
+                        Pickup
+                        </label>
+                        </div>
+                        <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="without-pickup" >
+                        <label class="form-check-label" for="without-pickup">
+                        Without Pickup
+                        </label>
+                     </div>
+                     @endif
+             
+                     <div class="form__row" style="display:none" id="pickuplocation">
                         <div class="form__group">
                            <input type="text" name="pickup_location" placeholder="Pickup Location (Hotel Or Residence)"  id="pickup_location" class="form__input-blank" required>
                         </div>
                      </div>
+                   
                      <div class="form__row">
                         <div class="form__group">
                         <label for="pickup_location*">No of Travelers*</label>
@@ -183,6 +206,7 @@
                                     <span class="slider round"></span>
                                  </label>
                               </p>
+                              @if($showPickup == 0)
                               <p>
                                  <strong class="mb-1em">Payment on Arrival </strong>
                                  <label class="switch">
@@ -190,6 +214,7 @@
                                     <span class="slider round"></span>
                                  </label>
                               </p>
+                              @endif
                            </div>
                         </div>
                      </div>
@@ -278,12 +303,21 @@
    //          }
    //      });
    //  }
-    $(document).ready(function(){
+$(document).ready(function(){
          
     // select only one payment option
     $('.checkoption').click(function() {
          $('.checkoption').not(this).prop('checked', false);
       });
     // end
-    });    
+
+    $('#pickuplocation').show();
+$('#pickup').on('click',function(){
+    $('#pickuplocation').css("display","block");
+})
+$('#without-pickup').on('click',function(){
+    $('#pickuplocation').css("display","none");
+})
+
+});    
  </script>

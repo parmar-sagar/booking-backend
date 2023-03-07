@@ -23,7 +23,11 @@ use App\Http\Controllers\Admin\SafetyGearController;
 use App\Http\Controllers\Admin\RefreshmentController;
 use App\Http\Controllers\Admin\TimeSlotController;
 use App\Http\Controllers\Admin\AdditionalInfoController;
-use App\Http\Controllers\Admin\BookingsController;
+use App\Http\Controllers\Admin\BookingsController; 
+
+/* Supplier Controller start*/
+
+use App\Http\Controllers\Admin\VoucherController;
 
 /* Frontend Controller start*/
 
@@ -58,12 +62,24 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
+
 Route::group([
     'prefix' => 'admin',
     'middleware' => 'auth:admin'
 ], function(){
     Route::get('/dashboard',[DashboardController::class, 'index']);
 
+    Route::group([
+        'prefix' => 'voucher-bookings'
+    ], function(){
+        Route::get('/',[VoucherController::class, 'index']);
+        Route::get('/datatable',[VoucherController::class, 'datatable']);
+        Route::post('/voucher-details',[VoucherController::class, 'redeemCode']);
+        Route::post('/redeem-voucher',[VoucherController::class, 'redeemSecurityCode']);
+        Route::get('redeem-voucher/{code}/{id}',[VoucherController::class, 'scanQr']);
+    });
+
+Route::group(['middleware' => ['admin']], function () {
     Route::group([
         'prefix' => 'users'
     ], function(){
@@ -323,6 +339,7 @@ Route::group([
         Route::get('/view/{id}',[BookingsController::class, 'view']);
     });
 
+});
 });
 
 /*********************** Frontend Routes start *******************************/

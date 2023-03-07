@@ -156,22 +156,22 @@
                         </div>
                     </div>
                     <div class="row voucherGenrate"  style="@if(isset($objData) && $objData->voucher_status == 1) ? 'display:block';'display:none'@endif display:none" >
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <div class="mb-3">
                               <label for="example-date" class="form-label">Voucher Expiry Date</label>
                               <input type="date" name="voucher_expiry_date" class="form-control" id="example-date" value="@if(isset($objData->voucher_expiry_date)){{ date('Y-m-d',strtotime($objData->voucher_expiry_date)) }}@endif">
                             </div>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-4">
                             <div class="mb-3">
-                                <label for="sequence" class="form-label">Genrate Voucher</label>
-                                <input type="text" disabled id="voucherValue" class="form-control" value="@if(isset($objData->voucher) && $objData->voucher){{ $objData->voucher }}@endif">
-                                <input type="hidden" id="hidden" name="voucher" value="@if(isset($objData->voucher) && $objData->voucher){{ $objData->voucher }}@endif">
+                                <label for="sequence" class="form-label">Voucher</label>
+                                <input type="text" readonly id="voucherValue" name="voucher" class="form-control" value="@if(isset($objData->voucher) && $objData->voucher){{ $objData->voucher }}@endif">
                             </div>
                         </div>
-                        <div class="col-lg-3 genrate">
+                        <div class="col-lg-4">
                             <div class="mb-3">
-                                <input id="genrateVoucher" readonly class="btn btn-secondary" value="Genrate">
+                                <label for="sequence" class="form-label">Security Code</label>
+                                <input type="text" readonly id="securityValue" name="security_code" class="form-control" value="@if(isset($objData->security_code) && $objData->security_code){{ $objData->security_code }}@endif">
                             </div>
                         </div>
                     </div>
@@ -189,25 +189,23 @@ $('.select2').select2();
 $(document).ready(function(){
   $('#voucher-active').on('click',function(){
      $('.voucherGenrate').show();
-  })
-  $('#voucher-inactive').on('click',function(){
-     $('.voucherGenrate').hide();
-  })
-
-  $('#genrateVoucher').on('click',function(e){
-        e.preventDefault();
-    $.ajax({
+     $.ajax({
            type:'POST',
            url:'tours/genrate-voucher',
            data: {
                 "_token": "{{ csrf_token() }}",
                 },
            success:function(data){
-            $('#voucherValue').val(data);
+            console.log(data.voucherCode)
+            $('#voucherValue').val(data.voucherCode);
+            $('#securityValue').val(data.securityCode);
             $('#hidden').val(data);
            }
         });
-    })
+  })
+  $('#voucher-inactive').on('click',function(){
+     $('.voucherGenrate').hide();
+  })
 });
 </script>
  

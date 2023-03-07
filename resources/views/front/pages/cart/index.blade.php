@@ -46,7 +46,7 @@
         </span>
         <div class="px-3 my-3">
           <div class="cart-item-product-thumb">  
-            <img src="https://img.veenaworld.com/wp-content/uploads/2022/02/Dubai-800x530.jpg?imwidth=1080" alt="Placholder Image 2" class="product-frame">
+            <img src="{{ asset('admin/uploads/vehicle/' . $value->attributes->image)}}" class="product-frame">
           </div>
           <div class="cart-item-product-info">
             <h4 class="cart-item-product-title">{{ $value->name }}</h4><span><strong>Time - </strong>{{ $value->attributes->time }}</span><span><strong>Booking Date - </strong>{{ $value->attributes->booking_date }}</span>
@@ -129,7 +129,7 @@
                 <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Subtotal:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="basket-subtotal">{{ number_format($total, 2) }} AED</span>
             </div>
             <div class="py-2 alltotal">
-                <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Extra Amount:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="basket-subtotal">{{ number_format($extraAmount, 2) }} AED</span>
+                <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Extra Activities:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="basket-subtotal">{{ number_format($extraAmount, 2) }} AED</span>
             </div>
             <div class="py-2 alltotal">
                 <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Discount:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="discount">{{ $discount }} AED</span>

@@ -46,8 +46,14 @@ class TourController extends Controller{
     }
 
     public function genrateVoucher(){
-        $voucherCode = uniqid();
-        return response()->json($voucherCode);
+
+        $code1 = strtoupper(chr(rand(65, 90)) . chr(rand(65, 90)) . rand(10, 99));
+        $code2 = strtoupper(chr(rand(65, 90)) . chr(rand(65, 90)) . rand(10, 99));
+        $code3 = strtoupper(chr(rand(65, 90)) . chr(rand(65, 90)) . rand(10, 99));
+        $code4 = strtoupper(chr(rand(65, 90)) . chr(rand(65, 90)) . rand(10, 99));
+        $voucherCode = $code1.'-'.$code2.'-'.$code3.'-'.$code4;
+        $SecurityCode = $code4.$code2;
+        return response()->json(['voucherCode'=>$voucherCode,'securityCode' => $SecurityCode]);
     }
     
     public function create(Request $request){
@@ -96,6 +102,7 @@ class TourController extends Controller{
                 $validated['voucher_status'] = $request['voucher_status'];
                 $validated['voucher_expiry_date'] = $request['voucher_expiry_date'];
                 $validated['voucher'] = $request['voucher'];
+                $validated['security_code'] = $request['security_code'];
 
                 $lastId = Tour::create($validated);
 
@@ -183,6 +190,7 @@ class TourController extends Controller{
                 $validated['voucher_status'] = $request['voucher_status'];
                 $validated['voucher_expiry_date'] = $request['voucher_expiry_date'];
                 $validated['voucher'] = $request['voucher'];
+                $validated['security_code'] = $request['security_code'];
 
                 Tour::find($validated['id'])->update($validated);
 

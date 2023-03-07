@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Admin;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Validator;
+use App\Mail\SupplierRegister;
+use Illuminate\Support\Facades\Mail;
 
 class RegisteredUserController extends Controller
 {
@@ -39,12 +41,11 @@ class RegisteredUserController extends Controller
             $Input = $request->all();
 
             $validator = Validator::make($Input, [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'number' => ['required', 'string', 'min:10', 'max:12'],
-            'gender' => ['required', 'in:Male,Female'],
+            // 'number' => ['required', 'string', 'min:10', 'max:12'],
+
         ]);
         if($validator->fails()){
             throw new \Exception($validator->errors()->first());
@@ -53,16 +54,20 @@ class RegisteredUserController extends Controller
 
         $validated['password'] = Hash::make($validated['password']);
 
-        $snowflake = new \Godruoyi\Snowflake\Snowflake;
-        $validated['random_id'] = $snowflake->id();
-        User::create($validated);
-        return response()->json(['success' => "Register successfully."]);
+        // $snowflake = new \Godruoyi\Snowflake\Snowflake;
+        // $validated['random_id'] = $snowflake->id();
+        Admin::create($validated);
+        $data = [
+            'url' => "http://127.0.0.1:8000/admin/login"
+        ];
+        Mail::to($validated['email'])->send(new SupplierRegister($data));
+        return response()->json(['success' => "Thanks for Registration Please check your email"]);
         }
 
-        event(new Registered($user));
+        // event(new Registered($user));
 
-        Auth::login($user);
+        // Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        // return redirect(RouteServiceProvider::HOME);
     }
 }

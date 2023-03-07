@@ -31,6 +31,7 @@ class Tour extends Model
         'voucher',
         'voucher_status',
         'voucher_expiry_date',
+        'security_code'
     ];
     
     protected $hidden = [

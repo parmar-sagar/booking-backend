@@ -396,12 +396,11 @@
                                  <input data-id ="extraa{{$key}}" id="{{$value->id}}" type="checkbox" name="extra_price[]" value="{{$value->id}}" class="checkBoxId">
                                     <span class="slider round"></span>
                                  </label>
-                                    <!--<input type="hidden" id="eqnty{{$value->id}}" value="" name="extraQuntity[]">-->
                               </td>
                                  <td class="qntityBtn">
                                     <div class="{{$value->id}}" data-id ="extraa{{$key}}" style="display:none">
                                     <div class="Toggle-qntitybtn" id="new{{$value->id}}">
-                                    
+                                    <!-- Qunantity input filed from line no 591 -->
                                     </div>
                                     </div>
                                  </td>
@@ -416,12 +415,14 @@
                            @if($objVehicle->available_quantity < 1) 
                            <p class="headline-3 vehicleName">Not Available</p>
                            @else
+                                 <input type="hidden" value="{{$objVehicle->tour->voucher}}" name="voucher" >
+                                 <input type="hidden" value="{{$objVehicle->tour->name}}" name="tour_name">
+                                 <input type="hidden" value="{{$objVehicle->tour->voucher_status}}" name="voucher_status">
                            <x-primary-button class="ml-4 btn btn-primary profile-button btn--purple">
                               {{ __('Book Now') }}
                            </x-primary-button>
                            @endif
-                           
-                        </div>
+                        </div
                      </div>
                   </div>
                </div>

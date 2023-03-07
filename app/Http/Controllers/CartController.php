@@ -67,7 +67,6 @@ class CartController extends Controller{
             }
 
             $product = Vehicle::where('random_id',$request->id)->first();
-            
             \Cart::remove($request->id);
                
             // add the p to cart
@@ -77,11 +76,14 @@ class CartController extends Controller{
                 'price' => $request->total_price,
                 'quantity' => $request->quantity,
                 'attributes' => [
+                    'image' => $product->image,
                     'vehicle_id' => $product->id,
                     'booking_date' => $validated['booking_date'],
                     'time' => $validated['time'],
                     'extra_amount' => $extraAmount,
                     'extra_product' => $additional,
+                    'voucher_status' => $product->tour->voucher_status,
+                    'tour_name' => $product->tour->name,
                 ]
             ));  
           
@@ -104,6 +106,7 @@ class CartController extends Controller{
     }
 
     public function applyCoupon(Request $request){
+
         try{
             $couponData = Coupon::where('code', $request->coupon)->first();
             $discount = 0.00;

@@ -167,7 +167,7 @@
     padding: 10px 20px;
     background: #FFFFFF;
     border-bottom: none;
-    font-size: 1.2em;
+    font-size: 1em;
     white-space: nowrap; 
     border-top: 1px solid #AAAAAA; 
   }
@@ -178,7 +178,7 @@
   
   table tfoot tr:last-child td {
     color: #360edc;
-    font-size: 1.4em;
+    font-size: 1.2em;
     border-top: 1px solid #360edc; 
   
   }
@@ -231,12 +231,15 @@ td.companyaddress {
   padding-top: 0px;
   padding-bottom: 0px;
 }
+.How-to-Use {
+  padding: 20px 0px;
+}
   
   footer {
     color: #777777;
     width: 100%;
     height: 30px;
-    position: absolute;
+    position: relative;
     bottom: 0;
     border-top: 1px solid #AAAAAA;
     padding: 8px 0;
@@ -249,6 +252,11 @@ td.companyaddress {
     <div class="invoice">
       <header class="clearfix">
         <div id="logo">
+        <div class="col-6" style="text-align: left;">
+        @if($bookingInfo->security_code)
+        <div class="Expiry-date"><span>Use this voucher by : {{date('d M Y',strtotime($bookingInfo->voucher_expiry_date))}}</div>
+        @endif
+        </div>
           <!-- <img src="{{asset ('assets/front/images/logo1.png')}}"> -->
           
           <!-- <img src="{{asset ('assets/front/css/logo/logoquads.png')}}" style="width: 200px; height: 200px"> -->
@@ -270,7 +278,11 @@ td.companyaddress {
           <div id="invoice">
             <!-- <h1>INVOICE</h1> -->
             <div class="date">{{ $bookingInfo->status }}</div>
-            <div class="date">lOCATION({{ $bookingInfo->pickup_location }})</div>
+            <div class="date">lOCATION({{$bookingInfo->pickup_location }})</div>
+            @if($bookingInfo->security_code)
+            <div class="date">VOUCHER : {{$bookingInfo->voucher}}</div>
+            <div class="date">SECURITY CODE : {{ $bookingInfo->security_code }}</div>
+            @endif
           </div>
         </div>
         <table border="0" cellspacing="0" cellpadding="0">
@@ -326,10 +338,19 @@ td.companyaddress {
             </tr>
           </tfoot>
         </table>
+        @if($bookingInfo->security_code)
+        @php $baseUrl = url("") ; @endphp
+        <img src="data:image/png;base64, {{ base64_encode(QrCode::size(80)->generate($baseUrl.'/admin/voucher-bookings/redeem-voucher/'.$bookingInfo->security_code.'/'.$bookingInfo->random_id)) }} ">
+        @endif  
         <div id="notices">
           <div class="large-sign">SIGNATURE</div>
           <div class="notice">Quads Dubai</div>
         </div>
+        @if($bookingInfo->security_code)
+        <div class="How-to-Use">
+          <span><b>How to Use:</b> Please keep the soft copy of this voucher and present it to supplier and below given location</span>
+        </div>
+        @endif  
         </main>
       <footer>
         Invoice was created on a computer and is valid without the signature and seal.

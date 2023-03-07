@@ -98,6 +98,9 @@
           <li class="l-footer__menu-list-item"> 
             <a class="l-footer__menu-list-link" href="https://55activeplaces.com/blog/" title="Reviews" > Blogs </a> 
           </li>
+          <li class="l-footer__menu-list-item"> 
+            <a class="l-footer__menu-list-link" href="{{url('register')}}" > Register as Supplier </a> 
+          </li>
         </ul> 
       </li>
     </ul>

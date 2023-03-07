@@ -36,6 +36,7 @@ return new class extends Migration
             $table->string('voucher',250);
             $table->tinyInteger('voucher_status')->default(0)->comment('0 => Deactive , 1 => Active')->index('idx_voucher_status');
             $table->datetime('voucher_expiry_date');
+            $table->string('security_code',250);
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
         });
