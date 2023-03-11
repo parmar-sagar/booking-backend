@@ -27,7 +27,13 @@ class Booking extends Model
         'coupon',
         'status',
         'payment_status',
-        'payment_method'
+        'payment_method',
+        'security_code',
+        'redeem_date',
+        'is_redeem',
+        'is_voucher',
+        'voucher_expiry_date',
+        'voucher'
     ];
 
     protected $hidden = [

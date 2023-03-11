@@ -1,8 +1,7 @@
 <x-front.master-layout>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container pb-5 mb-2 cart-checkoutpage">
-  <div class="cart-checkoutpage1">
-    @if($carts->isEmpty())
+  @if($carts->isEmpty())
     <div class="row row--g-10 pb-2em mt-5">
       <div class="col-12 col-lg-10 offset-xxl-1">
         <div class="card card--shadow-purple mb-80em">
@@ -28,6 +27,7 @@
       </div>
     </div>
     @else
+  <div class="cart-checkoutpage1">
     @php 
     $extraAmount = 0; 
     @endphp
@@ -46,10 +46,10 @@
         </span>
         <div class="px-3 my-3">
           <div class="cart-item-product-thumb">  
-            <img src="https://img.veenaworld.com/wp-content/uploads/2022/02/Dubai-800x530.jpg?imwidth=1080" alt="Placholder Image 2" class="product-frame">
+            <img src="{{ asset('admin/uploads/vehicle/' . $value->attributes->image)}}" class="product-frame">
           </div>
           <div class="cart-item-product-info">
-            <h4 class="cart-item-product-title">{{ $value->name }}</h4><span><strong>Time:</strong>{{ $value->attributes->time }}</span><span><strong>Booking Date:</strong>{{ $value->attributes->booking_date }}</span>
+            <h4 class="cart-item-product-title">{{ $value->name }}</h4><span><strong>Time - </strong>{{ $value->attributes->time }}</span><span><strong>Booking Date - </strong>{{ $value->attributes->booking_date }}</span>
           </div>
         </div>
         <div class="px-3 my-3 text-center">
@@ -74,16 +74,22 @@
           </span>
         </div>
       </div>
-      @if($value->attributes->extra_product)
+     @if($value->attributes->extra_product)
       <div class="product-details">
         <p><b>Extra Activities :-</b></p>
         <div class="row">
         @foreach($value->attributes->extra_product as $key => $value)
-        <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 heading-item-title">
           <h6>{{ $value['title'] }}</h6>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 ">
-          <h6><b>{{ $value['price'] }}AED </b></h6>
+          <h6>Price: <b>{{ $value['price'] }}AED </b></h6>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 ">
+          <h6>Quantity: <b>{{ $value['extra_quntity'] }} </b></h6>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 totalFinlVal">
+          <h6>Total: <b>{{ $value['price']*$value['extra_quntity'] }}AED </b></h6>
         </div>
         @endforeach
         </div>
@@ -123,7 +129,7 @@
                 <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Subtotal:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="basket-subtotal">{{ number_format($total, 2) }} AED</span>
             </div>
             <div class="py-2 alltotal">
-                <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Extra Amount:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="basket-subtotal">{{ number_format($extraAmount, 2) }} AED</span>
+                <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Extra Activities:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="basket-subtotal">{{ number_format($extraAmount, 2) }} AED</span>
             </div>
             <div class="py-2 alltotal">
                 <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Discount:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="discount">{{ $discount }} AED</span>

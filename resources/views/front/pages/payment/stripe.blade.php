@@ -4,7 +4,7 @@
             <div class="section">
                 <div class="row row--g-10">
                     <div class="col-12 col-lg-6 col-xxl-6 offset-xxl-3">
-                    <figure class="bg-media--glasses"> <img src="fonts/wm-glasses.svg" alt="Background"> </figure>
+                    <!-- <figure class="bg-media--glasses"> <img src="fonts/wm-glasses.svg" alt="Background"> </figure> -->
                     <form id="form-submit" class="form form--contact animated fadeInUp active" method="POST" id="paymentForm" action="{{ url('payment/stripe-payment')}}">
                         @csrf
                         <h2 class="headline-3 color-white mb-5em">Stripe Payment</h2>
@@ -12,14 +12,14 @@
                         <input type="hidden" name="amount" value="{{ $booking->total }}">
                         <div class="form__row">
                             <div class="form__group"> 
-                                <input type="text" name="fullName" id="fullName" class="form__input" required="">
-                                <label class="form__label">Full name (on the card)</label> 
+                                <input type="text" name="fullName" id="fullName" placeholder="Full name (on the card)" class="form__input" required="">
+                                <!--<label class="form__label">Full name (on the card)</label> -->
                             </div>
                         </div>
                         <div class="form__row">
                             <div class="form__group"> 
-                                <input type="text" name="cardNumber" id="cardNumber" class="form__input" required="">
-                                <label class="form__label" for="cardNumber">Card number</label> 
+                                <input type="text" name="cardNumber" id="cardNumber" placeholder="Card number" class="form__input" required="">
+                                <!--<label class="form__label" for="cardNumber">Card number</label> -->
                             </div>
                         </div>
                         <div class="form__row">

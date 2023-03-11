@@ -26454,6 +26454,13 @@ table {
 
 .dates.picker.card--shadow-orange {
     height: auto;
+    /*width:70% !important;*/
+}
+@media(min-width:1025px){
+.dates.picker.card--shadow-orange {
+    height: auto;
+    width: 70% !important;
+}
 }
 
 .well {
@@ -27213,8 +27220,11 @@ a.downlodPdf {
 
 /* Cart new css */
 body{
-    margin-top:20px;
+    margin-top: -10px;
     background:#eee;
+}
+.thanksBooking{
+    margin-top: 80px!important;
 }
 .product-card {
   position: relative;
@@ -27486,7 +27496,7 @@ body{
   display: block;
   margin-bottom: 2px;
   color: #404040;
-  font-size: 12px;
+  font-size: 15px;
 }
 .cart-item .cart-item-product-title {
   margin-bottom: 8px;
@@ -27618,7 +27628,7 @@ body{
 }
 }
 .cart-checkoutpage {
-    margin-top: 100px;
+    margin-top: 170px;
 }
 .cart-checkoutpage i.fa.fa-times {
     color: #fff;
@@ -27741,4 +27751,29 @@ body{
     div#myProfile .card-body.row {
         padding: 0px;
     }
+   .toggle-btnprice {
+        display: initial !important;
+        padding-bottom: 10px;
     }
+
+    }
+
+    /* 22-02-2023 */
+    .toggle-btnprice button#sub1, .toggle-btnprice button#add1 {
+        padding: 10px;
+    }
+    .toggle-btnprice {
+        display: flex;
+        justify-content: space-between;
+    }
+        /* 27/02/2023 */
+    .toggle-btnprice button#sub1, .toggle-btnprice button#add1 {
+        padding: 10px 8px !important;
+    }
+     .heading-item-title h6 {
+        font-weight: bold;
+    }
+    .totalFinlVal{
+        padding-bottom: 20px;
+    }
+    /* End */

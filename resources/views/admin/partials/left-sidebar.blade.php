@@ -47,7 +47,13 @@
                     <span> Dashboards </span>
                 </a>
             </li>
-
+            <li class="side-nav-item">
+                <a href="{{ url('admin/voucher-bookings') }}" class="side-nav-link">
+                    <i class="uil-home-alt"></i>
+                    <span> Voucher Bookings </span>
+                </a>
+            </li>
+        @if(Auth::user()->is_admin == 1)
             <li class="side-nav-title side-nav-item">Apps</li>
             <li class="side-nav-item">
                 <a href="{{ url('admin/bookings') }}" class="side-nav-link">
@@ -225,6 +231,7 @@
                     <span> Group Discount </span>
                 </a>
             </li>
+            @endif
         </ul>
         <!--- End Sidemenu -->
 

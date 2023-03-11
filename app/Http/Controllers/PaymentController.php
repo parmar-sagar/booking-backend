@@ -11,6 +11,9 @@ use App\Models\BookingTransaction;
 use Illuminate\Support\Facades\Auth;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use Stripe\StripeClient;
+use App\Models\Vehicle;
+use App\Models\Tour;
+use PDF;
 
 class PaymentController extends Controller
 {
@@ -23,21 +26,54 @@ class PaymentController extends Controller
         $subTotal = \Cart::getSubTotal();
 
         $coupon = session()->get('coupon');
+        foreach($carts as $key => $value){
+            $vehcileid = $value->attributes->vehicle_id;
+        }
+        $tourId = Vehicle::where('id',$vehcileid)->select('tour_id')->first();
+            $voucher = ""; 
+            $securityCode = ""; 
+            $isVoucher = ""; 
+            $expiry_date = "";
+    
+        if($tourId->tour->voucher_status == 1){
+            $securityCode = $tourId->tour->security_code;
+            $expiry_date = $tourId->tour->voucher_expiry_date;
+            $voucher = $tourId->tour->voucher;
+            $isVoucher = 1;
+            $bookingData = [
+                'random_id' => (new Snowflake())->id(),
+                'user_id' => Auth::user()->id,
+                'sub_total' => $subTotal,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'mobile' => $request->mobile,
+                'email' => $request->email,
+                'pickup_location' => $request->pickup_location,
+                'no_of_travelers' => $request->no_of_travelers,
+                'payment_method' => $request->payment_method,
+                'coupon' => (($coupon['code'])) ?? '',
+                'security_code' => $securityCode,
+                'is_voucher' => $isVoucher,
+                'voucher_expiry_date' => $expiry_date,
+                'voucher' => $voucher,
+            ];
+        }else{
+            $bookingData = [
+                'random_id' => (new Snowflake())->id(),
+                'user_id' => Auth::user()->id,
+                'sub_total' => $subTotal,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'mobile' => $request->mobile,
+                'email' => $request->email,
+                'pickup_location' => $request->pickup_location,
+                'no_of_travelers' => $request->no_of_travelers,
+                'payment_method' => $request->payment_method,
+                'coupon' => (($coupon['code'])) ?? '',
+            ];
 
-        $bookingData = [
-            'random_id' => (new Snowflake())->id(),
-            'user_id' => Auth::user()->id,
-            'sub_total' => $subTotal,
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'mobile' => $request->mobile,
-            'email' => $request->email,
-            'pickup_location' => $request->pickup_location,
-            'no_of_travelers' => $request->no_of_travelers,
-            'payment_method' => $request->payment_method,
-            'coupon' => (($coupon['code'])) ?? ''
-        ];
-
+        }
+    
         $booking = Booking::create($bookingData);
 
         $extraAmount = 0;
@@ -52,7 +88,7 @@ class PaymentController extends Controller
                 'booking_date' => date('Y-m-d',strtotime($value->attributes->booking_date)),
                 'booking_time' => $value->attributes->time,
                 'quantity' => $value->quantity,
-                'extra_product' => json_encode($value->extra_product)
+                'extra_product' => json_encode($value->attributes->extra_product)
             ]);
         }
 
@@ -143,6 +179,7 @@ class PaymentController extends Controller
 
     public function stripe($randomId){
         $this->outputData['booking'] = Booking::where('random_id',$randomId)->first();
+       
 
         return view('front.pages.payment.stripe',$this->outputData);
     }

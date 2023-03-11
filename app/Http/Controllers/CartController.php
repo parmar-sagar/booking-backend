@@ -32,7 +32,6 @@ class CartController extends Controller{
     }
 
     public function add(Request $request){
-       
         try{
             $validator = Validator::make($request->all(), [
                 'booking_date' => 'required',
@@ -48,21 +47,26 @@ class CartController extends Controller{
             $additional = [];
             $extraAmount = 0;
             if(isset($request->extra_price)){
+                foreach($request->extraQuntity as $key => $extras){
+
+                    $extra_quntity[$key] = $extras;
+              
+                }
                 foreach($request->extra_price as $key => $value){
+                    $extraActivity=array();
                     $extraActivity = VehicleInfo::select('title','price')->where('id',$value)->first();
                     $additional[] = [
                         'id' => $extraActivity->id,
                         'title' => $extraActivity->title,
-                        'price' => $extraActivity->price
-                    ];
-                    
-                    $extraAmount += $extraActivity->price;
+                        'price' => $extraActivity->price,
+                        'extra_quntity' => $extra_quntity[$key]
+                   ];
+                   $extraAmount += $extraActivity->price*$extra_quntity[$key];
                 }
-
+                
             }
-              
+
             $product = Vehicle::where('random_id',$request->id)->first();
-            
             \Cart::remove($request->id);
                
             // add the p to cart
@@ -72,11 +76,14 @@ class CartController extends Controller{
                 'price' => $request->total_price,
                 'quantity' => $request->quantity,
                 'attributes' => [
+                    'image' => $product->image,
                     'vehicle_id' => $product->id,
                     'booking_date' => $validated['booking_date'],
                     'time' => $validated['time'],
                     'extra_amount' => $extraAmount,
                     'extra_product' => $additional,
+                    'voucher_status' => $product->tour->voucher_status,
+                    'tour_name' => $product->tour->name,
                 ]
             ));  
           
@@ -99,6 +106,7 @@ class CartController extends Controller{
     }
 
     public function applyCoupon(Request $request){
+
         try{
             $couponData = Coupon::where('code', $request->coupon)->first();
             $discount = 0.00;

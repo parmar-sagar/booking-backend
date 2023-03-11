@@ -5,41 +5,40 @@
     <div class="col-md-5 border-right">
       <div class="p-3 py-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h4 class="text-right">Register</h4>
+          <h4 class="text-right">Register As Supplier</h4>
         </div>
         <form method="POST" id="registerForm">
             @csrf
-        <div class="row mt-2">
+       
           <div class="form__row__left">
             <div class="form__group">
-              <input type="text" name="first_name" id="first_name" class="form__input-blank" ="">
-              <label class="form__label-blank" for="first_name">First Name*</label>
-              <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
+              <input type="text" name="name" id="first_name" placeholder="Name*" class="form__input-blank" ="">
+              <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
           </div>
-          <div class="form__row__left">
+          <!-- <div class="form__row__left">
             <div class="form__group">
               <input type="text" name="last_name" id="last_name" class="form__input-blank" ="">
               <label class="form__label-blank" for="last_name">Last Name*</label>
               <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
             </div>
-          </div>
-        </div>
+          </div> -->
+        
         <div class="form__row">
         <div class="form__group">
-            <input type="email" name="email" id="email" class="form__input-blank" ="">
-            <label class="form__label-blank" for="email">Email*</label>
+            <input type="email" name="email" id="email" placeholder="Email*" class="form__input-blank" ="">
+            <!-- <label class="form__label-blank" for="email">Email*</label> -->
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
           </div>
         </div>
-        <div class="form__row ">
+        <!-- <div class="form__row ">
         <div class="form__group">
             <input type="tel" name="number" id="number" class="form__input-blank" ="">
             <label class="form__label-blank" for="number">Phone*</label>
             <x-input-error :messages="$errors->get('number')" class="mt-2" />
         </div>
-        </div>
-        <div class="form__row">
+        </div> -->
+        <!-- <div class="form__row">
           <div class="form__group">
             <select name="gender" class="select select--blank" id="gender" required="" sb="24704323" style="display: none;">
               <option value="Male">Male</option>
@@ -47,18 +46,18 @@
             </select>
             <x-input-error :messages="$errors->get('gender')" class="mt-2" />
           </div>
-        </div>
+        </div> -->
         <div class="form__row">
           <div class="form__group">
-            <input type="password" name="password" id="password" class="form__input-blank" required="">
-            <label for="password" class="form__label-blank">Password*</label>
+            <input type="password" name="password" id="password" placeholder="Password*" class="form__input-blank" required="">
+            <!-- <label for="password" class="form__label-blank">Password*</label> -->
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
           </div>
         </div>
         <div class="form__row">
           <div class="form__group">
-            <x-text-input class="form__input-blank" type="password" name="password_confirmation" required />
-            <label class="form__label-blank" for="address-line-2">Confirm Password</label>
+            <x-text-input class="form__input-blank" type="password" placeholder="Confirm Password*" name="password_confirmation" required />
+            <!-- <label class="form__label-blank" for="address-line-2">Confirm Password</label> -->
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
           </div>
         </div>
@@ -69,7 +68,7 @@
         </div>
       </div>
      </form>
-     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">{{ __('Already registered?') }}</a>
+     <!-- <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">{{ __('Already registered?') }}</a> -->
     </div>
    
   </div>
@@ -86,7 +85,7 @@ $(document).on('submit','#registerForm',function(e){
         cache: false,
         processData: false,
         success: function (response) {
-            window.location = "/";
+            // window.location = "/";
             toastr.success(response.success);
         },error: function (response){
           var text = JSON.parse(response.responseText)

@@ -3,8 +3,14 @@
         <div class="row cart-row-scroll">
             @php 
             $extraAmount = 0; 
+            $showPickup = 0;
             @endphp 
             @foreach($carts as $key => $value)
+            @if(in_array($value->attributes->tour_name,['Dune Buggies','Quad Bikes']) && $value->attributes->voucher_status == 1)
+            @php
+            $showPickup++;
+            @endphp
+            @endif
             @php 
             $extraAmount += $value->attributes->extra_amount; 
             @endphp
@@ -38,17 +44,27 @@
                             <span>12:00 AM</span>
                         </div>
                     </div>
+                    @if($value->attributes->extra_product)
                     <div class="product-details">
                         <p><b>Extra Activities :-</b> </p>
                         <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <h6>Polaris 1000CC TWO SEAT for 60 MINS - open desert ride</h6>
+                         @foreach($value->attributes->extra_product as $key => $value)
+                            <div class="col-lg-12 col-md-12 col-sm-12 heading-item-title">
+                                <h6>{{ $value['title'] }}</h6>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 ">
-                                <h6><b>700.00AED </b></h6>
+                                <h6>Price: <b>{{ $value['price'] }}AED </b></h6>
                             </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 ">
+                              <h6>Quantity: <b>{{ $value['extra_quntity'] }} </b></h6>
+                           </div>
+                           <div class="col-lg-12 col-md-12 col-sm-12 totalFinlVal">
+                              <h6>Total: <b>{{ $value['price']*$value['extra_quntity'] }} AED</b></h6>
+                           </div>
+                        @endforeach
                         </div>
                     </div>
+                    @endif
                 </div>  
             </div>
             @endforeach
@@ -65,7 +81,7 @@
                             <div class="subtotal-value final-value" id="basket-subtotal">{{ $subTotal }} AED</div>
                             <br>
                             <br>
-                            <div class="subtotal-title">Extra Amount</div>
+                            <div class="subtotal-title">Extra Activities</div>
                             <div class="subtotal-value final-value" id="basket-subtotal">{{ number_format($extraAmount, 2) }} AED</div>
                             <br>
                             <br>
@@ -105,7 +121,7 @@
                         </div>
                         <div class="form__row__left">
                            <div class="form__group">
-                              <input type="text" name="last_name" id="last_name" placeholder="Last Name(Optinal)" value="@if(isset(Auth::user()->last_name)){{ Auth::user()->last_name }}@endif" class="form__input-blank">
+                              <input type="text" name="last_name" id="last_name" placeholder="Last Name(Optional)" value="@if(isset(Auth::user()->last_name)){{ Auth::user()->last_name }}@endif" class="form__input-blank">
                            </div>
                         </div>
                      </div>
@@ -119,11 +135,28 @@
                            <input type="email" name="email" id="email" placeholder="Email" value="@if(isset(Auth::user()->email)){{ Auth::user()->email }}@endif" class="form__input-blank" required="">
                         </div>
                      </div>
-                     <div class="form__row">
+                     <!-- if(in_array($showPickup)&& status == 1) -->
+                      @if($showPickup != 0)
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="pickup"checked>
+                        <label class="form-check-label" for="pickup">
+                        Pickup
+                        </label>
+                        </div>
+                        <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="without-pickup" >
+                        <label class="form-check-label" for="without-pickup">
+                        Without Pickup
+                        </label>
+                     </div>
+                     @endif
+             
+                     <div class="form__row" style="display:none" id="pickuplocation">
                         <div class="form__group">
                            <input type="text" name="pickup_location" placeholder="Pickup Location (Hotel Or Residence)"  id="pickup_location" class="form__input-blank" required>
                         </div>
                      </div>
+                   
                      <div class="form__row">
                         <div class="form__group">
                         <label for="pickup_location*">No of Travelers*</label>
@@ -149,8 +182,8 @@
                      </div>
                      @if(!Auth::user())
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="Register" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" name="Register" value="" id="flexCheckDefault1">
+                        <label class="form-check-label" for="flexCheckDefault1">
                         Register On Website
                         </label>
                      </div>
@@ -173,6 +206,7 @@
                                     <span class="slider round"></span>
                                  </label>
                               </p>
+                              @if($showPickup == 0)
                               <p>
                                  <strong class="mb-1em">Payment on Arrival </strong>
                                  <label class="switch">
@@ -180,6 +214,7 @@
                                     <span class="slider round"></span>
                                  </label>
                               </p>
+                              @endif
                            </div>
                         </div>
                      </div>
@@ -268,12 +303,21 @@
    //          }
    //      });
    //  }
-    $(document).ready(function(){
+$(document).ready(function(){
          
     // select only one payment option
     $('.checkoption').click(function() {
          $('.checkoption').not(this).prop('checked', false);
       });
     // end
-    });    
+
+    $('#pickuplocation').show();
+$('#pickup').on('click',function(){
+    $('#pickuplocation').css("display","block");
+})
+$('#without-pickup').on('click',function(){
+    $('#pickuplocation').css("display","none");
+})
+
+});    
  </script>
