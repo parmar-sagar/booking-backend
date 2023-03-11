@@ -29,25 +29,6 @@ $(document).ready(function() {
         });
     });
 
-    jQuery('body').on('click', '.open-view', function() {
-        let link = table.data('view-href') + '/' + $(this).data('id');
-
-        $.ajax({
-            url: link,
-            success: function(response) {
-                if ((response.error)) {
-                    toastr.error(response.error);
-                } else {
-                    $('#content-form, #content-table').toggle();
-                    $('#content-form').html(response);
-                }
-            },
-            error: function(error) {
-                toastr.error("Something is wrong please try again");
-            }
-        });
-    });
-
     jQuery('body').on('click','.goBack',function(){
         $('#content-form, #content-table').toggle();
     });

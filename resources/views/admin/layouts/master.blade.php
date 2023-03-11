@@ -35,6 +35,24 @@
                 color:red;
                 font-weight: bold;
             }
+            .genrate {
+                align-items: center;
+                display: grid;
+            }
+            .genrate .mb-3{
+                margin-bottom : 0px !important;
+            }
+            #myModal div#modelData {
+                max-width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            #myModal .modal-content {
+                width: 1000px;
+            }
+            #myModal .modal-body {
+                padding: 20px 24px;
+            }
         </style>
     </head>
 

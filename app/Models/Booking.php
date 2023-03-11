@@ -24,9 +24,16 @@ class Booking extends Model
         'email',
         'pickup_location',
         'no_of_travelers',
+        'coupon',
         'status',
         'payment_status',
-        'payment_method'
+        'payment_method',
+        'security_code',
+        'redeem_date',
+        'is_redeem',
+        'is_voucher',
+        'voucher_expiry_date',
+        'voucher'
     ];
 
     protected $hidden = [
@@ -44,7 +51,11 @@ class Booking extends Model
     }
 
     public function vehicleInfo(){
-        return $this->hasOne(BookingDetail::class,'booking_id','id');
+        return $this->hasMany(BookingDetail::class,'booking_id','id');
+    }
+
+    public function transaction(){
+        return $this->hasMany(BookingTransaction::class,'booking_id','id');
     }
 
 }

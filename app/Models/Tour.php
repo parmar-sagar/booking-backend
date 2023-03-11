@@ -27,7 +27,11 @@ class Tour extends Model
         'banner_img',
         'on_home',
         'on_home_sequence',
-        'type'
+        'type',
+        'voucher',
+        'voucher_status',
+        'voucher_expiry_date',
+        'security_code'
     ];
     
     protected $hidden = [

@@ -20,7 +20,6 @@
         </div>
         <div class="overlay-effect"></div>
       </header>
-      
       <main class="l-main">
         <section class="section">
           <div class="container p-0">

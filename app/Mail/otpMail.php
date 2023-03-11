@@ -31,7 +31,7 @@ class otpMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Otp Mail',
+            subject: 'Password Mail',
         );
     }
 

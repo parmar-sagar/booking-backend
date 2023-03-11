@@ -3,7 +3,7 @@
     <img class="l-navbar__logo" src="{{asset ('assets/front/images/image_2022_11_21T04_57_12_733Z-U-bg.png')}}" alt="Quads Dubai" title="Quads Dubai"/>
   </a>
   <button type="button" class="burger js-burger" aria-label="Open menu">
-    <i class="fa-solid fa-bars"></i>
+    <i class="fa-solid fa-bars" id="mobileNav"></i>
   </button>
   <a class="l-navbar__logo-link" href="{{url('/')}}">
     <img class="l-navbar__logo" src="{{asset ('assets/front/images/image_2022_11_21T04_57_12_733Z-U-bg.png')}}" alt="Quads Dubai" title="Quads Dubai"/>
@@ -12,9 +12,7 @@
     <ul class="l-navbar__menu-right">
       <li class="l-navbar__menu-item">
           <div class="dropdown">
-            <a href="{{url('tours')}}">
               <span class="dropbtn l-navbar__menu-link ">Tours</span>
-            </a>
             <div class="dropdown-Tour_content">
                 @php
                   $tours = App\Models\Tour::has('vehicles')->active()->Sequence()->get();
@@ -34,6 +32,9 @@
       </li>
       <li class="l-navbar__menu-item">
           <a class="l-navbar__menu-link" href="{{url('contact-us')}}" title="Contact">Contact</a>
+      </li>
+       <li class="l-navbar__menu-item">
+          <a class="l-navbar__menu-link" href="https://55activeplaces.com/blog/" target="blank" title="Contact">Blogs</a>
       </li>
       <li class="l-navbar__menu-item">
           <a class="l-navbar__menu-link" href="{{url('cart')}}" title="Cart" id="my_cart">
@@ -56,12 +57,42 @@
       </a>
     @endif
   @else
-    <form method="POST" action="{{ route('logout') }}">
+    {{-- <form method="POST" action="{{ route('logout') }}">
       @csrf
       <a class="l-navbar__login-link" title="Logout" aria-label="Logout" onclick="event.preventDefault(); this.closest('form').submit();">
         <i class="fa-solid fa-user"></i>
         <span>Logout</span>
       </a>
-    </form>
+    </form> --}}
+    <ul class="l-navbar__menu loginUser">
+    <li class="l-navbar__menu-item">
+      <div class="dropdown" id="loginAccount">
+        <a href="javascript:void(0)">
+        <svg width="36px" height="36px" aria-hidden="true" focusable="false">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account')}}"></use>
+        </svg>
+        </a>
+        <div class="dropdown-Tour_content profile">
+            <a href="{{url('account/profile')}}">My Profile</a>
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+              <a href="javascript:void(0)" onclick="event.preventDefault(); this.closest('form').submit();">Logout</a>
+            </form>
+        </div>
+      </div>
+  </li>
+    </ul>
   @endguest
 </nav>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('#loginAccount').on('click',function(){
+      $('.profile').toggle();
+    })
+
+    $('#mobileNav').on('click',function(){
+      $('.l-navbar__menu-wrapper').toggle();
+    })
+  })
+</script>

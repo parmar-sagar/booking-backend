@@ -1,246 +1,360 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-  body {
-    width: 100%;
-    height: 100%;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    margin-top: 20px !important;
-    margin-bottom: 10px !important;
-    font-family: poppins;
-}
-p {  
-    font-size: 12px;
-}
-.Gateway-tours {
-    border: 2px solid #dddddd;
-}
-a#ls-footer-mobile_ad {
-    align-items: center;
-    display: flex;
-}
-p.voucher-expiry {
-    color: #585858;
-    font-size: 13px;
-    font-weight: 400;
-}
-.voucher-code h4, .security-code h4 {
-    display: inline-flex;
-    padding-left: 8px;
-    font-weight: 400;
-    font-size: 16px;
-    margin: 0px;
-}
-.voucher-code p, .security-code p {
-    margin: 0px;
-    color: #979797;
-}
-.barcode-img p {
-    color: #979797;
-}
-.Tour-img img {
-    height: 140px;
-    width: 190px;
-    /* height: 180px;
-    width: 246px; */
-}
-.barcode-scanner img {
-    width: 28%;
-}
-.barcode-scanner {
-    padding-top: 20px;
+  <head>
+    <meta charset="utf-8">
+    <title>Invoice</title>
+  </head>
+  <style>
+    @font-face {
+    font-family: SourceSansPro;
+    src: url(SourceSansPro-Regular.ttf);
+  }
+  
+  .clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  a {
+    color: #0087C3;
+    text-decoration: none;
+  }
+  
+  .invoice {
+    position: relative;
+    width: 19cm;
+    height: 23cm;
+    margin: 0 auto;
+    color: #555555;
+    background: #fbfbfb;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-family: SourceSansPro;
+    /* padding: 20px; */
+  }
+  
+  header {
+    padding: 10px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #AAAAAA;
+  }
+  
+  #logo {
+    float: left;
+    margin-top: 8px;
     text-align: center;
+    width: 50%;
+    background-image:  }
+  
+  #logo img {
+    height: 120px;
+  }
+  
+  #company {
+    float: left;
+    text-align: right;
+    width: 50%;
+  }
+  
+  
+  #details {
+    margin-bottom: 50px;
+  }
+  
+  #client {
+    padding-left: 6px;
+    border-left: 6px solid #0087C3;
+    float: left;
+  }
+  
+  #client .to {
+    color: #777777;
+  }
+  
+  h2.name {
+    font-size: 1.4em;
+    font-weight: normal;
+    margin: 0;
+  }
+  
+  #invoice {
+    float: right;
+    text-align: right;
+  }
+  
+  #invoice h1 {
+    color: #0087C3;
+    font-size: 2.4em;
+    line-height: 1em;
+    font-weight: normal;
+    margin: 0  0 10px 0;
+  }
+  
+  #invoice .date {
+    font-size: 1.1em;
+    color: #777777;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 100px;
+  }
+  
+  table th,
+  table td {
+    padding: 20px;
+    background: #EEEEEE;
+    text-align: center;
+    border-bottom: 1px solid #FFFFFF;
+  }
+  
+  table th {
+    white-space: nowrap;        
+    font-weight: normal;
+  }
+  
+  table td {
+    text-align: right;
+  }
+  
+  table td h3{
+    color: #360edc;
+    font-size: 1.2em;
+    font-weight: normal;
+    margin: 0 0 0.2em 0;
+  }
+  
+  table .no {
+    /* color: #FFFFFF; */
+    font-size: 1.6em;
+    /* background: #57B223; */
+  }
+  table .head-color {
+    color: #ffffff;
+    background: #6d4aff !important;
+  }
+  
+  table .desc {
+    text-align: left;
+  }
+  
+  table .unit {
+    background: #DDDDDD;
+  }
+  
+  table .qty {
+  }
+  
+  /* table .total {
+    background: #57B223;
+    color: #FFFFFF;
+  } */
+  
+  table td.unit,
+  table td.qty,
+  table td.total {
+    font-size: 1.2em;
+  }
+  
+  table tbody tr:last-child td {
+    border: none;
+  }
+  
+  table tfoot td {
+    padding: 10px 20px;
+    background: #FFFFFF;
+    border-bottom: none;
+    font-size: 1em;
+    white-space: nowrap; 
+    border-top: 1px solid #AAAAAA; 
+  }
+  
+  table tfoot tr:first-child td {
+    border-top: none; 
+  }
+  
+  table tfoot tr:last-child td {
+    color: #360edc;
+    font-size: 1.2em;
+    border-top: 1px solid #360edc; 
+  
+  }
+  
+  table tfoot tr td:first-child {
+    border: none;
+  }
+  
+  #thanks{
+    font-size: 2em;
+    margin-bottom: 50px;
+  }
+  
+  #notices{
+    float: right;
+    padding-right: 40px;
+    /* border-left: 6px solid #0087C3;   */
+  }
+  .large-sign {
+    font-size: 1.4em;
+    border-top: 2px solid #aaaaaa;
+    width: 150px;
+    text-align: center;
+    padding: 10px;
+    padding-bottom: 0px;
+  }
+  #notices .notice {
+    font-size: 1em;
+    text-align: center;
+  }
+  td.logodetails {
+  text-align: left;
 }
-span.booking {
-    color: #979797;
+span.logoname {
+  /* text-align: center; */
+  font-size: 1.5em;
+  font-weight: bold;
+  color: black;
+  padding-bottom: 0px;
 }
-.Cancel-policy h4 {
-    margin: 0px;
+span.logosubheading {
+  /* text-align: center; */
+  font-size: 1em;
+  font-weight: bold;
+  color: #1ebbd7;
+  padding-top: 0px;
 }
-.Order-dtl h4 {
-    margin: 0px;
+td.companyaddress {
+  text-align: left;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
+.How-to-Use {
+  padding: 20px 0px;
+}
+  
+  footer {
+    color: #777777;
+    width: 100%;
+    height: 30px;
+    position: relative;
+    bottom: 0;
+    border-top: 1px solid #AAAAAA;
+    padding: 8px 0;
+    text-align: center;
+  }
+  
+  
   </style>
-</head>
-<body>
-    <div class="Gateway-tours">
-      <div class="row" style="display: flex;">
-       <div class="col-4" style="width:38.66%; padding: 10px;">
-         <h5>Tours</h5>
-         <p style="color:#979797;font-size: 16px;margin: 4px 0px;font-weight: 300;">Hatta mountain safari for two</p>
-         <p class="voucher-expiry">
-          Use this voucher by 30.12.2022</p>	
-          <h4 class="Barcode"><p>AE756AC6C7</p></h4>
-       </div>
-       <div class="col-4" style="width:29%">
-       </div>
-       <div class="col-4" style="width:33.33%; background-color:#f6f7f8; padding:15px">
-        <div class="Tour-img"><img src="/Sourabh/Html code/pdf ticket html template/456024.jpg" alt="tours"></div>
-        <div class="voucher-code"><i class="fa-brands fa-google"></i>
-          <h4>Voucher Code</h4>
-          <p>VS-H9R1-N6LX-5NHY-KRK5</p>
+  <body>
+    <div class="invoice">
+      <header class="clearfix">
+        <div id="logo">
+        <div class="col-6" style="text-align: left;">
+        @if($bookingInfo->security_code)
+        <div class="Expiry-date"><span>Use this voucher by : {{date('d M Y',strtotime($bookingInfo->voucher_expiry_date))}}</div>
+        @endif
         </div>
-        <div class="security-code"><i class="fa-regular fa-key"></i>
-          <h4>Security Code</h4>
-          <p>VS-H9R1-N6LX-5NHY-KRK5</p>
+          <!-- <img src="{{asset ('assets/front/images/logo1.png')}}"> -->
+          
+          <!-- <img src="{{asset ('assets/front/css/logo/logoquads.png')}}" style="width: 200px; height: 200px"> -->
         </div>
-       </div>
-      </div>
+        <div id="company">
+          <h1>INVOICE</h1>
+          <div class="date">Date of Booking: {{ date('d M Y',strtotime($bookingInfo->created_at)) }}</div>
+          <div class="date">Booking Number: {{ $bookingInfo->random_id }}</div>
+        </div>
+      </header>
+      <main>
+        <div id="details" class="clearfix">
+          <div id="client">
+            <div class="to">INVOICE TO:</div>
+            <h2 class="name">{{ $bookingInfo->first_name." ".$bookingInfo->last_name }}</h2>
+            <div class="email"><a href="mailto:{{ $bookingInfo->email }}">{{ $bookingInfo->email }}</a></div>
+            <div class="email"><a href="javascript:void(0)"></a>{{ $bookingInfo->mobile }}</div>
+          </div>
+          <div id="invoice">
+            <!-- <h1>INVOICE</h1> -->
+            <div class="date">{{ $bookingInfo->status }}</div>
+            <div class="date">lOCATION({{$bookingInfo->pickup_location }})</div>
+            @if($bookingInfo->security_code)
+            <div class="date">VOUCHER : {{$bookingInfo->voucher}}</div>
+            <div class="date">SECURITY CODE : {{ $bookingInfo->security_code }}</div>
+            @endif
+          </div>
+        </div>
+        <table border="0" cellspacing="0" cellpadding="0">
+          <thead>
+            <tr>
+              <th class="no head-color">#</th>
+              <th class="desc head-color">VEHICLE DETAILS</th>
+              <th class="desc head-color">BOOKING TIME</th>
+              <th class="qty head-color">QUANTITY</th>
+              <th class="total head-color">TOTAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($bookingInfo->vehicleInfo as $key => $vehicle)
+            <tr>
+                  <td class="no"></td>
+                  <td class="desc"><h3>{{ $vehicle->name }}</h3>
+                  @php $extraProducts = json_decode($vehicle->extra_product) @endphp
+                  @if(isset($extraProducts))
+                  @foreach($extraProducts as $product)
+                  EXTRA :&nbsp; {{$product->title}}<br>
+                  PRICE :&nbsp; {{$product->price}}<br>
+                  <br>
+                  @endforeach
+                  @endif
+                </td>
+              <td class="qty">{{ $vehicle->booking_time }}</td>
+              <td class="qty">{{ $vehicle->quantity }}</td>
+              <td class="unit">{{ $vehicle->price }}</td>
+            </tr>
+            @endforeach
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2"></td>
+              <td colspan="2">SUBTOTAL</td>
+              <td>{{ $bookingInfo->sub_total }}</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="logodetails"><span class="logoname">QUADS DUBAI</span> <br> <span class="logosubheading">ADVENTURE STARTS HERE</span> </td>
+              <td colspan="2">EXTRA AMOUNT(%)</td>
+              <td>@if(isset($bookingInfo->extra_amount)){{ $bookingInfo->extra_amount }}@endif</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="companyaddress">xyz, street1, dubai 145006 , UAE <br>quadsdubai@gmail.com<br> +971 52 132 9715</td>
+              <td colspan="2">DISCOUNT</td>
+              <td>@if(isset($bookingInfo->discount)){{ $bookingInfo->discount }}@endif</td>
+            </tr>
+            <tr>
+              <td colspan="2"></td>
+              <td colspan="2">GRAND TOTAL</td>
+              <td>@if(isset($bookingInfo->total)){{ $bookingInfo->total }}@endif</td>
+            </tr>
+          </tfoot>
+        </table>
+        @if($bookingInfo->security_code)
+        @php $baseUrl = url("") ; @endphp
+        <img src="data:image/png;base64, {{ base64_encode(QrCode::size(80)->generate($baseUrl.'/admin/voucher-bookings/redeem-voucher/'.$bookingInfo->security_code.'/'.$bookingInfo->random_id)) }} ">
+        @endif  
+        <div id="notices">
+          <div class="large-sign">SIGNATURE</div>
+          <div class="notice">Quads Dubai</div>
+        </div>
+        @if($bookingInfo->security_code)
+        <div class="How-to-Use">
+          <span><b>How to Use:</b> Please keep the soft copy of this voucher and present it to supplier and below given location</span>
+        </div>
+        @endif  
+        </main>
+      <footer>
+        Invoice was created on a computer and is valid without the signature and seal.
+      </footer>
     </div>
-    <div class="row">
-      <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
-        <tr>
-            <td align="left" style="padding-top: 20px;">
-                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                      <h4 style="background-color: rgb(238, 238, 238);padding: 10px;margin: 10px 0px;">Booking Details</h4>
-                      <tr>
-                        <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px 5px 10px;">
-                            Name
-                        </td>
-                        <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-                            {{$bookingInfo->first_name}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px 5px 10px;">
-                            Number Of Person
-                        </td>
-                        <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-                            {{$bookingInfo->no_of_travelers}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                            Booking Date
-                        </td>
-                        <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                        {{$bookingInfo->create_at}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                            Pickup Location
-                        </td>
-                        <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                        {{$bookingInfo->pickup_location}}
-                        </td>
-                    </tr>
-                  <tr>
-                    <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                        Payment Method
-                    </td>
-                    <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                    {{$bookingInfo->payment_method}}
-                    </td>
-                </tr
-                  <tr>
-                        <td width="75%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
-                            Order Confirmation Id:
-                        </td>
-                        <td width="25%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
-                            #2345678
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-                            Purchased Item (1)
-                        </td>
-                        <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-                            $100.00
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                            Shipping + Handling
-                        </td>
-                        <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                            $10.00
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                            Sales Tax
-                        </td>
-                        <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                            $5.00
-                        </td>
-                    </tr>
-                </table>
-            </td> 
-        </tr>
-    </table>
-    </div>
-    <div class="Cancel-policy">
-    <h4>Refund and Cancel policy</h4>
-    <p style="color:#979797">
-            1. Amount once paid through the payment gateway shall not be refunded other than in the
-            following circumstances:<br>
-            • Multiple times debiting of Customer’s Card/Bank Account due to technical error OR Customer's
-            account being debited with excess amount in a single transaction due to technical error. In such
-            cases, excess amount excluding Payment Gateway charges would be refunded to the Customer.
-            • Due to technical error, payment being charged on the Customer’s Card/Bank Account but the
-            enrolment for the examination is unsuccessful. Customer would be provided with the enrolment
-            by NISM at no extra cost. However, if in such cases, Customer wishes to seek refund of the
-            amount, he/she would be refunded net the amount, after deduction of Payment Gateway
-            charges or any other charges.<br>
-            2. The Customer will have to make an application for refund along with the transaction number
-            and original payment receipt if any generated at the time of making payments.<br>
-            3. The application in the prescribed format should be sent to paymentonline@stfc.co.in
-
-    </p>
-    <hr>
-    </div>
-    <div class="row right-to-order" style="width: 100%;  display: inline-flex;">
-       <div class="col-6 Order-dtl" style="width:50%; padding: 10px;">
-         <h4>How To Use</h4>
-          <p style="color:#979797">1. Appointment required. Call for reservation
-              or cancellation 055 399 3387 or 050 176 5366
-              at least 24 hours before it & cancellation must
-              be made at least 24 hours before it. Present
-              printed Groupon on arrival.
-          </p>
-          <h4>Redeem At</h4>
-          <p style="color:#979797">Office No. 4, Opposite to Al Rashidiya Ladies<br>
-            Park<br>
-            Ajman
-          </p>
-          <h4>The Fine Print</h4>
-          <p style="color:#979797">Expires 180 days after purchase. Limit 50 per
-            person, may buy 50 additional as a gift.
-            Booking required by phone, contact 055 399
-            3387 or 050 176 5366. Prior
-            booking/cancellation (subject to availability)
-            
-            
-          </p>
-       </div>
-       <div class="col-6 Gate-tour" style="width:50%; padding: 10px;">
-         <p style="color:#979797"> at least 24 hours in advance. Minimum 5
-            persons are needed to schedule the tour. Pick
-            up time: 8.30am-9.30am. Drop off time: 1.30pm2.30pm.
-             Pick up and drop off points in Dubai:
-          Almulla Plaza (main entrance), Deira City
-          Center (Day to Day opposite to DCC), Mall of
-          Emirates (Lulu hypermarket behind MOE),
-          Dragon Mart (main entrance next to fountain
-          area), Burjuman Center (Spinneys next to
-          Burjaman). Pick up and drop off points in
-          Sharjah: Mega Mall, Sharjah City Center,
-          Sahara Center. Surcharge for lunch at Hatta
-          Fort Hotel to be paid directly to the partner.
-          Residents must bring their Emirates ID with
-          them on tour day. Tourists must have their
-          original passport and visa on date of tour.
-          Printed voucher must be presented. Groupon
-          prices are inclusive of VAT where applicable.
-          <a style="color: #41b1f6;text-decoration: none;" href="https://www.groupon.ae/universal-fine-print#UFP">See the rules</a> that apply to all deals.</p>	
-       </div>
-    </div>
-</body>
+  </body>
 </html>

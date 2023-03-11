@@ -216,35 +216,39 @@ class VehiclesController extends Controller
     
                 return response()->json(['success' => "Vehicle Updated successfully."]);
             }
+
+            $tours = Tour::tour()->select('name','id')->order()->get();
+
             $this->outputData = [
                 'pageName' => 'Edit Vehicle',
                 'action' => url('admin/tours/vehicles/update/'.$id),
+                'tours' => $tours,
                 'objData' => Vehicle::findOrFail($id),
                 'tourName' => Tour::where('type','Tour')->select('name','id')->order()->get(),
                 'highlights' => VehicleInfo::highlight()->order()->get(),
                 'includes' => VehicleInfo::include()->order()->get(),
                 'warnings' => VehicleInfo::warning()->order()->get(),
                 'activities' => VehicleInfo::activity()->order()->get(),
-                'addiInfo' => VehicleInfo::additionalInfo()->order()->get(),
-                'time' => Time::order()->get(),
+                'addInfos' => VehicleInfo::additionalInfo()->order()->get(),
+                'times' => Time::order()->get(),
                 'timeSlotes' => TimeSlot::get()
             ];
 
             $this->outputData['price'] = Price::where('vehicle_id',$id)->get();
 
             $timeSlotes = AvailableSlot::where('vehicle_id',$id)->get()->toArray();  
-
-            foreach($timeSlotes as $key => $value){
-                $this->outputData['selctdTimeSlots'][] = $value['time_slot_id'];
-            }
+            $time_slots_ids = [];
             
-            $this->outputData['selctdTime'] = Helper::explode( $this->outputData['objData']->time_ids );
-            $this->outputData['selctdTour'] = Helper::explode( $this->outputData['objData']->tour_id );
-            $this->outputData['selctdIncludes'] = Helper::explode( $this->outputData['objData']->includes_ids );
-            $this->outputData['selctdWarning'] = Helper::explode( $this->outputData['objData']->warning_ids );
-            $this->outputData['selctdHighlight'] = Helper::explode( $this->outputData['objData']->highlight_ids );
-            $this->outputData['selctdActivitie'] = Helper::explode( $this->outputData['objData']->activities_ids );
-            $this->outputData['selctdAddInfo'] = Helper::explode( $this->outputData['objData']->additional_info_ids );
+            foreach($timeSlotes as $key => $value){
+                $time_slots_ids[] = $value['time_slot_id'];
+            }
+            $this->outputData['objData']->time_slots_ids = $time_slots_ids;
+            $this->outputData['objData']->time_ids = Helper::explode( $this->outputData['objData']->time_ids );
+            $this->outputData['objData']->includes_ids = Helper::explode( $this->outputData['objData']->includes_ids );
+            $this->outputData['objData']->warning_ids = Helper::explode( $this->outputData['objData']->warning_ids );
+            $this->outputData['objData']->highlight_ids = Helper::explode( $this->outputData['objData']->highlight_ids );
+            $this->outputData['objData']->activities_ids = Helper::explode( $this->outputData['objData']->activities_ids );
+            $this->outputData['objData']->additional_info_ids = Helper::explode( $this->outputData['objData']->additional_info_ids );
 
             return view('admin.pages.tour.vehicle.create',$this->outputData);
 

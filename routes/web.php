@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\TourController;
@@ -22,13 +23,16 @@ use App\Http\Controllers\Admin\SafetyGearController;
 use App\Http\Controllers\Admin\RefreshmentController;
 use App\Http\Controllers\Admin\TimeSlotController;
 use App\Http\Controllers\Admin\AdditionalInfoController;
-use App\Http\Controllers\Admin\BookingsController;
+use App\Http\Controllers\Admin\BookingsController; 
+
+/* Supplier Controller start*/
+
+use App\Http\Controllers\Admin\VoucherController;
 
 /* Frontend Controller start*/
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SingleProductController;
-use App\Http\Controllers\AlltoursController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
@@ -37,6 +41,8 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TourController as ControllersTourController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\MyorderController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactUsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,12 +62,24 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
+
 Route::group([
     'prefix' => 'admin',
     'middleware' => 'auth:admin'
 ], function(){
     Route::get('/dashboard',[DashboardController::class, 'index']);
 
+    Route::group([
+        'prefix' => 'voucher-bookings'
+    ], function(){
+        Route::get('/',[VoucherController::class, 'index']);
+        Route::get('/datatable',[VoucherController::class, 'datatable']);
+        Route::post('/voucher-details',[VoucherController::class, 'redeemCode']);
+        Route::post('/redeem-voucher',[VoucherController::class, 'redeemSecurityCode']);
+        Route::get('redeem-voucher/{code}/{id}',[VoucherController::class, 'scanQr']);
+    });
+
+Route::group(['middleware' => ['admin']], function () {
     Route::group([
         'prefix' => 'users'
     ], function(){
@@ -84,6 +102,7 @@ Route::group([
         Route::get('/edit/{id}',[TourController::class, 'edit']);
 		Route::post('/update/{id}',[TourController::class, 'edit']);
 		Route::get('/delete/{id}',[TourController::class, 'destroy']);
+        Route::post('/genrate-voucher',[TourController::class, 'genrateVoucher']);
 
         Route::group([
             'prefix' => 'vehicles'
@@ -321,6 +340,7 @@ Route::group([
     });
 
 });
+});
 
 /*********************** Frontend Routes start *******************************/
 
@@ -343,20 +363,12 @@ Route::group([
         Route::post('add',[CartController::class, 'add']);
         Route::get('remove/{id}',[CartController::class, 'remove']);
     });
+    Route::post('apply-coupon',[CartController::class, 'applyCoupon']);
     
     Route::prefix('checkout')->group(function() {
         Route::get('/',[CheckoutController::class, 'index']);
         Route::post('check-user',[CheckoutController::class, 'checkUser']);
         Route::post('verify',[CheckoutController::class, 'verify']);
-    });
-
-    Route::prefix('payment')->group(function() {
-        Route::post('/',[PaymentController::class, 'index']);
-        Route::get('/success',[PaymentController::class, 'success']);
-        Route::get('/failure',[PaymentController::class, 'failure']);
-        Route::get('/thank-you/{id}',[PaymentController::class, 'thankYou']);
-        Route::get('/stripe/{id}',[PaymentController::class, 'stripe']);
-        Route::post('/stripe-payment',[PaymentController::class, 'stripePayment']);
     });
 
     Route::get('refund-policy',[OtherPageController::class, 'refundPolicy']);
@@ -368,17 +380,32 @@ Route::group([
     Route::get('faqs',[OtherPageController::class, 'faqs']);
     Route::get('reviews',[OtherPageController::class, 'reviews']);
 
-
-
-
-    Route::get('/my-account',[HomeController::class, 'myAccount']);
-    Route::post('update-profile',[HomeController::class, 'updateProfile']);
-    Route::post('update-password',[HomeController::class, 'updatePassword']);
-    
-    // cart
-    Route::get('/update-cart',[CartController::class, 'update']);
-    Route::post('apply-coupon',[CartController::class, 'applyCoupon']);
-
-    //myorder
-    Route::get('/my-bookings',[MyorderController::class, 'index']);
     Route::get('pdf-download/{id}',[MyorderController::class, 'pdf']);
+
+    //contact us  
+    Route::post('contact-us',[ContactUsController::class, 'contactUs']);
+
+    Route::group([
+        'middleware' => 'auth'
+    ], function(){
+        Route::prefix('payment')->group(function() {
+            Route::post('/',[PaymentController::class, 'index']);
+            Route::get('/success',[PaymentController::class, 'success']);
+            Route::get('/failure',[PaymentController::class, 'failure']);
+            Route::get('/thank-you/{id}',[PaymentController::class, 'thankYou']);
+            Route::get('/stripe/{id}',[PaymentController::class, 'stripe']);
+            Route::post('/stripe-payment',[PaymentController::class, 'stripePayment']);
+        });
+        
+        Route::prefix('account')->group(function(){
+            Route::get('/profile',[AccountController::class, 'account']);
+            Route::post('/profile',[AccountController::class, 'account']);
+            Route::get('/password',[AccountController::class, 'password']);
+            Route::post('/password',[AccountController::class, 'password']);
+        });
+        Route::prefix('bookings')->group(function(){
+            Route::get('/',[OrderController::class, 'index']);
+            Route::get('/{id}',[OrderController::class, 'details']);
+            Route::get('pdf/{id}',[OrderController::class, 'downloadPdf']);
+        });
+    });
