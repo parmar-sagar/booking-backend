@@ -36,6 +36,9 @@ return new class extends Migration
             $table->tinyInteger('is_redeem')->default(1)->comment('1 => Redeem , 2 => Not Redeem')->index('idx_is_redeem');
             $table->datetime('voucher_expiry_date');
             $table->string('security_code',250);
+            $table->datetime('redeem_date');
+            $table->datetime('voucher_expiry_date');
+            $table->string('voucher');
             $table->softDeletes();
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
