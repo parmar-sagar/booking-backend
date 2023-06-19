@@ -15,7 +15,7 @@
               <span class="dropbtn l-navbar__menu-link ">Tours</span>
             <div class="dropdown-Tour_content">
                 @php
-                  $tours = App\Models\Tour::has('vehicles')->active()->Sequence()->get();
+                  $tours = App\Models\Tour::has('vehicles')->active()->take(3)->Sequence()->get();
                 @endphp
                 @foreach ($tours as $value)
                   <a href="{{url('tours/'.$value->random_id)}}">{{ $value->name }}</a>  

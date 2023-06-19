@@ -4,9 +4,9 @@
         <!-- Topbar Logo -->
         <div class="logo-topbar">
             <!-- Logo light -->
-            <a href="index-2.html" class="logo-light">
+            <a href="" class="logo-light">
                 <span class="logo-lg">
-                    <img src="{{ asset('assets/admin/images/logo.png')}}" alt="logo" height="22">
+                  <img src="{{asset ('assets/front/images/image_2022_11_21T04_57_12_733Z-U-bg.png')}}" alt="logo" height="60">
                 </span>
                 <span class="logo-sm">
                     <img src="{{ asset('assets/admin/images/logo-sm.png')}}" alt="small logo" height="22">
@@ -96,14 +96,14 @@
         </ul>
 
         <!-- Topbar Search Form -->
-        <div class="app-search dropdown">
-            <form>
-                <div class="input-group">
-                    <input type="search" class="form-control dropdown-toggle"  placeholder="Search..." id="top-search">
-                    <span class="mdi mdi-magnify search-icon"></span>
-                    <button class="input-group-text btn btn-primary" type="button">Search</button>
-                </div>
-            </form>
-        </div>
+        <!--<div class="app-search dropdown">-->
+        <!--    <form>-->
+        <!--        <div class="input-group">-->
+        <!--            <input type="search" class="form-control dropdown-toggle"  placeholder="Search..." id="top-search">-->
+        <!--            <span class="mdi mdi-magnify search-icon"></span>-->
+        <!--            <button class="input-group-text btn btn-primary" type="button">Search</button>-->
+        <!--        </div>-->
+        <!--    </form>-->
+        <!--</div>-->
     </div>
 </div>

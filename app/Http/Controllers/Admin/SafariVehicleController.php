@@ -62,6 +62,9 @@ class SafariVehicleController extends Controller
                     'highlight_ids' => 'required|array',
                     'warning_ids' => 'required|array',
                     'status' => 'required|in:0,1',
+                     //pickup_status and disc are newly added on  05/06/2023
+                    'pickup_status' => 'in:0,1,2',
+                    'disc' => 'required|integer',
                     'no_of_persons' => 'required|integer',
                     'quantity' => 'required|integer',
                     'activities_ids' => 'required|array',
@@ -146,6 +149,9 @@ class SafariVehicleController extends Controller
                     'warning_ids' => 'required|array',
                     'quantity' => 'required|integer',
                     'status' => 'required|in:0,1',
+                     //pickup_status and disc are newly added on  05/06/2023
+                    'pickup_status' => 'in:0,1,2',
+                    'disc' => 'required|integer',
                     'no_of_persons' => 'required|integer',
                     'activities_ids' => 'required|array',
                     'additional_info_ids' => 'required|array',

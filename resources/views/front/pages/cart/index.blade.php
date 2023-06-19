@@ -128,14 +128,34 @@
             <div class="py-2 alltotal">
                 <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Subtotal:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="basket-subtotal">{{ number_format($total, 2) }} AED</span>
             </div>
+            @foreach($groupDiscount as $val)
+            @if($val->no_of_vehicle == $value->quantity)
+           <div class="py-2 alltotal">
+                <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Group Discount:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="basket-subtotal">{{ number_format($val->discount) }} % OFF</span>
+            </div>
+            @endif
+            @endforeach
             <div class="py-2 alltotal">
                 <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Extra Activities:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="basket-subtotal">{{ number_format($extraAmount, 2) }} AED</span>
             </div>
             <div class="py-2 alltotal">
                 <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Discount:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value" id="discount">{{ $discount }} AED</span>
             </div>
+        <!--group discount caculation begin-->
+        {{gettype($value)}}
+        @php
+        $grpdis=0;
+        @endphp
+        @foreach($groupDiscount as $val)
+        @if($val->no_of_vehicle == $value->quantity)
+        @php
+        $grpdis=$total*$val->discount/100;
+        @endphp
+        @endif
+        @endforeach
+        <!--group discount caculation end-->
             <div class="py-2 alltotal">
-                <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Total:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value grandCoupon grandTotal" id="grand-total">{{ number_format($total + $extraAmount - $discount, 2) }} AED</span>
+                <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Total:</span><span class="d-inline-block align-middle text-xl font-weight-medium subtotal-value final-value grandCoupon grandTotal" id="grand-total">{{ number_format($total + $extraAmount - $discount-$grpdis, 2) }} AED</span>
                 <input type="hidden" id="grandTotal" value="{{ $total + $extraAmount - $discount }}">
             </div>
         </div>

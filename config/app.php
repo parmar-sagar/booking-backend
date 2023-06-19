@@ -182,6 +182,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -217,5 +218,6 @@ return [
     'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
     'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
     'PDF' => Barryvdh\DomPDF\Facade::class,
+    'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 
 ];

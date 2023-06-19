@@ -4,16 +4,34 @@
             @php 
             $extraAmount = 0; 
             $showPickup = 0;
+            $paymentArival = 0;
             @endphp 
             @foreach($carts as $key => $value)
-            @if(in_array($value->attributes->tour_name,['Dune Buggies','Quad Bikes']) && $value->attributes->voucher_status == 1)
+            @if($value->attributes->voucher_status == 1)
+            @php
+            $paymentArival++;
+            @endphp
+            @endif
+            @if($value->attributes->ExtraDiscount)
             @php
             $showPickup++;
             @endphp
             @endif
             @php 
             $extraAmount += $value->attributes->extra_amount; 
+            $extra10Per = $value->attributes->ExtraDiscount/100 * $value->price * $value->quantity; 
+            $subtotalDis = $value->attributes->ExtraDiscount/100 * $total; 
             @endphp
+            
+            <!--group discount ca culation begin-->
+            @foreach($groupDiscount as $val)
+            @if($val->no_of_vehicle == $value->quantity)
+            @php 
+            $total=$total-($total*$val->discount)/100;
+            @endphp
+            @endif
+            @endforeach
+           <!--group discount ca culation end-->
                 <div class="col-lg-12 col-md-12 col-sm-12 content cart-item mb-20 pb-20 checkout-final" style="width:100%">
                     <div class="cart-item-extra">
                         <div class="cart-item d-md-flex justify-content-between pb-0 mb-0">
@@ -23,7 +41,7 @@
                             </div>
                         <div class="px-3 my-3 text-center">
                             <div class="cart-item-label">Price</div>
-                            <span class="text-xl font-weight-medium">{{ ($value->price)}} AED</span>
+                            <span class="text-xl font-weight-medium">{{($value->price)}} AED</span>
                         </div>
                         <div class="px-3 my-3 text-center">
                             <div class="cart-item-label">Quantity</div>
@@ -33,15 +51,15 @@
                         </div>
                         <div class="px-3 my-3 text-center">
                             <div class="cart-item-label">Total</div>
-                            <span class="text-xl font-weight-medium">{{ ($value->price * $value->quantity)}} AED</span>
+                            <span class="text-xl font-weight-medium">{{($value->price * $value->quantity - $extra10Per)}} AED</span>
                         </div>
                         <div class="px-3 my-3 text-center">
                             <div class="cart-item-label">Booking Date</div>
-                            <span>28-02-2023</span>
+                            <span>{{ $value->attributes->booking_date }}</span>
                         </div>
                         <div class="px-3 my-3 text-center">
                             <div class="cart-item-label">Time</div>
-                            <span>12:00 AM</span>
+                            <span>{{ $value->attributes->time }}</span>
                         </div>
                     </div>
                     @if($value->attributes->extra_product)
@@ -78,7 +96,7 @@
                         </div>
                         <div class="summary-subtotal">
                             <div class="subtotal-title">Subtotal</div>
-                            <div class="subtotal-value final-value" id="basket-subtotal">{{ $subTotal }} AED</div>
+                            <div class="subtotal-value final-value" id="basket-subtotal">{{ $subTotal- $subtotalDis }} AED</div>
                             <br>
                             <br>
                             <div class="subtotal-title">Extra Activities</div>
@@ -90,7 +108,7 @@
                             <br>
                             <div class="summary-total">
                                 <div class="total-title">Total</div>
-                                <div class="total-value final-value grandCoupon" id="basket-total">{{ number_format($total + $extraAmount - $discount, 2) }} AED</div>
+                                <div class="total-value final-value grandCoupon" id="basket-total">{{ number_format($total + $extraAmount - $discount - $subtotalDis, 2) }} AED</div>
                             </div>
                         </div>
                     </div>
@@ -136,7 +154,7 @@
                         </div>
                      </div>
                      <!-- if(in_array($showPickup)&& status == 1) -->
-                      @if($showPickup != 0)
+                      <!-- @if($showPickup != 0)
                      <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="pickup"checked>
                         <label class="form-check-label" for="pickup">
@@ -149,14 +167,14 @@
                         Without Pickup
                         </label>
                      </div>
-                     @endif
-             
-                     <div class="form__row" style="display:none" id="pickuplocation">
+                     @endif -->
+                     @if($showPickup == 0)
+                     <div class="form__row">
                         <div class="form__group">
                            <input type="text" name="pickup_location" placeholder="Pickup Location (Hotel Or Residence)"  id="pickup_location" class="form__input-blank" required>
                         </div>
                      </div>
-                   
+                   @endif
                      <div class="form__row">
                         <div class="form__group">
                         <label for="pickup_location*">No of Travelers*</label>
@@ -206,7 +224,7 @@
                                     <span class="slider round"></span>
                                  </label>
                               </p>
-                              @if($showPickup == 0)
+                              @if($paymentArival == 0 && $showPickup == 0)
                               <p>
                                  <strong class="mb-1em">Payment on Arrival </strong>
                                  <label class="switch">
@@ -311,7 +329,7 @@ $(document).ready(function(){
       });
     // end
 
-    $('#pickuplocation').show();
+$('#pickuplocation').show();
 $('#pickup').on('click',function(){
     $('#pickuplocation').css("display","block");
 })
