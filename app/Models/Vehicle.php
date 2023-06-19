@@ -34,7 +34,10 @@ class Vehicle extends Model
         'pickup_time',
         'dropoff_time',
         'discount',
-        'is_deals'
+        'is_deals',
+        //pickup_status and disc are newly added on 05/06/2023
+        'pickup_status',
+        'disc'
     ];
 
     protected $hidden = [

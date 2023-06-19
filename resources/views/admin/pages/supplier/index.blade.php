@@ -10,11 +10,11 @@
             <div class="card">
                 <div class="card-body">
                     <div>
-                        <p><span style="color:red">Note : </span> {{ $pageName }} that can be performed with the Vehicle</p>
+                        <p><span style="color:red">Note : </span>Here new users can be added, removed or modified. All data for all users will be available here.</p>
                     </div>
                     <div class="row mb-2">
                         <div class="col-sm-5">
-                            <a href="javascript:void(0);" class="btn btn-danger mb-2 open-form" data-create-href={{ $create }}><i class="mdi mdi-plus-circle me-2"></i> Add {{ $pageName }}</a>
+                            <a href="javascript:void(0);" class="btn btn-danger mb-2 open-form" data-create-href="{{ $create }}"><i class="mdi mdi-plus-circle me-2"></i> Add {{ $pageName }}</a>
                         </div>
                     </div>
 
@@ -24,7 +24,9 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
-                                    <th>Price</th>
+                                    <th>Email</th>
+                                    <th>Date & Time</th>
+                                    <th>Status</th>
                                     <th style="width: 85px;">Action</th>
                                 </tr>
                             </thead>
@@ -39,10 +41,9 @@
     </div>
     <div class="row" id="content-form">
         
-    </div>
-    <!-- end row -->   
+    </div> 
     <x-slot name="scripts">
         <!-- Custom App js -->
-        <script src="{{ asset('admin/js/activity.js') }}"></script>
+        <script src="{{ asset('admin/js/supplier.js') }}"></script>
     </x-slot>    
 </x-admin.master-layout>

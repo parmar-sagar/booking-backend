@@ -205,7 +205,7 @@
                     "
                   >
                     <p>
-                      Thank you for contacting us! Your account is
+                      Thanks you for showing your interest  with Quads Dubai! Your account is
                       currently being reviewed by a member of our team. Please
                       allow us some time to process your request.<br />
                       If you have any problems, please contact us at

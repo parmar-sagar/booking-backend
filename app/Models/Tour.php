@@ -14,13 +14,13 @@ class Tour extends Model
         'name',
         'description',
         'min_age',
-        'convoy_leader',
-        'tour_guide',
-        'pickup_and_drop',
-        'time_ids',
-        'location_id',
-        'safety_gear_ids',
-        'refreshments_ids',
+        // 'convoy_leader',
+        // 'tour_guide',
+        // 'pickup_and_drop',
+        // 'time_ids',
+        // 'location_id',
+        // 'safety_gear_ids',
+        // 'refreshments_ids',
         'sequence',
         'status',
         'image',
@@ -31,7 +31,14 @@ class Tour extends Model
         'voucher',
         'voucher_status',
         'voucher_expiry_date',
-        'security_code'
+        'security_code',
+        'availability',
+        'option1',
+        'option2',
+        'option3',
+        'option4',
+        'option5',
+        'option6'
     ];
     
     protected $hidden = [

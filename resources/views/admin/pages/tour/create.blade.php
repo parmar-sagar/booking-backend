@@ -30,66 +30,104 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="min_age" class="form-label">Minimum Age</label>
-                            <input type="number" min="1" id="min_age" class="form-control" name="min_age" value="@if(isset($objData->min_age) && $objData->min_age){{ $objData->min_age }}@endif" required>
+                            <input type="number" min="1" id="min_age" class="form-control" name="min_age" value="@if(isset($objData->min_age) && $objData->min_age){{ $objData->min_age }}@endif">
+                        </div>
+                    </div>
+                     <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="availability" class="form-label">Availability</label>
+                            <input type="text" id="availability" class="form-control" name="availability" value="@if(isset($objData->availability) && $objData->availability){{ $objData->availability }}@endif">
+                        </div>
+                    </div>
+                     <div class="col-lg-6">
+                        <div class="mb-3">
+                            <input type="text" id="option1" class="form-control" name="option1" value="@if(isset($objData->option1) && $objData->option1){{ $objData->option1 }}@endif">
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="convoy_leader" class="form-label">Convoy Leader</label>
-                            <input type="text" id="convoy_leader" class="form-control" name="convoy_leader" value="@if(isset($objData->convoy_leader) && $objData->convoy_leader){{ $objData->convoy_leader }}@endif" required>
+                            <input type="text" id="option2" class="form-control" name="option2" value="@if(isset($objData->option2) && $objData->option2){{ $objData->option2 }}@endif">
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="tour_guide" class="form-label">Tour Guide</label>
-                            <input type="text" id="tour_guide" class="form-control" name="tour_guide" value="@if(isset($objData->tour_guide) && $objData->tour_guide){{ $objData->tour_guide }}@endif" required>
+                            <input type="text" id="option3" class="form-control" name="option3" value="@if(isset($objData->option3) && $objData->option3){{ $objData->option3 }}@endif">
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="pickup_and_drop" class="form-label">Pickup & Drop off </label>
-                            <input type="text" id="pickup_and_drop" class="form-control" name="pickup_and_drop" value="@if(isset($objData->pickup_and_drop) && $objData->pickup_and_drop){{ $objData->pickup_and_drop }}@endif" placeholder="ex- Dubai to Sharjah" required>
+                           <input type="text" id="option4" class="form-control" name="option4" value="@if(isset($objData->option4) && $objData->option4){{ $objData->option4 }}@endif">
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="time_ids" class="form-label">Times</label>
-                            <select  class="select2 form-control select2-multiple" id="time_ids" data-toggle="select2" multiple="multiple" data-placeholder="Choose ..." name="time_ids[]" required>
-                                @foreach($times as $value)
-                                    <option value="{{$value->id}}" @if(isset($objData->time_ids) && in_array($value->id,$objData->time_ids)) selected @endif >{{$value->time."  ".$value->type}}</option>
-                                @endforeach    
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <label for="location_id" class="form-label">Location</label>
-                            <select class="form-control select2" data-toggle="select2" id="location_id" name="location_id" required>
-                                <option>Select</option>
-                                @foreach($locations as $value)
-                                    <option value="{{$value->id}}" @if(isset($objData->location_id) && $objData->location_id == $value->id) selected @endif>{{$value->name}}</option>
-                                @endforeach    
-                            </select>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label for="safety_gear_ids" class="form-label">Safety Gears</label>
-                            <select class="select2 form-control select2-multiple" id="safety_gear_ids" data-toggle="select2" name="safety_gear_ids[]" multiple="multiple" data-placeholder="Choose ...">
-                                @foreach($safetyGears as $value)
-                                <option value="{{$value->id}}" @if(isset($objData->safety_gear_ids) && in_array($value->id, $objData->safety_gear_ids)) selected @endif>{{$value->title}}</option>
-                                @endforeach  
-                            </select>
+                          <input type="text" id="option5" class="form-control" name="option5" value="@if(isset($objData->option5) && $objData->option5){{ $objData->option5 }}@endif">
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="refreshments_ids" class="form-label">Refreshments</label>
-                            <select class="select2 form-control select2-multiple" id="refreshments_ids" data-toggle="select2" name="refreshments_ids[]" multiple="multiple" data-placeholder="Choose ...">
-                                @foreach($refreshments as $value)
-                                <option value="{{$value->id}}" @if(isset($objData->refreshments_ids) && in_array($value->id, $objData->refreshments_ids)) selected @endif>{{$value->title}}</option>
-                                @endforeach  
-                            </select>
+                          <input type="text" id="option6" class="form-control" name="option6" value="@if(isset($objData->option6) && $objData->option6){{ $objData->option6 }}@endif">
                         </div>
                     </div>
+                    <!--original code begins-->
+                    <!--<div class="col-lg-6">-->
+                    <!--    <div class="mb-3">-->
+                    <!--        <label for="convoy_leader" class="form-label">Convoy Leader</label>-->
+                    <!--        <input type="text" id="convoy_leader" class="form-control" name="convoy_leader" value="@if(isset($objData->convoy_leader) && $objData->convoy_leader){{ $objData->convoy_leader }}@endif">-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-6">-->
+                    <!--    <div class="mb-3">-->
+                    <!--        <label for="tour_guide" class="form-label">Tour Guide</label>-->
+                    <!--        <input type="text" id="tour_guide" class="form-control" name="tour_guide" value="@if(isset($objData->tour_guide) && $objData->tour_guide){{ $objData->tour_guide }}@endif" >-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-6">-->
+                    <!--    <div class="mb-3">-->
+                    <!--        <label for="pickup_and_drop" class="form-label">Pickup & Drop off </label>-->
+                    <!--        <input type="text" id="pickup_and_drop" class="form-control" name="pickup_and_drop" value="@if(isset($objData->pickup_and_drop) && $objData->pickup_and_drop){{ $objData->pickup_and_drop }}@endif" placeholder="ex- Dubai to Sharjah">-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-6">-->
+                    <!--    <div class="mb-3">-->
+                    <!--        <label for="time_ids" class="form-label">Times</label>-->
+                    <!--        <select  class="select2 form-control select2-multiple" id="time_ids" data-toggle="select2" multiple="multiple" data-placeholder="Choose ..." name="time_ids[]">-->
+                    <!--            @foreach($times as $value)-->
+                    <!--                <option value="{{$value->id}}" @if(isset($objData->time_ids) && in_array($value->id,$objData->time_ids)) selected @endif>{{$value->time."  ".$value->type}}</option>-->
+                    <!--            @endforeach    -->
+                    <!--        </select>-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-6">-->
+                    <!--    <label for="location_id" class="form-label">Location</label>-->
+                    <!--        <select class="form-control select2" data-toggle="select2" id="location_id" name="location_id" required>-->
+                    <!--            <option>Select</option>-->
+                    <!--            @foreach($locations as $value)-->
+                    <!--                <option value="{{$value->id}}" @if(isset($objData->location_id) && $objData->location_id == $value->id) selected @endif>{{$value->name}}</option>-->
+                    <!--            @endforeach    -->
+                    <!--        </select>-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-6">-->
+                    <!--    <div class="mb-3">-->
+                    <!--        <label for="safety_gear_ids" class="form-label">Safety Gears</label>-->
+                    <!--        <select class="select2 form-control select2-multiple" id="safety_gear_ids" data-toggle="select2" name="safety_gear_ids[]" multiple="multiple" data-placeholder="Choose ...">-->
+                    <!--            @foreach($safetyGears as $value)-->
+                    <!--            <option value="{{$value->id}}" @if(isset($objData->safety_gear_ids) && in_array($value->id, $objData->safety_gear_ids)) selected @endif>{{$value->title}}</option>-->
+                    <!--            @endforeach  -->
+                    <!--        </select>-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-6">-->
+                    <!--    <div class="mb-3">-->
+                    <!--        <label for="refreshments_ids" class="form-label">Refreshments</label>-->
+                    <!--        <select class="select2 form-control select2-multiple" id="refreshments_ids" data-toggle="select2" name="refreshments_ids[]" multiple="multiple" data-placeholder="Choose ...">-->
+                    <!--            @foreach($refreshments as $value)-->
+                    <!--            <option value="{{$value->id}}" @if(isset($objData->refreshments_ids) && in_array($value->id, $objData->refreshments_ids)) selected @endif>{{$value->title}}</option>-->
+                    <!--            @endforeach  -->
+                    <!--        </select>-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                    <!--original code ends-->
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="image" class="form-label">Image</label>
@@ -122,7 +160,18 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="sequence" class="form-label">Sequence</label>
-                            <input type="number" min="0" id="sequence" class="form-control" name="sequence" value="@if(isset($objData->sequence) && $objData->sequence){{ $objData->sequence }}@endif">
+                            <input type="number" min="0" id="sequence" class="form-control" name="sequence" value="@if(isset($objData->sequence) || $objData->sequence){{ $objData->sequence }}@endif">
+                        </div>
+                    </div>
+                     <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="location_id" class="form-label">Location</label>
+                            <select class="form-control select2" data-toggle="select2" id="location_id" name="location_id" required>
+                                <option>Select</option>
+                                @foreach($locations as $value)
+                                    <option value="{{$value->id}}" @if(isset($objData->location_id) && $objData->location_id == $value->id) selected @endif>{{$value->name}}</option>
+                                @endforeach    
+                            </select>
                         </div>
                     </div>
                     <div class="col-lg-6">

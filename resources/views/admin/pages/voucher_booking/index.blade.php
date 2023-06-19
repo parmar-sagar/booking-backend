@@ -92,7 +92,8 @@
         </div>
         <div class="col-lg-3 d-flex align-items-center">
             <div class="mb-0 mt-2">
-            <button type="submit" id="submit-filter" class="btn btn-success mb-2">Submit</button>
+            <button type="submit" id="submit-filter" class="btn btn-success mb-2">Filter</button>
+            <button type="submit" id="clear-filter" class="btn btn-secondary mb-2">Clear</button>
             </div>
         </div>
         <div class="col-12">
