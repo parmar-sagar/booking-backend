@@ -37,6 +37,14 @@ return new class extends Migration
             $table->tinyInteger('voucher_status')->default(0)->comment('0 => Deactive , 1 => Active')->index('idx_voucher_status');
             $table->datetime('voucher_expiry_date');
             $table->string('security_code',250);
+            //availability and option 1 to 6 are newly added on 07/06/2023
+            $table->string('availability',255);
+            $table->string('option1',255);
+            $table->string('option2',255);
+            $table->string('option3',255);
+            $table->string('option4',255);
+            $table->string('option5',255);
+            $table->string('option6',255);
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');
         });
