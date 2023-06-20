@@ -153,6 +153,12 @@
                             <input type="number" id="quantity" min="1" class="form-control" name="quantity" value="@if(isset($objData->quantity) && $objData->quantity){{ $objData->quantity }}@endif" required>
                         </div>
                     </div>
+                     <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="disc" class="form-label">Apply Discount</label>
+                            <input type="number" id="disc" min="0" class="form-control" name="disc" value="@if(isset($objData->disc) && $objData->disc){{ $objData->disc }}@endif" required>
+                        </div>
+                    </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="status" class="form-label">Status</label>
@@ -168,6 +174,27 @@
                             </div>
                         </div>
                     </div>
+                      <!--pick_status code start-->
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="pickup_status" class="form-label">Pickup Status</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="active" name="pickup_status" class="form-check-input" value="1" @if(isset($objData) && $objData->pickup_status == 1) checked @endif>
+                                    <label class="form-check-label" for="active">With Pickup</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="inactive" name="pickup_status" class="form-check-input" value="0" @if(isset($objData) && $objData->pickup_status == 0) checked @endif>
+                                    <label class="form-check-label" for="inactive">Without Pickup</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="both" name="pickup_status" class="form-check-input" value="2" @if(isset($objData) && $objData->pickup_status == 2) checked @endif>
+                                    <label class="form-check-label" for="both">Both</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--pick_status code end-->
                 </div>
                 <div class="col-auto">
                     <button type="submit" class="btn btn-success mb-2">Submit</button>

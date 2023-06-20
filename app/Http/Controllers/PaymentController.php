@@ -29,7 +29,10 @@ class PaymentController extends Controller
         foreach($carts as $key => $value){
             $vehcileid = $value->attributes->vehicle_id;
         }
-        $tourId = Vehicle::where('id',$vehcileid)->select('tour_id')->first();
+        $tourId = Vehicle::where('id',$vehcileid)->select('tour_id','available_quantity')->first();
+        $NewAvailableQnty = $tourId->available_quantity - 1;
+        Vehicle::where('id',$vehcileid)->update(['available_quantity' => $NewAvailableQnty]);
+
             $voucher = ""; 
             $securityCode = ""; 
             $isVoucher = ""; 
@@ -101,6 +104,7 @@ class PaymentController extends Controller
         ]);
 
         \Cart::clear();
+        session()->forget('coupon');
 
         if($request->payment_method == 'Paypal'){
             $product = [];
@@ -122,6 +126,8 @@ class PaymentController extends Controller
         }else{
             return redirect('payment/thank-you/'.$booking->random_id);
         }
+
+ 
     }
 
     public function success(Request $request){

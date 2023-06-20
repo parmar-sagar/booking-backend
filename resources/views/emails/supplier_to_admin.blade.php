@@ -82,6 +82,7 @@
           max-width: 73% !important;
         }
       }
+      #more {display: none;}
     </style>
   </head>
   <body
@@ -178,19 +179,8 @@
                         text-align: center;
                       "
                     >
-                      Welcome to our site
+                      Welcome Admin
                     </h1>
-                    <p style="margin: 0">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      In tempus adipiscing felis, sit amet blandit ipsum
-                      volutpat sed. Morbi porttitor,
-                      <a
-                        href="#"
-                        style="color: #e50d70; text-decoration: underline"
-                        >eget accumsan dictum</a
-                      >, nisi libero ultricies ipsum, in posuere mauris neque at
-                      erat.
-                    </p>
                   </td>
                 </tr>
                 <tr>
@@ -205,14 +195,7 @@
                     "
                   >
                     <p>
-                      Thank you for contacting us! Your account is
-                      currently being reviewed by a member of our team. Please
-                      allow us some time to process your request.<br />
-                      If you have any problems, please contact us at
-                      quadsdubai@gmail.com
-                      <br />
-                      Thanks, <br />
-                      Quads Dubai
+                       Supplier with name <strong>{{$details['name']}}</strong> and email <strong>{{$details['email']}}</strong> has messaged you<br><strong>Message:</strong><br>{{$details['supp_msg']}}
                     </p>
                   </td>
                 </tr>
@@ -279,3 +262,6 @@
     </div>
   </body>
 </html>
+<script>
+
+

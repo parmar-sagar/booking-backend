@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Mail\otpMail;
+use App\Models\Discount;
 use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller{
@@ -20,6 +21,7 @@ class CheckoutController extends Controller{
     public $outputData = [];
 
     public function index(){
+        $groupDiscount=Discount::all();
         $carts = \Cart::getContent();
         $total = \Cart::getTotal();
         $subTotal = \Cart::getSubTotal();
@@ -29,7 +31,8 @@ class CheckoutController extends Controller{
             'subTotal' => $subTotal,
             'total' => $total,
             'code' => (($coupon['code'])) ?? '',
-            'discount' => (($coupon['discount'])) ?? 0.00
+            'discount' => (($coupon['discount'])) ?? 0.00,
+            'groupDiscount' => $groupDiscount
         ];
         return view('front.pages.checkout.index',$this->outputData);
     }

@@ -37,7 +37,11 @@ return new class extends Migration
             $table->string('pickup_time', 100)->nullable();
             $table->string('dropoff_time', 100)->nullable();
             $table->integer('discount')->default(0)->comment('Discount in percentage');
-            $table->tinyInteger('is_deals')->default(0);            
+            $table->tinyInteger('is_deals')->default(0); 
+            // pickup_status newly added coloumn on 05/06/2023
+            $table->tinyInteger('pickup_status')->default(0);
+            // disc newly added coloumn on 05/06/2023
+            $table->Integer('disc')->default(0);                           
             $table->softDeletes();
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate()->index('idx_updated_at');

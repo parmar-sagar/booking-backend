@@ -11,18 +11,14 @@ return new class extends Migration
      *
      * @return void
      */
-    
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        // new table added for supplier contact form
+        Schema::create('supplier_interests', function (Blueprint $table) {
             $table->id();
-            // added new coloumn on 19/06/2023
-            $table->tinyInteger('is_admin');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('email');
+            $table->string('supp_msg');
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('supplier_interests');
     }
 };
