@@ -34,7 +34,7 @@
           <a class="l-navbar__menu-link" href="{{url('contact-us')}}" title="Contact">Contact</a>
       </li>
        <li class="l-navbar__menu-item">
-          <a class="l-navbar__menu-link" href="https://55activeplaces.com/blog/" target="blank" title="Contact">Blogs</a>
+          <a class="l-navbar__menu-link" href="https://quadsdubai.com/blog/" target="blank" title="Contact">Blogs</a>
       </li>
       <li class="l-navbar__menu-item">
           <a class="l-navbar__menu-link" href="{{url('cart')}}" title="Cart" id="my_cart">
