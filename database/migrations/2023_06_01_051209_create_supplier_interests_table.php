@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        // new table added for supplier contact form
         Schema::create('supplier_interests', function (Blueprint $table) {
             $table->id();
             $table->string('name');

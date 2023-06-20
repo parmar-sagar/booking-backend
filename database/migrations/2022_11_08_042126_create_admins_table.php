@@ -16,6 +16,7 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
+            // added new coloumn on 19/06/2023
             $table->tinyInteger('is_admin');
             $table->string('name');
             $table->string('email')->unique();
