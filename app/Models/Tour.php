@@ -30,6 +30,7 @@ class Tour extends Model
         'type',
         'voucher',
         'voucher_status',
+        'fixed_voucher_status',
         'voucher_expiry_date',
         'security_code'
     ];

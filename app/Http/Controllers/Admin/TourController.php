@@ -57,9 +57,10 @@ class TourController extends Controller{
     }
     
     public function create(Request $request){
-
+       
         try {
             if($request->method() == 'POST'){
+               
                 $Input = $request->all();
 
                 // Validation section
@@ -100,6 +101,7 @@ class TourController extends Controller{
                 $validated['random_id'] = (new Snowflake())->id();
                 $validated['sequence'] = (($validated['sequence'])) ?? 0;
                 $validated['voucher_status'] = $request['voucher_status'];
+                $validated['fixed_voucher_status'] = $request['fixed_voucher_status'];
                 $validated['voucher_expiry_date'] = $request['voucher_expiry_date'];
                 $validated['voucher'] = $request['voucher'];
                 $validated['security_code'] = $request['security_code'];
@@ -188,6 +190,7 @@ class TourController extends Controller{
                 
                 $validated['sequence'] = (($validated['sequence'])) ?? 0;
                 $validated['voucher_status'] = $request['voucher_status'];
+                $validated['fixed_voucher_status'] = $request['fixed_voucher_status'];
                 $validated['voucher_expiry_date'] = $request['voucher_expiry_date'];
                 $validated['voucher'] = $request['voucher'];
                 $validated['security_code'] = $request['security_code'];
