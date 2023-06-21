@@ -33,16 +33,19 @@ class CartController extends Controller{
 
     public function add(Request $request){
         try{
-            $validator = Validator::make($request->all(), [
-                'booking_date' => 'required',
-                'time' => 'required'
-            ]);
-             
-            if($validator->fails()){
-                throw new \Exception($validator->errors()->first());
+            if($request->fixed_voucher_status == 1){
+                $validator = Validator::make($request->all(), [
+                    'booking_date' => 'required',
+                    'time' => 'required'
+                ]);    
+           
+            
+                if($validator->fails()){
+                    throw new \Exception($validator->errors()->first());
+                }
+                $validated = $validator->validated();
             }
-          
-            $validated = $validator->validated();
+           
 
             $additional = [];
             $extraAmount = 0;
@@ -70,6 +73,7 @@ class CartController extends Controller{
             \Cart::remove($request->id);
                
             // add the p to cart
+        if($request->fixed_voucher_status == 1){
            \Cart::add(array(
                 'id' => $request->id,
                 'name' => $product->name,
@@ -85,7 +89,25 @@ class CartController extends Controller{
                     'voucher_status' => $product->tour->voucher_status,
                     'tour_name' => $product->tour->name,
                 ]
-            ));  
+            )); 
+        }else{
+            \Cart::add(array(
+                'id' => $request->id,
+                'name' => $product->name,
+                'price' => $request->total_price,
+                'quantity' => $request->quantity,
+                'attributes' => [
+                    'image' => $product->image,
+                    'vehicle_id' => $product->id,
+                    'booking_date' => '',
+                    'time' => '',
+                    'extra_amount' => $extraAmount,
+                    'extra_product' => $additional,
+                    'voucher_status' => $product->tour->voucher_status,
+                    'tour_name' => $product->tour->name,
+                ]
+            )); 
+        } 
           
             return response()->json([
                 'success' => "Tour has been added to your cart"

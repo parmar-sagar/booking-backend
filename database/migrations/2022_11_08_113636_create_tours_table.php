@@ -35,7 +35,7 @@ return new class extends Migration
             $table->enum('type',['Tour','Safari'])->default('Tour');
             $table->string('voucher',250);
             $table->tinyInteger('voucher_status')->default(0)->comment('0 => Deactive , 1 => Active')->index('idx_voucher_status');
-            $table->tinyInteger('fixed_voucher_status')->default(0)->comment('0 => Deactive , 1 => Active');
+            $table->tinyInteger('fixed_voucher_status')->default(1)->comment('0 => Deactive , 1 => Active');
             $table->datetime('voucher_expiry_date');
             $table->string('security_code',250);
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');

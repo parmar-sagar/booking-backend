@@ -155,7 +155,23 @@
                             </div>
                         </div>
                     </div><br><br>
-                    <!-- <div class="row voucherGenrate"  style="@if(isset($objData) && $objData->voucher_status == 1) ? 'display:block';'display:none'@endif display:none" >
+                    <div class="col-lg-6 voucherGenrate"  style="@if(isset($objData) && $objData->voucher_status == 1) ? 'display:block';'display:none'@endif display:none;margin-top:2%;" >
+                        <div class="mb-3">
+                            <div class="form-check form-check-inline">
+                                        <input type="radio" id="fixed-voucher-active" name="fixed_voucher_status" class="form-check-input voucher_check" value="1" @if(isset($objData) && $objData->fixed_voucher_status == 1) checked @endif>
+                                        <label class="form-check-label" for="fixed-voucher-active">Fixed Dated voucher</label>
+                                    </div>
+                            </div>
+                    </div>
+                    <div class="col-lg-6 voucherGenrate"  style="@if(isset($objData) && $objData->voucher_status == 1) ? 'display:block';'display:none'@endif display:none;margin-top:2%;" >
+                        <div class="mb-3">
+                            <div class="form-check form-check-inline">
+                                        <input type="radio" id="open-voucher-active" name="fixed_voucher_status" class="form-check-input voucher_check" value="0" @if(isset($objData) && $objData->fixed_voucher_status == 0) checked @endif>
+                                        <label class="form-check-label" for="open-voucher-active">Open Dated Voucher</label>
+                                    </div>
+                            </div>
+                    </div>
+                    <div class="row voucherGenrate2"  style="@if(isset($objData) && $objData->voucher_status == 1) ? 'display:block';'display:none'@endif display:none" >
                         <div class="col-lg-4">
                             <div class="mb-3">
                               <label for="example-date" class="form-label">Voucher Expiry Date</label>
@@ -174,22 +190,6 @@
                                 <input type="text" readonly id="securityValue" name="security_code" class="form-control" value="@if(isset($objData->security_code) && $objData->security_code){{ $objData->security_code }}@endif">
                             </div>
                         </div>
-                    </div> -->
-                    <div class="col-lg-6 voucherGenrate" style="margin-top:2%;" style="@if(isset($objData) && $objData->voucher_status == 1) ? 'display:block';'display:none'@endif display:none" >
-                        <div class="mb-3">
-                            <div class="form-check form-check-inline">
-                                        <input type="radio" id="fixed-voucher-active" name="fixed_voucher_status" class="form-check-input" value="1" @if(isset($objData) && $objData->fixed_voucher_status == 1) checked @endif>
-                                        <label class="form-check-label" for="fixed-voucher-active">Fixed Dated voucher</label>
-                                    </div>
-                            </div>
-                    </div>
-                    <div class="col-lg-6 voucherGenrate" style="margin-top:2%;" style="@if(isset($objData) && $objData->voucher_status == 1) ? 'display:block';'display:none'@endif display:none" >
-                        <div class="mb-3">
-                            <div class="form-check form-check-inline">
-                                        <input type="radio" id="open-voucher-active" name="fixed_voucher_status" class="form-check-input" value="0" @if(isset($objData) && $objData->fixed_voucher_status == 0) checked @endif>
-                                        <label class="form-check-label" for="open-voucher-active">Open Dated Voucher</label>
-                                    </div>
-                            </div>
                     </div>
                     <!-- <div class="col-lg-6">
                         <div class="mb-3">
@@ -217,25 +217,36 @@
 <script>
 $('.select2').select2();
 $(document).ready(function(){
-  $('#voucher-active').on('click',function(){
-     $('.voucherGenrate').show();
-    //  $.ajax({
-    //        type:'POST',
-    //        url:'tours/genrate-voucher',
-    //        data: {
-    //             "_token": "{{ csrf_token() }}",
-    //             },
-    //        success:function(data){
-    //         console.log(data.voucherCode)
-    //         $('#voucherValue').val(data.voucherCode);
-    //         $('#securityValue').val(data.securityCode);
-    //         $('#hidden').val(data);
-    //        }
-    //     });
-  })
-  $('#voucher-inactive').on('click',function(){
-     $('.voucherGenrate').hide();
-  })
+    $('#voucher-active').on('click',function(){
+        $('.voucherGenrate').show();
+        if($('#open-voucher-active').is(':checked')){
+            $('.voucherGenrate2').show();
+        }
+        //  $.ajax({
+        //        type:'POST',
+        //        url:'tours/genrate-voucher',
+        //        data: {
+        //             "_token": "{{ csrf_token() }}",
+        //             },
+        //        success:function(data){
+        //         console.log(data.voucherCode)
+        //         $('#voucherValue').val(data.voucherCode);
+        //         $('#securityValue').val(data.securityCode);
+        //         $('#hidden').val(data);
+        //        }
+        //     });
+    })
+    $('#voucher-inactive').on('click',function(){
+        $('.voucherGenrate').hide();
+        $('.voucherGenrate2').hide();
+    })
+    $('.voucher_check').on('click',function(){
+        if($(this).attr('id') == 'open-voucher-active'){
+            $('.voucherGenrate2').show();
+        }else{
+            $('.voucherGenrate2').hide();
+        }
+        
+    })
 });
 </script>
- 

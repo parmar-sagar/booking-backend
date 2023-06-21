@@ -274,6 +274,7 @@
             <input type="hidden" name="id" value="{{$objVehicle->random_id}}">
             <div class="row row--g-10">
                <div class="col-12 col-lg-12 col-xxl-4 col-xl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1">
+                  @if($objVehicle->tour->fixed_voucher_status == 1)
                   <div class="dates picker card--shadow-orange">
                      <div id="bookingHeading">
                         <h1>Select Pickup Date</h1>
@@ -310,6 +311,7 @@
                      </div>
                      <!-- end -->
                   </div>
+                  @endif
                </div>
                <div class="col-12 col-lg-12 col-xl-7 col-xxl-6  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1"  id="cartcol" style="display:none">
                   <div class="mb-30em animated fadeInUp active " id="duration">
@@ -418,6 +420,7 @@
                                  <input type="hidden" value="{{$objVehicle->tour->voucher}}" name="voucher" >
                                  <input type="hidden" value="{{$objVehicle->tour->name}}" name="tour_name">
                                  <input type="hidden" value="{{$objVehicle->tour->voucher_status}}" name="voucher_status">
+                                 <input type="hidden" value="{{$objVehicle->tour->fixed_voucher_status}}" name="fixed_voucher_status">
                            <x-primary-button class="ml-4 btn btn-primary profile-button btn--purple">
                               {{ __('Book Now') }}
                            </x-primary-button>
@@ -453,6 +456,7 @@
   </script>
    <script>
    $(document).ready(function() {
+      let fixed_voucher_status = '{{$objVehicle->tour->fixed_voucher_status}}'
      
       // Select Time
       let price = $('#select-time').val();
@@ -469,7 +473,7 @@
 
       jQuery('body').on('click','.selectTime',function() { 
          $('#select-available-time').val($(this).attr('data-time'));
-         $('#cartcol').show();
+          $('#cartcol').show();
       });
       
 
@@ -478,11 +482,15 @@
          direction: true,
          always_visible: $('#container') 
       });
+      if(fixed_voucher_status == 1){
+         jQuery('body').on('click','.Zebra_DatePicker',function(){
+           $('#cartcol').show();
+         });
 
-      jQuery('body').on('click','.Zebra_DatePicker',function(){
+      }else if(fixed_voucher_status == 0){
          $('#cartcol').show();
-      });
-
+      }
+     
       // Quantity Plus Minus
       jQuery('.add').click(function () {
          let val = jQuery("#available-quantity").val();
