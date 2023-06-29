@@ -20,6 +20,8 @@ class PaymentController extends Controller
     const ControllerCode = "PY_";
     public $outputData = [];
     public function index(Request $request){
+        return $request->all();
+        die;
         $carts = \Cart::getContent();
         //return $carts;
         $total = \Cart::getTotal();
@@ -33,8 +35,9 @@ class PaymentController extends Controller
         }
         //  die;
         $tourId = Vehicle::where('id',$vehcileid)->select('tour_id')->first();
-        // echo "<pre>";
-        // print_r($tourId);
+         echo "<pre>";
+         print_r($tourId);
+         die;
         $voucher_status = Tour::where('id',$tourId->id)->select('voucher_status')->first();
         // return $tourId;
         // die;
@@ -44,27 +47,28 @@ class PaymentController extends Controller
             $expiry_date = "";
     
         if($voucher_status == 1){
-            $securityCode = $tourId->tour->security_code;
-            $expiry_date = $tourId->tour->voucher_expiry_date;
-            $voucher = $tourId->tour->voucher;
-            $isVoucher = 1;
-            $bookingData = [
-                'random_id' => (new Snowflake())->id(),
-                'user_id' => Auth::user()->id,
-                'sub_total' => $subTotal,
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'mobile' => $request->mobile,
-                'email' => $request->email,
-                'pickup_location' => $request->pickup_location,
-                'no_of_travelers' => $request->no_of_travelers,
-                'payment_method' => $request->payment_method,
-                'coupon' => (($coupon['code'])) ?? '',
-                'security_code' => $securityCode,
-                'is_voucher' => $isVoucher,
-                'voucher_expiry_date' => $expiry_date,
-                'voucher' => $voucher,
-            ];
+                $securityCode = $tourId->tour->security_code;
+                $expiry_date = $tourId->tour->voucher_expiry_date;
+                $voucher = $tourId->tour->voucher;
+                $tour_name = $tourId->tour->name;
+                $isVoucher = 1;
+                $bookingData = [
+                    'random_id' => (new Snowflake())->id(),
+                    'user_id' => Auth::user()->id,
+                    'sub_total' => $subTotal,
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'mobile' => $request->mobile,
+                    'email' => $request->email,
+                    'pickup_location' => $request->pickup_location,
+                    'no_of_travelers' => $request->no_of_travelers,
+                    'payment_method' => $request->payment_method,
+                    'coupon' => (($coupon['code'])) ?? '',
+                    'security_code' => $securityCode,
+                    'is_voucher' => $isVoucher,
+                    'voucher_expiry_date' => $expiry_date,
+                    'voucher' => $voucher,
+                ];
         }else{
             $bookingData = [
                 'random_id' => (new Snowflake())->id(),

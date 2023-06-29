@@ -102,10 +102,16 @@
                     <table class="table table-centered w-100 dt-responsive nowrap" id="dataTable" data-table-ajax="true" data-table-href="{{ $dataTables }}" data-edit-href="">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Booking Id</th>
-                                    <th>Number of People </th>
-                                    <th>Ammount</th>
+                                    <th>Tour Name</th>
+                                    <th>Customer Name</th>
+                                    <th>Date Of Tour</th>
                                     <th>Payment Status</th>
+                                    <th>Pickup Time Slot </th>
+                                    <th>Number of Travelers</th>
+                                    <th>Price Paid</th>
+                                    <th>Price Paid</th>
+                                    <th>Voucher Code </th>
+                                    <th>Voucher Expiry Date</th>
                                     <th style="width: 85px;">Action</th>
                                 </tr>
                             </thead>

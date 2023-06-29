@@ -160,7 +160,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="sequence" class="form-label">Sequence</label>
-                            <input type="number" min="0" id="sequence" class="form-control" name="sequence" value="@if(isset($objData) && $objData->sequence){{ $objData->sequence }}@endif">
+                            <input type="number" min="0" id="sequence" class="form-control" name="sequence" value="@if(isset($objData)){{ $objData->sequence }}@endif">
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -169,6 +169,15 @@
                                 <option>Select</option>
                                 @foreach($locations as $value)
                                     <option value="{{$value->id}}" @if(isset($objData->location_id) && $objData->location_id == $value->id) selected @endif>{{$value->name}}</option>
+                                @endforeach    
+                            </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="location_id" class="form-label">Suppliers</label>
+                            <select class="form-control select2" data-toggle="select2" id="location_id" name="selected_supplier" required>
+                                <option>Select Suppliers</option>
+                                @foreach($suppliers as $value)
+                                    <option value="{{$value->id}}">{{$value->name}}</option>
                                 @endforeach    
                             </select>
                     </div>
@@ -200,11 +209,6 @@
                                     <label class="form-check-label" for="voucher-inactive">InActive</label>
                                 </div>
                             </div>
-                        </div>
-                    </div><br><br>
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-            
                         </div>
                     </div><br><br>
                     <div class="col-lg-6 voucherGenrate"  style="@if(isset($objData) && $objData->voucher_status == 1) ? 'display:block';'display:none'@endif display:none;margin-top:2%;" >

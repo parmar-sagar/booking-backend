@@ -12,6 +12,7 @@ use App\Handlers\Error;
 use App\Helpers\Helper;
 use App\Models\Tour;
 use App\Models\Time;
+use App\Models\Admin;
 use App\Models\TourGallary;
 use DataTables;
 
@@ -128,12 +129,12 @@ class TourController extends Controller{
                 $tour->sequence = (($validated['sequence'])) ?? 0;
                 $tour->voucher_status = $request['voucher_status'];
                 $tour->fixed_voucher_status = $request['fixed_voucher_status'];
+                $tour->suppliers = $request['selected_supplier'];
                 $tour->voucher_expiry_date = $request['voucher_expiry_date'];
                 $tour->voucher = $request['voucher'];
                 $tour->security_code = $request['security_code'];
                 $tour->save();
                 $tourId =  $tour->id;
-                
                 if(!empty($request->gallry_images)){    
                     if ($request->hasfile('gallry_images')) {
                         $images = $request->file('gallry_images');
@@ -156,6 +157,7 @@ class TourController extends Controller{
             $locations = Location::order()->get();
             $safetyGears = VehicleInfo::safetyGear()->order()->get();
             $refreshments = VehicleInfo::refreshment()->order()->get();
+            $suppliers = Admin::where('is_admin',0)->get();
             
             $this->outputData = [
                 'pageName' => 'New Tour',
@@ -164,6 +166,7 @@ class TourController extends Controller{
                 'locations' => $locations,
                 'safetyGears' => $safetyGears,
                 'refreshments' => $refreshments,
+                'suppliers' => $suppliers,
             ];
             return view('admin.pages.tour.create',$this->outputData);
 
@@ -218,6 +221,7 @@ class TourController extends Controller{
                 
                 $tour->voucher_status = $request['voucher_status'];
                 $tour->fixed_voucher_status = $request['fixed_voucher_status'];
+                $tour->suppliers = $request['selected_supplier'];
                 $tour->voucher_expiry_date = $request['voucher_expiry_date'];
                 $tour->voucher = $request['voucher'];
                 $tour->security_code = $request['security_code'];
@@ -291,7 +295,7 @@ class TourController extends Controller{
             $locations = Location::order()->get();
             $safetyGears = VehicleInfo::safetyGear()->order()->get();
             $refreshments = VehicleInfo::refreshment()->order()->get();
-            
+            $suppliers = Admin::where('is_admin',0)->get();
 
             $objData->time_ids = Helper::explode( $objData->time_ids );
             $objData->safety_gear_ids = Helper::explode( $objData->safety_gear_ids );
@@ -305,7 +309,8 @@ class TourController extends Controller{
                 'locations' => $locations,
                 'safetyGears' => $safetyGears,
                 'refreshments' => $refreshments,
-                'gallaryImages' => $gallaryImages
+                'gallaryImages' => $gallaryImages,
+                'suppliers' => $suppliers
             ];
             
             return view('admin.pages.tour.create',$this->outputData);

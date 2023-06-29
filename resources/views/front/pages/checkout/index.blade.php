@@ -6,6 +6,7 @@
             $showPickup = 0;
             @endphp 
             @foreach($carts as $key => $value)
+            {{$value}}
             @if(in_array($value->attributes->tour_name,['Dune Buggies','Quad Bikes']) && $value->attributes->voucher_status == 1)
             @php
             $showPickup++;
@@ -37,11 +38,19 @@
                         </div>
                         <div class="px-3 my-3 text-center">
                             <div class="cart-item-label">Booking Date</div>
-                            <span>28-02-2023</span>
+                            @if($value->attributes->booking_date !== '')
+                            <span>{{$value->attributes->booking_date}}</span>
+                            @else
+                            N/A
+                            @endif
                         </div>
                         <div class="px-3 my-3 text-center">
                             <div class="cart-item-label">Time</div>
-                            <span>12:00 AM</span>
+                            @if($value->attributes->time !== '')
+                            <span>{{$value->attributes->time}}</span>
+                            @else
+                            N/A
+                            @endif
                         </div>
                     </div>
                     @if($value->attributes->extra_product)
