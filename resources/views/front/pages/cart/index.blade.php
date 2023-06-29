@@ -27,6 +27,7 @@
       </div>
     </div>
     @else
+    {{$carts}}
   <div class="cart-checkoutpage1">
     @php 
     $extraAmount = 0; 

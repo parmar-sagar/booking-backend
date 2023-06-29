@@ -25,7 +25,8 @@ $(document).ready(function() {
                d.endDate = $('#end-date').val();
             }
          },
-        columns: [{
+        columns: [
+            {
                 data: 'random_id',
                 name: 'random_id',
                 "render": function(data, type, row, meta) {

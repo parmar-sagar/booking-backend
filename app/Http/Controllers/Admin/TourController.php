@@ -57,24 +57,21 @@ class TourController extends Controller{
     }
     
     public function create(Request $request){
-       
+
         try {
             if($request->method() == 'POST'){
-               
                 $Input = $request->all();
-
+                //return $Input;
                 // Validation section
                 $validator = Validator::make($Input, [
                     'name' => 'required|string|max:255',
                     'description' => 'required|string',
-                    'min_age' => 'required|integer|digits_between:1,100',
-                    'convoy_leader' => 'required|string|max:100',
-                    'tour_guide' => 'required|string|max:100',
-                    'pickup_and_drop' => 'required|string|max:100',
-                    'time_ids' => 'required|array',
-                    'location_id' => 'required|integer',
-                    'safety_gear_ids' => 'required|array',
-                    'refreshments_ids' => 'required|array',
+                    //'min_age' => 'required|integer',
+                    //'availability' => 'required|string',
+                    //'time_ids' => 'required|array',
+                     'location_id' => 'required|integer',
+                    //'safety_gear_ids' => 'required|array',
+                    //'refreshments_ids' => 'required|array',
                     'sequence' => 'nullable|integer',
                     'status' => 'required|in:0,1',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
@@ -86,29 +83,57 @@ class TourController extends Controller{
                 }
                 
                 $validated = $validator->validated();
+                
+                $tour=new Tour();
 
-                $validated['time_ids'] = Helper::implode($request['time_ids']);
-                $validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
-                $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
-
+               
+              
                 if ($request->file('image')) {
-                    $validated['image'] = Helper::uploadFile($request->image, 'tour');
+                    $tour->image = Helper::uploadFile($request->image, 'tour');
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, 'tour');
+                    $tour->banner_img = Helper::uploadFile($request->banner_img, 'tour');
                 }
+                $tour->name=$request->name;
+                $tour->description=$request->description;
+                $tour->min_age=$request->min_age;
+                $tour->availability=$request->availability;
+                //$tour->convoy_leader=$request->convoy_leader;
+                //$tour->tour_guide=$request->tour_guide;
+                //$tour->pickup_and_drop=$request->pickup_and_drop;
+                 if(isset($Input['time_ids'])){
+                    $tour->time_ids=Helper::implode($Input['time_ids']);
+                }else{
+                    $tour->time_ids='';
+                }
+                $tour->location_id=$request->location_id;
+                if(isset($Input['safety_gear_ids'])){
+                  $tour->safety_gear_ids=Helper::implode($Input['safety_gear_ids']);
+                }else{
+                    $tour->safety_gear_ids='';
+                }
+                if(isset($Input['refreshments_ids'])){
+                   $tour->refreshments_ids=Helper::implode($Input['refreshments_ids']);
+                }else{
+                    $tour->refreshments_ids='';
+                }
+                $tour->option1=$request->option1;
+                $tour->option2=$request->option2;
+                $tour->option3=$request->option3;
+                $tour->option4=$request->option4;
+                $tour->option5=$request->option5;
+                $tour->option6=$request->option6;
+                $tour->location_id=$request->location_id;
+                $tour->random_id = (new Snowflake())->id();
+                $tour->sequence = (($validated['sequence'])) ?? 0;
+                $tour->voucher_status = $request['voucher_status'];
+                $tour->fixed_voucher_status = $request['fixed_voucher_status'];
+                $tour->voucher_expiry_date = $request['voucher_expiry_date'];
+                $tour->voucher = $request['voucher'];
+                $tour->security_code = $request['security_code'];
+                $tour->save();
+                $tourId =  $tour->id;
                 
-                $validated['random_id'] = (new Snowflake())->id();
-                $validated['sequence'] = (($validated['sequence'])) ?? 0;
-                $validated['voucher_status'] = $request['voucher_status'];
-                $validated['fixed_voucher_status'] = $request['fixed_voucher_status'];
-                $validated['voucher_expiry_date'] = $request['voucher_expiry_date'];
-                $validated['voucher'] = $request['voucher'];
-                $validated['security_code'] = $request['security_code'];
-
-                $lastId = Tour::create($validated);
-
-                $tourId = $lastId->id;
                 if(!empty($request->gallry_images)){    
                     if ($request->hasfile('gallry_images')) {
                         $images = $request->file('gallry_images');
@@ -148,7 +173,7 @@ class TourController extends Controller{
     }
     
     public function edit(Request $request,$id){
-        try {
+         try {
             if($request->method() == 'POST'){
                 $Input = $request->all();
                 
@@ -156,15 +181,13 @@ class TourController extends Controller{
                 $validator = Validator::make($Input, [
                     'id' => 'required|exists:tours',
                     'name' => 'required|string|max:255',
+                    //'min_age' => 'required|integer',
+                    //'availability' => 'required|string',
                     'description' => 'required|string',
-                    'min_age' => 'required|integer|digits_between:1,100',
-                    'convoy_leader' => 'required|string|max:100',
-                    'tour_guide' => 'required|string|max:100',
-                    'pickup_and_drop' => 'required|string|max:100',
-                    'time_ids' => 'required|array',
+                    // 'time_ids' => 'required|array',
                     'location_id' => 'required|integer',
-                    'safety_gear_ids' => 'required|array',
-                    'refreshments_ids' => 'required|array',
+                    // 'safety_gear_ids' => 'required|array',
+                    // 'refreshments_ids' => 'required|array',
                     'sequence' => 'nullable|integer',
                     'status' => 'required|in:0,1',
                     'image' => 'nullable|mimes:jpeg,jpg,png,gif',
@@ -175,32 +198,70 @@ class TourController extends Controller{
                     throw new \Exception($validator->errors()->first());
                 }
                 
-                $validated = $validator->validated();
-
-                $validated['time_ids'] = Helper::implode($request['time_ids']);
-                $validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
-                $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
+                //$validated = $validator->validated();
+                $tour=Tour::where('id',$Input['id'])->first();
+                //$validated['time_ids'] = Helper::implode($request['time_ids']);
+                //$validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
+                //$validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
-                    $validated['image'] = Helper::uploadFile($request->image, 'tour');
+                    $tour->image = Helper::uploadFile($request->image, 'tour');
                 }
                 if ($request->file('banner_img')) {
-                    $validated['banner_img'] = Helper::uploadFile($request->banner_img, 'tour');
+                    $tour->banner_img = Helper::uploadFile($request->banner_img, 'tour');
+                }
+                if ($request->sequence !== ''){
+                    $tour->sequence = $request->sequence; 
+                }else{
+                    $tour->sequence=0;
                 }
                 
-                $validated['sequence'] = (($validated['sequence'])) ?? 0;
-                $validated['voucher_status'] = $request['voucher_status'];
-                $validated['fixed_voucher_status'] = $request['fixed_voucher_status'];
-                $validated['voucher_expiry_date'] = $request['voucher_expiry_date'];
-                $validated['voucher'] = $request['voucher'];
-                $validated['security_code'] = $request['security_code'];
+                $tour->voucher_status = $request['voucher_status'];
+                $tour->fixed_voucher_status = $request['fixed_voucher_status'];
+                $tour->voucher_expiry_date = $request['voucher_expiry_date'];
+                $tour->voucher = $request['voucher'];
+                $tour->security_code = $request['security_code'];
 
-                Tour::find($validated['id'])->update($validated);
+                
+                $tour->name=$request->name;
+                $tour->description=$request->description;
+                $tour->min_age=$request->min_age;
+                $tour->availability=$request->availability;
+                $tour->convoy_leader=$request->convoy_leader;
+                $tour->tour_guide=$request->tour_guide;
+                $tour->pickup_and_drop=$request->pickup_and_drop;
+                if(isset($Input['time_ids'])){
+                    $tour->time_ids=Helper::implode($Input['time_ids']);
+                }else{
+                    $tour->time_ids='';
+                }
+                $tour->location_id=$request->location_id;
+                if(isset($Input['safety_gear_ids'])){
+                  $tour->safety_gear_ids=Helper::implode($Input['safety_gear_ids']);
+                }else{
+                    $tour->safety_gear_ids='';
+                }
+                if(isset($Input['refreshments_ids'])){
+                   $tour->refreshments_ids=Helper::implode($Input['refreshments_ids']);
+                }else{
+                    $tour->refreshments_ids='';
+                }
+                $tour->option1=$request->option1;
+                $tour->option2=$request->option2;
+                $tour->option3=$request->option3;
+                $tour->option4=$request->option4;
+                $tour->option5=$request->option5;
+                $tour->option6=$request->option6;
+                $tour->sequence=$request->sequence;
+                $tour->status=$request->status;
+                $tour->save();
+
+
 
                 if(!empty($request->gallry_images)){    
                     if ($request->hasfile('gallry_images')) {
 
-                        TourGallary::where('tour_id',$validated['id'])->delete();
+                        TourGallary::where('tour_id',$Input['id'])->delete();
 
                         $images = $request->file('gallry_images');
 
@@ -209,7 +270,7 @@ class TourController extends Controller{
                             $gimages = Helper::uploadFile($glryImages, $path); 
                             $multipleImages = new TourGallary();
 
-                            $multipleImages->fill(['tour_id'=>$validated['id'],
+                            $multipleImages->fill(['tour_id'=>$Input['id'],
                                                    'gallry_images' => $gimages,
                             ])->save();
                         }

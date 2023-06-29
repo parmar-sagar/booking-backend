@@ -19,23 +19,31 @@ class PaymentController extends Controller
 {
     const ControllerCode = "PY_";
     public $outputData = [];
-
     public function index(Request $request){
         $carts = \Cart::getContent();
+        //return $carts;
         $total = \Cart::getTotal();
         $subTotal = \Cart::getSubTotal();
 
         $coupon = session()->get('coupon');
         foreach($carts as $key => $value){
             $vehcileid = $value->attributes->vehicle_id;
+            print_r($vehcileid );
+            
         }
+        //  die;
         $tourId = Vehicle::where('id',$vehcileid)->select('tour_id')->first();
+        // echo "<pre>";
+        // print_r($tourId);
+        $voucher_status = Tour::where('id',$tourId->id)->select('voucher_status')->first();
+        // return $tourId;
+        // die;
             $voucher = ""; 
             $securityCode = ""; 
             $isVoucher = ""; 
             $expiry_date = "";
     
-        if($tourId->tour->voucher_status == 1){
+        if($voucher_status == 1){
             $securityCode = $tourId->tour->security_code;
             $expiry_date = $tourId->tour->voucher_expiry_date;
             $voucher = $tourId->tour->voucher;
