@@ -30,14 +30,14 @@ class PaymentController extends Controller
         $coupon = session()->get('coupon');
         foreach($carts as $key => $value){
             $vehcileid = $value->attributes->vehicle_id;
-            print_r($vehcileid );
+            // print_r($vehcileid );
             
         }
         //  die;
         $tourId = Vehicle::where('id',$vehcileid)->select('tour_id')->first();
-         echo "<pre>";
-         print_r($tourId);
-         die;
+        //  echo "<pre>";
+        //  print_r($tourId);
+        //  die;
         $voucher_status = Tour::where('id',$tourId->id)->select('voucher_status')->first();
         // return $tourId;
         // die;
@@ -63,6 +63,8 @@ class PaymentController extends Controller
                     'pickup_location' => $request->pickup_location,
                     'no_of_travelers' => $request->no_of_travelers,
                     'payment_method' => $request->payment_method,
+                    'tour_name' => json_encode($request->tour_name),
+                    'tour_qty' => json_encode($request->tour_qty),
                     'coupon' => (($coupon['code'])) ?? '',
                     'security_code' => $securityCode,
                     'is_voucher' => $isVoucher,
@@ -87,7 +89,7 @@ class PaymentController extends Controller
         }
     
         $booking = Booking::create($bookingData);
-
+        //return $booking;
         $extraAmount = 0;
         foreach($carts as $key => $value){
             $extraAmount += $value->attributes->extra_amount; 

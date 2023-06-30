@@ -2,11 +2,21 @@
     <div class="container cart" style="margin-bottom:10px;padding-bottom:10px;margin-top:135px;">
         <div class="row cart-row-scroll">
             @php 
+            $tour_name=[];
+            $tour_qty=[];
             $extraAmount = 0; 
             $showPickup = 0;
             @endphp 
             @foreach($carts as $key => $value)
-            {{$value}}
+            @php 
+            if(in_array($value->attributes->tour_name,$tour_name)){
+               $tour_name[$value->quantity]=$value->attributes->tour_name;
+            }else{
+               $tour_name[$value->attributes->tour_name]=$value->quantity;
+            }
+            array_push($tour_qty,$value->quantity);
+           
+            @endphp 
             @if(in_array($value->attributes->tour_name,['Dune Buggies','Quad Bikes']) && $value->attributes->voucher_status == 1)
             @php
             $showPickup++;
@@ -15,6 +25,8 @@
             @php 
             $extraAmount += $value->attributes->extra_amount; 
             @endphp
+           
+           
                 <div class="col-lg-12 col-md-12 col-sm-12 content cart-item mb-20 pb-20 checkout-final" style="width:100%">
                     <div class="cart-item-extra">
                         <div class="cart-item d-md-flex justify-content-between pb-0 mb-0">
@@ -77,6 +89,9 @@
                 </div>  
             </div>
             @endforeach
+          
+            
+          
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12" style="padding: 0px;">
@@ -122,6 +137,8 @@
                   </div>
                   <form @if(isset(Auth::user()->id)) id="submit-payment" @else id="submit-check-user" @endif action="{{ url('payment') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
                      @csrf
+                     <input type="hidden" name="tour_name" value="" id="tour_name">
+                     <input type="hidden" name="tour_qty" value="" id="tour_qty">
                      <div class="row mt-2">
                         <div class="form__row__left">
                            <div class="form__group">
@@ -328,5 +345,10 @@ $('#without-pickup').on('click',function(){
     $('#pickuplocation').css("display","none");
 })
 
-});    
+});  
+let tour_name = <?php echo json_encode($tour_name); ?>; 
+let tour_qty = <?php echo json_encode($tour_qty); ?>; 
+document.querySelector('#tour_name').value=tour_name
+document.querySelector('#tour_qty').value=tour_qty
+
  </script>
