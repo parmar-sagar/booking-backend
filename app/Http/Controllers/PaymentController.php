@@ -19,38 +19,32 @@ class PaymentController extends Controller
 {
     const ControllerCode = "PY_";
     public $outputData = [];
+    public $booking;
+    public $bookingIds = [];
+
     public function index(Request $request){
-        return $request->all();
-        die;
         $carts = \Cart::getContent();
-        //return $carts;
         $total = \Cart::getTotal();
         $subTotal = \Cart::getSubTotal();
+        $booking;
 
         $coupon = session()->get('coupon');
         foreach($carts as $key => $value){
-            $vehcileid = $value->attributes->vehicle_id;
-            // print_r($vehcileid );
-            
-        }
-        //  die;
-        $tourId = Vehicle::where('id',$vehcileid)->select('tour_id')->first();
-        //  echo "<pre>";
-        //  print_r($tourId);
-        //  die;
-        $voucher_status = Tour::where('id',$tourId->id)->select('voucher_status')->first();
-        // return $tourId;
-        // die;
-            $voucher = ""; 
-            $securityCode = ""; 
-            $isVoucher = ""; 
-            $expiry_date = "";
-    
-        if($voucher_status == 1){
+                $vehcileid = $value->attributes->vehicle_id;
+        
+                $tourId = Vehicle::where('id',$vehcileid)->select('tour_id','available_quantity')->first();
+                $NewAvailableQnty = $tourId->available_quantity - 1;
+                Vehicle::where('id',$vehcileid)->update(['available_quantity' => $NewAvailableQnty]);
+
+                $voucher = "NA"; 
+                $securityCode = "NA"; 
+                $isVoucher = "NA"; 
+                $expiry_date = "NA";
+        
+            if($tourId->tour->voucher_status == 1){
                 $securityCode = $tourId->tour->security_code;
                 $expiry_date = $tourId->tour->voucher_expiry_date;
                 $voucher = $tourId->tour->voucher;
-                $tour_name = $tourId->tour->name;
                 $isVoucher = 1;
                 $bookingData = [
                     'random_id' => (new Snowflake())->id(),
@@ -63,79 +57,90 @@ class PaymentController extends Controller
                     'pickup_location' => $request->pickup_location,
                     'no_of_travelers' => $request->no_of_travelers,
                     'payment_method' => $request->payment_method,
-                    'tour_name' => json_encode($request->tour_name),
-                    'tour_qty' => json_encode($request->tour_qty),
                     'coupon' => (($coupon['code'])) ?? '',
                     'security_code' => $securityCode,
                     'is_voucher' => $isVoucher,
                     'voucher_expiry_date' => $expiry_date,
                     'voucher' => $voucher,
+                    'tour_name' => $value->attributes->tour_name,
+                    'tour_qty' => $value->quantity,
+                    'date_of_tour' => $value->attributes->booking_date,
+                    'pickup_time' => $value->attributes->time,
+                    'supplier_id' => $value->attributes->supplier_id
                 ];
-        }else{
-            $bookingData = [
-                'random_id' => (new Snowflake())->id(),
-                'user_id' => Auth::user()->id,
-                'sub_total' => $subTotal,
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'mobile' => $request->mobile,
-                'email' => $request->email,
-                'pickup_location' => $request->pickup_location,
-                'no_of_travelers' => $request->no_of_travelers,
-                'payment_method' => $request->payment_method,
-                'coupon' => (($coupon['code'])) ?? '',
-            ];
+            }else{
+                $bookingData = [
+                    'random_id' => (new Snowflake())->id(),
+                    'user_id' => Auth::user()->id,
+                    'sub_total' => $subTotal,
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'mobile' => $request->mobile,
+                    'email' => $request->email,
+                    'pickup_location' => $request->pickup_location,
+                    'no_of_travelers' => $request->no_of_travelers,
+                    'payment_method' => $request->payment_method,
+                    'coupon' => (($coupon['code'])) ?? '',
+                    'tour_name' => $value->attributes->tour_name,
+                    'tour_qty' => $value->quantity,
+                    'date_of_tour' => $value->attributes->booking_date,
+                    'pickup_time' => $value->attributes->time,
+                ];
 
-        }
+            }
     
-        $booking = Booking::create($bookingData);
-        //return $booking;
-        $extraAmount = 0;
-        foreach($carts as $key => $value){
-            $extraAmount += $value->attributes->extra_amount; 
+            $this->booking = Booking::create($bookingData);
+            //$this->bookingIds[] = $this->booking->random_id;
+       
+            $extraAmount = 0;
+            foreach($carts as $key => $value){
+                $extraAmount += $value->attributes->extra_amount; 
 
-            BookingDetail::create([
-                'booking_id' => $booking->id,
-                'vehicle_id' => $value->attributes->vehicle_id,
-                'name' => $value->name,
-                'price' => $value->price,
-                'booking_date' => date('Y-m-d',strtotime($value->attributes->booking_date)),
-                'booking_time' => $value->attributes->time,
-                'quantity' => $value->quantity,
-                'extra_product' => json_encode($value->attributes->extra_product)
+                BookingDetail::create([
+                    'booking_id' => $this->booking->id,
+                    'vehicle_id' => $value->attributes->vehicle_id,
+                    'name' => $value->name,
+                    'price' => $value->price,
+                    'booking_date' => date('Y-m-d',strtotime($value->attributes->booking_date)),
+                    'booking_time' => $value->attributes->time,
+                    'quantity' => $value->quantity,
+                    'extra_product' => json_encode($value->attributes->extra_product)
+                ]);
+            }
+
+            $discount = (($coupon['discount'])) ?? 0.00;
+
+            $this->booking->update([
+                'discount' => $discount,
+                'extra_amount' => $extraAmount,
+                'total' => $total + $extraAmount - $discount
             ]);
         }
+           
 
-        $discount = (($coupon['discount'])) ?? 0.00;
-
-        $booking->update([
-            'discount' => $discount,
-            'extra_amount' => $extraAmount,
-            'total' => $total + $extraAmount - $discount
-        ]);
-
-        \Cart::clear();
-
-        if($request->payment_method == 'Paypal'){
-            $product = [];
-            $product['items'] = [];
-            $product['invoice_id'] = $booking->random_id;
-            $product['invoice_description'] = "Booking #{$booking->random_id} booked";
-            $product['return_url'] = url('payment/success');
-            $product['cancel_url'] = url('payment/failure');
-            $product['total'] = $booking->total;
-    
-            $paypalModule = new ExpressCheckout;
-    
-            $res = $paypalModule->setExpressCheckout($product);
-            $res = $paypalModule->setExpressCheckout($product, true);
-    
-            return redirect($res['paypal_link']);
-        }elseif($request->payment_method == 'Stripe'){
-            return redirect('payment/stripe/'.$booking->random_id);
-        }else{
-            return redirect('payment/thank-you/'.$booking->random_id);
-        }
+            if($request->payment_method == 'Paypal'){
+                $product = [];
+                $product['items'] = [];
+                $product['invoice_id'] = $this->booking->random_id;
+                $product['invoice_description'] = "Booking #{$this->booking->random_id} booked";
+                $product['return_url'] = url('payment/success');
+                $product['cancel_url'] = url('payment/failure');
+                $product['total'] = $this->booking->total;
+        
+                $paypalModule = new ExpressCheckout;
+        
+                $res = $paypalModule->setExpressCheckout($product);
+                $res = $paypalModule->setExpressCheckout($product, true);
+                
+                return redirect($res['paypal_link']);
+            }elseif($request->payment_method == 'Stripe'){
+                return redirect('payment/stripe/'.$this->bookingIds);
+            }else{
+                return redirect('payment/thank-you/'.$this->bookingIds);
+            }
+      
+            \Cart::clear();
+            session()->forget('coupon');
     }
 
     public function success(Request $request){
@@ -185,8 +190,8 @@ class PaymentController extends Controller
         return redirect('payment/thank-you/'.$booking->random_id);
     }
 
-    public function thankYou($randomId){
-        $this->outputData['booking'] = Booking::where('random_id',$randomId)->first();
+    public function thankYou($bookingIds){
+        $this->outputData['booking'] = Booking::where('random_id',$bookingIds)->first();
 
         return view('front.pages.payment.thank-you',$this->outputData);
     }

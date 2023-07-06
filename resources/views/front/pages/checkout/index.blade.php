@@ -2,31 +2,37 @@
     <div class="container cart" style="margin-bottom:10px;padding-bottom:10px;margin-top:135px;">
         <div class="row cart-row-scroll">
             @php 
-            $tour_name=[];
-            $tour_qty=[];
             $extraAmount = 0; 
             $showPickup = 0;
+            $paymentArival = 0;
             @endphp 
             @foreach($carts as $key => $value)
-            @php 
-            if(in_array($value->attributes->tour_name,$tour_name)){
-               $tour_name[$value->quantity]=$value->attributes->tour_name;
-            }else{
-               $tour_name[$value->attributes->tour_name]=$value->quantity;
-            }
-            array_push($tour_qty,$value->quantity);
-           
-            @endphp 
-            @if(in_array($value->attributes->tour_name,['Dune Buggies','Quad Bikes']) && $value->attributes->voucher_status == 1)
+            @if($value->attributes->voucher_status == 1)
+            @php
+            $paymentArival++;
+            @endphp
+            @endif
+            @if($value->attributes->ExtraDiscount)
             @php
             $showPickup++;
             @endphp
             @endif
             @php 
             $extraAmount += $value->attributes->extra_amount; 
+            $extra10Per = $value->attributes->ExtraDiscount/100 * $value->price * $value->quantity; 
+            $subtotalDis = $value->attributes->ExtraDiscount/100 * $total; 
             @endphp
-           
-           
+            
+            <!--group discount ca culation begin-->
+            @foreach($groupDiscount as $val)
+            @if($val->no_of_vehicle == $value->quantity)
+            @php 
+            $total=$total-($total*$val->discount)/100;
+            @endphp
+            @endif
+            @endforeach
+            {{$value}}
+           <!--group discount ca culation end-->
                 <div class="col-lg-12 col-md-12 col-sm-12 content cart-item mb-20 pb-20 checkout-final" style="width:100%">
                     <div class="cart-item-extra">
                         <div class="cart-item d-md-flex justify-content-between pb-0 mb-0">
@@ -36,7 +42,7 @@
                             </div>
                         <div class="px-3 my-3 text-center">
                             <div class="cart-item-label">Price</div>
-                            <span class="text-xl font-weight-medium">{{ ($value->price)}} AED</span>
+                            <span class="text-xl font-weight-medium">{{($value->price)}} AED</span>
                         </div>
                         <div class="px-3 my-3 text-center">
                             <div class="cart-item-label">Quantity</div>
@@ -46,23 +52,15 @@
                         </div>
                         <div class="px-3 my-3 text-center">
                             <div class="cart-item-label">Total</div>
-                            <span class="text-xl font-weight-medium">{{ ($value->price * $value->quantity)}} AED</span>
+                            <span class="text-xl font-weight-medium">{{($value->price * $value->quantity - $extra10Per)}} AED</span>
                         </div>
                         <div class="px-3 my-3 text-center">
                             <div class="cart-item-label">Booking Date</div>
-                            @if($value->attributes->booking_date !== '')
-                            <span>{{$value->attributes->booking_date}}</span>
-                            @else
-                            N/A
-                            @endif
+                            <span>{{ $value->attributes->booking_date }}</span>
                         </div>
                         <div class="px-3 my-3 text-center">
                             <div class="cart-item-label">Time</div>
-                            @if($value->attributes->time !== '')
-                            <span>{{$value->attributes->time}}</span>
-                            @else
-                            N/A
-                            @endif
+                            <span>{{ $value->attributes->time }}</span>
                         </div>
                     </div>
                     @if($value->attributes->extra_product)
@@ -89,9 +87,6 @@
                 </div>  
             </div>
             @endforeach
-          
-            
-          
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12" style="padding: 0px;">
@@ -102,7 +97,7 @@
                         </div>
                         <div class="summary-subtotal">
                             <div class="subtotal-title">Subtotal</div>
-                            <div class="subtotal-value final-value" id="basket-subtotal">{{ $subTotal }} AED</div>
+                            <div class="subtotal-value final-value" id="basket-subtotal">{{ $subTotal- $subtotalDis }} AED</div>
                             <br>
                             <br>
                             <div class="subtotal-title">Extra Activities</div>
@@ -114,7 +109,7 @@
                             <br>
                             <div class="summary-total">
                                 <div class="total-title">Total</div>
-                                <div class="total-value final-value grandCoupon" id="basket-total">{{ number_format($total + $extraAmount - $discount, 2) }} AED</div>
+                                <div class="total-value final-value grandCoupon" id="basket-total">{{ number_format($total + $extraAmount - $discount - $subtotalDis, 2) }} AED</div>
                             </div>
                         </div>
                     </div>
@@ -137,8 +132,6 @@
                   </div>
                   <form @if(isset(Auth::user()->id)) id="submit-payment" @else id="submit-check-user" @endif action="{{ url('payment') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
                      @csrf
-                     <input type="hidden" name="tour_name" value="" id="tour_name">
-                     <input type="hidden" name="tour_qty" value="" id="tour_qty">
                      <div class="row mt-2">
                         <div class="form__row__left">
                            <div class="form__group">
@@ -162,7 +155,7 @@
                         </div>
                      </div>
                      <!-- if(in_array($showPickup)&& status == 1) -->
-                      @if($showPickup != 0)
+                      <!-- @if($showPickup != 0)
                      <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="pickup"checked>
                         <label class="form-check-label" for="pickup">
@@ -175,14 +168,14 @@
                         Without Pickup
                         </label>
                      </div>
-                     @endif
-             
-                     <div class="form__row" style="display:none" id="pickuplocation">
+                     @endif -->
+                     @if($showPickup == 0)
+                     <div class="form__row">
                         <div class="form__group">
                            <input type="text" name="pickup_location" placeholder="Pickup Location (Hotel Or Residence)"  id="pickup_location" class="form__input-blank" required>
                         </div>
                      </div>
-                   
+                   @endif
                      <div class="form__row">
                         <div class="form__group">
                         <label for="pickup_location*">No of Travelers*</label>
@@ -232,7 +225,7 @@
                                     <span class="slider round"></span>
                                  </label>
                               </p>
-                              @if($showPickup == 0)
+                              @if($paymentArival == 0 && $showPickup == 0)
                               <p>
                                  <strong class="mb-1em">Payment on Arrival </strong>
                                  <label class="switch">
@@ -329,15 +322,14 @@
    //          }
    //      });
    //  }
-$(document).ready(function(){
-         
+$(document).ready(function(){     
     // select only one payment option
     $('.checkoption').click(function() {
          $('.checkoption').not(this).prop('checked', false);
       });
     // end
 
-    $('#pickuplocation').show();
+$('#pickuplocation').show();
 $('#pickup').on('click',function(){
     $('#pickuplocation').css("display","block");
 })
@@ -345,10 +337,5 @@ $('#without-pickup').on('click',function(){
     $('#pickuplocation').css("display","none");
 })
 
-});  
-let tour_name = <?php echo json_encode($tour_name); ?>; 
-let tour_qty = <?php echo json_encode($tour_qty); ?>; 
-document.querySelector('#tour_name').value=tour_name
-document.querySelector('#tour_qty').value=tour_qty
-
+});    
  </script>

@@ -52,13 +52,14 @@ class SafariController extends Controller{
                     'name' => 'required|string|max:255',
                     'description' => 'required|string',
                     'min_age' => 'required|integer|digits_between:1,100',
-                    'convoy_leader' => 'required|string|max:100',
-                    'tour_guide' => 'required|string|max:100',
-                    'pickup_and_drop' => 'required|string|max:100',
-                    'time_ids' => 'required|array',
+                    'availability' => 'required|string',
+                    // 'convoy_leader' => 'required|string|max:100',
+                    // 'tour_guide' => 'required|string|max:100',
+                    // 'pickup_and_drop' => 'required|string|max:100',
+                    // 'time_ids' => 'required|array',
                     'location_id' => 'required|integer',
-                    'safety_gear_ids' => 'required|array',
-                    'refreshments_ids' => 'required|array',
+                    // 'safety_gear_ids' => 'required|array',
+                    // 'refreshments_ids' => 'required|array',
                     'sequence' => 'nullable|integer',
                     'status' => 'required|in:0,1',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
@@ -71,9 +72,9 @@ class SafariController extends Controller{
                 
                 $validated = $validator->validated();
 
-                $validated['time_ids'] = Helper::implode($request['time_ids']);
-                $validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
-                $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
+                // $validated['time_ids'] = Helper::implode($request['time_ids']);
+                // $validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
+                // $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
                     $validated['image'] = Helper::uploadFile($request->image, 'tour');
@@ -85,6 +86,15 @@ class SafariController extends Controller{
                 $validated['random_id'] = (new Snowflake())->id();
                 $validated['type'] = 'Safari';
                 $validated['sequence'] = (($validated['sequence'])) ?? 0;
+                
+                
+                $validated['availability'] =  $Input['availability'];
+                $validated['option1'] =  $Input['option1'];
+                $validated['option1'] =  $Input['option2'];
+                $validated['option1'] =  $Input['option3'];
+                $validated['option1'] =  $Input['option4']; 
+                $validated['option1'] =  $Input['option5'];
+                $validated['option1'] =  $Input['option6'];
 
                 Tour::create($validated);
     
@@ -122,13 +132,18 @@ class SafariController extends Controller{
                     'name' => 'required|string|max:255',
                     'description' => 'required|string',
                     'min_age' => 'required|integer|digits_between:1,100',
-                    'convoy_leader' => 'required|string|max:100',
-                    'tour_guide' => 'required|string|max:100',
-                    'pickup_and_drop' => 'required|string|max:100',
-                    'time_ids' => 'required|array',
+                    'availability' => 'required|string',
+                    // 'convoy_leader' => 'required|string|max:100',
+                    // 'tour_guide' => 'required|string|max:100',
+                    // 'pickup_and_drop' => 'required|string|max:100',
+                    // 'time_ids' => 'required|array',
+                    // 'convoy_leader' => 'required|string|max:100',
+                    // 'tour_guide' => 'required|string|max:100',
+                    // 'pickup_and_drop' => 'required|string|max:100',
+                    // 'time_ids' => 'required|array',
                     'location_id' => 'required|integer',
-                    'safety_gear_ids' => 'required|array',
-                    'refreshments_ids' => 'required|array',
+                    // 'safety_gear_ids' => 'required|array',
+                    // 'refreshments_ids' => 'required|array',
                     'sequence' => 'nullable|integer',
                     'status' => 'required|in:0,1',
                     'image' => 'nullable|mimes:jpeg,jpg,png,gif',
@@ -141,9 +156,9 @@ class SafariController extends Controller{
                 
                 $validated = $validator->validated();
 
-                $validated['time_ids'] = Helper::implode($request['time_ids']);
-                $validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
-                $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
+                // $validated['time_ids'] = Helper::implode($request['time_ids']);
+                // $validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
+                // $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
                     $validated['image'] = Helper::uploadFile($request->image, 'tour');
@@ -151,6 +166,14 @@ class SafariController extends Controller{
                 if ($request->file('banner_img')) {
                     $validated['banner_img'] = Helper::uploadFile($request->banner_img, 'tour');
                 }
+                
+                $validated['availability'] =  $Input['availability'];
+                $validated['option1'] =  $Input['option1'];
+                $validated['option2'] =  $Input['option2'];
+                $validated['option3'] =  $Input['option3'];
+                $validated['option4'] =  $Input['option4']; 
+                $validated['option5'] =  $Input['option5'];
+                $validated['option6'] =  $Input['option6'];
                 
                 Tour::find($validated['id'])->update($validated);
     

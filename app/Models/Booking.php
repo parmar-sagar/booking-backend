@@ -35,7 +35,10 @@ class Booking extends Model
         'voucher_expiry_date',
         'voucher',
         'tour_name',
-        'tour_qty'
+        'tour_qty',
+        'date_of_tour',
+        'pickup_time',
+        'supplier_id'
     ];
 
     protected $hidden = [

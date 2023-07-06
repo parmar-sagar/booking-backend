@@ -2,7 +2,7 @@
 <html lang="en" data-layout-mode="detached" data-topbar-color="dark" data-sidenav-color="light" data-sidenav-user="true">
 <head>
         <meta charset="utf-8" />
-        <title>Dashboard | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
+        <title>Dashboard | Admin Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -24,7 +24,7 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
       
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> 
 
         <!-- Page Styles -->
         @if (isset($styles))
@@ -52,6 +52,42 @@
             }
             #myModal .modal-body {
                 padding: 20px 24px;
+            }
+            .result{
+                background-color: green;
+                color:#fff;
+                padding:20px;
+            }
+            .row{
+                display:flex;
+            }
+            /* 06-04-23 */
+            div#reader {
+                width: 100% !important;
+            }
+            div#reader__scan_region {
+                font-size: 70px;
+            }
+            span#reader__status_span {
+                display: none;
+            }
+            div#reader__dashboard_section button {
+                background-color: #35b8e0;
+                color: #fff;
+                border: 1px solid;
+                padding: 8px 8px;
+                border-radius: 4px;
+            }
+            @media(max-width:600px){
+            .modal-content tr {
+                display: grid;
+            }
+            .modal-content table.table.mb-0 {
+                display: flex;
+            }
+            .modal-content tbody tr {
+                border: #fff;
+            }
             }
         </style>
     </head>
@@ -131,6 +167,7 @@
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         <script src="{{ asset('admin/js/custom.js') }}"></script>
+        <script src="{{ asset('admin/js/html5-qrcode.min.js') }}"></script>
         <!-- Page Scripts -->
         @if (isset($scripts))
             {{ $scripts }}

@@ -65,6 +65,7 @@ $(document).ready(function() {
         });
     });
 
+
     // Warning Function
     function warningFun(){
         $.toast({

@@ -61,9 +61,26 @@
                   <textarea name="message" class="form__textarea" placeholder="message" required></textarea>
                 </div>
               </div>
+              <div class="form__row">
+                <!-- captcha code begin -->
+                <div id="user-input" class="inline">
+                  <input type="text" id="submit"
+                      placeholder="Enter captcha" style="background:sienna;"/>
+                </div>
+          
+                <div class="inline refresh" onclick="generate()">
+                    <i class="fas fa-sync"></i>
+                </div>
+          
+                <div id="image" class="inline" selectable="False">
+                </div>
+                <p id="key"></p>
+                <!-- captcha code end -->
+             </div>
               <div>
                   <button class="btn btn--white btn--full">Send</button>
               </div>
+           
               <div class="loading"></div>
             </form>
         </div>
@@ -74,26 +91,10 @@
 </x-front.master-layout>
 <script>
 $(document).ready(function(){
+  generate();
   $(document).on('submit','#submit-form',function(e){
-    e.preventDefault();
-      $.ajax({
-          type: $(this).prop('method'),
-          url: 'contact-us',
-          data:new FormData(this),
-          contentType: false,
-          cache: false,
-          processData: false,
-          success: function (response) {
-              if((response.error)){
-                toastr.error(response.error);
-              }else{
-                $("#section").load(window.location + " #section");
-                toastr.success(response.success); 
-              }
-          },error: function (error){
-            toastr.warning(error);
-          }
-      });
+      e.preventDefault();
+      printmsg();
   });
 });
 </script>

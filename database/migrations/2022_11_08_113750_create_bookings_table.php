@@ -26,7 +26,12 @@ return new class extends Migration
             $table->string('mobile',20);
             $table->string('email',100);
             $table->string('date_of_tour');
-            $table->string('pickup-time');
+            $table->string('pickup_time');
+            $table->string('no_of_travelers');
+            $table->string('date_of_tour');
+            $table->string('supplier_id');
+            $table->string('tour_name');
+            $table->string('tour_qty');
             $table->string('pickup_location',100);
             $table->string('no_of_travelers',20);
             $table->string('coupon',50)->nullable();

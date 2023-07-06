@@ -4,7 +4,7 @@
             <div class="section">
                 <div class="row row--g-10">
                     <div class="col-12 col-lg-6 col-xxl-6 offset-xxl-3">
-                    <!-- <figure class="bg-media--glasses"> <img src="fonts/wm-glasses.svg" alt="Background"> </figure> -->
+                    <!--<figure class="bg-media--glasses"> <img src="fonts/wm-glasses.svg" alt="Background"> </figure>-->
                     <form id="form-submit" class="form form--contact animated fadeInUp active" method="POST" id="paymentForm" action="{{ url('payment/stripe-payment')}}">
                         @csrf
                         <h2 class="headline-3 color-white mb-5em">Stripe Payment</h2>

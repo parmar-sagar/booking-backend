@@ -90,63 +90,78 @@
                                 <div class="card__headline-price-wrapper card__headline-price-wrapper--flex-col mt-5em">
                                   <div class="card__headline-price-values">
                                     <div class="card__headline-price-main bg-blue minprice" >
-                                    Starting From <br>AED {{$vehicle->minprice->amount}}
+                                    <span class="home_span">Starting From</span> <br><span class="home_span_price"><small>AED</small>{{$vehicle->minprice->amount}}</span>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                               <p>Ultimate adventure!</p>
-                              <ul class="list-tour-info list-tour-info--two-cols">
-                                <li class="list-tour-info__item">
-                                  <svg width="36px" height="36px" class="fill-blue" aria-hidden="true" aria-focusable="false">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-baby-face-outline')}}"></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Min Age</b> <span>{{$value->min_age}}Yrs</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg width="36px" height="36px" class="fill-blue" aria-hidden="true" aria-focusable="false" >
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-map')}}"></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Pickup & Drop off</b> <span>{{$value->pickup_and_drop}}</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg width="36px" height="36px" class="fill-blue" aria-hidden="true" aria-focusable="false">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-star')}}"></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Convoy Leader</b> <span>{{$value->convoy_leader}}</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg width="36px" height="36px" class="fill-blue" aria-hidden="true" aria-focusable="false" >
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account')}}"></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Tour Guide</b> <span>{{$value->tour_guide}}</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg width="36px" height="36px" class="fill-blue" aria-hidden="true" aria-focusable="false">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account-multiple')}}">
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>No Of Persons</b> 
-                                    <span>{{$vehicle->no_of_persons}}</span>
-                                  </div>
-                                </li>
-                                <li class="list-tour-info__item">
-                                  <svg width="36px" height="36px" class="fill-blue" aria-hidden="true" aria-focusable="false">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-calendar-range')}}"></use>
-                                  </svg>
-                                  <div class="list-tour-info__item-desc">
-                                    <b>Available Everyday</b> <span>Sunrise to Sunset</span>
-                                  </div>
-                                </li>
-                              </ul>
+                               <ul class="list-tour-info list-tour-info--two-cols">
+                                    <li class="list-tour-info__item">
+                                      <svg width="36px" height="36px" class="fill-blue" aria-hidden="true" aria-focusable="false">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-baby-face-outline')}}"></use>
+                                      </svg>
+                                      <div class="list-tour-info__item-desc">
+                                        <b>Min Age</b> <span>{{$value->min_age}}Yrs</span>
+                                      </div>
+                                    </li>
+                                     <li class="list-tour-info__item">
+                                      <svg width="36px" height="36px" class="fill-blue" aria-hidden="true" aria-focusable="false">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-calendar-range')}}"></use>
+                                      </svg>
+                                      <div class="list-tour-info__item-desc">
+                                        <b>Availability</b> <span>{{$value->availability}}</span>
+                                      </div>
+                                    </li>
+                                     @if($value->option1)
+                                   <li class="list-tour-info__item">
+                                      <span class="checkmarkpink">&#10004</span>
+                                      <div class="list-tour-info__item-desc">
+                                         <b>{{$value->option1}}</b> 
+                                      </div>
+                                   </li>
+                                   @endif
+                                   @if($value->option2)
+                                   <li class="list-tour-info__item">
+                                      <span class="checkmarkpink">&#10004</span>
+                                      <div class="list-tour-info__item-desc">
+                                         <b>{{$value->option2}}</b> 
+                                      </div>
+                                   </li>
+                                   @endif
+                                   @if($value->option3)
+                                   <li class="list-tour-info__item">
+                                      <span class="checkmarkpink">&#10004</span>
+                                      <div class="list-tour-info__item-desc">
+                                         <b>{{$value->option3}}</b> 
+                                      </div>
+                                   </li>
+                                   @endif
+                                   @if($value->option4)
+                                   <li class="list-tour-info__item">
+                                      <span class="checkmarkpink">&#10004</span>
+                                      <div class="list-tour-info__item-desc">
+                                         <b>{{$value->option4}}</b>
+                                      </div>
+                                   </li>
+                                   @endif
+                                   @if($value->option5)
+                                   <li class="list-tour-info__item">
+                                      <span class="checkmarkpink">&#10004</span>
+                                      <div class="list-tour-info__item-desc">
+                                         <b>{{$value->option5}}</b>
+                                      </div>
+                                   </li>
+                                   @endif
+                                    @if($value->option6)
+                                   <li class="list-tour-info__item">
+                                      <span class="checkmarkpink">&#10004</span>
+                                      <div class="list-tour-info__item-desc">
+                                         <b>{{$value->option6}}</b> 
+                                      </div>
+                                   </li>
+                                   @endif
+                                </ul>
                               <div class="card__footer card__footer--with-chip pt-20em">
                                 <a class="btn btn--purple" href="{{url('vehicles/details/'.$vehicle->random_id)}}" title="View now">
                                   View Detail
@@ -272,60 +287,76 @@
                   <div class="row mt-3">
                     <div class="col-12">
                       <ul class="list-tour-info list-tour-info--two-cols">
-                        <li class="list-tour-info__item">
-                          <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account')}}"></use>
-                          </svg>
-                          <div class="list-tour-info__item-desc">
-                            <b>Tour Guide</b>
-                            <span>{{$value->tour->tour_guide}}</span>
-                          </div>
-                        </li>
-                        <li class="list-tour-info__item">
-                          <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-star')}}"></use>
-                          </svg>
-                          <div class="list-tour-info__item-desc">
-                            <b>Convey Leader</b>
-                            <span>{{$value->tour->convoy_leader}}</span>
-                          </div>
-                        </li>
-                        <li class="list-tour-info__item">
-                          <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account-multiple')}}"></use>
-                          </svg>
-                          <div class="list-tour-info__item-desc">
-                            <b>No. Of Persons</b>
-                            <span>{{$value->no_of_persons}}</span>
-                          </div>
-                        </li>
-                        <li class="list-tour-info__item">
-                          <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-map')}}"></use>
-                          </svg>
-                          <div class="list-tour-info__item-desc">
-                            <b>Pickup & Drop off</b>
-                            <span>{{$value->tour->pickup_and_drop}}</span>
-                          </div>
-                        </li>
-                        <li class="list-tour-info__item">
-                          <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-calendar-range')}}"></use>
-                          </svg>
-                          <div class="list-tour-info__item-desc">
-                            <b>Available Everyday</b>
-                            <span>Sunrise to Sunset</span>
-                          </div>
-                        </li>
-                        <li class="list-tour-info__item">
-                          <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-baby-face-outline')}}"></use>
-                          </svg>
-                          <div class="list-tour-info__item-desc">
-                            <b>Min Age</b>
-                            <span>{{$value->tour->min_age}}Yrs</span>
-                          </div>
-                        </li>
+                        @if($value->tour->min_age)
+                           <li class="list-tour-info__item">
+                              <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
+                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-baby-face-outline')}}"></use>
+                              </svg>
+                              <div class="list-tour-info__item-desc">
+                                 <b>Min Age</b> 
+                                 <span>{{$value->tour->min_age}}Yrs</span>
+                              </div>
+                           </li>
+                           @endif
+                            @if($value->tour->availability)
+                           <li class="list-tour-info__item">
+                              <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
+                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-calendar-range')}}"></use>
+                              </svg>
+                              <div class="list-tour-info__item-desc">
+                                 <b>Availability</b> 
+                                 <span>{{$value->tour->availability}}</span>
+                              </div>
+                           </li>
+                           @endif
+                           @if($value->tour->option1)
+                           <li class="list-tour-info__item">
+                              <span class="checkmarkpink">&#10004</span>
+                              <div class="list-tour-info__item-desc">
+                                 <b>{{$value->tour->option1}}</b> 
+                              </div>
+                           </li>
+                           @endif
+                           @if($value->tour->option2)
+                           <li class="list-tour-info__item">
+                              <span class="checkmarkpink">&#10004</span>
+                              <div class="list-tour-info__item-desc">
+                                 <b>{{$value->tour->option2}}</b> 
+                              </div>
+                           </li>
+                           @endif
+                           @if($value->tour->option3)
+                           <li class="list-tour-info__item">
+                              <span class="checkmarkpink">&#10004</span>
+                              <div class="list-tour-info__item-desc">
+                                 <b>{{$value->tour->option3}}</b> 
+                              </div>
+                           </li>
+                           @endif
+                           @if($value->tour->option4)
+                           <li class="list-tour-info__item">
+                              <span class="checkmarkpink">&#10004</span>
+                              <div class="list-tour-info__item-desc">
+                                 <b>{{$value->tour->option4}}</b>
+                              </div>
+                           </li>
+                           @endif
+                           @if($value->tour->option5)
+                           <li class="list-tour-info__item">
+                              <span class="checkmarkpink">&#10004</span>
+                              <div class="list-tour-info__item-desc">
+                                 <b>{{$value->tour->option5}}</b>
+                              </div>
+                           </li>
+                           @endif
+                            @if($value->tour->option6)
+                           <li class="list-tour-info__item">
+                              <span class="checkmarkpink">&#10004</span>
+                              <div class="list-tour-info__item-desc">
+                                 <b>{{$value->tour->option6}}</b> 
+                              </div>
+                           </li>
+                           @endif
                       </ul>
                     </div>
                   </div>
@@ -358,7 +389,7 @@
                 <svg class="circle__svg circle__svg--orange" id="circle-orange" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 413.808 194.818" > 
                   <path id="Path_390" data-name="Path 390" d="M-14227.713,4383.438s-123.527,23.8-110.222-201.043,120.478-156.715,129.463-151.667,57.358,20.173,45.235,200.393c-5.8,86.325-33.748,90.077-54.317,117.017-22.226,29.108-36.328,56.439-38.849,74.921" transform="translate(-4507.233 -13996.752) rotate(-92)" fill="none" stroke="#FFC132" stroke-width="3"/> 
                 </svg>
-                <p class="circle__text circle__text--pos-1">Book with spread payments</p>
+                <p class="circle__text circle__text--pos-1">Book With Multiple Payment Options</p>
               </div>
             </div>
             <div class="fly-elements__item fly-elements__item--circled">
@@ -366,7 +397,7 @@
                 <svg class="circle__svg circle__svg--blue" id="circle-blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352.494 174.443" > 
                   <path id="Path_389" data-name="Path 389" d="M-12927.428,3656.919s-130.209,8.949-152.374,51.9-13.343,67.706,6.34,86.322,60.453,37.69,166.963,32.289,148.719-26.519,159.068-54.121,1.979-78.218-34.775-88.658-117.82-20.336-170.39-8.35" transform="translate(-12741.824 3829.863) rotate(180)" fill="none" stroke="#36e0dc" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/> 
                 </svg>
-                <p class="circle__text circle__text--rotate-1"> Sleep &amp; travel in comfort</p>
+                <p class="circle__text circle__text--rotate-1 instant_confirmation">Instant Confirmation</p>
               </div>
             </div>
             <div class="fly-elements__item fly-elements__item--circled">
@@ -387,7 +418,7 @@
                     </svg>
                   </div>
                   <p>We started off in 2013 with a 21-day Thailand tour. Today, we offer tours in Thailand, Vietnam, Cambodia, Bali, and Sri Lanka with plans to add exciting new tours each year! </p>
-                  <a class="btn btn--black" href="javascript:void(0)"title="Meet The Team">Meet The Team</a>
+                  <a class="btn btn--black" href="{{route('about-us')}}"title="Learn More">Learn More</a>
                 </div>
               </div>
             </div>

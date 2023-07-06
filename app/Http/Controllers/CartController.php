@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\VehicleInfo;
 use App\Models\Vehicle;
 use App\Models\Coupon;
+use App\Models\Discount;
 
 class CartController extends Controller{
 
@@ -16,6 +17,7 @@ class CartController extends Controller{
     public $outputData = [];
 
     public function index(){
+        $groupDiscount=Discount::all();
         $carts = \Cart::getContent();
         $total = \Cart::getTotal();
         $subTotal = \Cart::getSubTotal();
@@ -25,7 +27,8 @@ class CartController extends Controller{
             'subTotal' => $subTotal,
             'total' => $total,
             'code' => (($coupon['code'])) ?? '',
-            'discount' => (($coupon['discount'])) ?? 0.00
+            'discount' => (($coupon['discount'])) ?? 0.00,
+            'groupDiscount' => $groupDiscount
         ];
         // dd($this->outputData['subTotal']);
         return view('front.pages.cart.index',$this->outputData);
@@ -37,15 +40,17 @@ class CartController extends Controller{
                 $validator = Validator::make($request->all(), [
                     'booking_date' => 'required',
                     'time' => 'required'
-                ]);    
-           
-            
+                ]);
+                
                 if($validator->fails()){
                     throw new \Exception($validator->errors()->first());
                 }
-                $validated = $validator->validated();
+            
+            }else{
+                $request['booking_date'] = 'NA';
+                $request['time'] = 'NA';
             }
-           
+               
 
             $additional = [];
             $extraAmount = 0;
@@ -70,10 +75,10 @@ class CartController extends Controller{
             }
 
             $product = Vehicle::where('random_id',$request->id)->first();
+            
             \Cart::remove($request->id);
                
             // add the p to cart
-        if($request->fixed_voucher_status == 1){
            \Cart::add(array(
                 'id' => $request->id,
                 'name' => $product->name,
@@ -82,32 +87,16 @@ class CartController extends Controller{
                 'attributes' => [
                     'image' => $product->image,
                     'vehicle_id' => $product->id,
-                    'booking_date' => $validated['booking_date'],
-                    'time' => $validated['time'],
+                    'booking_date' => $request['booking_date'],
+                    'time' => $request['time'],
                     'extra_amount' => $extraAmount,
                     'extra_product' => $additional,
                     'voucher_status' => $product->tour->voucher_status,
                     'tour_name' => $product->tour->name,
+                    'ExtraDiscount' => $request->without_pickup,
+                    'supplier_id' =>  $request->supplier_id,
                 ]
-            )); 
-        }else{
-            \Cart::add(array(
-                'id' => $request->id,
-                'name' => $product->name,
-                'price' => $request->total_price,
-                'quantity' => $request->quantity,
-                'attributes' => [
-                    'image' => $product->image,
-                    'vehicle_id' => $product->id,
-                    'booking_date' => '',
-                    'time' => '',
-                    'extra_amount' => $extraAmount,
-                    'extra_product' => $additional,
-                    'voucher_status' => $product->tour->voucher_status,
-                    'tour_name' => $product->tour->name,
-                ]
-            )); 
-        } 
+            ));  
           
             return response()->json([
                 'success' => "Tour has been added to your cart"

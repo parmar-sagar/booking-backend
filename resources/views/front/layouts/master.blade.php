@@ -47,7 +47,11 @@
       rel="apple-touch-icon-precomposed"
       href="{{asset ('assets/front/images/touch/ms-touch-icon-144x144-precomposed.png')}}"
     />
+      <link
+      href="{{asset ('assets/front/styles/style.css')}}"
+    rel="stylesheet"/>
   </head>
+    <style>.error{ color:red}</style>
   <body>
 
  <!-- ========== Header Start ========== -->
@@ -84,7 +88,7 @@
   <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.js"></script>
- 
+  <script src="{{asset('assets/js/captcha.js')}}"></script>
     <link
       href="https://fonts.googleapis.com/css?family=Just+Another+Hand&amp;display=swap"
       rel="stylesheet"
@@ -96,6 +100,7 @@
         "positionClass": "toast-top-center",
       };
     </script>
+   
   </body>
   <!-- Mirrored from www.backpackingtours.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 29 Nov 2022 10:54:56 GMT -->
 </html>

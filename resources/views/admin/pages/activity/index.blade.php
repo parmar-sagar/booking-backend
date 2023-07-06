@@ -43,6 +43,6 @@
     <!-- end row -->   
     <x-slot name="scripts">
         <!-- Custom App js -->
-        <script src="{{ asset('admin/js/include.js') }}"></script>
+        <script src="{{ asset('admin/js/activity.js') }}"></script>
     </x-slot>    
 </x-admin.master-layout>

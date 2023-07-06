@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\RefreshmentController;
 use App\Http\Controllers\Admin\TimeSlotController;
 use App\Http\Controllers\Admin\AdditionalInfoController;
 use App\Http\Controllers\Admin\BookingsController; 
+use App\Http\Controllers\Admin\SupplierController;
 
 /* Supplier Controller start*/
 
@@ -55,7 +56,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+ 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -90,6 +91,18 @@ Route::group(['middleware' => ['admin']], function () {
         Route::get('/edit/{id}',[UserController::class, 'edit']);
 		Route::post('/update/{id}',[UserController::class, 'edit']);
 		Route::get('/delete/{id}',[UserController::class, 'destroy']);
+    });
+    
+    Route::group([
+        'prefix' => 'suppliers'
+    ], function(){
+        Route::get('/',[SupplierController::class, 'index']);
+        Route::get('/datatable',[SupplierController::class, 'datatable']);
+        Route::get('/create',[SupplierController::class, 'create']);
+        Route::post('/store',[SupplierController::class, 'create']);
+        Route::get('/edit/{id}',[SupplierController::class, 'edit']);
+		Route::post('/update/{id}',[SupplierController::class, 'edit']);
+		Route::get('/delete/{id}',[SupplierController::class, 'destroy']);
     });
 
     Route::group([
@@ -374,7 +387,7 @@ Route::group([
     Route::get('refund-policy',[OtherPageController::class, 'refundPolicy']);
     Route::get('privacy-policy',[OtherPageController::class, 'privacyPolicy']);
     Route::get('terms-and-conditions',[OtherPageController::class, 'termsAndConditions']);
-    Route::get('about-us',[OtherPageController::class, 'aboutUs']);
+    Route::get('about-us',[OtherPageController::class, 'aboutUs'])->name('about-us');
     Route::get('why-choose-us',[OtherPageController::class, 'whyChooseUs']);
     Route::get('contact-us',[OtherPageController::class, 'contactUs']);
     Route::get('faqs',[OtherPageController::class, 'faqs']);
@@ -383,7 +396,8 @@ Route::group([
     Route::get('pdf-download/{id}',[MyorderController::class, 'pdf']);
 
     //contact us  
-    Route::post('contact-us',[ContactUsController::class, 'contactUs']);
+    Route::post('contact-us',[ContactUsController::class, 'contactUs'])->name('contact-us');
+    Route::post('submit-supplier',[ContactUsController::class, 'submitSupplier'])->name('submit-supplier');
 
     Route::group([
         'middleware' => 'auth'

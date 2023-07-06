@@ -5,9 +5,9 @@
     <div class="col-md-5 border-right">
       <div class="p-3 py-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h4 class="text-right">Register As Supplier</h4>
+          <h4 class="text-right">Suppliers Contact Form</h4>
         </div>
-        <form method="POST" id="registerForm">
+        <form method="POST" id="registerForm" name="registerForm">
             @csrf
        
           <div class="form__row__left">
@@ -25,45 +25,54 @@
           </div> -->
         
         <div class="form__row">
-        <div class="form__group">
-            <input type="email" name="email" id="email" placeholder="Email*" class="form__input-blank" ="">
-            <!-- <label class="form__label-blank" for="email">Email*</label> -->
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-          </div>
+            <div class="form__group">
+                <input type="email" name="email" id="email" placeholder="Email*" class="form__input-blank" ="">
+                <!-- <label class="form__label-blank" for="email">Email*</label> -->
+                <!--<x-input-error :messages="$errors->get('email')" class="mt-2" />-->
+              </div>
         </div>
-        <!-- <div class="form__row ">
-        <div class="form__group">
-            <input type="tel" name="number" id="number" class="form__input-blank" ="">
-            <label class="form__label-blank" for="number">Phone*</label>
-            <x-input-error :messages="$errors->get('number')" class="mt-2" />
+         <div class="form__row">
+            <div class="form__group">
+                <textarea id="supp_msg" name="supp_msg" rows="5" cols="55" placeholder="Enter message"></textarea>
+                <!-- <label class="form__label-blank" for="email">Email*</label> -->
+                <!--<x-input-error :messages="$errors->get('supp_msg')" class="mt-2" />-->
+              </div>
         </div>
+        <!--<div class="form__row ">
+            <div class="form__group">
+                <input type="tel" name="number" id="number" class="form__input-blank" ="">
+                <label class="form__label-blank" for="number">Phone*</label>
+                <x-input-error :messages="$errors->get('number')" class="mt-2" />
+            </div>
+         </div>-->
+    <!-- <div class="form__row">
+              <div class="form__group">
+                <select name="gender" class="select select--blank" id="gender" required="" sb="24704323" style="display: none;">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+                <x-input-error :messages="$errors->get('gender')" class="mt-2" />
+              </div>
         </div> -->
-        <!-- <div class="form__row">
-          <div class="form__group">
-            <select name="gender" class="select select--blank" id="gender" required="" sb="24704323" style="display: none;">
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-            <x-input-error :messages="$errors->get('gender')" class="mt-2" />
-          </div>
-        </div> -->
+        <!-- captcha code begin -->
         <div class="form__row">
-          <div class="form__group">
-            <input type="password" name="password" id="password" placeholder="Password*" class="form__input-blank" required="">
-            <!-- <label for="password" class="form__label-blank">Password*</label> -->
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-          </div>
-        </div>
-        <div class="form__row">
-          <div class="form__group">
-            <x-text-input class="form__input-blank" type="password" placeholder="Confirm Password*" name="password_confirmation" required />
-            <!-- <label class="form__label-blank" for="address-line-2">Confirm Password</label> -->
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-          </div>
-        </div>
+                <div id="user-input" class="inline">
+                  <input type="text" id="submit"
+                      placeholder="Enter captcha" style="background:sienna;"/>
+                </div>
+          
+                <div class="inline refresh" onclick="generate()">
+                    <i class="fas fa-sync"></i>
+                </div>
+          
+                <div id="image" class="inline" selectable="False">
+                </div>
+                <p id="key"></p>
+             </div>
+              <!-- captcha code end -->
         <div class="mt-5  mb-10em  text-center">
           <x-primary-button class="ml-4 btn btn-primary profile-button btn--purple">
-                      {{ __('Register') }}
+                      {{ __('Submit') }}
           </x-primary-button>
         </div>
       </div>
@@ -73,28 +82,16 @@
    
   </div>
 </div>
-</x-admin.master-layout> 
+</x-front.master-layout> 
 <script>
-$(document).on('submit','#registerForm',function(e){
-    e.preventDefault();
-    $.ajax({
-        type: $(this).prop('method'),
-        url: "{{ route('register') }}",
-        data:new FormData(this),
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function (response) {
-            // window.location = "/";
-            toastr.success(response.success);
-        },error: function (response){
-          var text = JSON.parse(response.responseText)
-            toastr.error(text.message);
-        }
-    });
-    toastr.options = {
-    positionClass: 'toast-top-center'
-};
+$(document).ready(function(){
+  generate();
+  $(document).on('submit','#registerForm',function(e){
+      e.preventDefault()
+      let name=$(this).attr('name')
+      printmsg(name)
+     
+  });
 });
 </script> 
    

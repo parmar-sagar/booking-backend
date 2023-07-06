@@ -49,7 +49,7 @@
             </li>
             <li class="side-nav-item">
                 <a href="{{ url('admin/voucher-bookings') }}" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
+                   <i class="ri-qr-code-line"></i>
                     <span> Voucher Bookings </span>
                 </a>
             </li>
@@ -59,6 +59,18 @@
                 <a href="{{ url('admin/bookings') }}" class="side-nav-link">
                     <i class="ri-notification-badge-fill"></i>
                     <span> Bookings </span>
+                </a>
+            </li>
+             <li class="side-nav-item">
+                <a href="{{ url('blog/wp-admin') }}" class="side-nav-link">
+                    <i class="fa-regular fa-memo-pad"></i>
+                    <span> Blogs </span>
+                </a>
+            </li>
+              <li class="side-nav-item">
+                <a href="{{ url('admin/suppliers') }}" class="side-nav-link">
+                    <i class="uil-users-alt"></i>
+                    <span> Suppliers </span>
                 </a>
             </li>
             <li class="side-nav-item">
