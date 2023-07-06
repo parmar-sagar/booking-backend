@@ -48,8 +48,10 @@
                      </div>
                   </div>
                   <div class="col-md-8">
+                     @if($objVehicle->min_age || $objVehicle->tour->description || $objVehicle->tour->availability || $objVehicle->tour->option1 || $objVehicle->tour->option2 || $objVehicle->tour->option3 || $objVehicle->tour->option4 || $objVehicle->tour->option5 || $objVehicle->tour->option6  || count($times) > 0 || count($saftyGears) > 0 || count($refreshments) > 0 || count($times) > 0)
                      <blockquote class="blockquote blockquote--margin-sm blockquote--blurple">
                         <ul class="list-tour-info list-tour-info--two-cols">
+                           @if($objVehicle->tour->min_age)
                            <li class="list-tour-info__item">
                               <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
                                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-baby-face-outline')}}"></use>
@@ -59,85 +61,77 @@
                                  <span>{{$objVehicle->tour->min_age}}Yrs</span>
                               </div>
                            </li>
-                           <li class="list-tour-info__item">
-                              <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-map')}}"></use>
-                              </svg>
-                              <div class="list-tour-info__item-desc">
-                                 <b>Pickup & Drop off</b> 
-                                 <span>{{$objVehicle->tour->pickup_and_drop}}</span>
-                              </div>
-                           </li>
+                           @endif
+                            @if($objVehicle->tour->availability)
                            <li class="list-tour-info__item">
                               <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
                                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-calendar-range')}}"></use>
                               </svg>
                               <div class="list-tour-info__item-desc">
-                                 <b>Ride Duration</b> 
-                                 @foreach($times as $value)
-                                    <span>{{$value->time}}@if($value->time_type == 'Minutes') Mins @else Hours @endif</span>
-                                 @endforeach
+                                 <b>Availability</b> 
+                                 <span>{{$objVehicle->tour->availability}}</span>
                               </div>
                            </li>
+                           @endif
+                           @if($objVehicle->tour->option1)
                            <li class="list-tour-info__item">
-                              <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-star')}}"></use>
-                              </svg>
+                              <span class="checkmark">&#10004</span>
                               <div class="list-tour-info__item-desc">
-                                 <b>Convoy Leader</b> 
-                                 <span>{{$objVehicle->tour->convoy_leader}}</span>
+                                 <b>{{$objVehicle->tour->option1}}</b> 
                               </div>
                            </li>
+                           @endif
+                           @if($objVehicle->tour->option2)
                            <li class="list-tour-info__item">
-                              <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account')}}"></use>
-                              </svg>
+                              <span class="checkmark">&#10004</span>
                               <div class="list-tour-info__item-desc">
-                                 <b>Tour Guide</b> 
-                                 <span>{{$objVehicle->tour->tour_guide}}</span>
+                                 <b>{{$objVehicle->tour->option2}}</b> 
                               </div>
                            </li>
+                           @endif
+                           @if($objVehicle->tour->option3)
                            <li class="list-tour-info__item">
-                              <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account')}}"></use>
-                              </svg>
+                              <span class="checkmark">&#10004</span>
                               <div class="list-tour-info__item-desc">
-                                 <b>Safety Gears</b>
-                                 @foreach($saftyGears as $value)
-                                    <span>{{$value->title}}</span>
-                                 @endforeach
+                                 <b>{{$objVehicle->tour->option3}}</b> 
                               </div>
                            </li>
+                           @endif
+                           @if($objVehicle->tour->option4)
                            <li class="list-tour-info__item">
-                              <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-silverware-fork-knife')}}"></use>
-                              </svg>
+                              <span class="checkmark">&#10004</span>
                               <div class="list-tour-info__item-desc">
-                                 <b>Refreshments</b>
-                                 @foreach($refreshments as $value)
-                                    <span>{{$value->title}}</span>
-                                 @endforeach
+                                 <b>{{$objVehicle->tour->option4}}</b>
                               </div>
                            </li>
+                           @endif
+                           @if($objVehicle->tour->option5)
                            <li class="list-tour-info__item">
-                              <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-calendar-range')}}"></use>
-                              </svg>
+                              <span class="checkmark">&#10004</span>
                               <div class="list-tour-info__item-desc">
-                                 <b>Available Everyday</b> 
-                                 <span>Sunrise to Sunset</span>
+                                 <b>{{$objVehicle->tour->option5}}</b>
                               </div>
                            </li>
+                           @endif
+                            @if($objVehicle->tour->option6)
+                           <li class="list-tour-info__item">
+                              <span class="checkmark">&#10004</span>
+                              <div class="list-tour-info__item-desc">
+                                 <b>{{$objVehicle->tour->option6}}</b> 
+                              </div>
+                           </li>
+                           @endif
                         </ul>
                      </blockquote>
+                     @endif
                   </div>
                </div>
             </div>
             <div class="col-12 col-lg-5 col-xl-5 col-xxl-4 offset-xxl-1">
-               <div class="mb-30em  card card--shadow-purple bg-purple animated fadeInUp active" style="background-color: #18899f !important;  box-shadow: -12px 12px 0 #feb100; border:none !important">
+               <div class="mb-30em  card card--shadow-purple bg-purple custom_bg-purple animated fadeInUp active" style="background-color: #18899f !important;  box-shadow: -12px 12px 0 #feb100; border:none !important">
                   <div class="card__content">
                      <div class="headline-wave">
-                        <h3 class="headline-3">Price</h3>
+                        <h3 class="headline-3 custom-head">Price</h3>
                         <svg width="100px" height="16px" class="stroke-blurple">
                            <use xlink:href="images/icons.svg#icon-wave-squiggle" />
                         </svg>
@@ -147,14 +141,15 @@
                      </div>
                      <ul class="list-icon list-icon--tick list-1-cols list-mobile-limit js-limit-list">
                         @foreach($objVehicle->prices as $value)
-                        <li>{{$value->time}} Mins Ride :
-                           @if(isset($objVehicle->discount) && $objVehicle->discount)
-                              <del style="color:red">{{$value->amount}} AED</del>
+                        <li class="custom_li"><div class="ride_minutes"><span class="custom_time">{{$value->time}}</span>Mins Ride :</div>
+                          <div class="discount_after">
+                              @if(isset($objVehicle->discount) && $objVehicle->discount)
+                              <del class="custom_del" style="color:red"><small>AED</small>{{$value->amount}}</del>
                            @endif 
                            @if(isset($objVehicle->discount)) 
-                              {{$value->amount - ($value->amount * ($objVehicle->discount / 100))}}
+                              <span class="custom_span"><small>AED</small>{{$value->amount - ($value->amount * ($objVehicle->discount / 100))}}</span>
                            @endif 
-                           AED
+                          </div> 
                         </li>
                         @endforeach
                      </ul>
@@ -273,7 +268,9 @@
             @csrf
             <input type="hidden" name="id" value="{{$objVehicle->random_id}}">
             <div class="row row--g-10">
+               @if($objVehicle->tour->fixed_voucher_status == 1)
                <div class="col-12 col-lg-12 col-xxl-4 col-xl-5  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1">
+                  @if($objVehicle->type !== 'Safari')
                   <div class="dates picker card--shadow-orange">
                      <div id="bookingHeading">
                         <h1>Select Pickup Date</h1>
@@ -310,7 +307,46 @@
                      </div>
                      <!-- end -->
                   </div>
+                  @else
+                  <div class="dates picker card--shadow-orange">
+                     <div id="bookingHeading">
+                        <h1>Select Pickup Date</h1>
+                     </div>
+                     <!-- calander -->
+                     <div id="container" style="margin: 10px 0 15px 0; height: 255px; position: relative"></div>
+                     <div class="well">
+                       <div class="row">
+                          
+                              <div class="col-sm-6" style="margin-top:15%;">
+                                 <label>Date</label>
+                                 <input id="datepicker" type="text" name="booking_date" class="form-control filled" data-zdp_readonly_element="true">
+                              </div>
+                          
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-12 pt-2">
+                              <h1>Pickup Time</h1>
+                           </div>
+                           <div class="col-sm-6">
+                              <label>Time</label>
+                              <input id="select-available-time" type="text" name="time" class="form-control filled" value="@if($objVehicle->type === 'Safari'){{$objVehicle->pickup_time}}@endif" readonly>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-12 pt-2">
+                              <h1>DropOff Time</h1>
+                           </div>
+                           <div class="col-sm-6">
+                              <label>Time</label>
+                              <input id="select-available-time" type="text" name="time" class="form-control filled" value="@if($objVehicle->type === 'Safari'){{$objVehicle->dropoff_time}}@endif" readonly>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- end -->
+                  </div>
+                  @endif
                </div>
+               @endif
                <div class="col-12 col-lg-12 col-xl-7 col-xxl-6  col-sm-12" data-gtm-vis-recent-on-screen-30257650_40="769" data-gtm-vis-first-on-screen-30257650_40="769" data-gtm-vis-total-visible-time-30257650_40="100" data-gtm-vis-has-fired-30257650_40="1"  id="cartcol" style="display:none">
                   <div class="mb-30em animated fadeInUp active " id="duration">
                      <div class="card card--shadow-orange">
@@ -368,7 +404,7 @@
                                  <h5>Quantity</h5>
                                  <td class="qntityBtn">
                                     <button type="button" id="sub" class="sub">-</button>
-                                    <input style="width:30px" name="quantity" class="quantity-class" type="number" value="1" min="1" max="10" />
+                                    <input style="width:60px;text-align:center;" name="quantity" class="quantity-class" type="number" value="1" min="1" max="@if(isset($objVehicle->quantity) && $objVehicle->quantity){{ $objVehicle->quantity }}@endif" />
                                     <button type="button" id="add" class="add">+</button>
                                  </td>
                               </div>
@@ -413,16 +449,67 @@
                            @endforeach 
 
                            @if($objVehicle->available_quantity < 1) 
-                           <p class="headline-3 vehicleName">Not Available</p>
+                           <marquee width="100%" direction="left" height="100px"><p class="headline-3 vehicleName mt-3 colorText">
+                           This Vehicle Is Not Available At The Moment.
+                           </p></marquee>
                            @else
                                  <input type="hidden" value="{{$objVehicle->tour->voucher}}" name="voucher" >
                                  <input type="hidden" value="{{$objVehicle->tour->name}}" name="tour_name">
                                  <input type="hidden" value="{{$objVehicle->tour->voucher_status}}" name="voucher_status">
+                                 <input type="hidden" value="{{$objVehicle->tour->fixed_voucher_status}}" name="fixed_voucher_status">
+                                 <input type="hidden" value="{{$objVehicle->tour->supplier_id}}" name="supplier_id">
                            <x-primary-button class="ml-4 btn btn-primary profile-button btn--purple">
                               {{ __('Book Now') }}
                            </x-primary-button>
                            @endif
-                        </div
+                          </div>
+                          <!--pick_status code start-->
+                         
+                            <div class="row">
+                               <div class="col-12 Pickup-without">
+                                    @if($objVehicle->pickup_status == 1)
+                                   <div class="form-check">
+                                         <input class="form-check-input" type="radio" name="without_pickup" value=0 id="pickup" checked>
+                                         <label class="form-check-label" for="pickup" >
+                                           With Pickup
+                                         </label>
+                                    </div>
+                                    @endif
+                                    @if($objVehicle->pickup_status == 0)
+                                    <div class="form-check">
+                                         <input class="form-check-input" type="radio" name="without_pickup" value="{{$objVehicle->disc}}" id="without-pickup" checked>
+                                         <label class="form-check-label" for="without-pickup">
+                                            Without Pickup
+                                         </label>
+                                    </div>
+                                    @endif
+                                    @if($objVehicle->pickup_status == 2)
+                                     <div class="form-check">
+                                         <input class="form-check-input" type="radio" name="without_pickup" value=0 id="pickup" checked>
+                                         <label class="form-check-label" for="pickup" >
+                                           With Pickup
+                                         </label>
+                                    </div>
+                                    <div class="form-check">
+                                         <input class="form-check-input" type="radio" name="without_pickup" value="{{$objVehicle->disc}}" id="without-pickup">
+                                         <label class="form-check-label" for="without-pickup">
+                                            Without Pickup
+                                         </label>
+                                    </div>
+                                    @endif
+                               </div>
+                           </div>
+                         
+                           <!--pick_status code end-->
+                           @if($objVehicle->pickup_status == 0  || $objVehicle->pickup_status == 2)
+                           <div class="row">
+                              <div class="col-12 Pickup-message">
+                                 <h4 id="full">{{$objVehicle->disc}}% Off Without Pickup</h4> 
+                              </div>
+                           </div>
+                           @endif
+                          </div>
+                        </div>
                      </div>
                   </div>
                </div>
@@ -430,7 +517,7 @@
          </form>
       </div>
    </main>
-   <input type="hidden" id="available-quantity" value="{{ $objVehicle->available_quantity }}">
+   <input type="hidden" id="available-quantity" value="{{ $objVehicle->quantity }}">
    </x-front.master-layout>
    <script>
       function myFunction(imgs) {
@@ -453,7 +540,10 @@
   </script>
    <script>
    $(document).ready(function() {
-     
+      let fixed_voucher_status = '<?php echo $objVehicle->tour->fixed_voucher_status; ?>' 
+       if(fixed_voucher_status == 0){
+         $('#cartcol').show();
+       }
       // Select Time
       let price = $('#select-time').val();
       jQuery('#postAmount').val(price);
@@ -472,7 +562,6 @@
          $('#cartcol').show();
       });
       
-
       jQuery('#datepicker').Zebra_DatePicker({
          format: 'd-m-Y',
          direction: true,
@@ -486,6 +575,10 @@
       // Quantity Plus Minus
       jQuery('.add').click(function () {
          let val = jQuery("#available-quantity").val();
+         console.log(val)
+         console.log(typeof(val))
+         val=parseInt(val)
+         console.log(typeof(val))
          if (jQuery(this).prev().val() < val) {
             jQuery(this).prev().val(+jQuery(this).prev().val() + 1);
          }
@@ -599,6 +692,32 @@
             });
          });
       // end
-      
+
+      // $('#without-pickup').on('click',function(){
+      //    $('.Pickup-message').css("display","block");
+      // })
+      // $('#pickup').on('click',function(){
+      //    $('.Pickup-message').css("display","none");
+      // })
+
+
+//   10 percent off backgrond change js 
+
+      var div = document.getElementById("full");
+      function getRandomColor() {
+         var letters = '0123456789ABCDEF';
+         var color = '#';
+         for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.floor(Math.random() * 16)];
+         }
+         return color;
+      }
+
+      function changeColor(){
+      div.style.backgroundColor= getRandomColor();
+      }
+
+      setInterval(changeColor,1000);
+
    });
    </script>

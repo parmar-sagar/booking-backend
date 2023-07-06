@@ -30,7 +30,7 @@
                             <!-- Logo -->
                             <div class="card-header pt-4 pb-4 text-center bg-primary">
                                 <a href="index-2.html">
-                                    <span><img src="{{ asset('assets/admin/images/logo.png') }}" alt="logo" height="22"></span>
+                                               <span><img src="{{asset ('assets/front/images/image_2022_11_21T04_57_12_733Z-U-bg.png')}}" alt="logo" height="70"></span>
                                 </a>
                             </div>
 
@@ -68,6 +68,7 @@
                                         </div>
 
                                         <x-admin.input-error :messages="$errors->get('password')" class="mt-2" />
+                                         <x-admin.text-input type="hidden" name="status" value="1"/>
                                     </div>
 
                                     <div class="mb-3 mb-3">

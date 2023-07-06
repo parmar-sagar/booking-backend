@@ -4,6 +4,7 @@
         {{ $pageName }}
     </x-slot>
     <!-- end page title -->
+
     <div class="row" id="content-table">
     <div class="row">
                 <div class="col-sm-3">
@@ -92,7 +93,8 @@
         </div>
         <div class="col-lg-3 d-flex align-items-center">
             <div class="mb-0 mt-2">
-            <button type="submit" id="submit-filter" class="btn btn-success mb-2">Submit</button>
+            <button type="submit" id="submit-filter" class="btn btn-success mb-2">Filter</button>
+            <button type="submit" id="clear-filter" class="btn btn-secondary mb-2">Clear</button>
             </div>
         </div>
         <div class="col-12">
@@ -102,14 +104,18 @@
                     <table class="table table-centered w-100 dt-responsive nowrap" id="dataTable" data-table-ajax="true" data-table-href="{{ $dataTables }}" data-edit-href="">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Booking Id</th>
-                                    <th>Number of People </th>
-                                    <th>Ammount</th>
-                                    <th>Payment Status</th>
+                                    <th>Tour Name with Quantity Booked </th>
+                                    <th>Customer Name</th>
+                                    <th>Date of Tour </th>
+                                    <th>Pickup Time Slot</th>
+                                    <th>Number of Travelers</th>
+                                    <th>Price Paid</th>
+                                    <th>Voucher Code</th>
+                                    <th>Voucher Expiry Date</th>
                                     <th style="width: 85px;">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                             <tbody>
                             </tbody>
                         </table>
                     </div>
@@ -126,9 +132,10 @@
   </div>
 </div>
 
-    <!-- end row -->   
-    <x-slot name="scripts">
-    <script src="{{ asset('admin/js/voucher_bookings.js') }}"></script>
+<!-- end row -->   
+<x-slot name="scripts">
+<script type="text/javascript">var currentLoggedInUser = '<?= $user ?>';</script>
+<script src="{{ asset('admin/js/voucher_bookings.js') }}"></script>
 @if(Session::get('error'))
 <script>toastr.error("{{Session::get('error')}}")</script>
 @endif
@@ -136,7 +143,9 @@
 <script>toastr.success("{{Session::get('success')}}")</script>
 @endif
         <!-- Custom App js -->
-        <script>$(document).ready(function(){
+        <script>
+        $(document).ready(function(){
+            let user = '<?php echo $user; ?>'
             $('body').on('click','#redeem',function(){
                  var id = $(this).data('id');
                  $.ajax({

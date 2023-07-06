@@ -27,6 +27,7 @@
                                 <div class="col-lg-12 p-0  z-index-1">
                                     <div class="mb-30em animated fadeInUp active">
                                         <div class="card card--shadow-green">
+                                            <span class="badge">{{$value->discount}}% OFF</span>
                                             <div class="card__content">
                                                 <div class="card__headline card__headline--with-price row">
                                                     <div class="card__headline-left headline-wave  col-lg-4 col-sm-12">
@@ -43,60 +44,70 @@
                                                         <div class="row mt-3">
                                                             <div class="col-12">
                                                                 <ul class="list-tour-info list-tour-info--two-cols">
-                                                                    <li class="list-tour-info__item">
-                                                                        <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account')}}"></use>
-                                                                        </svg>
-                                                                        <div class="list-tour-info__item-desc">
-                                                                            <b>Tour Guide</b>
-                                                                            <span>{{$value->tour->tour_guide}}</span>
-                                                                        </div>
+                                                                     <li class="list-tour-info__item">
+                                                                      <svg width="36px" height="36px" class="fill-blue" aria-hidden="true" aria-focusable="false">
+                                                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-baby-face-outline')}}"></use>
+                                                                      </svg>
+                                                                      <div class="list-tour-info__item-desc">
+                                                                        <b>Min Age</b> <span>{{$value->tour->min_age}}Yrs</span>
+                                                                      </div>
                                                                     </li>
-                                                                    <li class="list-tour-info__item">
-                                                                        <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-star')}}"></use>
-                                                                        </svg>
-                                                                        <div class="list-tour-info__item-desc">
-                                                                            <b>Convey Leader</b>
-                                                                            <span>{{$value->tour->convoy_leader}}</span>
-                                                                        </div>
+                                                                     <li class="list-tour-info__item">
+                                                                      <svg width="36px" height="36px" class="fill-blue" aria-hidden="true" aria-focusable="false">
+                                                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-calendar-range')}}"></use>
+                                                                      </svg>
+                                                                      <div class="list-tour-info__item-desc">
+                                                                        <b>Availability</b> <span>{{$value->tour->availability}}</span>
+                                                                      </div>
                                                                     </li>
-                                                                    <li class="list-tour-info__item">
-                                                                        <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-account-multiple')}}"></use>
-                                                                        </svg>
-                                                                        <div class="list-tour-info__item-desc">
-                                                                            <b>No. Of Persons</b>
-                                                                            <span>{{$value->no_of_persons}}</span>
-                                                                        </div>
-                                                                    </li>
-                                                                    <li class="list-tour-info__item">
-                                                                        <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-map')}}"></use>
-                                                                        </svg>
-                                                                        <div class="list-tour-info__item-desc">
-                                                                            <b>Pickup & Drop off</b>
-                                                                            <span>{{$value->tour->pickup_and_drop}}</span>
-                                                                        </div>
-                                                                    </li>
-                                                                    <li class="list-tour-info__item">
-                                                                        <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-calendar-range')}}"></use>
-                                                                        </svg>
-                                                                        <div class="list-tour-info__item-desc">
-                                                                            <b>Available Everyday</b>
-                                                                            <span>Sunrise to Sunset</span>
-                                                                        </div>
-                                                                    </li>
-                                                                    <li class="list-tour-info__item">
-                                                                        <svg width="36px" height="36px" class="fill-blurple" aria-hidden="true" aria-focusable="false">
-                                                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{asset('assets/front/images/icons.svg#icon-baby-face-outline')}}"></use>
-                                                                        </svg>
-                                                                        <div class="list-tour-info__item-desc">
-                                                                            <b>Min Age</b>
-                                                                            <span>{{$value->tour->min_age}}Yrs</span>
-                                                                        </div>
-                                                                    </li>
+                                                                     @if($value->tour->option1)
+                                                                   <li class="list-tour-info__item">
+                                                                      <span class="checkmarkpink">&#10004</span>
+                                                                      <div class="list-tour-info__item-desc">
+                                                                         <b>{{$value->tour->option1}}</b> 
+                                                                      </div>
+                                                                   </li>
+                                                                   @endif
+                                                                   @if($value->tour->option2)
+                                                                   <li class="list-tour-info__item">
+                                                                      <span class="checkmarkpink">&#10004</span>
+                                                                      <div class="list-tour-info__item-desc">
+                                                                         <b>{{$value->tour->option2}}</b> 
+                                                                      </div>
+                                                                   </li>
+                                                                   @endif
+                                                                   @if($value->tour->option3)
+                                                                   <li class="list-tour-info__item">
+                                                                      <span class="checkmarkpink">&#10004</span>
+                                                                      <div class="list-tour-info__item-desc">
+                                                                         <b>{{$value->tour->option3}}</b> 
+                                                                      </div>
+                                                                   </li>
+                                                                   @endif
+                                                                   @if($value->tour->option4)
+                                                                   <li class="list-tour-info__item">
+                                                                      <span class="checkmarkpink">&#10004</span>
+                                                                      <div class="list-tour-info__item-desc">
+                                                                         <b>{{$value->tour->option4}}</b>
+                                                                      </div>
+                                                                   </li>
+                                                                   @endif
+                                                                   @if($value->tour->option5)
+                                                                   <li class="list-tour-info__item">
+                                                                      <span class="checkmarkpink">&#10004</span>
+                                                                      <div class="list-tour-info__item-desc">
+                                                                         <b>{{$value->tour->option5}}</b>
+                                                                      </div>
+                                                                   </li>
+                                                                   @endif
+                                                                    @if($value->tour->option6)
+                                                                   <li class="list-tour-info__item">
+                                                                      <span class="checkmarkpink">&#10004</span>
+                                                                      <div class="list-tour-info__item-desc">
+                                                                         <b>{{$value->tour->option6}}</b> 
+                                                                      </div>
+                                                                   </li>
+                                                                   @endif
                                                                 </ul>
                                                             </div>
                                                         </div>

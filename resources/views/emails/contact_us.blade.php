@@ -205,11 +205,11 @@
                     "
                   >
                     <p>
-                      Thank you for signing up with Quads Dubai! Your account is
+                      Thank you for contacting us! Your account is
                       currently being reviewed by a member of our team. Please
                       allow us some time to process your request.<br />
                       If you have any problems, please contact us at
-                      default@gmail.com
+                      quadsdubai@gmail.com
                       <br />
                       Thanks, <br />
                       Quads Dubai

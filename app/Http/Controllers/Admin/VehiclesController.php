@@ -68,6 +68,9 @@ class VehiclesController extends Controller
                     'tour_itenary' => 'required',
                     'quantity' => 'required|integer',
                     'status' => 'required|in:0,1',
+                    //pickup_status and disc are newly added on  05/06/2023
+                    'pickup_status' => 'in:0,1,2',
+                     //'disc' => 'required|integer',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
                     'banner_img' => 'required|mimes:jpeg,jpg,png,gif',
                     'time' => 'required|array',
@@ -163,6 +166,9 @@ class VehiclesController extends Controller
                     'tour_itenary' => 'required',
                     'quantity' => 'required|integer',
                     'status' => 'required|in:0,1',
+                     //pickup_status and disc are newly added on  05/06/2023
+                    'pickup_status' => 'in:0,1,2',
+                    //'disc' => 'required|integer',
                     'image' => 'mimes:jpeg,jpg,png,gif',
                     'banner_img' => 'mimes:jpeg,jpg,png,gif',
                     'time' => 'required|array',
@@ -173,7 +179,6 @@ class VehiclesController extends Controller
                     throw new \Exception($validator->errors()->first());
                 }
                 $validated = $validator->validated();
-
                 $validated['includes_ids'] = Helper::implode( $request['includes_ids'] );
                 $validated['highlight_ids'] = Helper::implode( $request['highlight_ids'] );
                 $validated['warning_ids'] = Helper::implode( $request['warning_ids'] );

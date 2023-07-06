@@ -12,6 +12,7 @@ use App\Handlers\Error;
 use App\Helpers\Helper;
 use App\Models\Tour;
 use App\Models\Time;
+use App\Models\Admin;
 use App\Models\TourGallary;
 use DataTables;
 
@@ -60,20 +61,20 @@ class TourController extends Controller{
 
         try {
             if($request->method() == 'POST'){
-                $Input = $request->all();
-
+               
+                
                 // Validation section
                 $validator = Validator::make($Input, [
                     'name' => 'required|string|max:255',
                     'description' => 'required|string',
-                    'min_age' => 'required|integer|digits_between:1,100',
-                    'convoy_leader' => 'required|string|max:100',
-                    'tour_guide' => 'required|string|max:100',
-                    'pickup_and_drop' => 'required|string|max:100',
-                    'time_ids' => 'required|array',
-                    'location_id' => 'required|integer',
-                    'safety_gear_ids' => 'required|array',
-                    'refreshments_ids' => 'required|array',
+                    // 'min_age' => 'required|integer|digits_between:1,100',
+                    // 'convoy_leader' => 'required|string|max:100',
+                    // 'tour_guide' => 'required|string|max:100',
+                    // 'pickup_and_drop' => 'required|string|max:100',
+                    // 'time_ids' => 'required|array',
+                    // 'location_id' => 'required|integer',
+                    // 'safety_gear_ids' => 'required|array',
+                    // 'refreshments_ids' => 'required|array',
                     'sequence' => 'nullable|integer',
                     'status' => 'required|in:0,1',
                     'image' => 'required|mimes:jpeg,jpg,png,gif',
@@ -86,9 +87,9 @@ class TourController extends Controller{
                 
                 $validated = $validator->validated();
 
-                $validated['time_ids'] = Helper::implode($request['time_ids']);
-                $validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
-                $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
+                // $validated['time_ids'] = Helper::implode($request['time_ids']);
+                // $validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
+                // $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
                     $validated['image'] = Helper::uploadFile($request->image, 'tour');
@@ -100,9 +101,12 @@ class TourController extends Controller{
                 $validated['random_id'] = (new Snowflake())->id();
                 $validated['sequence'] = (($validated['sequence'])) ?? 0;
                 $validated['voucher_status'] = $request['voucher_status'];
+                $validated['fixed_voucher_status'] = $request['fixed_voucher_status'];
                 $validated['voucher_expiry_date'] = $request['voucher_expiry_date'];
                 $validated['voucher'] = $request['voucher'];
                 $validated['security_code'] = $request['security_code'];
+                $validated['disc'] = $request['disc'];
+                $validated['supplier_id'] = $request['supplier_id'];
 
                 $lastId = Tour::create($validated);
 
@@ -129,6 +133,7 @@ class TourController extends Controller{
             $locations = Location::order()->get();
             $safetyGears = VehicleInfo::safetyGear()->order()->get();
             $refreshments = VehicleInfo::refreshment()->order()->get();
+            $suppliers=Admin::where('is_admin',0)->get();
             
             $this->outputData = [
                 'pageName' => 'New Tour',
@@ -137,6 +142,7 @@ class TourController extends Controller{
                 'locations' => $locations,
                 'safetyGears' => $safetyGears,
                 'refreshments' => $refreshments,
+                'suppliers' => $suppliers
             ];
             return view('admin.pages.tour.create',$this->outputData);
 
@@ -146,6 +152,7 @@ class TourController extends Controller{
     }
     
     public function edit(Request $request,$id){
+    
         try {
             if($request->method() == 'POST'){
                 $Input = $request->all();
@@ -155,14 +162,14 @@ class TourController extends Controller{
                     'id' => 'required|exists:tours',
                     'name' => 'required|string|max:255',
                     'description' => 'required|string',
-                    'min_age' => 'required|integer|digits_between:1,100',
-                    'convoy_leader' => 'required|string|max:100',
-                    'tour_guide' => 'required|string|max:100',
-                    'pickup_and_drop' => 'required|string|max:100',
-                    'time_ids' => 'required|array',
-                    'location_id' => 'required|integer',
-                    'safety_gear_ids' => 'required|array',
-                    'refreshments_ids' => 'required|array',
+                    // 'min_age' => 'required|integer|digits_between:1,100',
+                    // 'convoy_leader' => 'required|string|max:100',
+                    // 'tour_guide' => 'required|string|max:100',
+                    // 'pickup_and_drop' => 'required|string|max:100',
+                    // 'time_ids' => 'required|array',
+                    // 'location_id' => 'required|integer',
+                    // 'safety_gear_ids' => 'required|array',
+                    // 'refreshments_ids' => 'required|array',
                     'sequence' => 'nullable|integer',
                     'status' => 'required|in:0,1',
                     'image' => 'nullable|mimes:jpeg,jpg,png,gif',
@@ -175,9 +182,9 @@ class TourController extends Controller{
                 
                 $validated = $validator->validated();
 
-                $validated['time_ids'] = Helper::implode($request['time_ids']);
-                $validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
-                $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
+                // $validated['time_ids'] = Helper::implode($request['time_ids']);
+                // $validated['safety_gear_ids'] = Helper::implode( $request['safety_gear_ids'] );
+                // $validated['refreshments_ids'] = Helper::implode( $request['refreshments_ids'] );
 
                 if ($request->file('image')) {
                     $validated['image'] = Helper::uploadFile($request->image, 'tour');
@@ -188,11 +195,14 @@ class TourController extends Controller{
                 
                 $validated['sequence'] = (($validated['sequence'])) ?? 0;
                 $validated['voucher_status'] = $request['voucher_status'];
+                $validated['fixed_voucher_status'] = $request['fixed_voucher_status'];
                 $validated['voucher_expiry_date'] = $request['voucher_expiry_date'];
                 $validated['voucher'] = $request['voucher'];
                 $validated['security_code'] = $request['security_code'];
+                $validated['disc'] = $request['disc'];
+                $validated['supplier_id'] = $request['supplier_id'];
 
-                Tour::find($validated['id'])->update($validated);
+                Tour::find($validated['id'])->update($Input);
 
                 if(!empty($request->gallry_images)){    
                     if ($request->hasfile('gallry_images')) {
@@ -227,6 +237,7 @@ class TourController extends Controller{
             $locations = Location::order()->get();
             $safetyGears = VehicleInfo::safetyGear()->order()->get();
             $refreshments = VehicleInfo::refreshment()->order()->get();
+            $suppliers=Admin::where('is_admin',0)->get();
             
 
             $objData->time_ids = Helper::explode( $objData->time_ids );
@@ -241,7 +252,8 @@ class TourController extends Controller{
                 'locations' => $locations,
                 'safetyGears' => $safetyGears,
                 'refreshments' => $refreshments,
-                'gallaryImages' => $gallaryImages
+                'gallaryImages' => $gallaryImages,
+                'suppliers' => $suppliers
             ];
             
             return view('admin.pages.tour.create',$this->outputData);

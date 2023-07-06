@@ -53,7 +53,7 @@ class RegisteredUserController extends Controller
         $validated = $validator->validated();
 
         $validated['password'] = Hash::make($validated['password']);
-
+ 
         // $snowflake = new \Godruoyi\Snowflake\Snowflake;
         // $validated['random_id'] = $snowflake->id();
         Admin::create($validated);

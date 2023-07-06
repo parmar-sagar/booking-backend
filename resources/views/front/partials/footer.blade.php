@@ -37,7 +37,7 @@
         </span>
         <ul class="l-footer__menu-list">
           @php
-            $tours = App\Models\Tour::has('vehicles')->active()->Sequence()->get();
+            $tours = App\Models\Tour::has('vehicles')->active()->take(3)->Sequence()->get();
           @endphp
           @foreach ($tours as $value)
             <li class="l-footer__menu-list-item">
@@ -96,10 +96,10 @@
             <a class="l-footer__menu-list-link" href="{{url('reviews')}}" title="Reviews" > Reviews </a> 
           </li>
           <li class="l-footer__menu-list-item"> 
-            <a class="l-footer__menu-list-link" href="https://55activeplaces.com/blog/" title="Reviews" > Blogs </a> 
+            <a class="l-footer__menu-list-link" href="{{ url('blog') }}" title="Reviews" > Blogs </a> 
           </li>
           <li class="l-footer__menu-list-item"> 
-            <a class="l-footer__menu-list-link" href="{{url('register')}}" > Register as Supplier </a> 
+            <a class="l-footer__menu-list-link" href="{{url('register')}}" > Contact as Supplier </a> 
           </li>
         </ul> 
       </li>

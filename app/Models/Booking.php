@@ -33,7 +33,12 @@ class Booking extends Model
         'is_redeem',
         'is_voucher',
         'voucher_expiry_date',
-        'voucher'
+        'voucher',
+        'tour_name',
+        'tour_qty',
+        'date_of_tour',
+        'pickup_time',
+        'supplier_id'
     ];
 
     protected $hidden = [

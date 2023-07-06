@@ -26,6 +26,15 @@ return new class extends Migration
             $table->integer('location_id');
             $table->string('safety_gear_ids');
             $table->string('refreshments_ids');
+            $table->string('availability');
+            $table->string('option1')->nullable();
+            $table->string('option2')->nullable();
+            $table->string('option3')->nullable();
+            $table->string('option4')->nullable();
+            $table->string('option1')->nullable();
+            $table->string('option5')->nullable();
+            $table->string('option6')->nullable();
+            $table->string('supplier_id')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('status')->default(1)->comment('0 => Deactive , 1 => Active')->index('idx_status');
             $table->string('image', 100);
@@ -35,6 +44,7 @@ return new class extends Migration
             $table->enum('type',['Tour','Safari'])->default('Tour');
             $table->string('voucher',250);
             $table->tinyInteger('voucher_status')->default(0)->comment('0 => Deactive , 1 => Active')->index('idx_voucher_status');
+            $table->tinyInteger('fixed_voucher_status')->default(0)->comment('0 => Deactive , 1 => Active');
             $table->datetime('voucher_expiry_date');
             $table->string('security_code',250);
             $table->timestamp('created_at')->useCurrent()->index('idx_created_at');

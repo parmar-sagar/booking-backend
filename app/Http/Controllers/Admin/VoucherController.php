@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Booking;
 use Carbon\Carbon;
 use DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class VoucherController extends Controller
 {
@@ -15,6 +16,7 @@ class VoucherController extends Controller
     public $outputData = [];
 
     public function index(){
+        $user = Auth::user();
         $totalVbooking = Booking::where('is_voucher',1)->count();
         $redeemedVoucher = Booking::where('is_voucher',1)->where('is_redeem',2)->count();
         $unRedeemVoucher = Booking::where('is_voucher',1)->where('is_redeem',1)->count();
@@ -26,6 +28,7 @@ class VoucherController extends Controller
             'unRedeemVoucher' => $unRedeemVoucher,
             'todayRedeemed' => $todayRedeemed,
             'dataTables' => url('admin/voucher-bookings/datatable'),
+            'user' => $user
         ];
 
         return view('admin.pages.voucher_booking.index',$this->outputData);
@@ -36,13 +39,15 @@ class VoucherController extends Controller
 
         try {
             if ($request->ajax()) {
-          
+
                 $datas = Booking::where('is_voucher',1)->order()->get();
                 if (!empty($request->action)) {
                     $datas = $datas->where('is_redeem',$request->action);
                 }
                 if(!empty($request->startDate)){
-                    $datas = $datas->whereBetween('redeem_date',array($request->startDate,$request->endDate));
+                    $date = strtotime("+1 day", strtotime($request->endDate));
+                    $endDate = date("Y-m-d", $date);
+                    $datas = $datas->whereBetween('redeem_date',array($request->startDate,$endDate));
                 }
 
                 return DataTables::of($datas)
@@ -71,7 +76,9 @@ class VoucherController extends Controller
     public function redeemSecurityCode(Request $request){
        
                 $check = Booking::where('id',$request->id)->select('is_redeem','security_code','voucher_expiry_date')->first();
-                $expDate = Carbon::createFromFormat('Y-m-d H:i:s', $check->voucher_expiry_date)->isPast();
+                $date = strtotime("+1 day", strtotime($check->voucher_expiry_date));
+                $expiryDate = date("Y-m-d H:i:s", $date);
+                $expDate = Carbon::createFromFormat('Y-m-d H:i:s', $expiryDate)->isPast();
 
                 if($expDate){
                     return response()->json([
@@ -98,7 +105,9 @@ class VoucherController extends Controller
     public function scanQr($code,$id){
 
         $check = Booking::where('random_id',$id)->select('is_redeem','security_code','voucher_expiry_date')->first();
-        $expDate = Carbon::createFromFormat('Y-m-d H:i:s', $check->voucher_expiry_date)->isPast();
+                $date = strtotime("+1 day", strtotime($check->voucher_expiry_date));
+                $expiryDate = date("Y-m-d H:i:s", $date);
+                $expDate = Carbon::createFromFormat('Y-m-d H:i:s', $expiryDate)->isPast();
 
         if($expDate){
             \Session::flash('error','Voucher Expire.');

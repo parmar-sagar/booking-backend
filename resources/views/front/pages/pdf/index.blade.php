@@ -340,7 +340,7 @@ td.companyaddress {
         </table>
         @if($bookingInfo->security_code)
         @php $baseUrl = url("") ; @endphp
-        <img src="data:image/png;base64, {{ base64_encode(QrCode::size(80)->generate($baseUrl.'/admin/voucher-bookings/redeem-voucher/'.$bookingInfo->security_code.'/'.$bookingInfo->random_id)) }} ">
+        <img src="data:image/png;base64, {{ base64_encode(QrCode::size(100)->generate($baseUrl.'/admin/voucher-bookings/redeem-voucher/'.$bookingInfo->security_code.'/'.$bookingInfo->random_id)) }} ">
         @endif  
         <div id="notices">
           <div class="large-sign">SIGNATURE</div>
